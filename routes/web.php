@@ -13,7 +13,7 @@
 
 //TODO: Valery aca modificas las rutas para la vista web TODO:
 Route::get('/', function () {
-    return view('web/fec/index');
+    return view('web/unasam/index');
     //return redirect('login');
 });
 
