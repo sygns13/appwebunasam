@@ -1,0 +1,529 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Validator;
+use Auth;
+
+use App\Persona;
+use App\Tipouser;
+use App\User;
+
+use App\Noticia;
+use App\Imagennoticia;
+
+use stdClass;
+use DB;
+use Storage;
+
+class NoticiaController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index1()
+    {
+        if(accesoUser([1,2,3])){
+
+
+            $idtipouser=Auth::user()->tipouser_id;
+            $tipouser=Tipouser::find($idtipouser);
+
+            $fecha=date("Y-m-d");
+
+            $modulo="noticiafacultad";
+
+            return view('adminfacultad.noticia.index',compact('tipouser','modulo','fecha'));
+        }
+        else
+        {
+            return redirect('home');    
+        }
+    }
+    public function index(Request $request)
+    {
+        $buscar=$request->busca;
+
+        $noticias=Noticia::where('borrado','0')
+        ->where(function($query) use ($buscar){
+            $query->where('titular','like','%'.$buscar.'%');
+            $query->orWhere('desarrollo','like','%'.$buscar.'%');
+            })
+        ->where('facultad_id',1)
+        ->where('nivel',1)
+        ->orderBy('fecha','desc')
+        ->orderBy('hora','desc')
+        ->orderBy('id')
+        ->paginate(10);
+
+        foreach ($noticias as $key => $dato) {
+        
+            $imagennoticia = Imagennoticia::where('activo','1')->where('borrado','0')->where('noticia_id', $dato->id)->get();
+            //$alumnos[$key]->cursosriesgo = $cursos;
+            $dato->imagennoticia = $imagennoticia;
+        }
+
+          return [
+            'pagination'=>[
+                'total'=> $noticias->total(),
+                'current_page'=> $noticias->currentPage(),
+                'per_page'=> $noticias->perPage(),
+                'last_page'=> $noticias->lastPage(),
+                'from'=> $noticias->firstItem(),
+                'to'=> $noticias->lastItem(),
+            ],
+            'noticias'=>$noticias
+        ];
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        ini_set('memory_limit','256M');
+        ini_set('upload_max_filesize','20M');
+
+        $fecha = $request->fecha;
+        $hora = $request->hora;
+        $titular = $request->titular;
+        $desarrollo = $request->desarrollo;
+        $activo=$request->activo;
+
+        $tieneimagen = 1;
+
+        $imagen="";
+        $img=$request->imagen;
+        $segureImg=0;
+
+        $result='1';
+        $msj='';
+        $selector='';
+
+        if ($request->hasFile('imagen')) { 
+
+            $aux='noticia_fec-'.date('d-m-Y').'-'.date('H-i-s');
+            $input  = array('imagen' => $img) ;
+            $reglas = array('imagen' => 'required||mimes:png,jpg,jpeg,gif,jpe,PNG,JPG,JPEG,GIF,JPE');
+            $validator = Validator::make($input, $reglas);
+
+            $input2  = array('imagen' => $img) ;
+            $reglas2 = array('imagen' => 'required|file:1,102400');
+            $validatorF = Validator::make($input2, $reglas2);
+
+            if ($validator->fails())
+            {
+
+            $segureImg=1;
+            $msj="El archivo ingresado como imagen no es una imagen válida, ingrese otro archivo o limpie el formulario ";
+            $result='0';
+            $selector='imagen';
+            }
+            elseif($validatorF->fails())
+            {
+
+            $segureImg=1;
+            $msj="El archivo ingresado como imagen tiene un tamaño no válido superior a los 10MB, ingrese otro archivo o limpie el formulario";
+            $result='0';
+            $selector='imagen';
+            }
+
+            else
+            {
+                //$nombre=$img->getClientOriginalName();
+                $extension=$img->getClientOriginalExtension();
+                $nuevoNombre=$aux.".".$extension;
+                $subir=Storage::disk('noticiaFacultad')->put($nuevoNombre, \File::get($img));
+
+                if($subir){
+                    $imagen=$nuevoNombre;
+                }
+                else{
+                    $msj="Error al subir la imagen, intentelo nuevamente luego";
+                    $segureImg=1;
+                    $result='0';
+                    $selector='imagen';
+                }
+            }
+        }
+        else{
+            $msj="Debe de adjuntar una imagen válida, ingrese un archivo";
+            $segureImg=1;
+            $result='0';
+            $selector='imagen';
+        }
+
+        if($segureImg==1){
+            Storage::disk('noticiaFacultad')->delete($imagen);
+        }
+        else{
+            $input1  = array('fecha' => $fecha);
+            $reglas1 = array('fecha' => 'required');
+
+            $input2  = array('hora' => $hora);
+            $reglas2 = array('hora' => 'required');
+
+            $input3  = array('titular' => $titular);
+            $reglas3 = array('titular' => 'required');
+
+            $input4  = array('desarrollo' => $desarrollo);
+            $reglas4 = array('desarrollo' => 'required');
+
+            $validator1 = Validator::make($input1, $reglas1);
+            $validator2 = Validator::make($input2, $reglas2);
+            $validator3 = Validator::make($input3, $reglas3);
+            $validator4 = Validator::make($input4, $reglas4);
+
+            if ($validator1->fails())
+            {
+                $result='0';
+                $msj='Debe ingresar la fecha de la Noticia';
+                $selector='txtfecha';
+            }
+            elseif ($validator2->fails())
+            {
+                $result='0';
+                $msj='Debe ingresar la hora de la Noticia';
+                $selector='txthora';
+            }
+            elseif ($validator3->fails())
+            {
+                $result='0';
+                $msj='Debe ingresar el titular de la Noticia';
+                $selector='txttitular';
+            }
+            elseif ($validator4->fails())
+            {
+                $result='0';
+                $msj='Debe ingresar el Desarrollo de la Noticia';
+                $selector='editor1';
+            }
+            else{
+
+
+                $noticia = new Noticia();
+
+                $noticia->fecha = $fecha;
+                $noticia->hora = $hora;
+                //$noticia->url = $imagen;
+                $noticia->titular = $titular;
+                $noticia->desarrollo = $desarrollo;
+                $noticia->tieneimagen = $tieneimagen;
+                $noticia->activo = $activo;
+                $noticia->borrado = '0';
+                $noticia->nivel = '1';
+                $noticia->user_id = Auth::user()->id;
+                $noticia->facultad_id = '1';
+
+                $noticia->save();
+
+                $imagenNoticia = new Imagennoticia();
+                $imagenNoticia->nombre = $titular;
+                $imagenNoticia->descripcion = $desarrollo;
+                $imagenNoticia->url = $imagen;
+                $imagenNoticia->posicion = 0;
+                $imagenNoticia->activo = '1';
+                $imagenNoticia->borrado = '0';
+                $imagenNoticia->noticia_id = $noticia->id;
+
+                $imagenNoticia->save();
+
+                $msj='Nueva Noticia Registrada con Éxito';
+
+            }
+        }
+
+        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        ini_set('memory_limit','256M');
+        ini_set('upload_max_filesize','20M');
+
+        $fecha = $request->fecha;
+        $hora = $request->hora;
+        $titular = $request->titular;
+        $desarrollo = $request->desarrollo;
+        $activo=$request->activo;
+
+        $tieneimagen = 1;
+
+        $imagen="";
+        $img=$request->imagen;
+        $segureImg=0;
+
+        $result='1';
+        $msj='';
+        $selector='';
+
+        $oldImg=$request->oldimg;
+
+        if ($request->hasFile('imagen')) { 
+
+            $aux='noticia_fec-'.date('d-m-Y').'-'.date('H-i-s');
+            $input  = array('imagen' => $img) ;
+            $reglas = array('imagen' => 'required||mimes:png,jpg,jpeg,gif,jpe,PNG,JPG,JPEG,GIF,JPE');
+            $validator = Validator::make($input, $reglas);
+
+            $input2  = array('imagen' => $img) ;
+            $reglas2 = array('imagen' => 'required|file:1,102400');
+            $validatorF = Validator::make($input2, $reglas2);
+
+            if ($validator->fails())
+            {
+
+            $segureImg=1;
+            $msj="El archivo ingresado como imagen no es una imagen válida, ingrese otro archivo o limpie el formulario ";
+            $result='0';
+            $selector='imagenE';
+            }
+            elseif($validatorF->fails())
+            {
+
+            $segureImg=1;
+            $msj="El archivo ingresado como imagen tiene un tamaño no válido superior a los 10MB, ingrese otro archivo o limpie el formulario";
+            $result='0';
+            $selector='imagenE';
+            }
+
+            else
+            {
+                //$nombre=$img->getClientOriginalName();
+                $extension=$img->getClientOriginalExtension();
+                $nuevoNombre=$aux.".".$extension;
+                $subir=Storage::disk('noticiaFacultad')->put($nuevoNombre, \File::get($img));
+
+                if($subir){
+                    $imagen=$nuevoNombre;
+                }
+                else{
+                    $msj="Error al subir la imagen, intentelo nuevamente luego";
+                    $segureImg=1;
+                    $result='0';
+                    $selector='imagenE';
+                }
+            }
+        }
+
+        if($segureImg==1){
+            Storage::disk('noticiaFacultad')->delete($imagen);
+        }
+        else{
+            $input1  = array('fecha' => $fecha);
+            $reglas1 = array('fecha' => 'required');
+
+            $input2  = array('hora' => $hora);
+            $reglas2 = array('hora' => 'required');
+
+            $input3  = array('titular' => $titular);
+            $reglas3 = array('titular' => 'required');
+
+            $input4  = array('desarrollo' => $desarrollo);
+            $reglas4 = array('desarrollo' => 'required');
+
+            $validator1 = Validator::make($input1, $reglas1);
+            $validator2 = Validator::make($input2, $reglas2);
+            $validator3 = Validator::make($input3, $reglas3);
+            $validator4 = Validator::make($input4, $reglas4);
+
+            if ($validator1->fails())
+            {
+                $result='0';
+                $msj='Debe ingresar la fecha de la Noticia';
+                $selector='txtfechaE';
+            }
+            elseif ($validator2->fails())
+            {
+                $result='0';
+                $msj='Debe ingresar la hora de la Noticia';
+                $selector='txthoraE';
+            }
+            elseif ($validator3->fails())
+            {
+                $result='0';
+                $msj='Debe ingresar el titular de la Noticia';
+                $selector='txttitularE';
+            }
+            elseif ($validator4->fails())
+            {
+                $result='0';
+                $msj='Debe ingresar el Desarrollo de la Noticia';
+                $selector='editor2';
+            }
+            else{
+
+
+                $noticia = Noticia::findOrFail($id);
+
+                $noticia->fecha = $fecha;
+                $noticia->hora = $hora;
+                $noticia->titular = $titular;
+                $noticia->desarrollo = $desarrollo;
+                $noticia->activo = $activo;
+               
+                $noticia->save();
+
+                if(strlen($imagen)>0)
+                {
+                    Storage::disk('noticiaFacultad')->delete($oldImg);
+
+                    $imagenNot = Imagennoticia::where('activo','1')->where('borrado','0')->where('noticia_id', $noticia->id)->where('posicion',0)->first();
+
+                    if($imagenNot != null && $imagenNot->id != null){
+
+                        $imagenNoticia = Imagennoticia::findOrFail($imagenNot->id);
+                        $imagenNoticia->nombre = $titular;
+                        $imagenNoticia->descripcion = $desarrollo;
+                        $imagenNoticia->url = $imagen;
+
+                        $imagenNoticia->save();
+                    } 
+                    else{
+                        $imagenNoticia = new Imagennoticia();
+
+                        $imagenNoticia->nombre = $titular;
+                        $imagenNoticia->descripcion = $desarrollo;
+                        $imagenNoticia->url = $imagen;
+                        $imagenNoticia->posicion = 0;
+                        $imagenNoticia->activo = '1';
+                        $imagenNoticia->borrado = '0';
+                        $imagenNoticia->noticia_id = $noticia->id;
+
+                        $imagenNoticia->save();
+                    }
+                }
+                else{
+
+                    $imagenNot = Imagennoticia::where('activo','1')->where('borrado','0')->where('noticia_id', $noticia->id)->where('posicion',0)->first();
+                    if($imagenNot != null && $imagenNot->id != null){
+
+                        $imagenNoticia = Imagennoticia::findOrFail($imagenNot->id);
+                        $imagenNoticia->nombre = $titular;
+                        $imagenNoticia->descripcion = $desarrollo;
+
+                        $imagenNoticia->save();
+                    } 
+                }
+
+                $msj='La Noticia ha sido modificada con éxito';
+
+            }
+        }
+
+        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+    }
+
+    public function deleteImg($id,$image)
+    {
+        $result='1';
+        $msj='';
+        $selector='';
+
+        Storage::disk('noticiaFacultad')->delete($image);
+
+        $imagenNoticia = Imagennoticia::findOrFail($id);
+        $imagenNoticia->delete();
+
+        $msj='Se eliminó la imagen exitosamente';
+
+        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+
+    public function altabaja($id,$estado)
+    {
+        $result='1';
+        $msj='';
+        $selector='';
+
+        $noticia = Noticia::findOrFail($id);
+        $noticia->activo=$estado;
+        $noticia->save();
+
+        if(strval($estado)=="0"){
+            $msj='La Noticia fue Desactivada exitosamente';
+        }elseif(strval($estado)=="1"){
+            $msj='La Noticia fue Activada exitosamente';
+        }
+
+        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+    }
+
+    public function destroy($id)
+    {
+        $result='1';
+        $msj='1';
+
+        $noticia = Noticia::findOrFail($id);
+        $imagenesNoticia = Imagennoticia::where('noticia_id', $noticia->id)->get();
+
+        foreach ($imagenesNoticia as $key => $dato) {
+            $imagen = Imagennoticia::findOrFail($dato->id);
+            Storage::disk('noticiaFacultad')->delete($imagen->url);
+            $imagen->delete();
+        }
+        
+        //$task->delete();
+        $noticia->borrado='1';
+        $noticia->user_id=Auth::user()->id;
+        $noticia->save();
+
+        $msj='Noticia eliminada exitosamente';
+
+
+        return response()->json(["result"=>$result,'msj'=>$msj]);
+    }
+}
