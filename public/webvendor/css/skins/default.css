@@ -6895,3 +6895,33 @@ html .slide-overlay.slide-overlay-gradient .slotholder:after {
 html.boxed .body {
 	border-top-color: #2d529f;
 }
+
+
+/*
+* Custom SVG Position
+*/
+.custom-svg-position-1 {
+	position: absolute;
+	top: -38px;
+	left: -90px; 
+	/* left: -350px; boxed */
+	max-height: none;
+	width: 50vw;
+}
+
+.custom-svg-position-1 > svg {
+	height: 5.3vw;
+	min-height: 96px;
+}
+
+@media (min-width: 1950px) {
+	.custom-svg-position-1 {
+			left: -121px;
+			width: 51vw;
+			top: -41px !important;
+	}
+	.custom-svg-position-1 > svg {
+			height: 110px;
+			width: 100%;
+	}
+}

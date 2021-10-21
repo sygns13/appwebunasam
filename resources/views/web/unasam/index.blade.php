@@ -42,6 +42,7 @@
 		<link rel="stylesheet" href="{{ asset('/webvendor/css/demos/demo-medical.css') }}">
 
 		<!-- Skin CSS -->
+		{{-- <link rel="stylesheet" href="{{ asset('/webvendor/css/demos/demo-construction.css') }}"> --}}
 		<link id="skinCSS" rel="stylesheet" href="{{ asset('/webvendor/css/skins/default.css') }}">
 		{{-- <link id="skinCSS" rel="stylesheet" href="{{ asset('/webvendor/css/skins/skin-auto-services.css') }}"> --}}
 		{{-- <link id="skinCSS" rel="stylesheet" href="{{ asset('/webvendor/css/skins/skin-finance.css') }}"> --}}
@@ -444,48 +445,54 @@
 
 				{{-- <div class="container"> --}}
 
-				<div class="owl-carousel owl-carousel-light owl-carousel-light-init-fadeIn owl-theme manual dots-inside dots-horizontal-center show-dots-hover show-dots-xs nav-style-1 nav-inside nav-inside-plus nav-dark nav-lg nav-font-size-lg show-nav-hover mb-0" data-plugin-options="{'autoplayTimeout': 7000}" data-dynamic-height="['500px','500px','500px','400px','350px']" style="height: 500px;">
+				<div class="owl-carousel owl-carousel-light owl-carousel-light-init-fadeIn owl-theme manual dots-inside dots-horizontal-center dots-light show-dots-hover nav-inside nav-inside-plus nav-dark nav-md nav-font-size-md show-nav-hover mb-0" data-plugin-options="{'autoplay': true, 'autoplayTimeout': 7000, 'autoplayHoverPause': true, 'rewind': true}" data-dynamic-height="['500px','500px','500px','400px','350px']" style="height: 500px;">
 					<div class="owl-stage-outer">
 						<div class="owl-stage">
 
-							<!-- Carousel Slide 1 -->
-							<div class="owl-item position-relative" style="background-image: url({{ asset('/webvendor/img/slides/banner1.jpg') }}); background-size: cover; background-position: center;">
-								{{-- <div class="container position-relative z-index-1 h-100">
-									<div class="row align-items-center h-100">
-										<div class="col-lg-6 text-center">
-											<div class="d-flex flex-column align-items-center justify-content-center h-100">
-												<h3 class="position-relative text-color-dark text-5 line-height-5 font-weight-medium ls-0 px-4 mb-2 appear-animation" data-appear-animation="fadeInDownShorterPlus" data-plugin-options="{'minWindowWidth': 0}">
-													<span class="position-absolute right-100pct top-50pct transform3dy-n50">
-														<img src="{{ asset('/webvendor/img/slides/slide-title-border-light.png') }}" class="w-auto appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="250" data-plugin-options="{'minWindowWidth': 0}" alt="" />
-													</span>
-													DO YOU NEED A <span class="position-relative">NEW <span class="position-absolute left-50pct transform3dx-n50 top-0 mt-4"><img src="{{ asset('/webvendor/img/slides/slide-blue-line.png') }}" class="w-auto appear-animation" data-appear-animation="fadeInLeftShorterPlus" data-appear-animation-delay="1000" data-plugin-options="{'minWindowWidth': 0}" alt="" /></span></span>
-													<span class="position-absolute left-100pct top-50pct transform3dy-n50">
-														<img src="{{ asset('/webvendor/img/slides/slide-title-border-light.png') }}" class="w-auto appear-animation" data-appear-animation="fadeInLeftShorter" data-appear-animation-delay="250" data-plugin-options="{'minWindowWidth': 0}" alt="" />
-													</span>
-												</h3>
-												<h1 class="text-color-dark font-weight-extra-bold text-12-5 line-height-1 mb-2 appear-animation" data-appear-animation="blurIn" data-appear-animation-delay="500" data-plugin-options="{'minWindowWidth': 0}">WEB DESIGN?</h1>
-												<p class="text-4-5 text-color-dark font-weight-light mb-0" data-plugin-animated-letters data-plugin-options="{'startDelay': 1000, 'minWindowWidth': 0}">Check out our options and features</p>
-											</div>
-										</div>
-									</div>
-								</div> --}}
-							</div>
+							@foreach($banners as  $key => $dato)
 
-							<!-- Carousel Slide 2 -->
-							<div class="owl-item position-relative overflow-hidden">
-								<div class="background-image-wrapper position-absolute top-0 left-0 right-0 bottom-0" data-appear-animation="kenBurnsToRight" data-appear-animation-duration="13s" data-plugin-options="{'minWindowWidth': 0}" data-carousel-onchange-show style="background-image: url({{ asset('/webvendor/img/slides/banner2.jpg')}}); background-size: cover; background-position: center;"></div>
-								{{-- <div class="container position-relative z-index-3 h-100">
-									<div class="row justify-content-center align-items-center h-100">
-										<div class="col-lg-7">
-											<div class="d-flex flex-column align-items-center">
-												<h2 class="text-color-dark font-weight-extra-bold text-12-5 line-height-1 text-center mb-3 appear-animation" data-appear-animation="blurIn" data-appear-animation-delay="500" data-plugin-options="{'minWindowWidth': 0}">INCREDIBLE DESIGNS</h2>
-												<p class="text-4-5 text-color-dark font-weight-light text-center mb-4" data-plugin-animated-letters data-plugin-options="{'startDelay': 1000, 'minWindowWidth': 0, 'animationSpeed': 30}">Porto is a huge success in the one of largest world's MarketPlace</p>
-												<a href="#" class="btn btn-primary btn-modern font-weight-bold text-2 py-3 btn-px-5 mt-2 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="2500" data-plugin-options="{'minWindowWidth': 0}">GET STARTED NOW <i class="fas fa-arrow-right ms-2"></i></a>
-											</div>
-										</div>
+							@php
+							$color = "svg-fill-color-dark appear-animation";
+							if($key%2 == 0)	{
+								$color = "svg-fill-color-primary mt-1 appear-animation";
+							}
+							@endphp
+
+							@if($key == 0)
+
+							<div class="owl-item position-relative">
+								<div class="background-image-wrapper position-absolute top-0 left-0 right-0 bottom-0" data-appear-animation="kenBurnsToRight" data-appear-animation-duration="30s" data-plugin-options="{'minWindowWidth': 0}" data-carousel-onchange-show style="background-image: url({{ asset('/web/bannerunasam/'.$dato->url) }}); background-size: cover; background-position: center;"></div>
+
+									<div class="container position-relative z-index-1 h-100">
+										@if($dato->nombre != null && strlen(trim($dato->nombre)) > 0)
+										<p class="position-absolute bottom-15 right-0 text-color-light font-weight-bold text-5-5 line-height-3 text-end pb-0 pb-lg-5 mb-0 d-none d-sm-block" {{-- style="padding-right: 50px;" --}}>
+											<span class="d-block line-height-1 position-relative z-index-1 pb-5 ps-lg-3 mb-5-5 appear-animation" data-appear-animation="fadeInLeftShorterPlus" data-appear-animation-delay="2200">{{$dato->nombre}}</span>
+											<span class="custom-svg-position-1">
+												<svg class="{{$color}}" data-appear-animation="fadeInLeftShorter" data-appear-animation-delay="1600" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 859.45 88.44" xml:space="preserve" preserveAspectRatio="none">
+													<polyline points="7.27,84.78 855.17,84.78 855.17,4.79 84.74,4.79 "/>
+												</svg>
+											</span>
+										</p>
+										@endif
 									</div>
-								</div> --}}
-							</div>
+								</div> 
+							@else
+							<div class="owl-item position-relative" style="background-image: url({{ asset('/web/bannerunasam/'.$dato->url) }}); background-size: cover; background-position: center;">
+									@if($dato->nombre != null && strlen(trim($dato->nombre)) > 0)
+									<div class="container position-relative z-index-1 h-100">
+										<p class="position-absolute bottom-15 right-0 text-color-light font-weight-bold text-5-5 line-height-3 text-end pb-0 pb-lg-5 mb-0 d-none d-sm-block" {{-- style="padding-right: 50px;" --}}>
+											<span class="d-block line-height-1 position-relative z-index-1 pb-5 ps-lg-3 mb-5-5 appear-animation" data-appear-animation="fadeInLeftShorterPlus" data-appear-animation-delay="2200">{{$dato->nombre}}</span>
+											<span class="custom-svg-position-1">
+												<svg class="{{$color}}" data-appear-animation="fadeInLeftShorter" data-appear-animation-delay="1600" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 859.45 88.44" xml:space="preserve" preserveAspectRatio="none">
+													<polyline points="7.27,84.78 855.17,84.78 855.17,4.79 84.74,4.79 "/>
+												</svg>
+											</span>
+										</p>
+									</div>
+										@endif
+								</div>
+							@endif
+							@endforeach
 
 						</div>
 					</div>
@@ -494,12 +501,17 @@
 						<button type="button" role="presentation" class="owl-next"></button>
 					</div>
 					<div class="owl-dots mb-5">
-						<button role="button" class="owl-dot active"><span></span></button>
-						<button role="button" class="owl-dot"><span></span></button>
+						@foreach($banners as  $key => $dato)
+							@if($key == 0)
+								<button role="button" class="owl-dot active"><span></span></button>
+							@else
+								<button role="button" class="owl-dot"><span></span></button>
+							@endif
+						@endforeach
 					</div>
 				</div>
 
-		{{-- 	</div> --}}
+			{{-- </div> --}}
 				
 
 				<section class="section-custom-medical">
@@ -523,6 +535,21 @@
 									</a>
 								</h5>
 							</div>
+							
+							<div class="col-xl-3 box-four bg-color-secondary p-0 appear-animation" data-appear-animation="fadeInLeft" data-appear-animation-delay="1800">
+								<a href="tel:+008001234567" class="text-decoration-none">
+									<div class="feature-box feature-box-style-2 m-0">
+										<div class="feature-box-icon">
+											<i class="icon-call-out icons"></i>
+										</div>
+										<div class="feature-box-info">
+											<label class="font-weight-light">Atención a Alumnos</label>
+											<strong class="font-weight-normal">(043) 640-020</strong>
+										</div>
+									</div>
+								</a>
+							</div>
+
 							<div class="col-xl-3 box-three bg-color-primary appear-animation" data-appear-animation="fadeInLeft" data-appear-animation-delay="1200" style="background-color: #008fe2 !important">
 								<div class="expanded-info p-4 bg-color-primary">
 									<div class="info custom-info">
@@ -543,33 +570,34 @@
 									<i class="icon-arrow-right-circle icons"></i>
 								</h5>
 							</div>
-							<div class="col-xl-3 box-four bg-color-secondary p-0 appear-animation" data-appear-animation="fadeInLeft" data-appear-animation-delay="1800">
-								<a href="tel:+008001234567" class="text-decoration-none">
-									<div class="feature-box feature-box-style-2 m-0">
-										<div class="feature-box-icon">
-											<i class="icon-call-out icons"></i>
-										</div>
-										<div class="feature-box-info">
-											<label class="font-weight-light">Atención a Alumnos</label>
-											<strong class="font-weight-normal">(043) 640-020</strong>
-										</div>
-									</div>
-								</a>
-							</div>
 						</div>
-						<div class="row mt-5 mb-5 pt-3 pb-3">
-							<div class="col-md-8">
-								<h2 class="font-weight-semibold mb-0">Bienvenido</h2>
-								<p class="lead font-weight-normal">Al renovado portal de la UNASAM.</p>
+						@if($presentacion != null)
+							<div class="row mt-5 mb-5 pt-3 pb-3">
+								<div class="col-md-8">
+									@if($presentacion->titulo != null)
+									<h2 class="font-weight-semibold mb-0">{{$presentacion->titulo}}</h2>
+									@endif
 
-								<p>La Universidad Nacional Santiago Antúnez de Mayolo les da la bienvenida a su nuevo Portal Web Institucional donde podrá encontrar toda la información que requiera...</p>
+									@if($presentacion->subtitulo != null)
+									<p class="lead font-weight-normal">{{$presentacion->subtitulo}}</p>
+									@endif
 
-								<a class="btn btn-outline btn-quaternary custom-button text-uppercase mt-4 mb-4 mb-md-0 font-weight-bold">Leer más</a>
+									@if($presentacion->descripcion != null)
+									{!! $presentacion->descripcion !!}
+									{{-- <p>La Universidad Nacional Santiago Antúnez de Mayolo les da la bienvenida a su nuevo Portal Web Institucional donde podrá encontrar toda la información que requiera...</p> --}}
+									@endif
+
+									
+									<a class="btn btn-outline btn-quaternary custom-button text-uppercase mt-4 mb-4 mb-md-0 font-weight-bold">Leer más</a>
+									
+								</div>
+								@if($presentacion->tieneimagen != null && $presentacion->tieneimagen == 1 && $presentacion->url != null)
+								<div class="col-md-4">
+									<img src="{{ asset('/web/presentacionunasam/'.$presentacion->url)}}" alt class="img-fluid box-shadow-custom" /> 
+								</div>
+								@endif
 							</div>
-							<div class="col-md-4">
-								<img src="{{ asset('/webvendor/img/bienvenido.png')}}" alt class="img-fluid box-shadow-custom" /> 
-							</div>
-						</div>
+						@endif
 					</div>
 				</section>
 

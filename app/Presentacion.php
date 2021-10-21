@@ -8,6 +8,7 @@ class Presentacion extends Model
 {
     protected $table = 'presentacions';
     protected $fillable = [ 'titulo',
+                            'subtitulo',
                             'descripcion',
                             'tieneimagen',
                             'url',

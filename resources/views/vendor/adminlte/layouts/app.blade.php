@@ -72,6 +72,16 @@ desired effect
 @elseif($modulo=="miperfil")
 @include('miperfil.vue')
 
+{{-- //Paginas Portal Web--}}
+
+@elseif($modulo=="bannerportal")
+@include('adminportal.banner.vue')
+
+@elseif($modulo=="presentacionportal")
+@include('adminportal.presentacion.vue')
+
+{{-- //Paginas Portales Facultades--}}
+
 @elseif($modulo=="bannerfacultad")
 @include('adminfacultad.banner.vue')
 

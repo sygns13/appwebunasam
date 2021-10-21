@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <body class="hold-transition login-page" style=" background-image: url('{{ asset('/img/fondo.jpg') }}');    background-size: cover;
+    <body class="hold-transition login-page" style=" background-image: url('{{ asset('/img/fondo5.jpg') }}');    background-size: cover;
     background-repeat: no-repeat;
     height: 100%;">
     <div id="app" v-cloak>
@@ -19,8 +19,8 @@
             <div class="login-logo" style="background-color: rgba(0,0,0,0.5) !important;     border-radius: 10px;">
                 
                 <a href="{{ url('/home') }}" style="color:white;font-size:28px; display:inline-block;">
-                    <b>APPFEC</b> <br>
-                    <img src="{{ asset('/img/unasam.png') }}" alt="" style="padding-top: 10px;width: 70px; display:inline-block;"> <b>  <br>Sistema de Gestión del Portal Web FEC</b></a>
+                    <b>ADMWEB</b> <br>
+                    <img src="{{ asset('/img/unasam.png') }}" alt="" style="padding-top: 10px;width: 70px; display:inline-block;"> <b>  <br>Sistema Integral de Gestión del Portal Web UNASAM</b></a>
             </div><!-- /.login-logo -->
 
             @if (count($errors) > 0)

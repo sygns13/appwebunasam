@@ -23,6 +23,23 @@ class PresentacionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function index0()
+    {
+        if(accesoUser([1,2,3])){
+
+
+            $idtipouser=Auth::user()->tipouser_id;
+            $tipouser=Tipouser::find($idtipouser);
+
+            $modulo="presentacionportal";
+
+            return view('adminportal.presentacion.index',compact('tipouser','modulo'));
+        }
+        else
+        {
+            return redirect('home');    
+        }
+    }
     public function index1()
     {
         if(accesoUser([1,2,3])){
@@ -44,15 +61,29 @@ class PresentacionController extends Controller
     public function index(Request $request)
     {
         //$buscar=$request->busca;
+        $nivel=$request->v1;
+        $facultad_id=$request->v2;
+        $programaestudio_id=$request->v3;
 
-        $presentacion=Presentacion::where('borrado','0')
+        $queryZero=Presentacion::where('borrado','0');
        /* ->where(function($query) use ($buscar){
             $query->where('titulo','like','%'.$buscar.'%');
             //$query->orWhere('users.name','like','%'.$buscar.'%');
             })*/
-        ->where('facultad_id',1)
-        ->where('nivel',1)
-        ->first();
+
+        if($facultad_id != null && intval($facultad_id) > 0){
+            $queryZero->where('facultad_id',$facultad_id);
+        }
+
+        if($programaestudio_id != null && intval($programaestudio_id) > 0){
+            $queryZero->where('programaestudio_id',$programaestudio_id);
+        }
+
+        if($nivel != null){
+            $queryZero->where('nivel',$nivel);
+        }
+
+        $presentacion = $queryZero->first();
 
           return [
             'presentacion'=>$presentacion
@@ -82,6 +113,7 @@ class PresentacionController extends Controller
 
         $id=$request->id;
         $titulo=$request->titulo;
+        $subtitulo=$request->subtitulo;
         $descripcion=$request->descripcion;
         $url=$request->url;
         $tieneimagen=$request->tieneimagen;
@@ -95,6 +127,10 @@ class PresentacionController extends Controller
         $result='1';
         $msj='';
         $selector='';
+
+        $nivel=$request->v1;
+        $facultad_id=$request->v2;
+        $programaestudio_id=$request->v3;
 
         $oldImg=$request->oldimg;
 
@@ -132,7 +168,29 @@ class PresentacionController extends Controller
                     //$nombre=$img->getClientOriginalName();
                     $extension=$img->getClientOriginalExtension();
                     $nuevoNombre=$aux.".".$extension;
-                    $subir=Storage::disk('presentacionFacultad')->put($nuevoNombre, \File::get($img));
+                    
+
+                    /* $imgR = Image::make($img);
+                    $imgR->resize(1500, 500, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->stream(); */
+
+                    //$subir=Storage::disk('presentacionFacultad')->put($nuevoNombre, \File::get($img));
+
+                    $subir=false;
+                    if(intval($nivel) == 0){
+                        $subir=Storage::disk('presentacionUNASAM')->put($nuevoNombre, \File::get($img));
+                    //$subir=Storage::disk('banerUNASAM')->put($nuevoNombre, $imgR);
+                    }
+                    elseif(intval($nivel) == 1){
+                        $subir=Storage::disk('presentacionFacultad')->put($nuevoNombre, \File::get($img));
+                    //$subir=Storage::disk('banerFacultad')->put($nuevoNombre, $imgR);
+                    }
+                    elseif(intval($nivel) == 2){
+                        $subir=Storage::disk('presentacionProgramaEstudio')->put($nuevoNombre, \File::get($img));
+                    // $subir=Storage::disk('banerProgramaEstudio')->put($nuevoNombre, $imgR);
+                    }
+
     
                     if($subir){
                         $imagen=$nuevoNombre;
@@ -157,7 +215,19 @@ class PresentacionController extends Controller
         
 
         if($segureImg==1){
-            Storage::disk('presentacionFacultad')->delete($imagen);
+            
+
+            if(intval($nivel) == 0){
+                Storage::disk('presentacionUNASAM')->delete($imagen);
+            }
+            elseif(intval($nivel) == 1){
+                Storage::disk('presentacionFacultad')->delete($imagen);
+            }
+            elseif(intval($nivel) == 2){
+                Storage::disk('presentacionProgramaEstudio')->delete($imagen);
+            }
+
+
         }
         else{
             $input1  = array('titulo' => $titulo);
@@ -184,27 +254,55 @@ class PresentacionController extends Controller
             else{
 
                 if(Strlen($oldImg) > 0 && intval($tieneimagen) == 0){
-                    Storage::disk('presentacionFacultad')->delete($oldImg);
+                    if(intval($nivel) == 0){
+                        Storage::disk('presentacionUNASAM')->delete($oldImg);
+                    }
+                    elseif(intval($nivel) == 1){
+                        Storage::disk('presentacionFacultad')->delete($oldImg);
+                    }
+                    elseif(intval($nivel) == 2){
+                        Storage::disk('presentacionProgramaEstudio')->delete($oldImg);
+                    }
                 }
                 if( intval($tieneimagen) == 1 && strlen($imagen)==0){
                     $imagen = $url;
                 }
 
+                if($subtitulo == null){
+                    $subtitulo = "";
+                }
+
                 if($id== null || Strlen($id) == 0){
                     if(strlen($imagen)>0)
                     {
-                        Storage::disk('presentacionFacultad')->delete($oldImg);
+                        if(intval($nivel) == 0){
+                            Storage::disk('presentacionUNASAM')->delete($oldImg);
+                        }
+                        elseif(intval($nivel) == 1){
+                            Storage::disk('presentacionFacultad')->delete($oldImg);
+                        }
+                        elseif(intval($nivel) == 2){
+                            Storage::disk('presentacionProgramaEstudio')->delete($oldImg);
+                        }
+
+                        
 
                         $presentacion = new Presentacion();
                         $presentacion->titulo=$titulo;
+                        $presentacion->subtitulo=$subtitulo;
                         $presentacion->descripcion=$descripcion;
                         $presentacion->tieneimagen=$tieneimagen;
                         $presentacion->url=$imagen;
                         $presentacion->activo=$activo;
                         $presentacion->borrado='0';
-                        $presentacion->nivel='1';
+                        $presentacion->nivel=$nivel;
                         $presentacion->user_id=Auth::user()->id;
-                        $presentacion->facultad_id='1';
+                        if($facultad_id != null && intval($facultad_id) > 0){
+                            $presentacion->facultad_id=$facultad_id;
+                        }
+                        if($programaestudio_id != null && intval($programaestudio_id) > 0){
+                            $presentacion->programaestudio_id=$programaestudio_id;
+                        }
 
                         $presentacion->save();
                     }
@@ -212,14 +310,20 @@ class PresentacionController extends Controller
                     {
                         $presentacion = new Presentacion();
                         $presentacion->titulo=$titulo;
+                        $presentacion->subtitulo=$subtitulo;
                         $presentacion->descripcion=$descripcion;
                         $presentacion->tieneimagen=$tieneimagen;
                         $presentacion->url=$imagen;
                         $presentacion->activo=$activo;
                         $presentacion->borrado='0';
-                        $presentacion->nivel='1';
+                        $presentacion->nivel=$nivel;
                         $presentacion->user_id=Auth::user()->id;
-                        $presentacion->facultad_id='1';
+                        if($facultad_id != null && intval($facultad_id) > 0){
+                            $presentacion->facultad_id=$facultad_id;
+                        }
+                        if($programaestudio_id != null && intval($programaestudio_id) > 0){
+                            $presentacion->programaestudio_id=$programaestudio_id;
+                        }
 
                         $presentacion->save();
                     }
@@ -227,17 +331,24 @@ class PresentacionController extends Controller
                 else{
                     if(strlen($imagen)>0)
                     {
-                        Storage::disk('presentacionFacultad')->delete($oldImg);
+                        if(intval($nivel) == 0){
+                            Storage::disk('presentacionUNASAM')->delete($oldImg);
+                        }
+                        elseif(intval($nivel) == 1){
+                            Storage::disk('presentacionFacultad')->delete($oldImg);
+                        }
+                        elseif(intval($nivel) == 2){
+                            Storage::disk('presentacionProgramaEstudio')->delete($oldImg);
+                        }
 
                         $presentacion = Presentacion::findOrFail($id);
                         $presentacion->titulo=$titulo;
+                        $presentacion->subtitulo=$subtitulo;
                         $presentacion->descripcion=$descripcion;
                         $presentacion->tieneimagen=$tieneimagen;
                         $presentacion->url=$imagen;
                         $presentacion->activo=$activo;
-                        $presentacion->nivel='1';
                         $presentacion->user_id=Auth::user()->id;
-                        $presentacion->facultad_id='1';
 
                         $presentacion->save();
                     }
@@ -245,13 +356,12 @@ class PresentacionController extends Controller
                     {
                         $presentacion = Presentacion::findOrFail($id);
                         $presentacion->titulo=$titulo;
+                        $presentacion->subtitulo=$subtitulo;
                         $presentacion->descripcion=$descripcion;
                         $presentacion->tieneimagen=$tieneimagen;
                         $presentacion->url=$imagen;
                         $presentacion->activo=$activo;
-                        $presentacion->nivel='1';
                         $presentacion->user_id=Auth::user()->id;
-                        $presentacion->facultad_id='1';
 
                         $presentacion->save();
                     }
@@ -272,9 +382,19 @@ class PresentacionController extends Controller
         $msj='';
         $selector='';
 
-        Storage::disk('presentacionFacultad')->delete($image);
-
         $presentacion = Presentacion::findOrFail($id);
+
+        if(intval($presentacio->nivel) == 0){
+            Storage::disk('presentacionUNASAM')->delete($presentacio->url);
+        }
+        elseif(intval($presentacio->nivel) == 1){
+            Storage::disk('presentacionFacultad')->delete($presentacio->url);
+        }
+        elseif(intval($presentacio->nivel) == 2){
+            Storage::disk('presentacionProgramaEstudio')->delete($presentacio->url);
+        }
+
+
         $presentacion->url='';
         $presentacion->save();
 

@@ -48,16 +48,39 @@ return [
             'root' => public_path('web'), // raiz web
             'visibility' => 'public',
          ],
+
+         'banerUNASAM' => [
+            'driver' => 'local',
+            'root' => public_path('web/bannerunasam'), // banners facultades
+            'visibility' => 'public',
+         ],
          'banerFacultad' => [
             'driver' => 'local',
-            'root' => public_path('web/bannerfec'), // banners facultades
+            'root' => public_path('web/bannerfacultad'), // banners facultades
+            'visibility' => 'public',
+         ],
+         'banerProgramaEstudio' => [
+            'driver' => 'local',
+            'root' => public_path('web/bannerprograma'), // banners facultades
+            'visibility' => 'public',
+         ],
+
+         'presentacionUNASAM' => [
+            'driver' => 'local',
+            'root' => public_path('web/presentacionunasam'), // banners facultades
             'visibility' => 'public',
          ],
          'presentacionFacultad' => [
             'driver' => 'local',
-            'root' => public_path('web/presentacionfec'), // presentaciones facultades
+            'root' => public_path('web/presentacionfacultad'), // presentaciones facultades
             'visibility' => 'public',
          ],
+         'presentacionProgramaEstudio' => [
+            'driver' => 'local',
+            'root' => public_path('web/presentacionprograma'), // presentaciones facultades
+            'visibility' => 'public',
+         ],
+
          'noticiaFacultad' => [
             'driver' => 'local',
             'root' => public_path('web/noticiafec'), // noticias facultades

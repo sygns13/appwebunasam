@@ -12,10 +12,12 @@
 */
 
 //TODO: Valery aca modificas las rutas para la vista web TODO:
-Route::get('/', function () {
+/* Route::get('/', function () {
     return view('web/unasam/index');
     //return redirect('login');
-});
+}); */
+
+Route::get('/','IndexWebController@index');
 
 
 
@@ -31,7 +33,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('usuarios','UserController@index1');
     Route::get('miperfil','UserController@index2');
 
+    Route::get('intranet/bannerportal', 'BannerController@index0');
     Route::get('intranet/banner', 'BannerController@index1');
+    Route::get('intranet/presentacionportal', 'PresentacionController@index0');
     Route::get('intranet/presentacion', 'PresentacionController@index1');
     Route::get('intranet/datosfec', 'FacultadController@index1');
     Route::get('intranet/noticias', 'NoticiaController@index1');

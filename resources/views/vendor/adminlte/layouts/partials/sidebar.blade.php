@@ -35,24 +35,33 @@
 
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu" data-widget="tree">
-            <li class="header">MENÚ PRINCIPAL</li>
-            <!-- Optionally, you can add icons to the links -->
 
-            
-
-            
             <li v-bind:class="classMenu0"><a href="{{ URL::to('home') }}"><i class='fa fa-home'></i> <span>Inicio</span></a></li>
 
-            <li class="treeview" v-bind:class="classMenu9">
-                <a href="#"><i class='fa fa-cogs'></i> <span>Configuraciones</span> <i class="fa fa-angle-left pull-right"></i></a>
+
+
+            @if(accesoUser([1]))
+            <li class="header">Gestión del Portal UNASAM</li>
+            @endif
+          
+            @if(accesoUser([1]))
+            <li class="treeview" v-bind:class="classMenu10">
+                <a href="#"><i class='fa fa-list-alt'></i> <span>Portal de Inicio UNASAM</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
-                        @if(accesoUser([1]))
-                            <li><a href="{{URL::to('usuarios')}}"><i class='fa fa-paper-plane'></i> Gestión de Usuarios</a></li>                        
-                        @endif
-                    <li><a href="{{URL::to('miperfil')}}"><i class='fa fa-paper-plane'></i> Mi Perfil</a></li>
-                    <li><a href="{{URL::to('salir')}}" ><i class='fa fa-paper-plane'></i> <b>Cerrar Sesión</b></a></li>
+                    <li><a href="{{URL::to('intranet/bannerportal')}}"><i class='fa fa-paper-plane'></i> Gestión de Banners</a></li>
+                    <li><a href="{{URL::to('intranet/presentacionportal')}}"><i class='fa fa-paper-plane'></i> Gestión de Presentación</a></li>
+                    <li><a href="{{URL::to('intranet/datosfec')}}"><i class='fa fa-paper-plane'></i> Gestión de Datos Facultad</a></li>
+                    <li><a href="{{URL::to('intranet/noticias')}}"><i class='fa fa-paper-plane'></i> Gestión de Noticias</a></li>
+                    <li><a href="{{URL::to('intranet/eventos')}}"><i class='fa fa-paper-plane'></i> Gestión de Eventos</a></li> 
+                    <li><a href="{{URL::to('intranet/comunicados')}}"><i class='fa fa-paper-plane'></i> Gestión de Comunicados</a></li> 
+                    <li><a href="{{URL::to('intranet/redessolicales')}}"><i class='fa fa-paper-plane'></i> Gestión de Redes Sociales</a></li> 
                 </ul>
             </li>
+            @endif
+
+
+
+            
 
             @if(accesoUser([1]))
             <li class="header">Gestión de Páginas Facultad</li>
@@ -133,6 +142,22 @@
             @endif
 
 
+            <li class="header">MENÚ CONFIGURACIONES</li>
+            <!-- Optionally, you can add icons to the links -->
+
+
+            <li class="treeview" v-bind:class="classMenu9">
+                <a href="#"><i class='fa fa-cogs'></i> <span>Configuraciones</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <ul class="treeview-menu">
+                        @if(accesoUser([1]))
+                            <li><a href="{{URL::to('usuarios')}}"><i class='fa fa-paper-plane'></i> Gestión de Usuarios</a></li>                        
+                        @endif
+                    <li><a href="{{URL::to('miperfil')}}"><i class='fa fa-paper-plane'></i> Mi Perfil</a></li>
+                    <li><a href="{{URL::to('salir')}}" ><i class='fa fa-paper-plane'></i> <b>Cerrar Sesión</b></a></li>
+                </ul>
+            </li>
+
+
 
 
 
@@ -149,7 +174,7 @@
 
             <div class="no-print user-panel-unasam">
                 <div class="no-print image" style="text-align: center;">
-                    <img src="{{asset('/img/unasam.png')}}"  alt="User Image" style="margin-top: 15px;height: 60px;" />
+                    <img src="{{asset('/img/unasam.png')}}"  alt="User Image" style="margin-top: 15px;height: 150px;" />
                     <ul class="no-print sidebar-menu">
                     <li class="no-print stroke treeview" style="font-family: Monotype Corsiva;font-size: 21px;color: #f9c52c;margin-top: 5px;">"Una Nueva Universidad<br>Para el Desarrollo"</li>
                     </ul>

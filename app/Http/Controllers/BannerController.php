@@ -16,6 +16,8 @@ use stdClass;
 use DB;
 use Storage;
 
+use Image;
+
 class BannerController extends Controller
 {
     /**
@@ -23,6 +25,24 @@ class BannerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function index0()
+    {
+        if(accesoUser([1,2,3])){
+
+
+            $idtipouser=Auth::user()->tipouser_id;
+            $tipouser=Tipouser::find($idtipouser);
+
+            $modulo="bannerportal";
+
+            return view('adminportal.banner.index',compact('tipouser','modulo'));
+        }
+        else
+        {
+            return redirect('home');    
+        }
+    }
 
     public function index1()
     {
@@ -46,15 +66,29 @@ class BannerController extends Controller
     public function index(Request $request)
     {
         $buscar=$request->busca;
+        $nivel=$request->v1;
+        $facultad_id=$request->v2;
+        $programaestudio_id=$request->v3;
 
-        $banners=Banner::where('borrado','0')
+        $queryZero=Banner::where('borrado','0')
         ->where(function($query) use ($buscar){
             $query->where('nombre','like','%'.$buscar.'%');
             //$query->orWhere('users.name','like','%'.$buscar.'%');
-            })
-        ->where('facultad_id',1)
-        ->where('nivel',1)
-        ->orderBy('posision')
+            });
+        
+        if($facultad_id != null && intval($facultad_id) > 0){
+            $queryZero->where('facultad_id',$facultad_id);
+        }
+
+        if($programaestudio_id != null && intval($programaestudio_id) > 0){
+            $queryZero->where('programaestudio_id',$programaestudio_id);
+        }
+
+        if($nivel != null){
+            $queryZero->where('nivel',$nivel);
+        }
+
+        $banners = $queryZero->orderBy('posision')
         ->orderBy('id')
         ->paginate(10);
 
@@ -101,6 +135,10 @@ class BannerController extends Controller
         $img=$request->imagen;
         $segureImg=0;
 
+        $nivel=$request->v1;
+        $facultad_id=$request->v2;
+        $programaestudio_id=$request->v3;
+
         $result='1';
         $msj='';
         $selector='';
@@ -138,7 +176,25 @@ class BannerController extends Controller
                 //$nombre=$img->getClientOriginalName();
                 $extension=$img->getClientOriginalExtension();
                 $nuevoNombre=$aux.".".$extension;
-                $subir=Storage::disk('banerFacultad')->put($nuevoNombre, \File::get($img));
+
+                /* $imgR = Image::make($img);
+                $imgR->resize(1500, 500, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->stream(); */
+
+                $subir=false;
+                if(intval($nivel) == 0){
+                    $subir=Storage::disk('banerUNASAM')->put($nuevoNombre, \File::get($img));
+                   //$subir=Storage::disk('banerUNASAM')->put($nuevoNombre, $imgR);
+                }
+                elseif(intval($nivel) == 1){
+                    $subir=Storage::disk('banerFacultad')->put($nuevoNombre, \File::get($img));
+                  //$subir=Storage::disk('banerFacultad')->put($nuevoNombre, $imgR);
+                }
+                elseif(intval($nivel) == 2){
+                      $subir=Storage::disk('banerProgramaEstudio')->put($nuevoNombre, \File::get($img));
+                   // $subir=Storage::disk('banerProgramaEstudio')->put($nuevoNombre, $imgR);
+                }
 
                 if($subir){
                     $imagen=$nuevoNombre;
@@ -160,7 +216,16 @@ class BannerController extends Controller
         }
 
         if($segureImg==1){
-            Storage::disk('banerFacultad')->delete($imagen);
+        
+            if(intval($nivel) == 0){
+                Storage::disk('banerUNASAM')->delete($imagen);
+            }
+            elseif(intval($nivel) == 1){
+                Storage::disk('banerFacultad')->delete($imagen);
+            }
+            elseif(intval($nivel) == 2){
+                Storage::disk('banerProgramaEstudio')->delete($imagen);
+            }
         }
         else{
             $input1  = array('posision' => $posision);
@@ -186,9 +251,14 @@ class BannerController extends Controller
                 $banner->url=$imagen;
                 $banner->activo=$activo;
                 $banner->borrado='0';
-                $banner->nivel='1';
+                $banner->nivel=$nivel;
+                if($facultad_id != null && intval($facultad_id) > 0){
+                    $banner->facultad_id=$facultad_id;
+                }
+                if($programaestudio_id != null && intval($programaestudio_id) > 0){
+                    $banner->programaestudio_id=$programaestudio_id;
+                }
                 $banner->user_id=Auth::user()->id;
-                $banner->facultad_id='1';
 
                 $banner->save();
 
@@ -248,6 +318,8 @@ class BannerController extends Controller
 
         $oldImg=$request->oldimg;
 
+        $nivel=$request->v1;
+
         if ($request->hasFile('imagen')) { 
 
             $aux='banner_fec'.date('d-m-Y').'-'.date('H-i-s');
@@ -281,7 +353,28 @@ class BannerController extends Controller
                 //$nombre=$img->getClientOriginalName();
                 $extension=$img->getClientOriginalExtension();
                 $nuevoNombre=$aux.".".$extension;
-                $subir=Storage::disk('banerFacultad')->put($nuevoNombre, \File::get($img));
+
+                $extension=$img->getClientOriginalExtension();
+                $nuevoNombre=$aux.".".$extension;
+
+                /* $imgR = Image::make($img);
+                $imgR->resize(1500, 500, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->stream(); */
+
+                $subir=false;
+                if(intval($nivel) == 0){
+                   // $subir=Storage::disk('banerUNASAM')->put($nuevoNombre, $imgR);
+                    $subir=Storage::disk('banerUNASAM')->put($nuevoNombre, \File::get($img));
+                }
+                elseif(intval($nivel) == 1){
+                   // $subir=Storage::disk('banerFacultad')->put($nuevoNombre, $imgR);
+                    $subir=Storage::disk('banerFacultad')->put($nuevoNombre, \File::get($img));
+                }
+                elseif(intval($nivel) == 2){
+                   // $subir=Storage::disk('banerProgramaEstudio')->put($nuevoNombre, $imgR);
+                    $subir=Storage::disk('banerProgramaEstudio')->put($nuevoNombre, \File::get($img));
+                }
 
                 if($subir){
                     $imagen=$nuevoNombre;
@@ -296,7 +389,16 @@ class BannerController extends Controller
             }
         }
         if($segureImg==1){
-            Storage::disk('banerFacultad')->delete($imagen);
+
+            if(intval($nivel) == 0){
+                Storage::disk('banerUNASAM')->delete($imagen);
+            }
+            elseif(intval($nivel) == 1){
+                Storage::disk('banerFacultad')->delete($imagen);
+            }
+            elseif(intval($nivel) == 2){
+                Storage::disk('banerProgramaEstudio')->delete($imagen);
+            }
         }
         else{
             $input1  = array('posision' => $posision);
@@ -318,15 +420,24 @@ class BannerController extends Controller
 
                 if(strlen($imagen)>0)
                 {
-                    Storage::disk('banerFacultad')->delete($oldImg);
+
+                    if(intval($nivel) == 0){
+                        Storage::disk('banerUNASAM')->delete($oldImg);
+                    }
+                    elseif(intval($nivel) == 1){
+                        Storage::disk('banerFacultad')->delete($oldImg);
+                    }
+                    elseif(intval($nivel) == 2){
+                        Storage::disk('banerProgramaEstudio')->delete($oldImg);
+                    }
+
+
                     $banner = Banner::findOrFail($id);
                     $banner->posision=$posision;
                     $banner->nombre=$nombre;
                     $banner->url=$imagen;
                     $banner->activo=$activo;
-                    $banner->nivel='1';
                     $banner->user_id=Auth::user()->id;
-                    $banner->facultad_id='1';
 
                     $banner->save();
                 }
@@ -336,9 +447,7 @@ class BannerController extends Controller
                     $banner->posision=$posision;
                     $banner->nombre=$nombre;
                     $banner->activo=$activo;
-                    $banner->nivel='1';
                     $banner->user_id=Auth::user()->id;
-                    $banner->facultad_id='1';
 
                     $banner->save();
                 }
@@ -376,10 +485,20 @@ class BannerController extends Controller
         $result='1';
         $msj='';
         $selector='';
-
-        Storage::disk('banerFacultad')->delete($image);
-
+   
         $banner = Banner::findOrFail($id);
+
+        if(intval($banner->nivel) == 0){
+            Storage::disk('banerUNASAM')->delete($image);
+        }
+        elseif(intval($banner->nivel) == 1){
+            Storage::disk('banerFacultad')->delete($image);
+        }
+        elseif(intval($banner->nivel) == 2){
+            Storage::disk('banerProgramaEstudio')->delete($image);
+        }
+
+
         $banner->url='';
         $banner->save();
 
@@ -405,7 +524,15 @@ class BannerController extends Controller
         $banner = Banner::findOrFail($id);
 
         if(Strlen($banner->url) > 0){
-            Storage::disk('banerFacultad')->delete($banner->url);
+            if(intval($banner->nivel) == 0){
+                Storage::disk('banerUNASAM')->delete($banner->url);
+            }
+            elseif(intval($banner->nivel) == 1){
+                Storage::disk('banerFacultad')->delete($banner->url);
+            }
+            elseif(intval($banner->nivel) == 2){
+                Storage::disk('banerProgramaEstudio')->delete($banner->url);
+            }
         }
         
         //$task->delete();

@@ -1,8 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `bdwebfec` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `bdwebfec`;
+CREATE DATABASE  IF NOT EXISTS `bdappwebunasam` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `bdappwebunasam`;
 -- MySQL dump 10.13  Distrib 8.0.22, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: bdwebfec
+-- Host: 127.0.0.1    Database: bdappwebunasam
 -- ------------------------------------------------------
 -- Server version	8.0.22
 
@@ -1585,11 +1585,11 @@ INSERT INTO `users` VALUES (1,'admin','admin@hotmail.com','$2y$10$WqTsJhJoBog/DB
 UNLOCK TABLES;
 
 --
--- Dumping events for database 'bdwebfec'
+-- Dumping events for database 'bdappwebunasam'
 --
 
 --
--- Dumping routines for database 'bdwebfec'
+-- Dumping routines for database 'bdappwebunasam'
 --
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
