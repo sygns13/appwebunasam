@@ -80,6 +80,9 @@ desired effect
 @elseif($modulo=="presentacionportal")
 @include('adminportal.presentacion.vue')
 
+@elseif($modulo=="datosunasam")
+@include('adminportal.datosunasam.vue')
+
 {{-- //Paginas Portales Facultades--}}
 
 @elseif($modulo=="bannerfacultad")

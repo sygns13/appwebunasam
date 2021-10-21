@@ -90,7 +90,11 @@
 													<span class="ws-nowrap"><i class="fas fa-desktop"></i> Servicios en Línea</span>
 												</li>
 												<li class="nav-item nav-item-left-border nav-item-left-border-remove nav-item-left-border-sm-show">
-													<span class="ws-nowrap"><i class="fas fa-phone"></i> (043) 640-020</span>
+													<span class="ws-nowrap"><i class="fas fa-phone"></i>
+														@if($unasam != null && $unasam->telefono)
+														{{$unasam->telefono}}
+														@endif
+													</span>
 												</li>
 											</ul>
 										</nav>
@@ -544,7 +548,11 @@
 										</div>
 										<div class="feature-box-info">
 											<label class="font-weight-light">Atención a Alumnos</label>
-											<strong class="font-weight-normal">(043) 640-020</strong>
+											<strong class="font-weight-normal">
+												@if($unasam != null && $unasam->telefono)
+													{{$unasam->telefono}}
+												@endif
+											</strong>
 										</div>
 									</div>
 								</a>
@@ -554,15 +562,27 @@
 								<div class="expanded-info p-4 bg-color-primary">
 									<div class="info custom-info">
 										<span>Lun-Vie</span>
-										<span>8:30 am a 5:00 pm</span>
+										<span>
+											@if($unasam != null && $unasam->horario_lu_vier)
+												{{$unasam->horario_lu_vier}}
+											@endif
+										</span>
 									</div>
 									<div class="info custom-info">
 										<span>Sabados</span>
-										<span>9:30 am a 1:00 pm</span>
+										<span>
+											@if($unasam != null && $unasam->horario_sabado)
+												{{$unasam->horario_sabado}}
+											@endif
+										</span>
 									</div>
 									<div class="info custom-info">
-										<span>Domungos</span>
-										<span>Cerrado</span>
+										<span>Domingos</span>
+										<span>
+											@if($unasam != null && $unasam->horario_domingo)
+												{{$unasam->horario_domingo}}
+											@endif
+										</span>
 									</div>
 								</div>
 								<h5 class="m-0">
@@ -1189,7 +1209,7 @@
 				<div class="container py-4">
 					<div class="row py-5">
 						<div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
-							<h5 class="text-3 mb-3 opacity-7">NEWSLETTER</h5>
+							<h5 class="text-3 mb-3 opacity-7">Plataformas</h5>
 							<p class="pe-1 text-color-light">Keep up on our always evolving product features and technology. Enter your e-mail address and subscribe to our newsletter.</p>
 							<div class="alert alert-success d-none" id="newsletterSuccess">
 								<strong>Success!</strong> You've been added to our email list.
@@ -1203,21 +1223,54 @@
 							</form>
 						</div>
 						<div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
-							<h5 class="text-3 mb-3 opacity-7">LATEST TWEETS</h5>
+							<h5 class="text-3 mb-3 opacity-7">Servicios</h5>
 							<div id="tweet" class="twitter twitter-light" data-plugin-tweets data-plugin-options="{'username': 'oklerthemes', 'count': 2}">
 								<p class="text-color-light">Please wait...</p>
 							</div>
 						</div>
 						<div class="col-md-6 col-lg-3 mb-4 mb-md-0">
-							<h5 class="text-3 mb-3 opacity-7">CONTACT US</h5>
+							<h5 class="text-3 mb-3 opacity-7">CONTÁCTENOS</h5>
 							<ul class="list list-icons list-icons-lg">
-								<li class="mb-1"><i class="far fa-dot-circle text-color-light"></i><p class="m-0 text-color-light">234 Street Name, City Name</p></li>
-								<li class="mb-1"><i class="fab fa-whatsapp text-color-light"></i><p class="m-0"><a class="text-color-light" href="tel:8001234567">(800) 123-4567</a></p></li>
-								<li class="mb-1"><i class="far fa-envelope text-color-light"></i><p class="m-0"><a class="text-color-light" href="mailto:mail@example.com">mail@example.com</a></p></li>
+								<li class="mb-1"><i class="far fa-dot-circle text-color-light"></i>
+									<p class="m-0 text-color-light">
+										@if($unasam != null && $unasam->direccion)
+											{{$unasam->direccion}}
+										@endif
+									</p>
+								</li>
+								<li class="mb-1"><i class="fab fa-whatsapp text-color-light"></i>
+									<p class="m-0">
+										<a class="text-color-light" href="tel:@if($unasam != null && $unasam->telefono)
+											{{$unasam->telefono}}
+											@endif">
+											@if($unasam != null && $unasam->telefono)
+												{{$unasam->telefono}}
+											@endif
+										</a>
+									</p></li>
+								<li class="mb-1"><i class="far fa-envelope text-color-light"></i>
+									<p class="m-0">
+										<a class="text-color-light" href="mailto:@if($unasam != null && $unasam->email)
+											{{$unasam->email}}
+											@endif">
+											@if($unasam != null && $unasam->email)
+												{{$unasam->email}}
+											@endif
+										</a>
+									</p>
+								</li>
+								<li class="mb-1"><i class="far fa-id-card text-color-light"></i>
+									<p class="m-0 text-color-light">
+										@if($unasam != null && $unasam->ruc)
+											RUC: {{$unasam->ruc}}
+										@endif
+									</p>
+								</li>
+								
 							</ul>
 						</div>
 						<div class="col-md-6 col-lg-2">
-							<h5 class="text-3 mb-3 opacity-7">FOLLOW US</h5>
+							<h5 class="text-3 mb-3 opacity-7">SÍGANOS</h5>
 							<ul class="header-social-icons social-icons">
 								<li class="social-icons-facebook"><a href="http://www.facebook.com/" target="_blank" title="Facebook"><i class="fab fa-facebook-f text-2"></i></a></li>
 								<li class="social-icons-twitter"><a href="http://www.twitter.com/" target="_blank" title="Twitter"><i class="fab fa-twitter text-2"></i></a></li>
@@ -1232,18 +1285,18 @@
 							<div class="row py-4">
 								<div class="col-lg-1 d-flex align-items-center justify-content-center justify-content-lg-start mb-2 mb-lg-0">
 									<a href="index.html" class="logo pe-0 pe-lg-3">
-										<img alt="Porto Website Template" src="{{ asset('/webvendor/img/logo-footer.png') }}" class="opacity-5" height="32">
+										<img alt="Porto Website Template" src="{{ asset('/img/unasam.png') }}" class="opacity-9" height="40">
 									</a>
 								</div>
 								<div class="col-lg-7 d-flex align-items-center justify-content-center justify-content-lg-start mb-4 mb-lg-0">
-									<p class="text-color-light">© Copyright 2021. All Rights Reserved.</p>
+									<p class="text-color-light">© Copyright 2021. Todos los Derechos Reservados.</p>
 								</div>
 								<div class="col-lg-4 d-flex align-items-center justify-content-center justify-content-lg-end">
 									<nav id="sub-menu">
 										<ul>
-											<li class="border-0"><i class="fas fa-angle-right text-color-light"></i><a href="page-faq.html" class="ms-1 text-decoration-none text-color-light"> FAQ's</a></li>
-											<li class="border-0"><i class="fas fa-angle-right text-color-light"></i><a href="sitemap.html" class="ms-1 text-decoration-none text-color-light"> Sitemap</a></li>
-											<li class="border-0"><i class="fas fa-angle-right text-color-light"></i><a href="contact-us.html" class="ms-1 text-decoration-none text-color-light"> Contact Us</a></li>
+											<li class="border-0"><i class="fas fa-angle-right text-color-light"></i><a href="page-faq.html" class="ms-1 text-decoration-none text-color-light"> Preguntas</a></li>
+											<li class="border-0"><i class="fas fa-angle-right text-color-light"></i><a href="sitemap.html" class="ms-1 text-decoration-none text-color-light"> Mapa del Sitio</a></li>
+											<li class="border-0"><i class="fas fa-angle-right text-color-light"></i><a href="contact-us.html" class="ms-1 text-decoration-none text-color-light"> Contáctenos</a></li>
 										</ul>
 									</nav>
 								</div>

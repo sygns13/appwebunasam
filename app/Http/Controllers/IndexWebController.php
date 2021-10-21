@@ -16,6 +16,7 @@ use Storage;
 
 use App\Banner;
 use App\Presentacion;
+use App\Universidad;
 
 
 
@@ -30,9 +31,10 @@ class IndexWebController extends Controller
     {
         $banners=Banner::where('borrado','0')->where('activo','1')->where('nivel', 0 )->orderBy('posision')->get();
         $presentacion=Presentacion::where('borrado','0')->where('nivel', 0)->where('activo','1')->first();
+        $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
 
 
-        return view('web/unasam/index',compact('banners','presentacion'));
+        return view('web/unasam/index',compact('banners','presentacion','unasam'));
     }
 
     /**

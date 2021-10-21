@@ -37,7 +37,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('intranet/banner', 'BannerController@index1');
     Route::get('intranet/presentacionportal', 'PresentacionController@index0');
     Route::get('intranet/presentacion', 'PresentacionController@index1');
-    Route::get('intranet/datosfec', 'FacultadController@index1');
+    Route::get('intranet/datosportal', 'UniversidadController@index1');
+    Route::get('intranet/datosfacultad', 'FacultadController@index1');
     Route::get('intranet/noticias', 'NoticiaController@index1');
     Route::get('intranet/eventos', 'EventoController@index1');
     Route::get('intranet/comunicados', 'ComunicadoController@index1');
@@ -81,6 +82,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('usuario','UserController');
     Route::resource('intranet/bannerre', 'BannerController');
     Route::resource('intranet/presentacionre', 'PresentacionController');
+    Route::resource('intranet/datosportalre', 'UniversidadController');
     Route::resource('intranet/datosfecre', 'FacultadController');
     Route::resource('intranet/noticiasre', 'NoticiaController');
     Route::resource('intranet/eventosre', 'EventoController');
