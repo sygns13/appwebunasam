@@ -623,7 +623,7 @@
 
 
 
-				<section class="section section-height-3 bg-primary border-0 m-0 appear-animation" data-appear-animation="fadeIn" style="padding-top: 40px;">
+				<section class="section section-height-3 bg-primary border-0 m-0 appear-animation" data-appear-animation="fadeIn" style="padding-top: 60px; padding-bottom: 20px;">
 					<div class="container">
 						<div class="row">
 							<div class="col appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
@@ -631,103 +631,65 @@
 							</div>
 						</div>
 						<div class="row recent-posts appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
+
+							@foreach($noticias as  $key => $dato)
+
 							<div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
 								<article>
 									<div class="row">
 										<div class="col">
 											<a href="blog-post.html" class="text-decoration-none">
-												<img src="{{ asset('/webvendor/img/blog/blog-corporate-3-1.jpg') }}" class="img-fluid hover-effect-2 mb-3" alt="" />
+												@if($dato->imagennoticia != null && $dato->imagennoticia->url != null)
+												<img src="{{ asset('/web/noticiaunasam/'.$dato->imagennoticia->url) }}" class="img-fluid hover-effect-2 mb-3" alt="" />
+												@else
+												<img src="{{ asset('/img/Login-Background.jpg') }}" class="img-fluid hover-effect-2 mb-3" alt="" />
+												@endif
 											</a>
 										</div>
 									</div>
 									<div class="row">
 										<div class="col-auto pe-0">
 											<div class="date">
-												<span class="day bg-color-light text-color-dark font-weight-extra-bold">15</span>
-												<span class="month bg-color-light font-weight-semibold text-color-primary text-1">JAN</span>
+												<span class="day bg-color-light text-color-dark font-weight-extra-bold">
+													@if($dato->dia != null)
+														{{$dato->dia}}
+													@endif
+												</span>
+												<span class="month bg-color-light font-weight-semibold text-color-primary text-1">
+													@if($dato->iniNombreMes != null)
+														{{$dato->iniNombreMes}}
+													@endif
+												</span>
 											</div>
 										</div>
 										<div class="col ps-1">
-											<h4 class="line-height-3 text-4"><a href="blog-post.html" class="text-light">Lorem ipsum dolor sit amet, consectetur</a></h4>
-											<p class="text-color-light line-height-5 opacity-6 pe-4 mb-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-											<a href="/" class="read-more text-color-light font-weight-semibold text-2">read more <i class="fas fa-chevron-right text-1 ms-1"></i></a>
+											<h4 class="line-height-3 text-4">
+												<a href="blog-post.html" class="text-light">
+													@if($dato->titular != null)
+														{{$dato->titular}}
+													@endif
+												</a></h4>
+											<p class="text-color-light line-height-5 opacity-6 pe-4 mb-1"> 
+												<div style="height: 100px; overflow: hidden; color:white!important; " id="noticia-{{$dato->id}}"> 
+													@if($dato->desarrollo != null)
+														{!!$dato->desarrollo !!}
+													@endif
+												</div>
+											</p>
+											<a href="/" class="read-more text-color-light font-weight-semibold text-2">leer más <i class="fas fa-chevron-right text-1 ms-1"></i></a>
 										</div>
 									</div>
 								</article>
 							</div>
-							<div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
-								<article>
-									<div class="row">
-										<div class="col">
-											<a href="blog-post.html" class="text-decoration-none">
-												<img src="{{ asset('/webvendor/img/blog/blog-corporate-3-2.jpg') }}" class="img-fluid hover-effect-2 mb-3" alt="" />
-											</a>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-auto pe-0">
-											<div class="date">
-												<span class="day bg-color-light text-color-dark font-weight-extra-bold">14</span>
-												<span class="month bg-color-light font-weight-semibold text-color-primary text-1">JAN</span>
-											</div>
-										</div>
-										<div class="col ps-1">
-											<h4 class="line-height-3 text-4"><a href="blog-post.html" class="text-light">Lorem ipsum dolor sit amet, consectetur</a></h4>
-											<p class="text-color-light line-height-5 opacity-6 pe-4 mb-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-											<a href="/" class="read-more text-color-light font-weight-semibold text-2">read more <i class="fas fa-chevron-right text-1 ms-1"></i></a>
-										</div>
-									</div>
-								</article>
-							</div>
-							<div class="col-md-6 col-lg-3 mb-4 mb-md-0">
-								<article>
-									<div class="row">
-										<div class="col">
-											<a href="blog-post.html" class="text-decoration-none">
-												<img src="{{ asset('/webvendor/img/blog/blog-corporate-3-3.jpg') }}" class="img-fluid hover-effect-2 mb-3" alt="" />
-											</a>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-auto pe-0">
-											<div class="date">
-												<span class="day bg-color-light text-color-dark font-weight-extra-bold">13</span>
-												<span class="month bg-color-light font-weight-semibold text-color-primary text-1">JAN</span>
-											</div>
-										</div>
-										<div class="col ps-1">
-											<h4 class="line-height-3 text-4"><a href="blog-post.html" class="text-light">Lorem ipsum dolor sit amet, consectetur</a></h4>
-											<p class="text-color-light line-height-5 opacity-6 pe-4 mb-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-											<a href="/" class="read-more text-color-light font-weight-semibold text-2">read more <i class="fas fa-chevron-right text-1 ms-1"></i></a>
-										</div>
-									</div>
-								</article>
-							</div>
-							<div class="col-md-6 col-lg-3">
-								<article>
-									<div class="row">
-										<div class="col">
-											<a href="blog-post.html" class="text-decoration-none">
-												<img src="{{ asset('/webvendor/img/blog/blog-corporate-3-4.jpg') }}" class="img-fluid hover-effect-2 mb-3" alt="" />
-											</a>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-auto pe-0">
-											<div class="date">
-												<span class="day bg-color-light text-color-dark font-weight-extra-bold">12</span>
-												<span class="month bg-color-light font-weight-semibold text-color-primary text-1">JAN</span>
-											</div>
-										</div>
-										<div class="col ps-1">
-											<h4 class="line-height-3 text-4"><a href="blog-post.html" class="text-light">Lorem ipsum dolor sit amet, consectetur</a></h4>
-											<p class="text-color-light line-height-5 opacity-6 pe-4 mb-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-											<a href="/" class="read-more text-color-light font-weight-semibold text-2">read more <i class="fas fa-chevron-right text-1 ms-1"></i></a>
-										</div>
-									</div>
-								</article>
+							@endforeach
+						</div>
+
+						<div class="row mb-5">
+							<div class="col-lg-12 text-center" style="padding-top: 50px;">
+								<a href="#" class="btn btn-dark btn-px-5 btn-py-2 font-weight-bold text-color-light rounded-0 text-2">VER NOTICIAS</a>
 							</div>
 						</div>
+
 					</div>
 				</section>
 
@@ -1334,6 +1296,14 @@
 
 		<!-- Theme Initialization Files -->
 		<script src="{{ asset('/webvendor/js/theme.init.js') }}"></script>
+		@foreach($noticias as  $key => $dato)
+			<script>
+				$("#noticia-{{$dato->id}} p").css("color", "#FFF");
+			/* 	$(document).ready(function () {
+					alert("hoa");
+				}); */
+			</script>4
+		@endforeach
 
 	</body>
 </html>

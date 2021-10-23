@@ -17,8 +17,10 @@ use Storage;
 use App\Banner;
 use App\Presentacion;
 use App\Universidad;
+use App\Noticia;
+use App\Imagennoticia;
 
-
+use DateTime;
 
 class IndexWebController extends Controller
 {
@@ -32,9 +34,32 @@ class IndexWebController extends Controller
         $banners=Banner::where('borrado','0')->where('activo','1')->where('nivel', 0 )->orderBy('posision')->get();
         $presentacion=Presentacion::where('borrado','0')->where('nivel', 0)->where('activo','1')->first();
         $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+        $noticias = Noticia::where('borrado','0')->where('nivel', 0)->where('activo','1')->orderBy('hora','desc')->orderBy('id')->limit(4)->get();
+
+        foreach ($noticias as $key => $dato) {    
+            $imagennoticia = Imagennoticia::where('activo','1')->where('borrado','0')->where('posicion','0')->where('noticia_id', $dato->id)->first();
+            $dato->imagennoticia = $imagennoticia;
+
+            if($dato->fecha != null && strlen($dato->fecha) > 0){
+                $date1  = new DateTime($dato->fecha);
+
+                $mes = $date1->format('m');
+                $dia = $date1->format('d');
+                $nombreMes = strtoupper(nombremes(intval($mes)));
+                $iniNombreMes = substr($nombreMes, 0, 3);
+
+                $dato->mes = $mes;
+                $dato->dia = $dia;
+                $dato->nombreMes = $nombreMes;
+                $dato->iniNombreMes = $iniNombreMes;
+            }
+            
 
 
-        return view('web/unasam/index',compact('banners','presentacion','unasam'));
+        }
+
+
+        return view('web/unasam/index',compact('banners','presentacion','unasam','noticias'));
     }
 
     /**

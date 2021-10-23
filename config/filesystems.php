@@ -81,11 +81,22 @@ return [
             'visibility' => 'public',
          ],
 
-         'noticiaFacultad' => [
+         'noticianUNASAM' => [
             'driver' => 'local',
-            'root' => public_path('web/noticiafec'), // noticias facultades
+            'root' => public_path('web/noticiaunasam'), // noticias facultades
             'visibility' => 'public',
          ],
+         'noticiaFacultad' => [
+            'driver' => 'local',
+            'root' => public_path('web/noticiafacultad'), // noticias facultades
+            'visibility' => 'public',
+         ],
+         'noticiaProgramaEstudio' => [
+            'driver' => 'local',
+            'root' => public_path('web/noticiaprograma'), // noticias facultades
+            'visibility' => 'public',
+         ],
+
          'eventoFacultad' => [
             'driver' => 'local',
             'root' => public_path('web/eventofec'), // eventos facultades

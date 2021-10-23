@@ -83,6 +83,9 @@ desired effect
 @elseif($modulo=="datosunasam")
 @include('adminportal.datosunasam.vue')
 
+@elseif($modulo=="noticiaportal")
+@include('adminportal.noticia.vue')
+
 {{-- //Paginas Portales Facultades--}}
 
 @elseif($modulo=="bannerfacultad")

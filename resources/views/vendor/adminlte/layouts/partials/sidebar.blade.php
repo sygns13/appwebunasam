@@ -51,7 +51,7 @@
                     <li><a href="{{URL::to('intranet/bannerportal')}}"><i class='fa fa-paper-plane'></i> Gestión de Banners</a></li>
                     <li><a href="{{URL::to('intranet/presentacionportal')}}"><i class='fa fa-paper-plane'></i> Gestión de Presentación</a></li>
                     <li><a href="{{URL::to('intranet/datosportal')}}"><i class='fa fa-paper-plane'></i> Gestión de Datos Generales</a></li>
-                    <li><a href="{{URL::to('intranet/noticias')}}"><i class='fa fa-paper-plane'></i> Gestión de Noticias</a></li>
+                    <li><a href="{{URL::to('intranet/noticiasportal')}}"><i class='fa fa-paper-plane'></i> Gestión de Noticias</a></li>
                     <li><a href="{{URL::to('intranet/eventos')}}"><i class='fa fa-paper-plane'></i> Gestión de Eventos</a></li> 
                     <li><a href="{{URL::to('intranet/comunicados')}}"><i class='fa fa-paper-plane'></i> Gestión de Comunicados</a></li> 
                     <li><a href="{{URL::to('intranet/redessolicales')}}"><i class='fa fa-paper-plane'></i> Gestión de Redes Sociales</a></li> 

@@ -17,6 +17,8 @@ use stdClass;
 use DB;
 use Storage;
 
+use Image;
+
 class NoticiaController extends Controller
 {
     /**
@@ -24,6 +26,26 @@ class NoticiaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function index0()
+    {
+        if(accesoUser([1,2,3])){
+
+
+            $idtipouser=Auth::user()->tipouser_id;
+            $tipouser=Tipouser::find($idtipouser);
+
+            $fecha=date("Y-m-d");
+
+            $modulo="noticiaportal";
+
+            return view('adminportal.noticia.index',compact('tipouser','modulo','fecha'));
+        }
+        else
+        {
+            return redirect('home');    
+        }
+    }
+
     public function index1()
     {
         if(accesoUser([1,2,3])){
@@ -43,26 +65,39 @@ class NoticiaController extends Controller
             return redirect('home');    
         }
     }
+
     public function index(Request $request)
     {
         $buscar=$request->busca;
+        $nivel=$request->v1;
+        $facultad_id=$request->v2;
+        $programaestudio_id=$request->v3;
 
-        $noticias=Noticia::where('borrado','0')
+        $queryZero=Noticia::where('borrado','0')
         ->where(function($query) use ($buscar){
             $query->where('titular','like','%'.$buscar.'%');
             $query->orWhere('desarrollo','like','%'.$buscar.'%');
-            })
-        ->where('facultad_id',1)
-        ->where('nivel',1)
-        ->orderBy('fecha','desc')
+            });
+
+            if($facultad_id != null && intval($facultad_id) > 0){
+                $queryZero->where('facultad_id',$facultad_id);
+            }
+    
+            if($programaestudio_id != null && intval($programaestudio_id) > 0){
+                $queryZero->where('programaestudio_id',$programaestudio_id);
+            }
+    
+            if($nivel != null){
+                $queryZero->where('nivel',$nivel);
+            }
+
+        $noticias = $queryZero->orderBy('fecha','desc')
         ->orderBy('hora','desc')
         ->orderBy('id')
         ->paginate(10);
 
-        foreach ($noticias as $key => $dato) {
-        
+        foreach ($noticias as $key => $dato) {    
             $imagennoticia = Imagennoticia::where('activo','1')->where('borrado','0')->where('noticia_id', $dato->id)->get();
-            //$alumnos[$key]->cursosriesgo = $cursos;
             $dato->imagennoticia = $imagennoticia;
         }
 
@@ -116,6 +151,10 @@ class NoticiaController extends Controller
         $msj='';
         $selector='';
 
+        $nivel=$request->v1;
+        $facultad_id=$request->v2;
+        $programaestudio_id=$request->v3;
+
         if ($request->hasFile('imagen')) { 
 
             $aux='noticia_fec-'.date('d-m-Y').'-'.date('H-i-s');
@@ -149,7 +188,27 @@ class NoticiaController extends Controller
                 //$nombre=$img->getClientOriginalName();
                 $extension=$img->getClientOriginalExtension();
                 $nuevoNombre=$aux.".".$extension;
-                $subir=Storage::disk('noticiaFacultad')->put($nuevoNombre, \File::get($img));
+
+                /* $imgR = Image::make($img);
+                $imgR->resize(1500, 500, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->stream(); */
+
+                $subir=false;
+                if(intval($nivel) == 0){
+                    $subir=Storage::disk('noticianUNASAM')->put($nuevoNombre, \File::get($img));
+                   //$subir=Storage::disk('banerUNASAM')->put($nuevoNombre, $imgR);
+                }
+                elseif(intval($nivel) == 1){
+                    $subir=Storage::disk('noticiaFacultad')->put($nuevoNombre, \File::get($img));
+                  //$subir=Storage::disk('banerFacultad')->put($nuevoNombre, $imgR);
+                }
+                elseif(intval($nivel) == 2){
+                      $subir=Storage::disk('noticiaProgramaEstudio')->put($nuevoNombre, \File::get($img));
+                   // $subir=Storage::disk('banerProgramaEstudio')->put($nuevoNombre, $imgR);
+                }
+
+
 
                 if($subir){
                     $imagen=$nuevoNombre;
@@ -170,7 +229,18 @@ class NoticiaController extends Controller
         }
 
         if($segureImg==1){
-            Storage::disk('noticiaFacultad')->delete($imagen);
+
+            if(intval($nivel) == 0){
+                Storage::disk('noticianUNASAM')->delete($imagen);
+            }
+            elseif(intval($nivel) == 1){
+                Storage::disk('noticiaFacultad')->delete($imagen);
+            }
+            elseif(intval($nivel) == 2){
+                Storage::disk('noticiaProgramaEstudio')->delete($imagen);
+            }
+
+
         }
         else{
             $input1  = array('fecha' => $fecha);
@@ -227,9 +297,14 @@ class NoticiaController extends Controller
                 $noticia->tieneimagen = $tieneimagen;
                 $noticia->activo = $activo;
                 $noticia->borrado = '0';
-                $noticia->nivel = '1';
                 $noticia->user_id = Auth::user()->id;
-                $noticia->facultad_id = '1';
+                $noticia->nivel=$nivel;
+                if($facultad_id != null && intval($facultad_id) > 0){
+                    $noticia->facultad_id=$facultad_id;
+                }
+                if($programaestudio_id != null && intval($programaestudio_id) > 0){
+                    $noticia->programaestudio_id=$programaestudio_id;
+                }
 
                 $noticia->save();
 
@@ -302,6 +377,8 @@ class NoticiaController extends Controller
         $msj='';
         $selector='';
 
+        $nivel=$request->v1;
+
         $oldImg=$request->oldimg;
 
         if ($request->hasFile('imagen')) { 
@@ -337,7 +414,25 @@ class NoticiaController extends Controller
                 //$nombre=$img->getClientOriginalName();
                 $extension=$img->getClientOriginalExtension();
                 $nuevoNombre=$aux.".".$extension;
-                $subir=Storage::disk('noticiaFacultad')->put($nuevoNombre, \File::get($img));
+                
+                /* $imgR = Image::make($img);
+                $imgR->resize(1500, 500, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->stream(); */
+
+                $subir=false;
+                if(intval($nivel) == 0){
+                    $subir=Storage::disk('noticianUNASAM')->put($nuevoNombre, \File::get($img));
+                   //$subir=Storage::disk('banerUNASAM')->put($nuevoNombre, $imgR);
+                }
+                elseif(intval($nivel) == 1){
+                    $subir=Storage::disk('noticiaFacultad')->put($nuevoNombre, \File::get($img));
+                  //$subir=Storage::disk('banerFacultad')->put($nuevoNombre, $imgR);
+                }
+                elseif(intval($nivel) == 2){
+                      $subir=Storage::disk('noticiaProgramaEstudio')->put($nuevoNombre, \File::get($img));
+                   // $subir=Storage::disk('banerProgramaEstudio')->put($nuevoNombre, $imgR);
+                }
 
                 if($subir){
                     $imagen=$nuevoNombre;
@@ -352,7 +447,16 @@ class NoticiaController extends Controller
         }
 
         if($segureImg==1){
-            Storage::disk('noticiaFacultad')->delete($imagen);
+            
+            if(intval($nivel) == 0){
+                Storage::disk('noticianUNASAM')->delete($imagen);
+            }
+            elseif(intval($nivel) == 1){
+                Storage::disk('noticiaFacultad')->delete($imagen);
+            }
+            elseif(intval($nivel) == 2){
+                Storage::disk('noticiaProgramaEstudio')->delete($imagen);
+            }
         }
         else{
             $input1  = array('fecha' => $fecha);
@@ -411,7 +515,16 @@ class NoticiaController extends Controller
 
                 if(strlen($imagen)>0)
                 {
-                    Storage::disk('noticiaFacultad')->delete($oldImg);
+
+                    if(intval($nivel) == 0){
+                        Storage::disk('noticianUNASAM')->delete($oldImg);
+                    }
+                    elseif(intval($nivel) == 1){
+                        Storage::disk('noticiaFacultad')->delete($oldImg);
+                    }
+                    elseif(intval($nivel) == 2){
+                        Storage::disk('noticiaProgramaEstudio')->delete($oldImg);
+                    }
 
                     $imagenNot = Imagennoticia::where('activo','1')->where('borrado','0')->where('noticia_id', $noticia->id)->where('posicion',0)->first();
 
@@ -459,15 +572,25 @@ class NoticiaController extends Controller
         return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
     }
 
-    public function deleteImg($id,$image)
+    public function deleteImg($id,$image, $nivel)
     {
         $result='1';
         $msj='';
         $selector='';
 
-        Storage::disk('noticiaFacultad')->delete($image);
-
         $imagenNoticia = Imagennoticia::findOrFail($id);
+
+        if(intval($nivel) == 0){
+            Storage::disk('noticianUNASAM')->delete($image);
+        }
+        elseif(intval($nivel) == 1){
+            Storage::disk('noticiaFacultad')->delete($image);
+        }
+        elseif(intval($nivel) == 2){
+            Storage::disk('noticiaProgramaEstudio')->delete($image);
+        }
+
+
         $imagenNoticia->delete();
 
         $msj='Se eliminó la imagen exitosamente';
@@ -512,7 +635,17 @@ class NoticiaController extends Controller
 
         foreach ($imagenesNoticia as $key => $dato) {
             $imagen = Imagennoticia::findOrFail($dato->id);
-            Storage::disk('noticiaFacultad')->delete($imagen->url);
+
+            if(intval($noticia->nivel) == 0){
+                Storage::disk('noticianUNASAM')->delete($imagen->url);
+            }
+            elseif(intval($noticia->nivel) == 1){
+                Storage::disk('noticiaFacultad')->delete($imagen->url);
+            }
+            elseif(intval($noticia->nivel) == 2){
+                Storage::disk('noticiaProgramaEstudio')->delete($imagen->url);
+            }
+
             $imagen->delete();
         }
         
