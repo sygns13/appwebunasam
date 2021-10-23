@@ -17,6 +17,8 @@ use stdClass;
 use DB;
 use Storage;
 
+use Image;
+
 class ComunicadoController extends Controller
 {
     /**
@@ -24,6 +26,26 @@ class ComunicadoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function index0()
+    {
+        if(accesoUser([1,2,3])){
+
+
+            $idtipouser=Auth::user()->tipouser_id;
+            $tipouser=Tipouser::find($idtipouser);
+
+            $fecha=date("Y-m-d");
+
+            $modulo="comunicadoportal";
+
+            return view('adminportal.comunicado.index',compact('tipouser','modulo','fecha'));
+        }
+        else
+        {
+            return redirect('home');    
+        }
+    }
+
     public function index1()
     {
         if(accesoUser([1,2,3])){
@@ -46,14 +68,29 @@ class ComunicadoController extends Controller
     public function index(Request $request)
     {
         $buscar=$request->busca;
+        $nivel=$request->v1;
+        $facultad_id=$request->v2;
+        $programaestudio_id=$request->v3;
 
-        $comunicados = Comunicado::where('borrado','0')
+        $queryZero= Comunicado::where('borrado','0')
         ->where(function($query) use ($buscar){
             $query->where('titulo','like','%'.$buscar.'%');
             $query->orWhere('desarrollo','like','%'.$buscar.'%');
-            })
-        ->where('facultad_id',1)
-        ->where('nivel',1)
+            });
+
+        if($facultad_id != null && intval($facultad_id) > 0){
+            $queryZero->where('facultad_id',$facultad_id);
+        }
+
+        if($programaestudio_id != null && intval($programaestudio_id) > 0){
+            $queryZero->where('programaestudio_id',$programaestudio_id);
+        }
+
+        if($nivel != null){
+            $queryZero->where('nivel',$nivel);
+        }
+
+        $comunicados = $queryZero
         ->orderBy('fecha','desc')
         ->orderBy('hora','desc')
         ->orderBy('id')
@@ -116,6 +153,10 @@ class ComunicadoController extends Controller
         $msj='';
         $selector='';
 
+        $nivel=$request->v1;
+        $facultad_id=$request->v2;
+        $programaestudio_id=$request->v3;
+
         if ($request->hasFile('imagen')) { 
 
             $aux='comunicado_fec-'.date('d-m-Y').'-'.date('H-i-s');
@@ -149,7 +190,24 @@ class ComunicadoController extends Controller
                 //$nombre=$img->getClientOriginalName();
                 $extension=$img->getClientOriginalExtension();
                 $nuevoNombre=$aux.".".$extension;
-                $subir=Storage::disk('comunicadoFacultad')->put($nuevoNombre, \File::get($img));
+
+                /* $imgR = Image::make($img);
+                $imgR->resize(1500, 500, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->stream(); */
+
+                $subir=false;
+                if(intval($nivel) == 0){
+                    $subir=Storage::disk('comunicadoUNASAM')->put($nuevoNombre, \File::get($img));
+                   //$subir=Storage::disk('banerUNASAM')->put($nuevoNombre, $imgR);
+                }
+                elseif(intval($nivel) == 1){
+                    $subir=Storage::disk('comunicadoFacultad')->put($nuevoNombre, \File::get($img));
+                  //$subir=Storage::disk('banerFacultad')->put($nuevoNombre, $imgR);
+                }
+                elseif(intval($nivel) == 2){
+                    $subir=Storage::disk('comunicadoProgramaEstudio')->put($nuevoNombre, \File::get($img));
+                }
 
                 if($subir){
                     $imagen=$nuevoNombre;
@@ -170,7 +228,15 @@ class ComunicadoController extends Controller
         }
 
         if($segureImg==1){
-            Storage::disk('comunicadoFacultad')->delete($imagen);
+            if(intval($nivel) == 0){
+                Storage::disk('comunicadoUNASAM')->delete($imagen);
+            }
+            elseif(intval($nivel) == 1){
+                Storage::disk('comunicadoFacultad')->delete($imagen);
+            }
+            elseif(intval($nivel) == 2){
+                Storage::disk('comunicadoProgramaEstudio')->delete($imagen);
+            }
         }
         else{
             $input1  = array('fecha' => $fecha);
@@ -193,25 +259,25 @@ class ComunicadoController extends Controller
             if ($validator1->fails())
             {
                 $result='0';
-                $msj='Debe ingresar la fecha del Comunicado';
+                $msj='Debe ingresar la fecha de la Actividad';
                 $selector='txtfecha';
             }
             elseif ($validator2->fails())
             {
                 $result='0';
-                $msj='Debe ingresar la hora del Comunicado';
+                $msj='Debe ingresar la hora de la Actividad';
                 $selector='txthora';
             }
             elseif ($validator3->fails())
             {
                 $result='0';
-                $msj='Debe ingresar el titulo del Comunicado';
+                $msj='Debe ingresar el titulo de la Actividad';
                 $selector='txttitulo';
             }
             elseif ($validator4->fails())
             {
                 $result='0';
-                $msj='Debe ingresar el Desarrollo del Comunicado';
+                $msj='Debe ingresar el Desarrollo de la Actividad';
                 $selector='editor1';
             }
             else{
@@ -227,9 +293,14 @@ class ComunicadoController extends Controller
                 $comunicado->tieneimagen = $tieneimagen;
                 $comunicado->activo = $activo;
                 $comunicado->borrado = '0';
-                $comunicado->nivel = '1';
                 $comunicado->user_id = Auth::user()->id;
-                $comunicado->facultad_id = '1';
+                $comunicado->nivel=$nivel;
+                if($facultad_id != null && intval($facultad_id) > 0){
+                    $comunicado->facultad_id=$facultad_id;
+                }
+                if($programaestudio_id != null && intval($programaestudio_id) > 0){
+                    $comunicado->programaestudio_id=$programaestudio_id;
+                }
 
                 $comunicado->save();
 
@@ -244,7 +315,7 @@ class ComunicadoController extends Controller
 
                 $imagencomunicado->save();
 
-                $msj='Nuevo comunicado Registrada con Éxito';
+                $msj='Nueva Actividad Registrada con Éxito';
 
             }
         }
@@ -303,6 +374,7 @@ class ComunicadoController extends Controller
         $selector='';
 
         $oldImg=$request->oldimg;
+        $nivel=$request->v1;
 
         if ($request->hasFile('imagen')) { 
 
@@ -337,7 +409,25 @@ class ComunicadoController extends Controller
                 //$nombre=$img->getClientOriginalName();
                 $extension=$img->getClientOriginalExtension();
                 $nuevoNombre=$aux.".".$extension;
-                $subir=Storage::disk('comunicadoFacultad')->put($nuevoNombre, \File::get($img));
+
+                /* $imgR = Image::make($img);
+                $imgR->resize(1500, 500, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->stream(); */
+
+                $subir=false;
+                if(intval($nivel) == 0){
+                    $subir=Storage::disk('comunicadoUNASAM')->put($nuevoNombre, \File::get($img));
+                   //$subir=Storage::disk('banerUNASAM')->put($nuevoNombre, $imgR);
+                }
+                elseif(intval($nivel) == 1){
+                    $subir=Storage::disk('comunicadoFacultad')->put($nuevoNombre, \File::get($img));
+                  //$subir=Storage::disk('banerFacultad')->put($nuevoNombre, $imgR);
+                }
+                elseif(intval($nivel) == 2){
+                      $subir=Storage::disk('comunicadoProgramaEstudio')->put($nuevoNombre, \File::get($img));
+                   // $subir=Storage::disk('banerProgramaEstudio')->put($nuevoNombre, $imgR);
+                }
 
                 if($subir){
                     $imagen=$nuevoNombre;
@@ -352,7 +442,16 @@ class ComunicadoController extends Controller
         }
 
         if($segureImg==1){
-            Storage::disk('comunicadoFacultad')->delete($imagen);
+            
+            if(intval($nivel) == 0){
+                Storage::disk('comunicadoUNASAM')->delete($imagen);
+            }
+            elseif(intval($nivel) == 1){
+                Storage::disk('comunicadoFacultad')->delete($imagen);
+            }
+            elseif(intval($nivel) == 2){
+                Storage::disk('comunicadoProgramaEstudio')->delete($imagen);
+            }
         }
         else{
             $input1  = array('fecha' => $fecha);
@@ -375,25 +474,25 @@ class ComunicadoController extends Controller
             if ($validator1->fails())
             {
                 $result='0';
-                $msj='Debe ingresar la fecha del Comunicado';
+                $msj='Debe ingresar la fecha de la Actividad';
                 $selector='txtfechaE';
             }
             elseif ($validator2->fails())
             {
                 $result='0';
-                $msj='Debe ingresar la hora del Comunicado';
+                $msj='Debe ingresar la hora de la Actividad';
                 $selector='txthoraE';
             }
             elseif ($validator3->fails())
             {
                 $result='0';
-                $msj='Debe ingresar el titulo del Comunicado';
+                $msj='Debe ingresar el titulo de la Actividad';
                 $selector='txttituloE';
             }
             elseif ($validator4->fails())
             {
                 $result='0';
-                $msj='Debe ingresar el Desarrollo del Comunicado';
+                $msj='Debe ingresar el Desarrollo de la Actividad';
                 $selector='editor2';
             }
             else{
@@ -411,7 +510,16 @@ class ComunicadoController extends Controller
 
                 if(strlen($imagen)>0)
                 {
-                    Storage::disk('comunicadoFacultad')->delete($oldImg);
+                    
+                    if(intval($nivel) == 0){
+                        Storage::disk('comunicadoUNASAM')->delete($oldImg);
+                    }
+                    elseif(intval($nivel) == 1){
+                        Storage::disk('comunicadoFacultad')->delete($oldImg);
+                    }
+                    elseif(intval($nivel) == 2){
+                        Storage::disk('comunicadoProgramaEstudio')->delete($oldImg);
+                    }
 
                     $imagenEvt = Imagencomunicado::where('activo','1')->where('borrado','0')->where('comunicado_id', $comunicado->id)->where('posicion',0)->first();
 
@@ -451,7 +559,7 @@ class ComunicadoController extends Controller
                     } 
                 }
 
-                $msj='El Comunicado ha sido modificado con éxito';
+                $msj='La Actividad ha sido modificada con éxito';
 
             }
         }
@@ -459,15 +567,24 @@ class ComunicadoController extends Controller
         return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
     }
 
-    public function deleteImg($id,$image)
+    public function deleteImg($id,$image, $nivel)
     {
         $result='1';
         $msj='';
         $selector='';
 
-        Storage::disk('comunicadoFacultad')->delete($image);
-
         $imagencomunicado = Imagencomunicado::findOrFail($id);
+
+        if(intval($nivel) == 0){
+            Storage::disk('comunicadoUNASAM')->delete($image);
+        }
+        elseif(intval($nivel) == 1){
+            Storage::disk('comunicadoFacultad')->delete($image);
+        }
+        elseif(intval($nivel) == 2){
+            Storage::disk('comunicadoProgramaEstudio')->delete($image);
+        }
+
         $imagencomunicado->delete();
 
         $msj='Se eliminó la imagen exitosamente';
@@ -487,9 +604,9 @@ class ComunicadoController extends Controller
         $comunicado->save();
 
         if(strval($estado)=="0"){
-            $msj='El Comunicado fue Desactivado exitosamente';
+            $msj='La Actividad fue Desactivada exitosamente';
         }elseif(strval($estado)=="1"){
-            $msj='El Comunicado fue Activado exitosamente';
+            $msj='La Actividad fue Activada exitosamente';
         }
 
         return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
@@ -511,7 +628,16 @@ class ComunicadoController extends Controller
 
         foreach ($imagenescomunicado as $key => $dato) {
             $imagen = Imagencomunicado::findOrFail($dato->id);
-            Storage::disk('comunicadoFacultad')->delete($imagen->url);
+
+            if(intval($comunicado->nivel) == 0){
+                Storage::disk('comunicadoUNASAM')->delete($imagen->url);
+            }
+            elseif(intval($comunicado->nivel) == 1){
+                Storage::disk('comunicadoFacultad')->delete($imagen->url);
+            }
+            elseif(intval($comunicado->nivel) == 2){
+                Storage::disk('comunicadoProgramaEstudio')->delete($imagen->url);
+            }
             $imagen->delete();
         }
         
@@ -520,7 +646,7 @@ class ComunicadoController extends Controller
         $comunicado->user_id=Auth::user()->id;
         $comunicado->save();
 
-        $msj='Comunicado eliminado exitosamente';
+        $msj='Actividad eliminada exitosamente';
 
 
         return response()->json(["result"=>$result,'msj'=>$msj]);

@@ -41,7 +41,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('intranet/datosfacultad', 'FacultadController@index1');
     Route::get('intranet/noticiasportal', 'NoticiaController@index0');
     Route::get('intranet/noticias', 'NoticiaController@index1');
+    Route::get('intranet/eventosportal', 'EventoController@index0');
     Route::get('intranet/eventos', 'EventoController@index1');
+    Route::get('intranet/calendarioportal', 'ComunicadoController@index0');
     Route::get('intranet/comunicados', 'ComunicadoController@index1');
     Route::get('intranet/redessolicales', 'RedsocialController@index1');
     Route::get('intranet/historia', 'HistoriaController@index1');

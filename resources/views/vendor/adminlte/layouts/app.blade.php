@@ -86,6 +86,12 @@ desired effect
 @elseif($modulo=="noticiaportal")
 @include('adminportal.noticia.vue')
 
+@elseif($modulo=="eventoportal")
+@include('adminportal.evento.vue')
+
+@elseif($modulo=="comunicadoportal")
+@include('adminportal.comunicado.vue')
+
 {{-- //Paginas Portales Facultades--}}
 
 @elseif($modulo=="bannerfacultad")

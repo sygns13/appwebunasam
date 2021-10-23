@@ -97,16 +97,38 @@ return [
             'visibility' => 'public',
          ],
 
+         'eventoUNASAM' => [
+            'driver' => 'local',
+            'root' => public_path('web/eventounasam'), // eventos facultades
+            'visibility' => 'public',
+         ],
          'eventoFacultad' => [
             'driver' => 'local',
-            'root' => public_path('web/eventofec'), // eventos facultades
+            'root' => public_path('web/eventofacultad'), // eventos facultades
+            'visibility' => 'public',
+         ],
+         'eventoProgramaEstudio' => [
+            'driver' => 'local',
+            'root' => public_path('web/eventoprograma'), // eventos facultades
+            'visibility' => 'public',
+         ],
+
+         'comunicadoUNASAM' => [
+            'driver' => 'local',
+            'root' => public_path('web/comunicadounasam'), // comunicados facultades
             'visibility' => 'public',
          ],
          'comunicadoFacultad' => [
             'driver' => 'local',
-            'root' => public_path('web/comunicadofec'), // comunicados facultades
+            'root' => public_path('web/comunicadofacultad'), // comunicados facultades
             'visibility' => 'public',
          ],
+         'comunicadoProgramaEstudio' => [
+            'driver' => 'local',
+            'root' => public_path('web/comunicadoprograma'), // comunicados facultades
+            'visibility' => 'public',
+         ],
+
          'redsocialFacultad' => [
             'driver' => 'local',
             'root' => public_path('web/redsocialfec'), // redes sociales facultades

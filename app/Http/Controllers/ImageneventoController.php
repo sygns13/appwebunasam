@@ -17,6 +17,8 @@ use stdClass;
 use DB;
 use Storage;
 
+use Image;
+
 class ImageneventoController extends Controller
 {
     /**
@@ -71,6 +73,10 @@ class ImageneventoController extends Controller
         $msj='';
         $selector='';
 
+        $nivel=$request->v1;
+        $facultad_id=$request->v2;
+        $programaestudio_id=$request->v3;
+
         if ($request->hasFile('imagen')) { 
 
             $aux='evento_fec-'.date('d-m-Y').'-'.date('H-i-s');
@@ -104,7 +110,25 @@ class ImageneventoController extends Controller
                 //$nombre=$img->getClientOriginalName();
                 $extension=$img->getClientOriginalExtension();
                 $nuevoNombre=$aux.".".$extension;
-                $subir=Storage::disk('eventoFacultad')->put($nuevoNombre, \File::get($img));
+
+                /* $imgR = Image::make($img);
+                $imgR->resize(1500, 500, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->stream(); */
+
+                $subir=false;
+                if(intval($nivel) == 0){
+                    $subir=Storage::disk('eventoUNASAM')->put($nuevoNombre, \File::get($img));
+                   //$subir=Storage::disk('banerUNASAM')->put($nuevoNombre, $imgR);
+                }
+                elseif(intval($nivel) == 1){
+                    $subir=Storage::disk('eventoFacultad')->put($nuevoNombre, \File::get($img));
+                  //$subir=Storage::disk('banerFacultad')->put($nuevoNombre, $imgR);
+                }
+                elseif(intval($nivel) == 2){
+                      $subir=Storage::disk('eventoProgramaEstudio')->put($nuevoNombre, \File::get($img));
+                   // $subir=Storage::disk('banerProgramaEstudio')->put($nuevoNombre, $imgR);
+                }
 
                 if($subir){
                     $imagen=$nuevoNombre;
@@ -126,7 +150,16 @@ class ImageneventoController extends Controller
         }
 
         if($segureImg==1){
-            Storage::disk('eventoFacultad')->delete($imagen);
+            
+            if(intval($nivel) == 0){
+                Storage::disk('eventoUNASAM')->delete($imagen);
+            }
+            elseif(intval($nivel) == 1){
+                Storage::disk('eventoFacultad')->delete($imagen);
+            }
+            elseif(intval($nivel) == 2){
+                Storage::disk('eventoProgramaEstudio')->delete($imagen);
+            }
         }
         else{
             $input0  = array('nombre' => $nombre);
@@ -222,6 +255,8 @@ class ImageneventoController extends Controller
         $msj='';
         $selector='';
 
+        $nivel=$request->v1;
+
         $oldImg=$request->oldimg;
 
         if ($request->hasFile('imagen')) { 
@@ -257,7 +292,25 @@ class ImageneventoController extends Controller
                 //$nombre=$img->getClientOriginalName();
                 $extension=$img->getClientOriginalExtension();
                 $nuevoNombre=$aux.".".$extension;
-                $subir=Storage::disk('eventoFacultad')->put($nuevoNombre, \File::get($img));
+                
+                /* $imgR = Image::make($img);
+                $imgR->resize(1500, 500, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->stream(); */
+
+                $subir=false;
+                if(intval($nivel) == 0){
+                    $subir=Storage::disk('eventoUNASAM')->put($nuevoNombre, \File::get($img));
+                   //$subir=Storage::disk('banerUNASAM')->put($nuevoNombre, $imgR);
+                }
+                elseif(intval($nivel) == 1){
+                    $subir=Storage::disk('eventoFacultad')->put($nuevoNombre, \File::get($img));
+                  //$subir=Storage::disk('banerFacultad')->put($nuevoNombre, $imgR);
+                }
+                elseif(intval($nivel) == 2){
+                      $subir=Storage::disk('eventoProgramaEstudio')->put($nuevoNombre, \File::get($img));
+                   // $subir=Storage::disk('banerProgramaEstudio')->put($nuevoNombre, $imgR);
+                }
 
                 if($subir){
                     $imagen=$nuevoNombre;
@@ -272,7 +325,16 @@ class ImageneventoController extends Controller
             }
         }
         if($segureImg==1){
-            Storage::disk('eventoFacultad')->delete($imagen);
+            
+            if(intval($nivel) == 0){
+                Storage::disk('eventoUNASAM')->delete($imagen);
+            }
+            elseif(intval($nivel) == 1){
+                Storage::disk('eventoFacultad')->delete($imagen);
+            }
+            elseif(intval($nivel) == 2){
+                Storage::disk('eventoProgramaEstudio')->delete($imagen);
+            }
         }
         else{
             $input0  = array('nombre' => $nombre);
@@ -304,7 +366,15 @@ class ImageneventoController extends Controller
 
                 if(strlen($imagen)>0)
                 {
-                    Storage::disk('eventoFacultad')->delete($oldImg);
+                    if(intval($nivel) == 0){
+                        Storage::disk('eventoUNASAM')->delete($oldImg);
+                    }
+                    elseif(intval($nivel) == 1){
+                        Storage::disk('eventoFacultad')->delete($oldImg);
+                    }
+                    elseif(intval($nivel) == 2){
+                        Storage::disk('eventoProgramaEstudio')->delete($oldImg);
+                    }
                     $evento = Imagenevento::findOrFail($id);
                     $evento->nombre=$nombre;
                     $evento->descripcion=$descripcion;
@@ -345,9 +415,19 @@ class ImageneventoController extends Controller
         $msj='1';
 
         $evento = Imagenevento::findOrFail($id);
+        $eventoPadre = Evnto::findOrFail($id);
 
         if(Strlen($evento->url) > 0){
-            Storage::disk('eventoFacultad')->delete($evento->url);
+            
+            if(intval($eventoPadre->nivel) == 0){
+                Storage::disk('eventoUNASAM')->delete($evento->url);
+            }
+            elseif(intval($eventoPadre->nivel) == 1){
+                Storage::disk('eventoFacultad')->delete($evento->url);
+            }
+            elseif(intval($eventoPadre->nivel) == 2){
+                Storage::disk('eventoProgramaEstudio')->delete($evento->url);
+            }
         }
         
         $evento->delete();

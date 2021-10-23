@@ -17,6 +17,8 @@ use stdClass;
 use DB;
 use Storage;
 
+use Image;
+
 class EventoController extends Controller
 {
     /**
@@ -24,6 +26,26 @@ class EventoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function index0()
+    {
+        if(accesoUser([1,2,3])){
+
+
+            $idtipouser=Auth::user()->tipouser_id;
+            $tipouser=Tipouser::find($idtipouser);
+
+            $fecha=date("Y-m-d");
+
+            $modulo="eventoportal";
+
+            return view('adminportal.evento.index',compact('tipouser','modulo','fecha'));
+        }
+        else
+        {
+            return redirect('home');    
+        }
+    }
+
     public function index1()
     {
         if(accesoUser([1,2,3])){
@@ -46,14 +68,30 @@ class EventoController extends Controller
     public function index(Request $request)
     {
         $buscar=$request->busca;
+        $nivel=$request->v1;
+        $facultad_id=$request->v2;
+        $programaestudio_id=$request->v3;
 
-        $eventos=Evento::where('borrado','0')
+        $queryZero=Evento::where('borrado','0')
         ->where(function($query) use ($buscar){
             $query->where('titulo','like','%'.$buscar.'%');
             $query->orWhere('desarrollo','like','%'.$buscar.'%');
-            })
-        ->where('facultad_id',1)
-        ->where('nivel',1)
+            });
+
+        if($facultad_id != null && intval($facultad_id) > 0){
+            $queryZero->where('facultad_id',$facultad_id);
+        }
+
+        if($programaestudio_id != null && intval($programaestudio_id) > 0){
+            $queryZero->where('programaestudio_id',$programaestudio_id);
+        }
+
+        if($nivel != null){
+            $queryZero->where('nivel',$nivel);
+        }
+
+
+        $eventos = $queryZero
         ->orderBy('fecha','desc')
         ->orderBy('hora','desc')
         ->orderBy('id')
@@ -116,6 +154,10 @@ class EventoController extends Controller
         $msj='';
         $selector='';
 
+        $nivel=$request->v1;
+        $facultad_id=$request->v2;
+        $programaestudio_id=$request->v3;
+
         if ($request->hasFile('imagen')) { 
 
             $aux='evento_fec-'.date('d-m-Y').'-'.date('H-i-s');
@@ -149,7 +191,26 @@ class EventoController extends Controller
                 //$nombre=$img->getClientOriginalName();
                 $extension=$img->getClientOriginalExtension();
                 $nuevoNombre=$aux.".".$extension;
-                $subir=Storage::disk('eventoFacultad')->put($nuevoNombre, \File::get($img));
+
+
+                 /* $imgR = Image::make($img);
+                $imgR->resize(1500, 500, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->stream(); */
+
+                $subir=false;
+                if(intval($nivel) == 0){
+                    $subir=Storage::disk('eventoUNASAM')->put($nuevoNombre, \File::get($img));
+                   //$subir=Storage::disk('banerUNASAM')->put($nuevoNombre, $imgR);
+                }
+                elseif(intval($nivel) == 1){
+                    $subir=Storage::disk('eventoFacultad')->put($nuevoNombre, \File::get($img));
+                  //$subir=Storage::disk('banerFacultad')->put($nuevoNombre, $imgR);
+                }
+                elseif(intval($nivel) == 2){
+                      $subir=Storage::disk('eventoProgramaEstudio')->put($nuevoNombre, \File::get($img));
+                   // $subir=Storage::disk('banerProgramaEstudio')->put($nuevoNombre, $imgR);
+                }
 
                 if($subir){
                     $imagen=$nuevoNombre;
@@ -170,7 +231,15 @@ class EventoController extends Controller
         }
 
         if($segureImg==1){
-            Storage::disk('eventoFacultad')->delete($imagen);
+            if(intval($nivel) == 0){
+                Storage::disk('eventoUNASAM')->delete($imagen);
+            }
+            elseif(intval($nivel) == 1){
+                Storage::disk('eventoFacultad')->delete($imagen);
+            }
+            elseif(intval($nivel) == 2){
+                Storage::disk('eventoProgramaEstudio')->delete($imagen);
+            }
         }
         else{
             $input1  = array('fecha' => $fecha);
@@ -227,9 +296,14 @@ class EventoController extends Controller
                 $evento->tieneimagen = $tieneimagen;
                 $evento->activo = $activo;
                 $evento->borrado = '0';
-                $evento->nivel = '1';
                 $evento->user_id = Auth::user()->id;
-                $evento->facultad_id = '1';
+                $evento->nivel=$nivel;
+                if($facultad_id != null && intval($facultad_id) > 0){
+                    $evento->facultad_id=$facultad_id;
+                }
+                if($programaestudio_id != null && intval($programaestudio_id) > 0){
+                    $evento->programaestudio_id=$programaestudio_id;
+                }
 
                 $evento->save();
 
@@ -303,6 +377,7 @@ class EventoController extends Controller
         $selector='';
 
         $oldImg=$request->oldimg;
+        $nivel=$request->v1;
 
         if ($request->hasFile('imagen')) { 
 
@@ -337,7 +412,25 @@ class EventoController extends Controller
                 //$nombre=$img->getClientOriginalName();
                 $extension=$img->getClientOriginalExtension();
                 $nuevoNombre=$aux.".".$extension;
-                $subir=Storage::disk('eventoFacultad')->put($nuevoNombre, \File::get($img));
+                
+                /* $imgR = Image::make($img);
+                $imgR->resize(1500, 500, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->stream(); */
+
+                $subir=false;
+                if(intval($nivel) == 0){
+                    $subir=Storage::disk('eventoUNASAM')->put($nuevoNombre, \File::get($img));
+                   //$subir=Storage::disk('banerUNASAM')->put($nuevoNombre, $imgR);
+                }
+                elseif(intval($nivel) == 1){
+                    $subir=Storage::disk('eventoFacultad')->put($nuevoNombre, \File::get($img));
+                  //$subir=Storage::disk('banerFacultad')->put($nuevoNombre, $imgR);
+                }
+                elseif(intval($nivel) == 2){
+                      $subir=Storage::disk('eventoProgramaEstudio')->put($nuevoNombre, \File::get($img));
+                   // $subir=Storage::disk('banerProgramaEstudio')->put($nuevoNombre, $imgR);
+                }
 
                 if($subir){
                     $imagen=$nuevoNombre;
@@ -352,7 +445,15 @@ class EventoController extends Controller
         }
 
         if($segureImg==1){
-            Storage::disk('eventoFacultad')->delete($imagen);
+            if(intval($nivel) == 0){
+                Storage::disk('eventoUNASAM')->delete($imagen);
+            }
+            elseif(intval($nivel) == 1){
+                Storage::disk('eventoFacultad')->delete($imagen);
+            }
+            elseif(intval($nivel) == 2){
+                Storage::disk('eventoProgramaEstudio')->delete($imagen);
+            }
         }
         else{
             $input1  = array('fecha' => $fecha);
@@ -411,7 +512,16 @@ class EventoController extends Controller
 
                 if(strlen($imagen)>0)
                 {
-                    Storage::disk('eventoFacultad')->delete($oldImg);
+ 
+                    if(intval($nivel) == 0){
+                        Storage::disk('eventoUNASAM')->delete($oldImg);
+                    }
+                    elseif(intval($nivel) == 1){
+                        Storage::disk('eventoFacultad')->delete($oldImg);
+                    }
+                    elseif(intval($nivel) == 2){
+                        Storage::disk('eventoProgramaEstudio')->delete($oldImg);
+                    }
 
                     $imagenEvt = Imagenevento::where('activo','1')->where('borrado','0')->where('evento_id', $evento->id)->where('posicion',0)->first();
 
@@ -459,15 +569,26 @@ class EventoController extends Controller
         return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
     }
 
-    public function deleteImg($id,$image)
+    public function deleteImg($id,$image, $nivel)
     {
         $result='1';
         $msj='';
         $selector='';
 
-        Storage::disk('eventoFacultad')->delete($image);
 
         $imagenevento = Imagenevento::findOrFail($id);
+
+        if(intval($nivel) == 0){
+            Storage::disk('eventoUNASAM')->delete($image);
+        }
+        elseif(intval($nivel) == 1){
+            Storage::disk('eventoFacultad')->delete($image);
+        }
+        elseif(intval($nivel) == 2){
+            Storage::disk('eventoProgramaEstudio')->delete($image);
+        }
+
+
         $imagenevento->delete();
 
         $msj='Se eliminó la imagen exitosamente';
@@ -511,7 +632,18 @@ class EventoController extends Controller
 
         foreach ($imagenesevento as $key => $dato) {
             $imagen = Imagenevento::findOrFail($dato->id);
-            Storage::disk('eventoFacultad')->delete($imagen->url);
+
+            if(intval($evento->nivel) == 0){
+                Storage::disk('eventoUNASAM')->delete($imagen->url);
+            }
+            elseif(intval($evento->nivel) == 1){
+                Storage::disk('eventoFacultad')->delete($imagen->url);
+            }
+            elseif(intval($evento->nivel) == 2){
+                Storage::disk('eventoProgramaEstudio')->delete($imagen->url);
+            }
+
+
             $imagen->delete();
         }
         

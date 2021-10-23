@@ -418,7 +418,6 @@ class ImagennoticiaController extends Controller
         $noticiaPadre = Noticia::findOrFail($noticia->noticia_id);
 
         if(Strlen($noticia->url) > 0){
-            Storage::disk('noticiaFacultad')->delete($noticia->url);
 
             if(intval($noticiaPadre->nivel) == 0){
                 Storage::disk('noticianUNASAM')->delete($noticia->url);

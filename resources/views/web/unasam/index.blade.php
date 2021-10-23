@@ -686,7 +686,7 @@
 
 						<div class="row mb-5">
 							<div class="col-lg-12 text-center" style="padding-top: 50px;">
-								<a href="#" class="btn btn-dark btn-px-5 btn-py-2 font-weight-bold text-color-light rounded-0 text-2">VER NOTICIAS</a>
+								<a href="#" class="btn btn-dark btn-px-5 btn-py-2 font-weight-bold text-color-light rounded-0 text-2">VER TODAS LAS NOTICIAS</a>
 							</div>
 						</div>
 
@@ -703,132 +703,49 @@
 						</div>
 						<div class="row pb-1">
 
-							<div class="col-sm-6 col-lg-4 mb-4 pb-2">
-								<a href="blog-post.html">
-									<article>
-										<div class="thumb-info thumb-info-no-borders thumb-info-bottom-info thumb-info-bottom-info-dark thumb-info-bottom-info-show-more thumb-info-no-zoom border-radius-0">
-											<div class="thumb-info-wrapper thumb-info-wrapper-opacity-6">
-												<img src="{{ asset('/webvendor/img/blog/default/blog-46.jpg') }}" class="img-fluid" alt="How To Take Better Concert Pictures in 30 Seconds">
-												<div class="thumb-info-title bg-transparent p-4">
-													<div class="thumb-info-type bg-color-primary px-2 mb-1">Photography</div>
-													<div class="thumb-info-inner mt-1">
-														<h2 class="text-color-light line-height-2 text-4 font-weight-bold mb-0">How To Take Better Concert Pictures in 30 Seconds</h2>
-													</div>
-													<div class="thumb-info-show-more-content">
-														<p class="mb-0 text-1 line-height-9 mb-1 mt-2 text-light opacity-5">Euismod atras vulputate iltricies etri elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
-													</div>
-												</div>
-											</div>
-										</div>
-									</article>
-								</a>
-							</div>
-
-							<div class="col-sm-6 col-lg-4 mb-4 pb-2">
-								<a href="blog-post.html">
-									<article>
-										<div class="thumb-info thumb-info-no-borders thumb-info-bottom-info thumb-info-bottom-info-dark thumb-info-bottom-info-show-more thumb-info-no-zoom border-radius-0">
-											<div class="thumb-info-wrapper thumb-info-wrapper-opacity-6">
-												<img src="{{ asset('/webvendor/img/blog/default/blog-47.jpg') }}" class="img-fluid" alt="Gadgets That Make Your Smartphone Even Smarter">
-												<div class="thumb-info-title bg-transparent p-4">
-													<div class="thumb-info-type bg-color-primary px-2 mb-1">Gadgets</div>
-													<div class="thumb-info-inner mt-1">
-														<h2 class="text-color-light line-height-2 text-4 font-weight-bold mb-0">Gadgets That Make Your Smartphone Even Smarter</h2>
-													</div>
-													<div class="thumb-info-show-more-content">
-														<p class="mb-0 text-1 line-height-9 mb-1 mt-2 text-light opacity-5">Euismod atras vulputate iltricies etri elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
-													</div>
-												</div>
-											</div>
-										</div>
-									</article>
-								</a>
-							</div>
-
-							<div class="col-sm-6 col-lg-4 mb-4 pb-2">
-								<a href="blog-post.html">
-									<article>
-										<div class="thumb-info thumb-info-no-borders thumb-info-bottom-info thumb-info-bottom-info-dark thumb-info-bottom-info-show-more thumb-info-no-zoom border-radius-0">
-											<div class="thumb-info-wrapper thumb-info-wrapper-opacity-6">
-												<img src="{{ asset('/webvendor/img/blog/default/blog-48.jpg') }}" class="img-fluid" alt="20 Top-Rated Tourist Attractions in Manhattan">
-												<div class="thumb-info-title bg-transparent p-4">
-													<div class="thumb-info-type bg-color-primary px-2 mb-1">Travel</div>
-													<div class="thumb-info-inner mt-1">
-														<h2 class="text-color-light line-height-2 text-4 font-weight-bold mb-0">20 Top-Rated Tourist Attractions in Manhattan</h2>
-													</div>
-													<div class="thumb-info-show-more-content">
-														<p class="mb-0 text-1 line-height-9 mb-1 mt-2 text-light opacity-5">Euismod atras vulputate iltricies etri elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
+							@foreach($eventos as  $key => $dato)
+								<div class="col-sm-6 col-lg-4 mb-4 pb-2">
+									<a href="blog-post.html">
+										<article>
+											<div class="thumb-info thumb-info-no-borders thumb-info-bottom-info thumb-info-bottom-info-dark thumb-info-bottom-info-show-more thumb-info-no-zoom border-radius-0">
+												<div class="thumb-info-wrapper thumb-info-wrapper-opacity-6">
+													@if($dato->eventoimagen != null && $dato->eventoimagen->url != null)
+														<img src="{{ asset('/web/eventounasam/'.$dato->eventoimagen->url) }}" class="img-fluid" alt=" @if($dato->titulo != null)
+														{{$dato->titulo}}
+														@endif">
+													@else
+														<img src="{{ asset('/webvendor/img/blog/default/blog-46.jpg') }}" class="img-fluid" alt=" @if($dato->titulo != null)
+														{{$dato->titulo}}
+														@endif">
+													@endif
+													
+													<div class="thumb-info-title bg-transparent p-4">
+														<div class="thumb-info-type bg-color-primary px-2 mb-1">Ver más</div>
+														<div class="thumb-info-inner mt-1">
+															<h2 class="text-color-light line-height-2 text-4 font-weight-bold mb-0">
+																@if($dato->titulo != null)
+																	{{$dato->titulo}}
+																@endif
+															</h2>
+														</div>
+														<div class="thumb-info-show-more-content">
+															<p class="mb-0 text-1 line-height-9 mb-1 mt-2 text-light opacity-5">
+																<div style="height: 80px; overflow: hidden;"> 
+																	@if($dato->desarrollo != null)
+																		{!!$dato->desarrollo !!}
+																	@endif
+																</div>
+															</p>
+														</div>
 													</div>
 												</div>
 											</div>
-										</div>
-									</article>
-								</a>
-							</div>
+										</article>
+									</a>
+								</div>
+							@endforeach
 
-							<div class="col-sm-6 col-lg-4 mb-4 pb-2">
-								<a href="blog-post.html">
-									<article>
-										<div class="thumb-info thumb-info-no-borders thumb-info-bottom-info thumb-info-bottom-info-dark thumb-info-bottom-info-show-more thumb-info-no-zoom border-radius-0">
-											<div class="thumb-info-wrapper thumb-info-wrapper-opacity-6">
-												<img src="{{ asset('/webvendor/img/blog/default/blog-49.jpg') }}" class="img-fluid" alt="The Best Way to Ride a Motorcycle">
-												<div class="thumb-info-title bg-transparent p-4">
-													<div class="thumb-info-type bg-color-primary px-2 mb-1">Lifestyle</div>
-													<div class="thumb-info-inner mt-1">
-														<h2 class="text-color-light line-height-2 text-4 font-weight-bold mb-0">The Best Way to Ride a Motorcycle</h2>
-													</div>
-													<div class="thumb-info-show-more-content">
-														<p class="mb-0 text-1 line-height-9 mb-1 mt-2 text-light opacity-5">Euismod atras vulputate iltricies etri elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
-													</div>
-												</div>
-											</div>
-										</div>
-									</article>
-								</a>
-							</div>
-
-							<div class="col-sm-6 col-lg-4 mb-4 pb-2">
-								<a href="blog-post.html">
-									<article>
-										<div class="thumb-info thumb-info-no-borders thumb-info-bottom-info thumb-info-bottom-info-dark thumb-info-bottom-info-show-more thumb-info-no-zoom border-radius-0">
-											<div class="thumb-info-wrapper thumb-info-wrapper-opacity-6">
-												<img src="{{ asset('/webvendor/img/blog/default/blog-50.jpg') }}" class="img-fluid" alt="5 Fun Things to Do at the Beach">
-												<div class="thumb-info-title bg-transparent p-4">
-													<div class="thumb-info-type bg-color-primary px-2 mb-1">Travel</div>
-													<div class="thumb-info-inner mt-1">
-														<h2 class="text-color-light line-height-2 text-4 font-weight-bold mb-0">5 Fun Things to Do at the Beach</h2>
-													</div>
-													<div class="thumb-info-show-more-content">
-														<p class="mb-0 text-1 line-height-9 mb-1 mt-2 text-light opacity-5">Euismod atras vulputate iltricies etri elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
-													</div>
-												</div>
-											</div>
-										</div>
-									</article>
-								</a>
-							</div>
-
-							<div class="col-sm-6 col-lg-4 mb-4 pb-2">
-								<a href="blog-post.html">
-									<article>
-										<div class="thumb-info thumb-info-no-borders thumb-info-bottom-info thumb-info-bottom-info-dark thumb-info-bottom-info-show-more thumb-info-no-zoom border-radius-0">
-											<div class="thumb-info-wrapper thumb-info-wrapper-opacity-6">
-												<img src="{{ asset('/webvendor/img/blog/default/blog-51.jpg') }}" class="img-fluid" alt="Amazingly Fresh Fruit And Herb Drinks For Summer">
-												<div class="thumb-info-title bg-transparent p-4">
-													<div class="thumb-info-type bg-color-primary px-2 mb-1">Recipes</div>
-													<div class="thumb-info-inner mt-1">
-														<h2 class="text-color-light line-height-2 text-4 font-weight-bold mb-0">Amazingly Fresh Fruit And Herb Drinks For Summer</h2>
-													</div>
-													<div class="thumb-info-show-more-content">
-														<p class="mb-0 text-1 line-height-9 mb-1 mt-2 text-light opacity-5">Euismod atras vulputate iltricies etri elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
-													</div>
-												</div>
-											</div>
-										</div>
-									</article>
-								</a>
-							</div>
-
+							<center><a class="btn btn-outline btn-quaternary custom-button text-uppercase mt-4 mb-4 mb-md-0 font-weight-bold">Ver Todos los Comunicados</a></center>
 						</div>
 					</div>
 				</section>
@@ -849,96 +766,43 @@
 
 							<ul class="simple-post-list">
 
-								<li>
-									<article>
-										<div class="post-image">
-											<div class="img-thumbnail img-thumbnail-no-borders d-block">
-												<a href="blog-post.html">
-													<img src="{{ asset('/webvendor/img/blog/square/blog-55.jpg') }}" class="border-radius-0" width="50" height="50" alt="Simple Ways to Have a Pretty Face">
-												</a>
-											</div>
-										</div>
-										<div class="post-info">
-											<h4 class="font-weight-normal text-3 line-height-4 mb-0"><a href="blog-post.html" class="text-dark">Simple Ways to Have a Pretty Face</a></h4>
-											<div class="post-meta">
-												January 12, 2020
-											</div>
-										</div>
-									</article>
-								</li>
-
-								<li>
-									<article>
-										<div class="post-image">
-											<div class="img-thumbnail img-thumbnail-no-borders d-block">
-												<a href="blog-post.html">
-													<img src="{{ asset('/webvendor/img/blog/square/blog-56.jpg') }}" class="border-radius-0" width="50" height="50" alt="Ranking the greatest players in basketball">
-												</a>
-											</div>
-										</div>
-										<div class="post-info">
-											<h4 class="font-weight-normal text-3 line-height-4 mb-0"><a href="blog-post.html" class="text-dark">Ranking the greatest players in basketball</a></h4>
-											<div class="post-meta">
-												January 12, 2020
-											</div>
-										</div>
-									</article>
-								</li>
-
-								<li>
-									<article>
-										<div class="post-image">
-											<div class="img-thumbnail img-thumbnail-no-borders d-block">
-												<a href="blog-post.html">
-													<img src="{{ asset('/webvendor/img/blog/square/blog-57.jpg') }}" class="border-radius-0" width="50" height="50" alt="4 Ways to Look Cool in Glasses">
-												</a>
-											</div>
-										</div>
-										<div class="post-info">
-											<h4 class="font-weight-normal text-3 line-height-4 mb-0"><a href="blog-post.html" class="text-dark">4 Ways to Look Cool in Glasses</a></h4>
-											<div class="post-meta">
-												January 12, 2020
-											</div>
-										</div>
-									</article>
-								</li>
-
-								<li>
-									<article>
-										<div class="post-image">
-											<div class="img-thumbnail img-thumbnail-no-borders d-block">
-												<a href="blog-post.html">
-													<img src="{{ asset('/webvendor/img/blog/square/blog-58.jpg') }}" class="border-radius-0" width="50" height="50" alt="Top Camper Trailer Towing Tips">
-												</a>
-											</div>
-										</div>
-										<div class="post-info">
-											<h4 class="font-weight-normal text-3 line-height-4 mb-0"><a href="blog-post.html" class="text-dark">Top Camper Trailer Towing Tips</a></h4>
-											<div class="post-meta">
-												January 12, 2020
-											</div>
-										</div>
-									</article>
-								</li>
-
-								<li>
-									<article>
-										<div class="post-image">
-											<div class="img-thumbnail img-thumbnail-no-borders d-block">
-												<a href="blog-post.html">
-													<img src="{{ asset('/webvendor/img/blog/square/blog-59.jpg') }}" class="border-radius-0" width="50" height="50" alt="5 Lovely Walks in New York">
-												</a>
-											</div>
-										</div>
-										<div class="post-info">
-											<h4 class="font-weight-normal text-3 line-height-4 mb-0"><a href="blog-post.html" class="text-dark">5 Lovely Walks in New York</a></h4>
-											<div class="post-meta">
-												January 12, 2020
-											</div>
-										</div>
-									</article>
-								</li>
-
+								@foreach($actividades as  $key => $dato)
+									@if($key < 5)
+										<li>
+											<article>
+												<div class="post-image">
+													<div class="img-thumbnail img-thumbnail-no-borders d-block">
+														<a href="blog-post.html">
+															@if($dato->imagenactividad != null && $dato->imagenactividad->url != null)
+																<img src="{{ asset('/web/comunicadoUNASAM/'.$dato->imagenactividad->url) }}" class="border-radius-0" width="50" height="50" alt=" @if($dato->titulo != null)
+																{{$dato->titulo}}
+																@endif">
+															@else
+																<img src="{{ asset('/webvendor/img/blog/default/blog-46.jpg') }}" class="border-radius-0" width="50" height="50" alt=" @if($dato->titulo != null)
+																{{$dato->titulo}}
+																@endif">
+															@endif							
+														</a>
+													</div>
+												</div>
+												<div class="post-info">
+													<h4 class="font-weight-normal text-3 line-height-4 mb-0">
+														<a href="blog-post.html" class="text-dark">
+															@if($dato->titulo != null)
+																{{$dato->titulo}}
+															@endif
+														</a>
+													</h4>
+													<div class="post-meta">
+														@if($dato->nombreMes != null)
+															{{$dato->nombreMes}} {{$dato->dia}}, {{$dato->year}}
+														@endif
+													</div>
+												</div>
+											</article>
+										</li>
+									@endif
+								@endforeach
 							</ul>
 
 						</div>
@@ -948,173 +812,103 @@
 
 							<ul class="simple-post-list">
 
-								<li>
-									<div class="post-image">
-										<div class="img-thumbnail img-thumbnail-no-borders d-block">
-											<a href="blog-post.html">
-												<img src="{{ asset('/webvendor/img/blog/square/blog-65.jpg') }}" class="border-radius-0" width="50" height="50" alt="Main Reasons To Stop Texting And Driving">
-											</a>
-										</div>
-									</div>
-									<div class="post-info">
-										<h4 class="font-weight-normal text-3 line-height-4 mb-0"><a href="blog-post.html" class="text-dark">Main Reasons To Stop Texting And Driving</a></h4>
-										<div class="post-meta">
-											January 12, 2020
-										</div>
-									</div>
-								</li>
-
-								<li>
-									<div class="post-image">
-										<div class="img-thumbnail img-thumbnail-no-borders d-block">
-											<a href="blog-post.html">
-												<img src="{{ asset('/webvendor/img/blog/square/blog-66.jpg') }}" class="border-radius-0" width="50" height="50" alt="Tips to Help You Quickly Prepare your Lunch">
-											</a>
-										</div>
-									</div>
-									<div class="post-info">
-										<h4 class="font-weight-normal text-3 line-height-4 mb-0"><a href="blog-post.html" class="text-dark">Tips to Help You Quickly Prepare your Lunch</a></h4>
-										<div class="post-meta">
-											January 12, 2020
-										</div>
-									</div>
-								</li>
-
-								<li>
-									<div class="post-image">
-										<div class="img-thumbnail img-thumbnail-no-borders d-block">
-											<a href="blog-post.html">
-												<img src="{{ asset('/webvendor/img/blog/square/blog-67.jpg') }}" class="border-radius-0" width="50" height="50" alt="Why should I buy a smartwatch?">
-											</a>
-										</div>
-									</div>
-									<div class="post-info">
-										<h4 class="font-weight-normal text-3 line-height-4 mb-0"><a href="blog-post.html" class="text-dark">Why should I buy a smartwatch?</a></h4>
-										<div class="post-meta">
-											January 12, 2020
-										</div>
-									</div>
-								</li>
-
-								<li>
-									<div class="post-image">
-										<div class="img-thumbnail img-thumbnail-no-borders d-block">
-											<a href="blog-post.html">
-												<img src="{{ asset('/webvendor/img/blog/square/blog-68.jpg') }}" class="border-radius-0" width="50" height="50" alt="The best augmented reality smartglasses">
-											</a>
-										</div>
-									</div>
-									<div class="post-info">
-										<h4 class="font-weight-normal text-3 line-height-4 mb-0"><a href="blog-post.html" class="text-dark">The best augmented reality smartglasses</a></h4>
-										<div class="post-meta">
-											January 12, 2020
-										</div>
-									</div>
-								</li>
-
-								<li>
-									<div class="post-image">
-										<div class="img-thumbnail img-thumbnail-no-borders d-block">
-											<a href="blog-post.html">
-												<img src="{{ asset('/webvendor/img/blog/square/blog-69.jpg') }}" class="border-radius-0" width="50" height="50" alt="12 Healthiest Foods to Eat for Breakfast">
-											</a>
-										</div>
-									</div>
-									<div class="post-info">
-										<h4 class="font-weight-normal text-3 line-height-4 mb-0"><a href="blog-post.html" class="text-dark">12 Healthiest Foods to Eat for Breakfast</a></h4>
-										<div class="post-meta">
-											January 12, 2020
-										</div>
-									</div>
-								</li>
-
+								@foreach($actividades as  $key => $dato)
+									@if($key >= 5)
+										<li>
+											<article>
+												<div class="post-image">
+													<div class="img-thumbnail img-thumbnail-no-borders d-block">
+														<a href="blog-post.html">
+															@if($dato->imagenactividad != null && $dato->imagenactividad->url != null)
+																<img src="{{ asset('/web/comunicadoUNASAM/'.$dato->imagenactividad->url) }}" class="border-radius-0" width="50" height="50" alt=" @if($dato->titulo != null)
+																{{$dato->titulo}}
+																@endif">
+															@else
+																<img src="{{ asset('/webvendor/img/blog/default/blog-46.jpg') }}" class="border-radius-0" width="50" height="50" alt=" @if($dato->titulo != null)
+																{{$dato->titulo}}
+																@endif">
+															@endif							
+														</a>
+													</div>
+												</div>
+												<div class="post-info">
+													<h4 class="font-weight-normal text-3 line-height-4 mb-0">
+														<a href="blog-post.html" class="text-dark">
+															@if($dato->titulo != null)
+																{{$dato->titulo}}
+															@endif
+														</a>
+													</h4>
+													<div class="post-meta">
+														@if($dato->nombreMes != null)
+															{{$dato->nombreMes}} {{$dato->dia}}, {{$dato->year}}
+														@endif
+													</div>
+												</div>
+											</article>
+										</li>
+									@endif
+								@endforeach
 							</ul>
 
 						</div>
+
 						<div class="col-lg-4">
 
 							<h3 class="font-weight-bold text-3 mt-4 mt-md-0">Publicación Destacada</h3>
 
 							<div class="owl-carousel owl-theme" data-plugin-options="{'items': 1, 'margin': 10, 'loop': true, 'nav': false, 'dots': false, 'autoplay': true, 'autoplayTimeout': 5000}">
 
-								<div>
-									<a href="blog-post.html">
-										<article>
-											<div class="thumb-info thumb-info-no-borders thumb-info-bottom-info thumb-info-bottom-info-dark thumb-info-bottom-info-show-more thumb-info-no-zoom border-radius-0">
-												<div class="thumb-info-wrapper thumb-info-wrapper-opacity-6">
-													<img src="{{ asset('/webvendor/img/blog/wide/blog-65.jpg') }}" class="img-fluid" alt="Main Reasons To Stop Texting And Driving">
-													<div class="thumb-info-title bg-transparent p-4">
-														<div class="thumb-info-type bg-color-primary px-2 mb-1">Technology</div>
-														<div class="thumb-info-inner mt-1">
-															<h2 class="text-color-light line-height-2 text-4 font-weight-bold mb-0">Main Reasons To Stop Texting And Driving</h2>
-														</div>
-														<div class="thumb-info-show-more-content">
-															<p class="mb-0 text-1 line-height-9 mb-1 mt-2 text-light opacity-5">Lorem ipsum dolor sit amet, consectetur adip...</p>
-														</div>
-													</div>
-												</div>
-											</div>
-										</article>
-									</a>
-								</div>
-
-								<div>
-									<a href="blog-post.html">
-										<article>
-											<div class="thumb-info thumb-info-no-borders thumb-info-bottom-info thumb-info-bottom-info-dark thumb-info-bottom-info-show-more thumb-info-no-zoom border-radius-0">
-												<div class="thumb-info-wrapper thumb-info-wrapper-opacity-6">
-													<img src="{{ asset('/webvendor/img/blog/wide/blog-66.jpg') }}" class="img-fluid" alt="Tips to Help You Quickly Prepare your Lunch">
-													<div class="thumb-info-title bg-transparent p-4">
-														<div class="thumb-info-type bg-color-primary px-2 mb-1">Recipes</div>
-														<div class="thumb-info-inner mt-1">
-															<h2 class="text-color-light line-height-2 text-4 font-weight-bold mb-0">Tips to Help You Quickly Prepare your Lunch</h2>
-														</div>
-														<div class="thumb-info-show-more-content">
-															<p class="mb-0 text-1 line-height-9 mb-1 mt-2 text-light opacity-5">Lorem ipsum dolor sit amet, consectetur adip...</p>
-														</div>
-													</div>
-												</div>
-											</div>
-										</article>
-									</a>
-								</div>
-
-								<div>
-									<a href="blog-post.html">
-										<article>
-											<div class="thumb-info thumb-info-no-borders thumb-info-bottom-info thumb-info-bottom-info-dark thumb-info-bottom-info-show-more thumb-info-no-zoom border-radius-0">
-												<div class="thumb-info-wrapper thumb-info-wrapper-opacity-6">
-													<img src="{{ asset('/webvendor/img/blog/wide/blog-67.jpg') }}" class="img-fluid" alt="Why should I buy a smartwatch?">
-													<div class="thumb-info-title bg-transparent p-4">
-														<div class="thumb-info-type bg-color-primary px-2 mb-1">Gadgets</div>
-														<div class="thumb-info-inner mt-1">
-															<h2 class="text-color-light line-height-2 text-4 font-weight-bold mb-0">Why should I buy a smartwatch?</h2>
-														</div>
-														<div class="thumb-info-show-more-content">
-															<p class="mb-0 text-1 line-height-9 mb-1 mt-2 text-light opacity-5">Lorem ipsum dolor sit amet, consectetur adip...</p>
+								@foreach($actividades as  $key => $dato)
+									@if($key < 2)
+										<div>
+											<a href="blog-post.html">
+												<article>
+													<div class="thumb-info thumb-info-no-borders thumb-info-bottom-info thumb-info-bottom-info-dark thumb-info-bottom-info-show-more thumb-info-no-zoom border-radius-0">
+														<div class="thumb-info-wrapper thumb-info-wrapper-opacity-6">
+															@if($dato->imagenactividad != null && $dato->imagenactividad->url != null)
+																<img src="{{ asset('/web/comunicadoUNASAM/'.$dato->imagenactividad->url) }}" class="img-fluid" alt=" @if($dato->titulo != null)
+																{{$dato->titulo}}
+																@endif">
+															@else
+																<img src="{{ asset('/webvendor/img/blog/default/blog-46.jpg') }}" class="img-fluid" alt=" @if($dato->titulo != null)
+																{{$dato->titulo}}
+																@endif">
+															@endif	
+															<div class="thumb-info-title bg-transparent p-4">
+																<div class="thumb-info-type bg-color-primary px-2 mb-1">
+																	@if($dato->nombreMes != null)
+																		{{$dato->nombreMes}} {{$dato->dia}}, {{$dato->year}}
+																	@endif
+																</div>
+																<div class="thumb-info-inner mt-1">
+																	<h2 class="text-color-light line-height-2 text-4 font-weight-bold mb-0">
+																		@if($dato->titulo != null)
+																			{{$dato->titulo}}
+																		@endif
+																	</h2>
+																</div>
+																<div class="thumb-info-show-more-content">
+																	<p class="mb-0 text-1 line-height-9 mb-1 mt-2 text-light opacity-5">
+																		<div style="max-height: 200px; overflow: hidden;"> 
+																			@if($dato->desarrollo != null)
+																				{!!$dato->desarrollo !!}
+																			@endif
+																		</div>
+																	</p>
+																</div>
+															</div>
 														</div>
 													</div>
-												</div>
-											</div>
-										</article>
-									</a>
-								</div>
-
+												</article>
+											</a>
+										</div>
+									@endif
+								@endforeach
 							</div>
-
-							<h3 class="font-weight-bold text-3 mt-4 pt-2 mb-2 mt-4 mt-md-0">Featured Author</h3>
-
-							<div class="post-block post-author pt-2">
-								<div class="img-thumbnail img-thumbnail-no-borders d-block pb-3">
-									<a href="blog-post.html">
-										<img class="border-radius-0" src="{{ asset('/webvendor/img/avatars/avatar.jpg') }}" alt="The post author image" style="height: 112px; max-height: 112px; width: auto; max-width: 100%;">
-									</a>
-								</div>
-								<p><strong class="name"><a href="#" class="text-4 pb-2 pt-2 d-block text-dark">John Doe</a></strong></p>
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pelle, consectetur adipiscing elit. </p>
-							</div>
-
 						</div>
+
+						<center><a class="btn btn-outline btn-quaternary custom-button text-uppercase mt-4 mb-4 mb-md-0 font-weight-bold">Ver Todas las Actividades</a></center>
 					</div>
 				</div>
 			</section>
@@ -1130,30 +924,36 @@
 				</div>
 				<div class="row py-4 my-5">
 					<div class="col py-3">
-						<div class="owl-carousel owl-theme mb-0" data-plugin-options="{'responsive': {'0': {'items': 1}, '476': {'items': 1}, '768': {'items': 5}, '992': {'items': 7}, '1200': {'items': 7}}, 'autoplay': true, 'autoplayTimeout': 3000, 'dots': false}">
-							<div>
-								<img class="img-fluid opacity-2" src="{{ asset('/webvendor/img/logos/logo-1.png') }}" alt="">
+						<div class="owl-carousel owl-theme mb-0" data-plugin-options="{'responsive': {'0': {'items': 1}, '476': {'items': 1}, '768': {'items': 5}, '992': {'items': 8}, '1200': {'items': 8}}, 'autoplay': true, 'autoplayTimeout': 2000, 'dots': false}">
+							<div >
+								<img style="border: groove gray 1px;" class="img-fluid opacity-10" src="{{ asset('/img/slider/minedu.jpg') }}" alt="">
 							</div>
-							<div>
-								<img class="img-fluid opacity-2" src="{{ asset('/webvendor/img/logos/logo-2.png') }}" alt="">
+							<div >
+								<img style="border: groove gray 1px;" class="img-fluid opacity-10" src="{{ asset('/img/slider/sunedu.jpg') }}" alt="">
 							</div>
-							<div>
-								<img class="img-fluid opacity-2" src="{{ asset('/webvendor/img/logos/logo-3.png') }}" alt="">
+							<div >
+								<img style="border: groove gray 1px;" class="img-fluid opacity-10" src="{{ asset('/img/slider/sineace.jpg') }}" alt="">
 							</div>
-							<div>
-								<img class="img-fluid opacity-2" src="{{ asset('/webvendor/img/logos/logo-4.png') }}" alt="">
+							<div >
+								<img style="border: groove gray 1px;" class="img-fluid opacity-10" src="{{ asset('/img/slider/concytec.jpg') }}" alt="">
 							</div>
-							<div>
-								<img class="img-fluid opacity-2" src="{{ asset('/webvendor/img/logos/logo-5.png') }}" alt="">
+							<div >
+								<img style="border: groove gray 1px;" class="img-fluid opacity-10" src="{{ asset('/img/slider/dina.jpg') }}" alt="">
 							</div>
-							<div>
-								<img class="img-fluid opacity-2" src="{{ asset('/webvendor/img/logos/logo-6.png') }}" alt="">
+							<div >
+								<img style="border: groove gray 1px;" class="img-fluid opacity-10" src="{{ asset('/img/slider/beca18.jpg') }}" alt="">
 							</div>
-							<div>
-								<img class="img-fluid opacity-2" src="{{ asset('/webvendor/img/logos/logo-4.png') }}" alt="">
+							<div >
+								<img style="border: groove gray 1px;" class="img-fluid opacity-10" src="{{ asset('/img/slider/jovenes.jpg') }}" alt="">
 							</div>
-							<div>
-								<img class="img-fluid opacity-2" src="{{ asset('/webvendor/img/logos/logo-2.png') }}" alt="">
+							<div >
+								<img style="border: groove gray 1px;" class="img-fluid opacity-10" src="{{ asset('/img/slider/mef.jpg') }}" alt="">
+							</div>
+							<div >
+								<img style="border: groove gray 1px;" class="img-fluid opacity-10" src="{{ asset('/img/slider/inaigem.jpg') }}" alt="">
+							</div>
+							<div >
+								<img style="border: groove gray 1px;" class="img-fluid opacity-10" src="{{ asset('/img/slider/rnsdd.jpg') }}" alt="">
 							</div>
 						</div>
 
@@ -1302,7 +1102,7 @@
 			/* 	$(document).ready(function () {
 					alert("hoa");
 				}); */
-			</script>4
+			</script>
 		@endforeach
 
 	</body>
