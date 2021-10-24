@@ -145,6 +145,22 @@ return [
             'visibility' => 'public',
          ],
 
+         'linkinteresUNASAM' => [
+            'driver' => 'local',
+            'root' => public_path('web/linkinteresunasam'), // redes sociales facultades
+            'visibility' => 'public',
+         ],
+         'linkinteresFacultad' => [
+            'driver' => 'local',
+            'root' => public_path('web/linkinteresfacultad'), // redes sociales facultades
+            'visibility' => 'public',
+         ],
+         'linkinteresProgramaEstudio' => [
+            'driver' => 'local',
+            'root' => public_path('web/linkinteresprograma'), // redes sociales facultades
+            'visibility' => 'public',
+         ],
+
          'historiaFacultad' => [
             'driver' => 'local',
             'root' => public_path('web/historiafec'), // historia facultad

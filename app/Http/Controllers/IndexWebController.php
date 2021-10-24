@@ -25,6 +25,7 @@ use App\Comunicado;
 use App\Imagencomunicado;
 use App\Plataforma;
 use App\Redsocial;
+use App\Linkinteres;
 
 use DateTime;
 
@@ -45,6 +46,7 @@ class IndexWebController extends Controller
         $actividades = Comunicado::where('borrado','0')->where('nivel', 0)->where('activo','1')->orderBy('hora','desc')->orderBy('id')->limit(10)->get();
         $plataformas=Plataforma::where('borrado','0')->where('activo','1')->where('nivel', 0)->orderBy('id')->get();
         $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 0)->orderBy('id')->get();
+        $linkinteres=Linkinteres::where('borrado','0')->where('activo','1')->where('nivel', 0 )->orderBy('posision')->get();
 
         foreach ($noticias as $key => $dato) {    
             $imagennoticia = Imagennoticia::where('activo','1')->where('borrado','0')->where('posicion','0')->where('noticia_id', $dato->id)->first();
@@ -106,7 +108,7 @@ class IndexWebController extends Controller
         }
 
 
-        return view('web/unasam/index',compact('banners','presentacion','unasam','noticias','eventos','actividades','plataformas','redsocials'));
+        return view('web/unasam/index',compact('banners','presentacion','unasam','noticias','eventos','actividades','plataformas','redsocials','linkinteres'));
     }
 
     /**

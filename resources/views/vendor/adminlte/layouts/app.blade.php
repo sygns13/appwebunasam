@@ -98,6 +98,9 @@ desired effect
 @elseif($modulo=="redsocialportal")
 @include('adminportal.redsocial.vue')
 
+@elseif($modulo=="linkinteresportal")
+@include('adminportal.linkinteres.vue')
+
 {{-- //Paginas Portales Facultades--}}
 
 @elseif($modulo=="bannerfacultad")

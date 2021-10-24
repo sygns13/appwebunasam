@@ -56,6 +56,7 @@
                     <li><a href="{{URL::to('intranet/calendarioportal')}}"><i class='fa fa-paper-plane'></i> Gestión de Actividades</a></li> 
                     <li><a href="{{URL::to('intranet/plataformaportal')}}"><i class='fa fa-paper-plane'></i> Gestión de Plataformas</a></li> 
                     <li><a href="{{URL::to('intranet/redessolicalesportal')}}"><i class='fa fa-paper-plane'></i> Gestión de Redes Sociales</a></li> 
+                    <li><a href="{{URL::to('intranet/linkinteresportal')}}"><i class='fa fa-paper-plane'></i> Gestión de Links de Interés</a></li>
                 </ul>
             </li>
             @endif

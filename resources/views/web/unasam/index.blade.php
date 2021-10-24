@@ -70,10 +70,10 @@
 										<nav class="header-nav-top">
 											<ul class="nav nav-pills">
 												<li class="nav-item nav-item-anim-icon d-none d-md-block">
-													<a class="nav-link ps-0" href="about-us.html"><i class="fas fa-angle-right"></i> Campus Virtual</a>
+													<a class="nav-link ps-0" href="http://campus.unasam.edu.pe/"><i class="fas fa-angle-right"></i> Campus Virtual</a>
 												</li>
 												<li class="nav-item nav-item-anim-icon d-none d-md-block">
-													<a class="nav-link" href="contact-us.html"><i class="fas fa-angle-right"></i> Guías Home Office</a>
+													<a class="nav-link" href="http://guias.unasam.edu.pe/"><i class="fas fa-angle-right"></i> Guías Home Office</a>
 												</li>
 												{{-- <li class="nav-item dropdown nav-item-left-border d-none d-sm-block nav-item-left-border-remove nav-item-left-border-md-show">
 													<a class="nav-link" href="#" role="button" id="dropdownLanguage" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -87,7 +87,7 @@
 													</div>
 												</li> --}}
 												<li class="nav-item nav-item-left-border nav-item-left-border-remove nav-item-left-border-sm-show">
-													<span class="ws-nowrap"><i class="fas fa-desktop"></i> Office 365</span>
+													<a class="nav-link" href="https://www.office.com/"><span class="ws-nowrap"><i class="fas fa-desktop"></i> Office 365</span></a>
 												</li>
 												<li class="nav-item nav-item-left-border nav-item-left-border-remove nav-item-left-border-sm-show">
 													<span class="ws-nowrap"><i class="fas fa-phone"></i>
@@ -134,7 +134,7 @@
 										<li class="d-none d-sm-inline-flex">
 											<div class="header-extra-info-text">
 												<label>Acceder</label>
-												<strong><a href="mailto:mail@example.com">Mesa de Partes</a></strong>
+												<strong><a href="mailto:mesadepartesdigital@unasam.edu.pe">Mesa de Partes</a></strong>
 											</div>
 										</li>
 										<li>
@@ -977,36 +977,11 @@
 				<div class="row py-4 my-5">
 					<div class="col py-3">
 						<div class="owl-carousel owl-theme mb-0" data-plugin-options="{'responsive': {'0': {'items': 1}, '476': {'items': 1}, '768': {'items': 5}, '992': {'items': 8}, '1200': {'items': 8}}, 'autoplay': true, 'autoplayTimeout': 2000, 'dots': false, 'margin': 10}">
-							<div >
-								<img {{-- style="border: groove #8080807d 1px" --}} class="img-fluid opacity-10" src="{{ asset('/img/slider/minedu.jpg') }}" alt="">
-							</div>
-							<div >
-								<img {{-- style="border: groove #8080807d 1px" --}} class="img-fluid opacity-10" src="{{ asset('/img/slider/sunedu.jpg') }}" alt="">
-							</div>
-							<div >
-								<img {{-- style="border: groove #8080807d 1px" --}} class="img-fluid opacity-10" src="{{ asset('/img/slider/sineace.jpg') }}" alt="">
-							</div>
-							<div >
-								<img {{-- style="border: groove #8080807d 1px" --}} class="img-fluid opacity-10" src="{{ asset('/img/slider/concytec.jpg') }}" alt="">
-							</div>
-							<div >
-								<img {{-- style="border: groove #8080807d 1px" --}} class="img-fluid opacity-10" src="{{ asset('/img/slider/dina.jpg') }}" alt="">
-							</div>
-							<div >
-								<img {{-- style="border: groove #8080807d 1px" --}} class="img-fluid opacity-10" src="{{ asset('/img/slider/beca18.jpg') }}" alt="">
-							</div>
-							<div >
-								<img {{-- style="border: groove #8080807d 1px" --}} class="img-fluid opacity-10" src="{{ asset('/img/slider/jovenes.jpg') }}" alt="">
-							</div>
-							<div >
-								<img {{-- style="border: groove #8080807d 1px" --}} class="img-fluid opacity-10" src="{{ asset('/img/slider/mef.jpg') }}" alt="">
-							</div>
-							<div >
-								<img {{-- style="border: groove #8080807d 1px" --}} class="img-fluid opacity-10" src="{{ asset('/img/slider/inaigem.jpg') }}" alt="">
-							</div>
-							<div >
-								<img {{-- style="border: groove #8080807d 1px" --}} class="img-fluid opacity-10" src="{{ asset('/img/slider/rnsdd.jpg') }}" alt="">
-							</div>
+							@foreach($linkinteres as  $key => $dato)
+								<div >
+									<a  href="{{$dato->nombre}}" target="_blank"><img {{-- style="border: groove #8080807d 1px" --}} class="img-fluid opacity-10" src="{{ asset('/web/linkinteresunasam/'.$dato->url) }}" alt=""></a>
+								</div>
+							@endforeach
 						</div>
 
 					</div>
