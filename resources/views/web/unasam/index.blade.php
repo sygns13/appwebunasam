@@ -913,6 +913,55 @@
 				</div>
 			</section>
 
+
+			<section class="section border-0 m-0 pb-3">
+				<div class="container">
+					<div class="row">
+						<div class="col appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
+							<h2 class="font-weight-semibold mb-0">Nuestras Plataformas Web</h2>
+						</div>
+					</div>
+					<div class="row pb-1">
+
+							<div class="row">
+								<div class="col">
+								<div class="owl-carousel owl-theme show-nav-hover" data-plugin-options="{'items': 4, 'margin': 20, 'autoplay': true, 'autoplayTimeout': 3000, 'nav': true, 'dots': true, 'loop': true}">
+								@foreach($plataformas as  $key => $dato)
+								<div>
+									<div class="col-lg-12 col-sm-12">
+										@if($key%2 == 0)	
+										<div class="featured-box featured-box-tertiary featured-box-effect-1">
+										{{-- <div class="featured-box featured-box-primary featured-box-effect-1"> --}}
+										@else
+										<div class="featured-box featured-box-dark featured-box-effect-1">
+										@endif
+											<div class="box-content ">
+												<a href="{{$dato->url}}" target="_blank"><i class="icon-featured far icon-screen-desktop"></i></a>
+												
+												<h3 class="text-color-primary font-weight-bold text-3 mb-2 mt-3">
+													@if($dato->nombre != null)
+													<a href="{{$dato->url}}" target="_blank">{{$dato->nombre}} <i class="fas fa-chevron-right ms-2"></i></a>
+													@endif
+												</h3>
+{{-- 												<p class="px-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> --}}
+												{{-- <p><a href="{{$dato->url}}" class="text-dark learn-more font-weight-bold text-2" target="_blank">INGRESAR <i class="fas fa-chevron-right ms-2"></i></a></p> --}}
+											</div>
+										</div>
+									</div>
+									</div>
+								@endforeach
+							</div>
+							</div>
+								
+							</div>
+					</div>
+				</div>
+			</section>
+
+
+
+
+
 			<hr>
 					
 
@@ -969,26 +1018,25 @@
 
 			<footer id="footer" class="bg-color-primary border-top-0">
 				<div class="container py-4">
-					<div class="row py-5">
+					<div class="row py-5" style="padding-bottom:0px!important; padding-top:20px!important;">
 						<div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
-							<h5 class="text-3 mb-3 opacity-7">Plataformas</h5>
-							<p class="pe-1 text-color-light">Keep up on our always evolving product features and technology. Enter your e-mail address and subscribe to our newsletter.</p>
+							<h5 class="text-3 mb-3 opacity-7">Nosotros</h5>
+							<a href="#"><p class="pe-1 text-color-light" style="margin-bottom: 0px;">Misión y Visión</p></a>
+							<a href="#"><p class="pe-1 text-color-light" style="margin-bottom: 0px;">Himno Institucional</p></a>
+							<a href="#"><p class="pe-1 text-color-light" style="margin-bottom: 0px;">Organigrama Institucional</p></a>
+							<a href="#"><p class="pe-1 text-color-light" style="margin-bottom: 0px;">Directorio Institucional</p></a>
 							<div class="alert alert-success d-none" id="newsletterSuccess">
 								<strong>Success!</strong> You've been added to our email list.
 							</div>
 							<div class="alert alert-danger d-none" id="newsletterError"></div>
-							<form id="newsletterForm" action="php/newsletter-subscribe.php" method="POST" class="me-4 mb-3 mb-md-0">
-								<div class="input-group input-group-rounded">
-									<input class="form-control form-control-sm bg-light" placeholder="Email Address" name="newsletterEmail" id="newsletterEmail" type="email">
-									<button class="btn btn-light text-color-dark" type="submit"><strong>GO!</strong></button>
-								</div>
-							</form>
 						</div>
 						<div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
 							<h5 class="text-3 mb-3 opacity-7">Servicios</h5>
-							<div id="tweet" class="twitter twitter-light" data-plugin-tweets data-plugin-options="{'username': 'oklerthemes', 'count': 2}">
-								<p class="text-color-light">Please wait...</p>
-							</div>
+							<a href="#"><p class="pe-1 text-color-light" style="margin-bottom: 0px;"><i class="fa fa-paper-plane text-color-light"></i> SVA Campus Virtual</p></a>
+							<a href="#"><p class="pe-1 text-color-light" style="margin-bottom: 0px;"><i class="fa fa-paper-plane text-color-light"></i> SGA UNASAM</p></a>
+							<a href="#"><p class="pe-1 text-color-light" style="margin-bottom: 0px;"><i class="fa fa-paper-plane text-color-light"></i> SGA Postgrado</p></a>
+							<a href="#"><p class="pe-1 text-color-light" style="margin-bottom: 0px;"><i class="fa fa-paper-plane text-color-light"></i> Repositorio Institucional</p></a>
+							<a href="#"><p class="pe-1 text-color-light" style="margin-bottom: 0px;"><i class="fa fa-paper-plane text-color-light"></i> Sistema de Actas y Resoluciones</p></a>	
 						</div>
 						<div class="col-md-6 col-lg-3 mb-4 mb-md-0">
 							<h5 class="text-3 mb-3 opacity-7">CONTÁCTENOS</h5>
@@ -1051,7 +1099,7 @@
 									</a>
 								</div>
 								<div class="col-lg-7 d-flex align-items-center justify-content-center justify-content-lg-start mb-4 mb-lg-0">
-									<p class="text-color-light">© Copyright 2021. Todos los Derechos Reservados.</p>
+									<p class="text-color-light">© Copyright 2021. UNASAM Todos los Derechos Reservados.</p>
 								</div>
 								<div class="col-lg-4 d-flex align-items-center justify-content-center justify-content-lg-end">
 									<nav id="sub-menu">

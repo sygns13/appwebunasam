@@ -54,6 +54,7 @@
                     <li><a href="{{URL::to('intranet/noticiasportal')}}"><i class='fa fa-paper-plane'></i> Gestión de Noticias</a></li>
                     <li><a href="{{URL::to('intranet/eventosportal')}}"><i class='fa fa-paper-plane'></i> Gestión de Eventos</a></li> 
                     <li><a href="{{URL::to('intranet/calendarioportal')}}"><i class='fa fa-paper-plane'></i> Gestión de Actividades</a></li> 
+                    <li><a href="{{URL::to('intranet/plataformaportal')}}"><i class='fa fa-paper-plane'></i> Gestión de Plataformas</a></li> 
                     <li><a href="{{URL::to('intranet/redessolicalesportal')}}"><i class='fa fa-paper-plane'></i> Gestión de Redes Sociales</a></li> 
                 </ul>
             </li>

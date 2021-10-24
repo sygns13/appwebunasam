@@ -45,6 +45,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('intranet/eventos', 'EventoController@index1');
     Route::get('intranet/calendarioportal', 'ComunicadoController@index0');
     Route::get('intranet/comunicados', 'ComunicadoController@index1');
+    Route::get('intranet/plataformaportal', 'PlataformaController@index0');
+
     Route::get('intranet/redessolicales', 'RedsocialController@index1');
     Route::get('intranet/historia', 'HistoriaController@index1');
     Route::get('intranet/misionvision', 'MisionvisionController@index1');
@@ -90,6 +92,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('intranet/noticiasre', 'NoticiaController');
     Route::resource('intranet/eventosre', 'EventoController');
     Route::resource('intranet/comunicadosre', 'ComunicadoController');
+    Route::resource('intranet/plataformare', 'PlataformaController');
+
     Route::resource('intranet/redessolicalesre', 'RedsocialController');
     Route::resource('intranet/historiare', 'HistoriaController');
     Route::resource('intranet/misionvisionre', 'MisionvisionController');
@@ -137,6 +141,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('intranet/noticiasre/altabaja/{id}/{var}', 'NoticiaController@altabaja');
     Route::get('intranet/eventosre/altabaja/{id}/{var}', 'EventoController@altabaja');
     Route::get('intranet/comunicadosre/altabaja/{id}/{var}', 'ComunicadoController@altabaja');
+    Route::get('intranet/plataformare/altabaja/{id}/{var}', 'PlataformaController@altabaja');
+
     Route::get('intranet/redessolicalesre/altabaja/{id}/{var}', 'RedsocialController@altabaja');
     Route::get('intranet/historiare/altabaja/{id}/{var}', 'HistoriaController@altabaja');
     Route::get('intranet/misionvisionre/altabaja/{id}/{var}', 'MisionvisionController@altabaja');

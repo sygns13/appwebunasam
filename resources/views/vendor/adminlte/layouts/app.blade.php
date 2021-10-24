@@ -92,6 +92,9 @@ desired effect
 @elseif($modulo=="comunicadoportal")
 @include('adminportal.comunicado.vue')
 
+@elseif($modulo=="plataforma")
+@include('adminportal.plataforma.vue')
+
 {{-- //Paginas Portales Facultades--}}
 
 @elseif($modulo=="bannerfacultad")
