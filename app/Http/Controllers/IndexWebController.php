@@ -24,6 +24,7 @@ use App\Imagenevento;
 use App\Comunicado;
 use App\Imagencomunicado;
 use App\Plataforma;
+use App\Redsocial;
 
 use DateTime;
 
@@ -42,7 +43,8 @@ class IndexWebController extends Controller
         $noticias = Noticia::where('borrado','0')->where('nivel', 0)->where('activo','1')->orderBy('hora','desc')->orderBy('id')->limit(4)->get();
         $eventos = Evento::where('borrado','0')->where('nivel', 0)->where('activo','1')->orderBy('hora','desc')->orderBy('id')->limit(6)->get();
         $actividades = Comunicado::where('borrado','0')->where('nivel', 0)->where('activo','1')->orderBy('hora','desc')->orderBy('id')->limit(10)->get();
-        $plataformas=Plataforma::where('borrado','0')->where('activo','1')->orderBy('id')->get();
+        $plataformas=Plataforma::where('borrado','0')->where('activo','1')->where('nivel', 0)->orderBy('id')->get();
+        $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 0)->orderBy('id')->get();
 
         foreach ($noticias as $key => $dato) {    
             $imagennoticia = Imagennoticia::where('activo','1')->where('borrado','0')->where('posicion','0')->where('noticia_id', $dato->id)->first();
@@ -104,7 +106,7 @@ class IndexWebController extends Controller
         }
 
 
-        return view('web/unasam/index',compact('banners','presentacion','unasam','noticias','eventos','actividades','plataformas'));
+        return view('web/unasam/index',compact('banners','presentacion','unasam','noticias','eventos','actividades','plataformas','redsocials'));
     }
 
     /**

@@ -73,7 +73,7 @@
 													<a class="nav-link ps-0" href="about-us.html"><i class="fas fa-angle-right"></i> Campus Virtual</a>
 												</li>
 												<li class="nav-item nav-item-anim-icon d-none d-md-block">
-													<a class="nav-link" href="contact-us.html"><i class="fas fa-angle-right"></i> Biblioteca</a>
+													<a class="nav-link" href="contact-us.html"><i class="fas fa-angle-right"></i> Guías Home Office</a>
 												</li>
 												{{-- <li class="nav-item dropdown nav-item-left-border d-none d-sm-block nav-item-left-border-remove nav-item-left-border-md-show">
 													<a class="nav-link" href="#" role="button" id="dropdownLanguage" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -87,7 +87,7 @@
 													</div>
 												</li> --}}
 												<li class="nav-item nav-item-left-border nav-item-left-border-remove nav-item-left-border-sm-show">
-													<span class="ws-nowrap"><i class="fas fa-desktop"></i> Servicios en Línea</span>
+													<span class="ws-nowrap"><i class="fas fa-desktop"></i> Office 365</span>
 												</li>
 												<li class="nav-item nav-item-left-border nav-item-left-border-remove nav-item-left-border-sm-show">
 													<span class="ws-nowrap"><i class="fas fa-phone"></i>
@@ -102,10 +102,14 @@
 								</div>
 								<div class="header-column justify-content-end">
 									<div class="header-row">
-										<ul class="header-social-icons social-icons d-none d-sm-block social-icons-clean">
-											<li class="social-icons-facebook"><a href="http://www.facebook.com/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+										<ul class="header-social-icons social-icons">
+                                        
+                                            @foreach($redsocials as  $key => $dato)
+                                                <li style="box-shadow:none!important;"><a href="{{$dato->urlredsocial}}" target="_blank"><img  src="{{ asset('/web/redsocialunasam/'.$dato->url) }}" style="max-height: 28px; max-width:28px;"/></a></li>
+                                            @endforeach
+											{{-- <li class="social-icons-facebook"><a href="http://www.facebook.com/" target="_blank" title="Facebook" ><i class="fab fa-facebook-f"></i></a></li>
 											<li class="social-icons-twitter"><a href="http://www.twitter.com/" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a></li>
-											<li class="social-icons-linkedin"><a href="http://www.linkedin.com/" target="_blank" title="Linkedin"><i class="fab fa-linkedin-in"></i></a></li>
+											<li class="social-icons-linkedin"><a href="http://www.linkedin.com/" target="_blank" title="Linkedin"><i class="fab fa-linkedin-in"></i></a></li> --}}
 										</ul>
 									</div>
 								</div>
@@ -961,9 +965,8 @@
 
 
 
-
-			<hr>
-					
+			<hr style="margin:0px;"> 
+            <section class="section border-0 m-0 pb-3">
 
 			<div class="container">
 				<div class="row">
@@ -973,36 +976,36 @@
 				</div>
 				<div class="row py-4 my-5">
 					<div class="col py-3">
-						<div class="owl-carousel owl-theme mb-0" data-plugin-options="{'responsive': {'0': {'items': 1}, '476': {'items': 1}, '768': {'items': 5}, '992': {'items': 8}, '1200': {'items': 8}}, 'autoplay': true, 'autoplayTimeout': 2000, 'dots': false}">
+						<div class="owl-carousel owl-theme mb-0" data-plugin-options="{'responsive': {'0': {'items': 1}, '476': {'items': 1}, '768': {'items': 5}, '992': {'items': 8}, '1200': {'items': 8}}, 'autoplay': true, 'autoplayTimeout': 2000, 'dots': false, 'margin': 10}">
 							<div >
-								<img style="border: groove gray 1px;" class="img-fluid opacity-10" src="{{ asset('/img/slider/minedu.jpg') }}" alt="">
+								<img {{-- style="border: groove #8080807d 1px" --}} class="img-fluid opacity-10" src="{{ asset('/img/slider/minedu.jpg') }}" alt="">
 							</div>
 							<div >
-								<img style="border: groove gray 1px;" class="img-fluid opacity-10" src="{{ asset('/img/slider/sunedu.jpg') }}" alt="">
+								<img {{-- style="border: groove #8080807d 1px" --}} class="img-fluid opacity-10" src="{{ asset('/img/slider/sunedu.jpg') }}" alt="">
 							</div>
 							<div >
-								<img style="border: groove gray 1px;" class="img-fluid opacity-10" src="{{ asset('/img/slider/sineace.jpg') }}" alt="">
+								<img {{-- style="border: groove #8080807d 1px" --}} class="img-fluid opacity-10" src="{{ asset('/img/slider/sineace.jpg') }}" alt="">
 							</div>
 							<div >
-								<img style="border: groove gray 1px;" class="img-fluid opacity-10" src="{{ asset('/img/slider/concytec.jpg') }}" alt="">
+								<img {{-- style="border: groove #8080807d 1px" --}} class="img-fluid opacity-10" src="{{ asset('/img/slider/concytec.jpg') }}" alt="">
 							</div>
 							<div >
-								<img style="border: groove gray 1px;" class="img-fluid opacity-10" src="{{ asset('/img/slider/dina.jpg') }}" alt="">
+								<img {{-- style="border: groove #8080807d 1px" --}} class="img-fluid opacity-10" src="{{ asset('/img/slider/dina.jpg') }}" alt="">
 							</div>
 							<div >
-								<img style="border: groove gray 1px;" class="img-fluid opacity-10" src="{{ asset('/img/slider/beca18.jpg') }}" alt="">
+								<img {{-- style="border: groove #8080807d 1px" --}} class="img-fluid opacity-10" src="{{ asset('/img/slider/beca18.jpg') }}" alt="">
 							</div>
 							<div >
-								<img style="border: groove gray 1px;" class="img-fluid opacity-10" src="{{ asset('/img/slider/jovenes.jpg') }}" alt="">
+								<img {{-- style="border: groove #8080807d 1px" --}} class="img-fluid opacity-10" src="{{ asset('/img/slider/jovenes.jpg') }}" alt="">
 							</div>
 							<div >
-								<img style="border: groove gray 1px;" class="img-fluid opacity-10" src="{{ asset('/img/slider/mef.jpg') }}" alt="">
+								<img {{-- style="border: groove #8080807d 1px" --}} class="img-fluid opacity-10" src="{{ asset('/img/slider/mef.jpg') }}" alt="">
 							</div>
 							<div >
-								<img style="border: groove gray 1px;" class="img-fluid opacity-10" src="{{ asset('/img/slider/inaigem.jpg') }}" alt="">
+								<img {{-- style="border: groove #8080807d 1px" --}} class="img-fluid opacity-10" src="{{ asset('/img/slider/inaigem.jpg') }}" alt="">
 							</div>
 							<div >
-								<img style="border: groove gray 1px;" class="img-fluid opacity-10" src="{{ asset('/img/slider/rnsdd.jpg') }}" alt="">
+								<img {{-- style="border: groove #8080807d 1px" --}} class="img-fluid opacity-10" src="{{ asset('/img/slider/rnsdd.jpg') }}" alt="">
 							</div>
 						</div>
 
@@ -1010,13 +1013,13 @@
 				</div>
 			</div>
 				
-				
+        </section>
 
 
 
 			</div>
 
-			<footer id="footer" class="bg-color-primary border-top-0">
+			<footer id="footer" class="bg-color-primary border-top-0" style="margin-top:0px">
 				<div class="container py-4">
 					<div class="row py-5" style="padding-bottom:0px!important; padding-top:20px!important;">
 						<div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
@@ -1082,9 +1085,12 @@
 						<div class="col-md-6 col-lg-2">
 							<h5 class="text-3 mb-3 opacity-7">SÍGANOS</h5>
 							<ul class="header-social-icons social-icons">
-								<li class="social-icons-facebook"><a href="http://www.facebook.com/" target="_blank" title="Facebook"><i class="fab fa-facebook-f text-2"></i></a></li>
+								{{-- <li class="social-icons-facebook"><a href="http://www.facebook.com/" target="_blank" title="Facebook"><i class="fab fa-facebook-f text-2"></i></a></li>
 								<li class="social-icons-twitter"><a href="http://www.twitter.com/" target="_blank" title="Twitter"><i class="fab fa-twitter text-2"></i></a></li>
-								<li class="social-icons-linkedin"><a href="http://www.linkedin.com/" target="_blank" title="Linkedin"><i class="fab fa-linkedin-in text-2"></i></a></li>
+								<li class="social-icons-linkedin"><a href="http://www.linkedin.com/" target="_blank" title="Linkedin"><i class="fab fa-linkedin-in text-2"></i></a></li> --}}
+                                @foreach($redsocials as  $key => $dato)
+                                <li style="box-shadow:none!important;"><a href="{{$dato->urlredsocial}}" target="_blank" style="background:none!important;"><img  src="{{ asset('/web/redsocialunasam/'.$dato->url) }}" style="max-height: 28px; max-width:28px;"/></a></li>
+                            @endforeach
 							</ul>
 						</div>
 					</div>

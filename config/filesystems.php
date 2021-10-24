@@ -129,11 +129,22 @@ return [
             'visibility' => 'public',
          ],
 
-         'redsocialFacultad' => [
+         'redsocialUNASAM' => [
             'driver' => 'local',
-            'root' => public_path('web/redsocialfec'), // redes sociales facultades
+            'root' => public_path('web/redsocialunasam'), // redes sociales facultades
             'visibility' => 'public',
          ],
+         'redsocialFacultad' => [
+            'driver' => 'local',
+            'root' => public_path('web/redsocialfacultad'), // redes sociales facultades
+            'visibility' => 'public',
+         ],
+         'redsocialProgramaEstudio' => [
+            'driver' => 'local',
+            'root' => public_path('web/redsocialprograma'), // redes sociales facultades
+            'visibility' => 'public',
+         ],
+
          'historiaFacultad' => [
             'driver' => 'local',
             'root' => public_path('web/historiafec'), // historia facultad

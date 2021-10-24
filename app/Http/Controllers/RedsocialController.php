@@ -25,6 +25,24 @@ class RedsocialController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function index0()
+    {
+        if(accesoUser([1,2,3])){
+
+
+            $idtipouser=Auth::user()->tipouser_id;
+            $tipouser=Tipouser::find($idtipouser);
+
+            $modulo="redsocialportal";
+
+            return view('adminportal.redsocial.index',compact('tipouser','modulo'));
+        }
+        else
+        {
+            return redirect('home');    
+        }
+    }
+
     public function index1()
     {
         if(accesoUser([1,2,3])){
@@ -46,14 +64,29 @@ class RedsocialController extends Controller
     public function index(Request $request)
     {
         $buscar=$request->busca;
+        $nivel=$request->v1;
+        $facultad_id=$request->v2;
+        $programaestudio_id=$request->v3;
 
-        $redsocials=Redsocial::where('borrado','0')
+        $queryZero=Redsocial::where('borrado','0')
         ->where(function($query) use ($buscar){
             $query->where('nombre','like','%'.$buscar.'%');
             $query->orWhere('urlredsocial','like','%'.$buscar.'%');
-            })
-        ->where('facultad_id',1)
-        ->where('nivel',1)
+            });
+
+        if($facultad_id != null && intval($facultad_id) > 0){
+            $queryZero->where('facultad_id',$facultad_id);
+        }
+
+        if($programaestudio_id != null && intval($programaestudio_id) > 0){
+            $queryZero->where('programaestudio_id',$programaestudio_id);
+        }
+
+        if($nivel != null){
+            $queryZero->where('nivel',$nivel);
+        }
+
+        $redsocials = $queryZero
         ->orderBy('id')
         ->paginate(10);
 
@@ -104,9 +137,13 @@ class RedsocialController extends Controller
         $msj='';
         $selector='';
 
+        $nivel=$request->v1;
+        $facultad_id=$request->v2;
+        $programaestudio_id=$request->v3;
+
         if ($request->hasFile('imagen')) { 
 
-            $aux='redsocial_fec-'.date('d-m-Y').'-'.date('H-i-s');
+            $aux='redsocial_-'.date('d-m-Y').'-'.date('H-i-s');
             $input  = array('imagen' => $img) ;
             $reglas = array('imagen' => 'required||mimes:png,jpg,jpeg,gif,jpe,PNG,JPG,JPEG,GIF,JPE');
             $validator = Validator::make($input, $reglas);
@@ -143,7 +180,20 @@ class RedsocialController extends Controller
                     $constraint->aspectRatio();
                 })->stream();
 
-                $subir=Storage::disk('redsocialFacultad')->put($nuevoNombre, $imgR);
+
+                $subir=false;
+                if(intval($nivel) == 0){
+                    //$subir=Storage::disk('banerUNASAM')->put($nuevoNombre, \File::get($img));
+                   $subir=Storage::disk('redsocialUNASAM')->put($nuevoNombre, $imgR);
+                }
+                elseif(intval($nivel) == 1){
+                    //$subir=Storage::disk('banerFacultad')->put($nuevoNombre, \File::get($img));
+                  $subir=Storage::disk('redsocialFacultad')->put($nuevoNombre, $imgR);
+                }
+                elseif(intval($nivel) == 2){
+                      //$subir=Storage::disk('banerProgramaEstudio')->put($nuevoNombre, \File::get($img));
+                    $subir=Storage::disk('redsocialProgramaEstudio')->put($nuevoNombre, $imgR);
+                }
 
                 if($subir){
                     $imagen=$nuevoNombre;
@@ -165,7 +215,16 @@ class RedsocialController extends Controller
         }
 
         if($segureImg==1){
-            Storage::disk('redsocialFacultad')->delete($imagen);
+            
+            if(intval($nivel) == 0){
+                Storage::disk('redsocialUNASAM')->delete($imagen);
+            }
+            elseif(intval($nivel) == 1){
+                Storage::disk('redsocialFacultad')->delete($imagen);
+            }
+            elseif(intval($nivel) == 2){
+                Storage::disk('redsocialProgramaEstudio')->delete($imagen);
+            }
         }
         else{
             $input1  = array('nombre' => $nombre);
@@ -198,9 +257,14 @@ class RedsocialController extends Controller
                 $redsocial->url=$imagen;
                 $redsocial->activo=$activo;
                 $redsocial->borrado='0';
-                $redsocial->nivel='1';
                 $redsocial->user_id=Auth::user()->id;
-                $redsocial->facultad_id='1';
+                $redsocial->nivel=$nivel;
+                if($facultad_id != null && intval($facultad_id) > 0){
+                    $redsocial->facultad_id=$facultad_id;
+                }
+                if($programaestudio_id != null && intval($programaestudio_id) > 0){
+                    $redsocial->programaestudio_id=$programaestudio_id;
+                }
 
                 $redsocial->save();
 
@@ -259,10 +323,11 @@ class RedsocialController extends Controller
         $selector='';
 
         $oldImg=$request->oldimg;
+        $nivel=$request->v1;
 
         if ($request->hasFile('imagen')) { 
 
-            $aux='redsocial_fec'.date('d-m-Y').'-'.date('H-i-s');
+            $aux='redsocial_'.date('d-m-Y').'-'.date('H-i-s');
             $input  = array('image' => $img) ;
             $reglas = array('image' => 'required|mimes:png,jpg,jpeg,gif,jpe,PNG,JPG,JPEG,GIF,JPE');
             $validator = Validator::make($input, $reglas);
@@ -299,7 +364,19 @@ class RedsocialController extends Controller
                     $constraint->aspectRatio();
                 })->stream();
 
-                $subir=Storage::disk('redsocialFacultad')->put($nuevoNombre, $imgR);
+                $subir=false;
+                if(intval($nivel) == 0){
+                    //$subir=Storage::disk('banerUNASAM')->put($nuevoNombre, \File::get($img));
+                   $subir=Storage::disk('redsocialUNASAM')->put($nuevoNombre, $imgR);
+                }
+                elseif(intval($nivel) == 1){
+                    //$subir=Storage::disk('banerFacultad')->put($nuevoNombre, \File::get($img));
+                  $subir=Storage::disk('redsocialFacultad')->put($nuevoNombre, $imgR);
+                }
+                elseif(intval($nivel) == 2){
+                      //$subir=Storage::disk('banerProgramaEstudio')->put($nuevoNombre, \File::get($img));
+                    $subir=Storage::disk('redsocialProgramaEstudio')->put($nuevoNombre, $imgR);
+                }
 
                 if($subir){
                     $imagen=$nuevoNombre;
@@ -314,7 +391,15 @@ class RedsocialController extends Controller
             }
         }
         if($segureImg==1){
-            Storage::disk('redsocialFacultad')->delete($imagen);
+            if(intval($nivel) == 0){
+                Storage::disk('redsocialUNASAM')->delete($imagen);
+            }
+            elseif(intval($nivel) == 1){
+                Storage::disk('redsocialFacultad')->delete($imagen);
+            }
+            elseif(intval($nivel) == 2){
+                Storage::disk('redsocialProgramaEstudio')->delete($imagen);
+            }
         }
         else{
             $input1  = array('nombre' => $nombre);
@@ -343,15 +428,21 @@ class RedsocialController extends Controller
 
                 if(strlen($imagen)>0)
                 {
-                    Storage::disk('redsocialFacultad')->delete($oldImg);
+                    if(intval($nivel) == 0){
+                        Storage::disk('redsocialUNASAM')->delete($oldImg);
+                    }
+                    elseif(intval($nivel) == 1){
+                        Storage::disk('redsocialFacultad')->delete($oldImg);
+                    }
+                    elseif(intval($nivel) == 2){
+                        Storage::disk('redsocialProgramaEstudio')->delete($oldImg);
+                    }
                     $redsocial = Redsocial::findOrFail($id);
                     $redsocial->nombre=$nombre;
                     $redsocial->urlredsocial=$urlredsocial;
                     $redsocial->url=$imagen;
                     $redsocial->activo=$activo;
-                    $redsocial->nivel='1';
                     $redsocial->user_id=Auth::user()->id;
-                    $redsocial->facultad_id='1';
 
                     $redsocial->save();
                 }
@@ -361,9 +452,7 @@ class RedsocialController extends Controller
                     $redsocial->nombre=$nombre;
                     $redsocial->urlredsocial=$urlredsocial;
                     $redsocial->activo=$activo;
-                    $redsocial->nivel='1';
                     $redsocial->user_id=Auth::user()->id;
-                    $redsocial->facultad_id='1';
 
                     $redsocial->save();
                 }
@@ -401,9 +490,18 @@ class RedsocialController extends Controller
         $msj='';
         $selector='';
 
-        Storage::disk('redsocialFacultad')->delete($image);
-
         $redsocial = Redsocial::findOrFail($id);
+
+        if(intval($redsocial->nivel) == 0){
+            Storage::disk('redsocialUNASAM')->delete($image);
+        }
+        elseif(intval($redsocial->nivel) == 1){
+            Storage::disk('redsocialFacultad')->delete($image);
+        }
+        elseif(intval($redsocial->nivel) == 2){
+            Storage::disk('redsocialProgramaEstudio')->delete($image);
+        }
+
         $redsocial->url='';
         $redsocial->save();
 
@@ -429,7 +527,16 @@ class RedsocialController extends Controller
         $redsocial = Redsocial::findOrFail($id);
 
         if(Strlen($redsocial->url) > 0){
-            Storage::disk('redsocialFacultad')->delete($redsocial->url);
+
+            if(intval($redsocial->nivel) == 0){
+                Storage::disk('redsocialUNASAM')->delete($redsocial->url);
+            }
+            elseif(intval($redsocial->nivel) == 1){
+                Storage::disk('redsocialFacultad')->delete($redsocial->url);
+            }
+            elseif(intval($redsocial->nivel) == 2){
+                Storage::disk('redsocialProgramaEstudio')->delete($redsocial->url);
+            }
         }
         
         //$task->delete();
