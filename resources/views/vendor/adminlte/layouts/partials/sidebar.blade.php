@@ -48,6 +48,7 @@
             <li class="treeview" v-bind:class="classMenu10">
                 <a href="#"><i class='fa fa-list-alt'></i> <span>Portal de Inicio UNASAM</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
+                    <li><a href="{{URL::to('intranet/configportal')}}"><i class='fa fa-paper-plane'></i> Configuraciones Principales</a></li>
                     <li><a href="{{URL::to('intranet/bannerportal')}}"><i class='fa fa-paper-plane'></i> Gestión de Banners</a></li>
                     <li><a href="{{URL::to('intranet/presentacionportal')}}"><i class='fa fa-paper-plane'></i> Gestión de Presentación</a></li>
                     <li><a href="{{URL::to('intranet/datosportal')}}"><i class='fa fa-paper-plane'></i> Gestión de Datos Generales</a></li>

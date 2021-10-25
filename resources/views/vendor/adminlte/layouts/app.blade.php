@@ -74,6 +74,9 @@ desired effect
 
 {{-- //Paginas Portal Web--}}
 
+@elseif($modulo=="configuracion")
+@include('adminportal.configuracion.vue')
+
 @elseif($modulo=="bannerportal")
 @include('adminportal.banner.vue')
 

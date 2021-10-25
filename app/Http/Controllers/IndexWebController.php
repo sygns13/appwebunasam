@@ -107,8 +107,22 @@ class IndexWebController extends Controller
             }
         }
 
+        $menusActivos = new stdClass;
 
-        return view('web/unasam/index',compact('banners','presentacion','unasam','noticias','eventos','actividades','plataformas','redsocials','linkinteres'));
+        $menusActivos->menu1 = "active";
+        $menusActivos->menu2 = "";
+        $menusActivos->menu3 = "";
+        $menusActivos->menu4 = "";
+        $menusActivos->menu5 = "";
+        $menusActivos->menu6 = "";
+        $menusActivos->menu7 = "";
+        $menusActivos->menu8 = "";
+        $menusActivos->menu9 = "";
+
+        
+
+
+        return view('web/unasam/index',compact('banners','presentacion','unasam','noticias','eventos','actividades','plataformas','redsocials','linkinteres','menusActivos'));
     }
 
     /**

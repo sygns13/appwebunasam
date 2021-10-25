@@ -27,6 +27,24 @@ class UniversidadController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function index0()
+    {
+        if(accesoUser([1,2,3])){
+
+
+            $idtipouser=Auth::user()->tipouser_id;
+            $tipouser=Tipouser::find($idtipouser);
+
+            $modulo="configuracion";
+
+            return view('adminportal.configuracion.index',compact('tipouser','modulo'));
+        }
+        else
+        {
+            return redirect('home');    
+        }
+    }
+
     public function index1()
     {
         if(accesoUser([1,2,3])){
@@ -280,6 +298,53 @@ class UniversidadController extends Controller
             $universidad->save();
         
             $msj='Dato General Modificado con Éxito';
+
+        }
+
+        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+    }
+
+    public function configuracion(Request $request)
+    {
+        $tipo_vista=$request->tipo_vista;
+
+        $result='1';
+        $msj='';
+        $selector='';
+
+        $pasaValidacion = true;
+
+        $nivel=$request->v1;
+        $universidad_id=$request->v2;
+        $programaestudio_id=$request->v3;
+
+
+            $input  = array('tipo_vista' => $tipo_vista);
+            $reglas = array('tipo_vista' => 'required');
+
+            $validator = Validator::make($input, $reglas);
+
+            if ($validator->fails() || $tipo_vista == null || strlen(trim($tipo_vista)) == 0)
+            { 
+                $result='0';
+                $msj='Debe emitir correctamente los datos del formulario '.$tipo_vista.' '.strlen(trim($tipo_vista)).' '.$validator->errors();
+                $selector='cbutipo_vista';
+                $pasaValidacion = false;
+            }
+
+
+        if($pasaValidacion){
+
+            $universidadBuscar = Universidad::where('activo','1')->where('borrado','0')->first();
+
+            $universidad = Universidad::find($universidadBuscar->id);
+            $universidad->tipo_vista = $tipo_vista;
+
+            $universidad->user_id=Auth::user()->id;
+
+            $universidad->save();
+        
+            $msj='Configuración Modificada con Éxito';
 
         }
 

@@ -33,6 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('usuarios','UserController@index1');
     Route::get('miperfil','UserController@index2');
 
+    Route::get('intranet/configportal', 'UniversidadController@index0');
     Route::get('intranet/bannerportal', 'BannerController@index0');
     Route::get('intranet/banner', 'BannerController@index1');
     Route::get('intranet/presentacionportal', 'PresentacionController@index0');
@@ -186,6 +187,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('usuario/modificarclave','UserController@modificarclave');
 
     Route::post('persona/buscarDNI','PersonaController@buscarDNI');
+
+    Route::post('intranet/datosportalre/configuracion','UniversidadController@configuracion');
 
 
     /*
