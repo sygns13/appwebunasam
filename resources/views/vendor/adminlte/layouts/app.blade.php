@@ -72,7 +72,7 @@ desired effect
 @elseif($modulo=="miperfil")
 @include('miperfil.vue')
 
-{{-- //Paginas Portal Web--}}
+{{-- //Main Portal Web--}}
 
 @elseif($modulo=="configuracion")
 @include('adminportal.configuracion.vue')
@@ -103,6 +103,11 @@ desired effect
 
 @elseif($modulo=="linkinteresportal")
 @include('adminportal.linkinteres.vue')
+
+{{-- //Paginas Portal Web--}}
+
+@elseif($modulo=="historiaportal")
+@include('paginasportal.historia.vue')
 
 {{-- //Paginas Portales Facultades--}}
 

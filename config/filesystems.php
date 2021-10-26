@@ -161,11 +161,23 @@ return [
             'visibility' => 'public',
          ],
 
-         'historiaFacultad' => [
+         'historiaUNASAM' => [
             'driver' => 'local',
-            'root' => public_path('web/historiafec'), // historia facultad
+            'root' => public_path('web/historiaunasam'), // historia facultad
             'visibility' => 'public',
          ],
+         'historiaFacultad' => [
+            'driver' => 'local',
+            'root' => public_path('web/historiafacultad'), // historia facultad
+            'visibility' => 'public',
+         ],
+         'historiaProgramaEstudio' => [
+            'driver' => 'local',
+            'root' => public_path('web/historiaprograma'), // historia facultad
+            'visibility' => 'public',
+         ],
+         
+
          'misionvisionFacultad' => [
             'driver' => 'local',
             'root' => public_path('web/misionvisionfec'), // mision vision facultad

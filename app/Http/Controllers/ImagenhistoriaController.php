@@ -17,6 +17,7 @@ use stdClass;
 use DB;
 use Storage;
 
+use Image;
 
 class ImagenhistoriaController extends Controller
 {
@@ -72,6 +73,10 @@ class ImagenhistoriaController extends Controller
         $msj='';
         $selector='';
 
+        $nivel=$request->v1;
+        $facultad_id=$request->v2;
+        $programaestudio_id=$request->v3;
+
         if ($request->hasFile('imagen')) { 
 
             $aux='historia_fec-'.date('d-m-Y').'-'.date('H-i-s');
@@ -105,7 +110,26 @@ class ImagenhistoriaController extends Controller
                 //$nombre=$img->getClientOriginalName();
                 $extension=$img->getClientOriginalExtension();
                 $nuevoNombre=$aux.".".$extension;
-                $subir=Storage::disk('historiaFacultad')->put($nuevoNombre, \File::get($img));
+                //$subir=Storage::disk('historiaFacultad')->put($nuevoNombre, \File::get($img));
+
+                /* $imgR = Image::make($img);
+                $imgR->resize(1500, 500, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->stream(); */
+
+                $subir=false;
+                if(intval($nivel) == 0){
+                    $subir=Storage::disk('historiaUNASAM')->put($nuevoNombre, \File::get($img));
+                   //$subir=Storage::disk('banerUNASAM')->put($nuevoNombre, $imgR);
+                }
+                elseif(intval($nivel) == 1){
+                    $subir=Storage::disk('historiaFacultad')->put($nuevoNombre, \File::get($img));
+                  //$subir=Storage::disk('banerFacultad')->put($nuevoNombre, $imgR);
+                }
+                elseif(intval($nivel) == 2){
+                      $subir=Storage::disk('historiaProgramaEstudio')->put($nuevoNombre, \File::get($img));
+                   // $subir=Storage::disk('banerProgramaEstudio')->put($nuevoNombre, $imgR);
+                }
 
                 if($subir){
                     $imagen=$nuevoNombre;
@@ -127,7 +151,16 @@ class ImagenhistoriaController extends Controller
         }
 
         if($segureImg==1){
-            Storage::disk('historiaFacultad')->delete($imagen);
+
+            if(intval($nivel) == 0){
+                Storage::disk('historiaUNASAM')->delete($imagen);
+            }
+            elseif(intval($nivel) == 1){
+                Storage::disk('historiaFacultad')->delete($imagen);
+            }
+            elseif(intval($nivel) == 2){
+                Storage::disk('historiaProgramaEstudio')->delete($imagen);
+            }
         }
         else{
             $input0  = array('nombre' => $nombre);
@@ -225,6 +258,8 @@ class ImagenhistoriaController extends Controller
 
         $oldImg=$request->oldimg;
 
+        $nivel=$request->v1;
+
         if ($request->hasFile('imagen')) { 
 
             $aux='historia_fec'.date('d-m-Y').'-'.date('H-i-s');
@@ -258,7 +293,26 @@ class ImagenhistoriaController extends Controller
                 //$nombre=$img->getClientOriginalName();
                 $extension=$img->getClientOriginalExtension();
                 $nuevoNombre=$aux.".".$extension;
-                $subir=Storage::disk('historiaFacultad')->put($nuevoNombre, \File::get($img));
+                //$subir=Storage::disk('historiaFacultad')->put($nuevoNombre, \File::get($img));
+
+                /* $imgR = Image::make($img);
+                $imgR->resize(1500, 500, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->stream(); */
+
+                $subir=false;
+                if(intval($nivel) == 0){
+                    $subir=Storage::disk('historiaUNASAM')->put($nuevoNombre, \File::get($img));
+                   //$subir=Storage::disk('banerUNASAM')->put($nuevoNombre, $imgR);
+                }
+                elseif(intval($nivel) == 1){
+                    $subir=Storage::disk('historiaFacultad')->put($nuevoNombre, \File::get($img));
+                  //$subir=Storage::disk('banerFacultad')->put($nuevoNombre, $imgR);
+                }
+                elseif(intval($nivel) == 2){
+                      $subir=Storage::disk('historiaProgramaEstudio')->put($nuevoNombre, \File::get($img));
+                   // $subir=Storage::disk('banerProgramaEstudio')->put($nuevoNombre, $imgR);
+                }
 
                 if($subir){
                     $imagen=$nuevoNombre;
@@ -273,7 +327,17 @@ class ImagenhistoriaController extends Controller
             }
         }
         if($segureImg==1){
-            Storage::disk('historiaFacultad')->delete($imagen);
+           // Storage::disk('historiaFacultad')->delete($imagen);
+
+            if(intval($nivel) == 0){
+                Storage::disk('historiaUNASAM')->delete($imagen);
+            }
+            elseif(intval($nivel) == 1){
+                Storage::disk('historiaFacultad')->delete($imagen);
+            }
+            elseif(intval($nivel) == 2){
+                Storage::disk('historiaProgramaEstudio')->delete($imagen);
+            }
         }
         else{
             $input0  = array('nombre' => $nombre);
@@ -305,7 +369,18 @@ class ImagenhistoriaController extends Controller
 
                 if(strlen($imagen)>0)
                 {
-                    Storage::disk('historiaFacultad')->delete($oldImg);
+                    //Storage::disk('historiaFacultad')->delete($oldImg);
+
+                    if(intval($nivel) == 0){
+                        Storage::disk('historiaUNASAM')->delete($oldImg);
+                    }
+                    elseif(intval($nivel) == 1){
+                        Storage::disk('historiaFacultad')->delete($oldImg);
+                    }
+                    elseif(intval($nivel) == 2){
+                        Storage::disk('historiaProgramaEstudio')->delete($oldImg);
+                    }
+
                     $historia = Imagenhistoria::findOrFail($id);
                     $historia->nombre=$nombre;
                     $historia->descripcion=$descripcion;
@@ -348,7 +423,17 @@ class ImagenhistoriaController extends Controller
         $historia = Imagenhistoria::findOrFail($id);
 
         if(Strlen($historia->url) > 0){
-            Storage::disk('historiaFacultad')->delete($historia->url);
+            //Storage::disk('historiaFacultad')->delete($historia->url);
+
+            if(intval($historia->nivel) == 0){
+                Storage::disk('historiaUNASAM')->delete($historia->url);
+            }
+            elseif(intval($historia->nivel) == 1){
+                Storage::disk('historiaFacultad')->delete($historia->url);
+            }
+            elseif(intval($historia->nivel) == 2){
+                Storage::disk('historiaProgramaEstudio')->delete($historia->url);
+            }
         }
         
         $historia->delete();

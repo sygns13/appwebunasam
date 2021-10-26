@@ -27,6 +27,9 @@ use App\Plataforma;
 use App\Redsocial;
 use App\Linkinteres;
 
+use App\Historia;
+use App\Imagenhistoria;
+
 use DateTime;
 
 class IndexWebController extends Controller
@@ -38,7 +41,7 @@ class IndexWebController extends Controller
      */
     public function index()
     {
-        $banners=Banner::where('borrado','0')->where('activo','1')->where('nivel', 0 )->orderBy('posision')->get();
+        $banners=Banner::where('borrado','0')->where('activo','1')->where('nivel', 0 )->orderBy('posision')->orderBy('id')->get();
         $presentacion=Presentacion::where('borrado','0')->where('nivel', 0)->where('activo','1')->first();
         $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
         $noticias = Noticia::where('borrado','0')->where('nivel', 0)->where('activo','1')->orderBy('hora','desc')->orderBy('id')->limit(4)->get();
@@ -123,6 +126,34 @@ class IndexWebController extends Controller
 
 
         return view('web/unasam/index',compact('banners','presentacion','unasam','noticias','eventos','actividades','plataformas','redsocials','linkinteres','menusActivos'));
+    }
+
+    public function historia(){
+
+        $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+        $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 0)->orderBy('id')->get();
+
+        $historia=Historia::where('borrado','0')->where('nivel', 0)->where('activo','1')->first();
+
+        if ($historia != null && $historia->id != null) {    
+            $imagenhistoria = Imagenhistoria::where('activo','1')->where('borrado','0')->where('historia_id', $historia->id)->orderBy('posicion')->orderBy('id')->get();
+            $historia->imagenhistoria = $imagenhistoria;
+            }
+
+        $menusActivos = new stdClass;
+
+        $menusActivos->menu1 = "active";
+        $menusActivos->menu2 = "";
+        $menusActivos->menu3 = "";
+        $menusActivos->menu4 = "";
+        $menusActivos->menu5 = "";
+        $menusActivos->menu6 = "";
+        $menusActivos->menu7 = "";
+        $menusActivos->menu8 = "";
+        $menusActivos->menu9 = "";
+
+        return view('web/unasam/historia',compact('unasam','redsocials','historia','menusActivos'));
+
     }
 
     /**

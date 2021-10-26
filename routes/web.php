@@ -18,6 +18,7 @@
 }); */
 
 Route::get('/','IndexWebController@index');
+Route::get('historia','IndexWebController@historia');
 
 
 
@@ -52,7 +53,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('intranet/linkinteresportal', 'LinkinteresController@index0');
     Route::get('intranet/linkinteres', 'LinkinteresController@index1');
 
+    Route::get('intranet/historiaportal', 'HistoriaController@index0');
     Route::get('intranet/historia', 'HistoriaController@index1');
+
     Route::get('intranet/misionvision', 'MisionvisionController@index1');
     Route::get('intranet/politicas', 'PoliticacalidadController@index1');
     Route::get('intranet/objetivos', 'ObjetivoController@index1');

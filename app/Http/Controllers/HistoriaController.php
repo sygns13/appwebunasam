@@ -17,6 +17,8 @@ use stdClass;
 use DB;
 use Storage;
 
+use Image;
+
 class HistoriaController extends Controller
 {
     /**
@@ -24,6 +26,25 @@ class HistoriaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function index0()
+    {
+        if(accesoUser([1,2,3])){
+
+
+            $idtipouser=Auth::user()->tipouser_id;
+            $tipouser=Tipouser::find($idtipouser);
+
+            $modulo="historiaportal";
+
+            return view('paginasportal.historia.index',compact('tipouser','modulo'));
+        }
+        else
+        {
+            return redirect('home');    
+        }
+    }
+
     public function index1()
     {
         if(accesoUser([1,2,3])){
@@ -45,15 +66,27 @@ class HistoriaController extends Controller
     public function index(Request $request)
     {
         //$buscar=$request->busca;
+        $nivel=$request->v1;
+        $facultad_id=$request->v2;
+        $programaestudio_id=$request->v3;
 
-        $historia=Historia::where('borrado','0')
+        $queryZero=Historia::where('borrado','0');
        /* ->where(function($query) use ($buscar){
             $query->where('titulo','like','%'.$buscar.'%');
             //$query->orWhere('users.name','like','%'.$buscar.'%');
             })*/
-        ->where('facultad_id',1)
-        ->where('nivel',1)
-        ->first();
+            if($facultad_id != null && intval($facultad_id) > 0){
+                $queryZero->where('facultad_id',$facultad_id);
+            }
+    
+            if($programaestudio_id != null && intval($programaestudio_id) > 0){
+                $queryZero->where('programaestudio_id',$programaestudio_id);
+            }
+    
+            if($nivel != null){
+                $queryZero->where('nivel',$nivel);
+            }
+            $historia = $queryZero->first();
 
         if($historia != null){
             $imagenhistoria = Imagenhistoria::where('activo','1')->where('borrado','0')->where('historia_id', $historia->id)->get();
@@ -98,6 +131,10 @@ class HistoriaController extends Controller
         $msj='';
         $selector='';
 
+        $nivel=$request->v1;
+        $facultad_id=$request->v2;
+        $programaestudio_id=$request->v3;
+
         $input1  = array('titulo' => $titulo);
         $reglas1 = array('titulo' => 'required');
 
@@ -128,9 +165,14 @@ class HistoriaController extends Controller
                 $history->historia=$historia;
                 $history->activo=$activo;
                 $history->borrado='0';
-                $history->nivel='1';
                 $history->user_id=Auth::user()->id;
-                $history->facultad_id='1';
+                $history->nivel=$nivel;
+                if($facultad_id != null && intval($facultad_id) > 0){
+                    $history->facultad_id=$facultad_id;
+                }
+                if($programaestudio_id != null && intval($programaestudio_id) > 0){
+                    $history->programaestudio_id=$programaestudio_id;
+                }
 
                 $history->save();
                 
@@ -141,9 +183,7 @@ class HistoriaController extends Controller
                 $history->titulo=$titulo;
                 $history->historia=$historia;
                 $history->activo=$activo;
-                $history->nivel='1';
                 $history->user_id=Auth::user()->id;
-                $history->facultad_id='1';
 
                 $history->save();
             }

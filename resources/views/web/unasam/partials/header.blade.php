@@ -96,12 +96,12 @@
                                     <nav class="collapse">
                                         <ul class="nav nav-pills" id="mainNav" data-sticky-header-style="{'minResolution': 991}" data-sticky-header-style-active="{'margin-left': '50px'}" data-sticky-header-style-deactive="{'margin-left': '0'}">
                                             <li class="dropdown" style="margin-left:0px;">
-                                                <a class="dropdown-item dropdown-toggle {{$menusActivos->menu1}}" href="index.html">
+                                                <a class="dropdown-item dropdown-toggle {{$menusActivos->menu1}}" href="/">
                                                     LA UNASAM
                                                 </a>
                                                 <ul class="dropdown-menu">
                                                     <li>
-                                                        <a class="dropdown-item" href="index.html">
+                                                        <a class="dropdown-item" href="historia">
                                                             Reseña Histórica
                                                         </a>
                                                     </li>
