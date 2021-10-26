@@ -19,6 +19,7 @@
 
 Route::get('/','IndexWebController@index');
 Route::get('historia','IndexWebController@historia');
+Route::get('misionvision','IndexWebController@misionvision');
 
 
 
@@ -55,8 +56,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('intranet/historiaportal', 'HistoriaController@index0');
     Route::get('intranet/historia', 'HistoriaController@index1');
-
+    Route::get('intranet/misionvisionportal', 'MisionvisionController@index0');
     Route::get('intranet/misionvision', 'MisionvisionController@index1');
+
     Route::get('intranet/politicas', 'PoliticacalidadController@index1');
     Route::get('intranet/objetivos', 'ObjetivoController@index1');
     Route::get('intranet/directorio', 'DirectorioController@index1');

@@ -106,7 +106,7 @@
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="index.html#demos">
+                                                        <a class="dropdown-item" href="misionvision">
                                                             Misión y Visión {{-- <span class="tip tip-dark">hot</span> --}}
                                                         </a>
                                                     </li>

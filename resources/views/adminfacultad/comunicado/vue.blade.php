@@ -18,6 +18,7 @@ Vue.component('ckeditor1', {
         type: Array,
         default: () => [
           [ 'Styles', 'Format', 'Font', 'FontSize' ],
+          ['Link'],
           ['Bold','Italic','Underline','Strike'],
           ['NumberedList','BulletedList'],
           ['Cut','Copy','Paste'],
@@ -86,6 +87,7 @@ Vue.component('ckeditor2', {
         type: Array,
         default: () => [
           [ 'Styles', 'Format', 'Font', 'FontSize' ],
+          ['Link'],
           ['Bold','Italic','Underline','Strike'],
           ['NumberedList','BulletedList'],
           ['Cut','Copy','Paste'],
@@ -154,6 +156,7 @@ Vue.component('ckeditor3', {
         type: Array,
         default: () => [
           [ 'Styles', 'Format', 'Font', 'FontSize' ],
+          ['Link'],
           ['Bold','Italic','Underline','Strike'],
           ['NumberedList','BulletedList'],
           ['Cut','Copy','Paste'],
@@ -223,6 +226,7 @@ Vue.component('ckeditor4', {
         type: Array,
         default: () => [
           [ 'Styles', 'Format', 'Font', 'FontSize' ],
+          ['Link'],
           ['Bold','Italic','Underline','Strike'],
           ['NumberedList','BulletedList'],
           ['Cut','Copy','Paste'],

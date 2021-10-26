@@ -30,6 +30,8 @@ use App\Linkinteres;
 use App\Historia;
 use App\Imagenhistoria;
 
+use App\Misionvision;
+
 use DateTime;
 
 class IndexWebController extends Controller
@@ -153,6 +155,30 @@ class IndexWebController extends Controller
         $menusActivos->menu9 = "";
 
         return view('web/unasam/historia',compact('unasam','redsocials','historia','menusActivos'));
+
+    }
+
+    public function misionvision(){
+
+        $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+        $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 0)->orderBy('id')->get();
+
+        $mision=Misionvision::where('borrado','0')->where('nivel', 0)->where('activo','1')->where('tipo', 1)->first();
+        $vision=Misionvision::where('borrado','0')->where('nivel', 0)->where('activo','1')->where('tipo', 1)->first();
+
+        $menusActivos = new stdClass;
+
+        $menusActivos->menu1 = "active";
+        $menusActivos->menu2 = "";
+        $menusActivos->menu3 = "";
+        $menusActivos->menu4 = "";
+        $menusActivos->menu5 = "";
+        $menusActivos->menu6 = "";
+        $menusActivos->menu7 = "";
+        $menusActivos->menu8 = "";
+        $menusActivos->menu9 = "";
+
+        return view('web/unasam/misionvision',compact('unasam','redsocials','mision','vision','menusActivos'));
 
     }
 

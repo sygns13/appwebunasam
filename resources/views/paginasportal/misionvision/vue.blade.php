@@ -143,7 +143,7 @@ Vue.component('ckeditor2', {
  let app = new Vue({
     el: '#app',
     data:{
-        titulo:"Portal Web FEC",
+        titulo:"Páginas UNASAM",
         subtitulo: "Gestión de la Misión y Visión",
         subtitulo2: "Principal",
 
@@ -170,7 +170,7 @@ Vue.component('ckeditor2', {
         classTitle:'fa fa-list-alt',
         classMenu0:'',
         classMenu1:'',
-        classMenu2:'active',
+        classMenu2:'',
         classMenu3:'',
         classMenu4:'',
         classMenu5:'',
@@ -179,7 +179,7 @@ Vue.component('ckeditor2', {
         classMenu8:'',
         classMenu9:'',
         classMenu10:'',
-        classMenu11:'',
+        classMenu11:'active',
         classMenu12:'',
 
 
@@ -300,7 +300,10 @@ Vue.component('ckeditor2', {
 
         getDatos: function (page) {
             var busca=this.buscar;
-            var url = '/intranet/misionvisionre';
+            var v1 = 0;
+            var v2 = 0;
+            var v3 = 0;
+            var url = '/intranet/misionvisionre'+'?v1='+v1+'&v2='+v2+'&v3='+v3;;
 
             axios.get(url).then(response=>{
 
@@ -342,7 +345,7 @@ Vue.component('ckeditor2', {
         
         if(this.fillobjectM.tieneimagen!= null && this.fillobjectM.tieneimagen == 1){
           console.log("aca");
-            $("#imgInformacionM").attr("src","{{ asset('/web/misionvisionfec/')}}"+"/"+image);
+            $("#imgInformacionM").attr("src","{{ asset('/web/misionvisionunasam/')}}"+"/"+image);
         }
         
         },
@@ -350,7 +353,7 @@ Vue.component('ckeditor2', {
 
         let image=this.fillobjectV.url;
         if(this.fillobjectV.tieneimagen!= null && this.fillobjectV.tieneimagen == 1){
-            $("#imgInformacionV").attr("src","{{ asset('/web/misionvisionfec/')}}"+"/"+image);
+            $("#imgInformacionV").attr("src","{{ asset('/web/misionvisionunasam/')}}"+"/"+image);
         }
 
         },
@@ -458,12 +461,19 @@ Vue.component('ckeditor2', {
 
             var data = new  FormData();
 
+            var v1 = 0;
+            var v2 = 0;
+            var v3 = 0;
+
             data.append('id', this.idM);
             data.append('tipo', this.tipoM);
             data.append('descripcion', this.descripcionM);
             data.append('tieneimagen', this.tieneimagenM);
             data.append('url', this.urlM);
             data.append('imagen', this.imagenM);
+            data.append('v1', v1);
+            data.append('v2', v2);
+            data.append('v3', v3);
 
             data.append('oldimg', this.fillobjectM.oldImg);
 
@@ -505,12 +515,19 @@ Vue.component('ckeditor2', {
 
             var data = new  FormData();
 
+            var v1 = 0;
+            var v2 = 0;
+            var v3 = 0;
+
             data.append('id', this.idV);
             data.append('tipo', this.tipoV);
             data.append('descripcion', this.descripcionV);
             data.append('tieneimagen', this.tieneimagenV);
             data.append('url', this.urlV);
             data.append('imagen', this.imagenV);
+            data.append('v1', v1);
+            data.append('v2', v2);
+            data.append('v3', v3);
 
             data.append('oldimg', this.fillobjectV.oldImg);
 

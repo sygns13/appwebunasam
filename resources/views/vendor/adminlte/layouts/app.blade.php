@@ -109,6 +109,9 @@ desired effect
 @elseif($modulo=="historiaportal")
 @include('paginasportal.historia.vue')
 
+@elseif($modulo=="misionvisionportal")
+@include('paginasportal.misionvision.vue')
+
 {{-- //Paginas Portales Facultades--}}
 
 @elseif($modulo=="bannerfacultad")

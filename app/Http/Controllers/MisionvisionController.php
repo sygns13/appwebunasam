@@ -16,6 +16,8 @@ use stdClass;
 use DB;
 use Storage;
 
+use Image;
+
 class MisionvisionController extends Controller
 {
     /**
@@ -23,6 +25,23 @@ class MisionvisionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function index0()
+    {
+        if(accesoUser([1,2,3])){
+
+
+            $idtipouser=Auth::user()->tipouser_id;
+            $tipouser=Tipouser::find($idtipouser);
+
+            $modulo="misionvisionportal";
+
+            return view('paginasportal.misionvision.index',compact('tipouser','modulo'));
+        }
+        else
+        {
+            return redirect('home');    
+        }
+    }
     public function index1()
     {
         if(accesoUser([1,2,3])){
@@ -43,24 +62,51 @@ class MisionvisionController extends Controller
     public function index(Request $request)
     {
         //$buscar=$request->busca;
+        $nivel=$request->v1;
+        $facultad_id=$request->v2;
+        $programaestudio_id=$request->v3;
 
-        $mision=Misionvision::where('borrado','0')
+        $queryZero=Misionvision::where('borrado','0');
        /* ->where(function($query) use ($buscar){
             $query->where('titulo','like','%'.$buscar.'%');
             //$query->orWhere('users.name','like','%'.$buscar.'%');
             })*/
-        ->where('facultad_id',1)
-        ->where('nivel',1)
+
+            if($facultad_id != null && intval($facultad_id) > 0){
+                $queryZero->where('facultad_id',$facultad_id);
+            }
+    
+            if($programaestudio_id != null && intval($programaestudio_id) > 0){
+                $queryZero->where('programaestudio_id',$programaestudio_id);
+            }
+    
+            if($nivel != null){
+                $queryZero->where('nivel',$nivel);
+            }
+
+        $mision = $queryZero
         ->where('tipo',1)
         ->first();
 
-        $vision=Misionvision::where('borrado','0')
+        $queryZero2=Misionvision::where('borrado','0');
        /* ->where(function($query) use ($buscar){
             $query->where('titulo','like','%'.$buscar.'%');
             //$query->orWhere('users.name','like','%'.$buscar.'%');
             })*/
-        ->where('facultad_id',1)
-        ->where('nivel',1)
+
+            if($facultad_id != null && intval($facultad_id) > 0){
+                $queryZero2->where('facultad_id',$facultad_id);
+            }
+    
+            if($programaestudio_id != null && intval($programaestudio_id) > 0){
+                $queryZero2->where('programaestudio_id',$programaestudio_id);
+            }
+    
+            if($nivel != null){
+                $queryZero2->where('nivel',$nivel);
+            }
+
+        $vision = $queryZero2
         ->where('tipo',2)
         ->first();
 
@@ -109,6 +155,10 @@ class MisionvisionController extends Controller
 
         $oldImg=$request->oldimg;
 
+        $nivel=$request->v1;
+        $facultad_id=$request->v2;
+        $programaestudio_id=$request->v3;
+
         if(intval($tieneimagen) == 1){
             if ($request->hasFile('imagen')) { 
 
@@ -143,7 +193,28 @@ class MisionvisionController extends Controller
                     //$nombre=$img->getClientOriginalName();
                     $extension=$img->getClientOriginalExtension();
                     $nuevoNombre=$aux.".".$extension;
-                    $subir=Storage::disk('misionvisionFacultad')->put($nuevoNombre, \File::get($img));
+                    //$subir=Storage::disk('misionvisionFacultad')->put($nuevoNombre, \File::get($img));
+
+                    /* $imgR = Image::make($img);
+                    $imgR->resize(1500, 500, function ($constraint) {
+                        $constraint->aspectRatio();
+                    })->stream(); */
+
+                    //$subir=Storage::disk('misionvisionFacultad')->put($nuevoNombre, \File::get($img));
+
+                    $subir=false;
+                    if(intval($nivel) == 0){
+                        $subir=Storage::disk('misionvisionUNASAM')->put($nuevoNombre, \File::get($img));
+                    //$subir=Storage::disk('banerUNASAM')->put($nuevoNombre, $imgR);
+                    }
+                    elseif(intval($nivel) == 1){
+                        $subir=Storage::disk('misionvisionFacultad')->put($nuevoNombre, \File::get($img));
+                    //$subir=Storage::disk('banerFacultad')->put($nuevoNombre, $imgR);
+                    }
+                    elseif(intval($nivel) == 2){
+                        $subir=Storage::disk('misionvisionProgramaEstudio')->put($nuevoNombre, \File::get($img));
+                    // $subir=Storage::disk('banerProgramaEstudio')->put($nuevoNombre, $imgR);
+                    }
     
                     if($subir){
                         $imagen=$nuevoNombre;
@@ -168,16 +239,44 @@ class MisionvisionController extends Controller
         
 
         if($segureImg==1){
-            Storage::disk('misionvisionFacultad')->delete($imagen);
+            //Storage::disk('misionvisionFacultad')->delete($imagen);
+
+            if(intval($nivel) == 0){
+                Storage::disk('misionvisionUNASAM')->delete($imagen);
+            }
+            elseif(intval($nivel) == 1){
+                Storage::disk('misionvisionFacultad')->delete($imagen);
+            }
+            elseif(intval($nivel) == 2){
+                Storage::disk('misionvisionProgramaEstudio')->delete($imagen);
+            }
         }
         else{
 
             $titulo = "";
             if(intval($tipo) == 1){
-                $titulo = "MISIÓN DE LA FACULTAD DE ECONOMÍA Y CONTABILIDAD";
+
+                if(intval($nivel) == 0){
+                    $titulo = "MISIÓN DE LA UNASAM";
+                }
+                elseif(intval($nivel) == 1){
+                    $titulo = "MISIÓN DE LA FACULTAD";
+                }
+                elseif(intval($nivel) == 2){
+                    $titulo = "MISIÓN DEL PROGRAMA DE ESTUDIOS";
+                }
             }
             elseif(intval($tipo) == 2){
-                $titulo = "VISIÓN DE LA FACULTAD DE ECONOMÍA Y CONTABILIDAD";
+
+                if(intval($nivel) == 0){
+                    $titulo = "VISIÓN DE LA UNASAM";
+                }
+                elseif(intval($nivel) == 1){
+                    $titulo = "VISIÓN DE LA FACULTAD";
+                }
+                elseif(intval($nivel) == 2){
+                    $titulo = "VISIÓN DEL PROGRAMA DE ESTUDIOS";
+                }
             }
 
 
@@ -203,7 +302,15 @@ class MisionvisionController extends Controller
             else{
 
                 if(Strlen($oldImg) > 0 && intval($tieneimagen) == 0){
-                    Storage::disk('misionvisionFacultad')->delete($oldImg);
+                    if(intval($nivel) == 0){
+                        Storage::disk('misionvisionUNASAM')->delete($oldImg);
+                    }
+                    elseif(intval($nivel) == 1){
+                        Storage::disk('misionvisionFacultad')->delete($oldImg);
+                    }
+                    elseif(intval($nivel) == 2){
+                        Storage::disk('misionvisionProgramaEstudio')->delete($oldImg);
+                    }
                 }
                 if( intval($tieneimagen) == 1 && strlen($imagen)==0){
                     $imagen = $url;
@@ -212,7 +319,15 @@ class MisionvisionController extends Controller
                 if($id== null || Strlen($id) == 0){
                     if(strlen($imagen)>0)
                     {
-                        Storage::disk('misionvisionFacultad')->delete($oldImg);
+                        if(intval($nivel) == 0){
+                            Storage::disk('misionvisionUNASAM')->delete($oldImg);
+                        }
+                        elseif(intval($nivel) == 1){
+                            Storage::disk('misionvisionFacultad')->delete($oldImg);
+                        }
+                        elseif(intval($nivel) == 2){
+                            Storage::disk('misionvisionProgramaEstudio')->delete($oldImg);
+                        }
 
                         $misionvision = new Misionvision();
                         $misionvision->titulo=$titulo;
@@ -222,9 +337,14 @@ class MisionvisionController extends Controller
                         $misionvision->url=$imagen;
                         $misionvision->activo=$activo;
                         $misionvision->borrado='0';
-                        $misionvision->nivel='1';
+                        $misionvision->nivel=$nivel;
                         $misionvision->user_id=Auth::user()->id;
-                        $misionvision->facultad_id='1';
+                        if($facultad_id != null && intval($facultad_id) > 0){
+                            $misionvision->facultad_id=$facultad_id;
+                        }
+                        if($programaestudio_id != null && intval($programaestudio_id) > 0){
+                            $misionvision->programaestudio_id=$programaestudio_id;
+                        }
 
                         $misionvision->save();
                     }
@@ -238,9 +358,14 @@ class MisionvisionController extends Controller
                         $misionvision->url=$imagen;
                         $misionvision->activo=$activo;
                         $misionvision->borrado='0';
-                        $misionvision->nivel='1';
+                        $misionvision->nivel=$nivel;
                         $misionvision->user_id=Auth::user()->id;
-                        $misionvision->facultad_id='1';
+                        if($facultad_id != null && intval($facultad_id) > 0){
+                            $misionvision->facultad_id=$facultad_id;
+                        }
+                        if($programaestudio_id != null && intval($programaestudio_id) > 0){
+                            $misionvision->programaestudio_id=$programaestudio_id;
+                        }
 
                         $misionvision->save();
                     }
@@ -248,7 +373,15 @@ class MisionvisionController extends Controller
                 else{
                     if(strlen($imagen)>0)
                     {
-                        Storage::disk('misionvisionFacultad')->delete($oldImg);
+                        if(intval($nivel) == 0){
+                            Storage::disk('misionvisionUNASAM')->delete($oldImg);
+                        }
+                        elseif(intval($nivel) == 1){
+                            Storage::disk('misionvisionFacultad')->delete($oldImg);
+                        }
+                        elseif(intval($nivel) == 2){
+                            Storage::disk('misionvisionProgramaEstudio')->delete($oldImg);
+                        }
 
                         $misionvision = Misionvision::findOrFail($id);
                         $misionvision->titulo=$titulo;
@@ -257,9 +390,14 @@ class MisionvisionController extends Controller
                         $misionvision->tieneimagen=$tieneimagen;
                         $misionvision->url=$imagen;
                         $misionvision->activo=$activo;
-                        $misionvision->nivel='1';
+                        $misionvision->nivel=$nivel;
                         $misionvision->user_id=Auth::user()->id;
-                        $misionvision->facultad_id='1';
+                        if($facultad_id != null && intval($facultad_id) > 0){
+                            $misionvision->facultad_id=$facultad_id;
+                        }
+                        if($programaestudio_id != null && intval($programaestudio_id) > 0){
+                            $misionvision->programaestudio_id=$programaestudio_id;
+                        }
 
                         $misionvision->save();
                     }
@@ -272,9 +410,14 @@ class MisionvisionController extends Controller
                         $misionvision->tieneimagen=$tieneimagen;
                         $misionvision->url=$imagen;
                         $misionvision->activo=$activo;
-                        $misionvision->nivel='1';
+                        $misionvision->nivel=$nivel;
                         $misionvision->user_id=Auth::user()->id;
-                        $misionvision->facultad_id='1';
+                        if($facultad_id != null && intval($facultad_id) > 0){
+                            $misionvision->facultad_id=$facultad_id;
+                        }
+                        if($programaestudio_id != null && intval($programaestudio_id) > 0){
+                            $misionvision->programaestudio_id=$programaestudio_id;
+                        }
 
                         $misionvision->save();
                     }
@@ -302,9 +445,20 @@ class MisionvisionController extends Controller
 
         Storage::disk('misionvisionFacultad')->delete($image);
 
-        $presentacion = Misionvision::findOrFail($id);
-        $presentacion->url='';
-        $presentacion->save();
+        $misionvision = Misionvision::findOrFail($id);
+
+        if(intval($misionvision->nivel) == 0){
+            Storage::disk('misionvisionUNASAM')->delete($image);
+        }
+        elseif(intval($misionvision->nivel) == 1){
+            Storage::disk('misionvisionFacultad')->delete($image);
+        }
+        elseif(intval($misionvision->nivel) == 2){
+            Storage::disk('misionvisionProgramaEstudio')->delete($image);
+        }
+
+        $misionvision->url='';
+        $misionvision->save();
 
         $msj='Se eliminó la imagen exitosamente';
 

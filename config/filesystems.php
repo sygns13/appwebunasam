@@ -178,9 +178,19 @@ return [
          ],
          
 
+         'misionvisionUNASAM' => [
+            'driver' => 'local',
+            'root' => public_path('web/misionvisionunasam'), // mision vision facultad
+            'visibility' => 'public',
+         ],
          'misionvisionFacultad' => [
             'driver' => 'local',
-            'root' => public_path('web/misionvisionfec'), // mision vision facultad
+            'root' => public_path('web/misionvisionfacultad'), // mision vision facultad
+            'visibility' => 'public',
+         ],
+         'misionvisionProgramaEstudio' => [
+            'driver' => 'local',
+            'root' => public_path('web/misionvisionprograma'), // mision vision facultad
             'visibility' => 'public',
          ],
 

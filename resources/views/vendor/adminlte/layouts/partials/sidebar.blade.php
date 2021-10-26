@@ -68,7 +68,7 @@
                 <a href="#"><i class='fa fa-list-alt'></i> <span>Páginas del Portal</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
                     <li><a href="{{URL::to('intranet/historiaportal')}}"><i class='fa fa-paper-plane'></i> Gestión de Historia</a></li>
-                    <li><a href="{{URL::to('intranet/misionvision')}}"><i class='fa fa-paper-plane'></i> Gestión de Misión / Visión</a></li>
+                    <li><a href="{{URL::to('intranet/misionvisionportal')}}"><i class='fa fa-paper-plane'></i> Gestión de Misión / Visión</a></li>
                     <li><a href="{{URL::to('intranet/politicas')}}"><i class='fa fa-paper-plane'></i> Gestión de Políticas de Calidad</a></li>
                     <li><a href="{{URL::to('intranet/objetivos')}}"><i class='fa fa-paper-plane'></i> Gestión de Objetivos</a></li>
                     <li><a href="{{URL::to('intranet/directorio')}}"><i class='fa fa-paper-plane'></i> Gestión de Directorio</a></li> 

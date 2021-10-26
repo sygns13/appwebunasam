@@ -16,6 +16,8 @@ use stdClass;
 use DB;
 use Storage;
 
+use Image;
+
 class PresentacionController extends Controller
 {
     /**
