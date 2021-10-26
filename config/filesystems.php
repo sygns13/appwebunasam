@@ -210,6 +210,22 @@ return [
             'visibility' => 'public',
          ],
 
+         'objetivoUNASAM' => [
+            'driver' => 'local',
+            'root' => public_path('web/objetivounasam'), // mision vision facultad
+            'visibility' => 'public',
+         ],
+         'objetivoFacultad' => [
+            'driver' => 'local',
+            'root' => public_path('web/objetivofacultad'), // mision vision facultad
+            'visibility' => 'public',
+         ],
+         'objetivoProgramaEstudio' => [
+            'driver' => 'local',
+            'root' => public_path('web/objetivoprograma'), // mision vision facultad
+            'visibility' => 'public',
+         ],
+
 
         'local' => [
             'driver' => 'local',

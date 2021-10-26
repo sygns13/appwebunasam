@@ -121,7 +121,7 @@
                                                         </ul>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="index.html">
+                                                        <a class="dropdown-item" href="objetivos">
                                                             Objetivos Estratégicos
                                                         </a>
                                                     </li>

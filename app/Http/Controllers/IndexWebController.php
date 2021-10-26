@@ -31,6 +31,7 @@ use App\Historia;
 use App\Imagenhistoria;
 use App\Misionvision;
 use App\Organo;
+use App\Objetivo;
 
 use DateTime;
 
@@ -294,6 +295,29 @@ class IndexWebController extends Controller
         $menusActivos->menu9 = "";
 
         return view('web/unasam/concejouniversitario',compact('organo','redsocials','unasam','menusActivos'));
+
+    }
+
+    public function objetivos(){
+
+        $objetivos=Objetivo::where('borrado','0')->where('activo','1')->where('nivel', 0 )->orderBy('numero')->orderBy('id')->get();
+        $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 0)->orderBy('id')->get();
+
+        $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+
+        $menusActivos = new stdClass;
+
+        $menusActivos->menu1 = "active";
+        $menusActivos->menu2 = "";
+        $menusActivos->menu3 = "";
+        $menusActivos->menu4 = "";
+        $menusActivos->menu5 = "";
+        $menusActivos->menu6 = "";
+        $menusActivos->menu7 = "";
+        $menusActivos->menu8 = "";
+        $menusActivos->menu9 = "";
+
+        return view('web/unasam/objetivos',compact('objetivos','redsocials','unasam','menusActivos'));
 
     }
 

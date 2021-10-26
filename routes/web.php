@@ -25,6 +25,7 @@ Route::get('vicerrectoracademico','IndexWebController@vicerrectoracademico');
 Route::get('vicerrectorinvestigacion','IndexWebController@vicerrectorinvestigacion');
 Route::get('asambleauniversitaria','IndexWebController@asambleauniversitaria');
 Route::get('concejouniversitario','IndexWebController@concejouniversitario');
+Route::get('objetivos','IndexWebController@objetivos');
 
 
 
@@ -68,9 +69,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('intranet/vicerrectorinvestigacion', 'OrganoController@index03');
     Route::get('intranet/asambleauniversitaria', 'OrganoController@index04');
     Route::get('intranet/concejouniversitario', 'OrganoController@index05');
+    Route::get('intranet/objetivosunasam', 'ObjetivoController@index0');
+    Route::get('intranet/objetivos', 'ObjetivoController@index1');
 
     Route::get('intranet/politicas', 'PoliticacalidadController@index1');
-    Route::get('intranet/objetivos', 'ObjetivoController@index1');
     Route::get('intranet/directorio', 'DirectorioController@index1');
     Route::get('intranet/documentosnormativos', 'DocumentoController@index1');
     Route::get('intranet/gestioncalidad', 'GestioncalidadController@index1');
@@ -118,9 +120,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('intranet/historiare', 'HistoriaController');
     Route::resource('intranet/misionvisionre', 'MisionvisionController');
     Route::resource('intranet/organosre', 'OrganoController');
+    Route::resource('intranet/objetivosre', 'ObjetivoController');
 
     Route::resource('intranet/politicasre', 'PoliticacalidadController');
-    Route::resource('intranet/objetivosre', 'ObjetivoController');
     Route::resource('intranet/directoriore', 'DirectorioController');
     Route::resource('intranet/documentosnormativosre', 'DocumentoController');
     Route::resource('intranet/gestioncalidadre', 'GestioncalidadController');
@@ -170,9 +172,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('intranet/historiare/altabaja/{id}/{var}', 'HistoriaController@altabaja');
     Route::get('intranet/misionvisionre/altabaja/{id}/{var}', 'MisionvisionController@altabaja');
     Route::get('intranet/organosre/altabaja/{id}/{var}', 'OrganoController@altabaja');
+    Route::get('intranet/objetivosre/altabaja/{id}/{var}', 'ObjetivoController@altabaja');
 
     Route::get('intranet/politicasre/altabaja/{id}/{var}', 'PoliticacalidadController@altabaja');
-    Route::get('intranet/objetivosre/altabaja/{id}/{var}', 'ObjetivoController@altabaja');
     Route::get('intranet/directoriore/altabaja/{id}/{var}', 'DirectorioController@altabaja');
     Route::get('intranet/documentosnormativosre/altabaja/{id}/{var}', 'DocumentoController@altabaja');
     Route::get('intranet/gestioncalidadre/altabaja/{id}/{var}', 'GestioncalidadController@altabaja');

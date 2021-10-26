@@ -16,7 +16,8 @@ class Objetivo extends Model
                             'activo',
                             'borrado',
                             'facultad_id',
-                            'programaestudio_id' ];
+                            'programaestudio_id',
+                        'titulo' ];
 
 	protected $guarded = ['id'];
 }

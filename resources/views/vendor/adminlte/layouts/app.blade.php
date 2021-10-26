@@ -127,6 +127,9 @@ desired effect
 @elseif($modulo=="concejou")
 @include('paginasportal.organo5.vue')
 
+@elseif($modulo=="objetivosportal")
+@include('paginasportal.objetivos.vue')
+
 {{-- //Paginas Portales Facultades--}}
 
 @elseif($modulo=="bannerfacultad")
