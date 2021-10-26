@@ -69,6 +69,11 @@
                 <ul class="treeview-menu">
                     <li><a href="{{URL::to('intranet/historiaportal')}}"><i class='fa fa-paper-plane'></i> Gestión de Historia</a></li>
                     <li><a href="{{URL::to('intranet/misionvisionportal')}}"><i class='fa fa-paper-plane'></i> Gestión de Misión / Visión</a></li>
+                    <li><a href="{{URL::to('intranet/rector')}}"><i class='fa fa-paper-plane'></i> Gestión del Rector</a></li>
+                    <li><a href="{{URL::to('intranet/vicerrectoracademico')}}"><i class='fa fa-paper-plane'></i> Vicerrector Académico</a></li>
+                    <li><a href="{{URL::to('intranet/vicerrectorinvestigacion')}}"><i class='fa fa-paper-plane'></i> Vicerrector de Investigación</a></li>
+                    <li><a href="{{URL::to('intranet/asambleauniversitaria')}}"><i class='fa fa-paper-plane'></i> Asamblea Universitaria</a></li>
+                    <li><a href="{{URL::to('intranet/concejouniversitario')}}"><i class='fa fa-paper-plane'></i> Concejo Universitario</a></li>
                     <li><a href="{{URL::to('intranet/politicas')}}"><i class='fa fa-paper-plane'></i> Gestión de Políticas de Calidad</a></li>
                     <li><a href="{{URL::to('intranet/objetivos')}}"><i class='fa fa-paper-plane'></i> Gestión de Objetivos</a></li>
                     <li><a href="{{URL::to('intranet/directorio')}}"><i class='fa fa-paper-plane'></i> Gestión de Directorio</a></li> 

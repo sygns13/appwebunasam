@@ -112,6 +112,21 @@ desired effect
 @elseif($modulo=="misionvisionportal")
 @include('paginasportal.misionvision.vue')
 
+@elseif($modulo=="rector")
+@include('paginasportal.organo1.vue')
+
+@elseif($modulo=="vicerrector1")
+@include('paginasportal.organo2.vue')
+
+@elseif($modulo=="vicerrector2")
+@include('paginasportal.organo3.vue')
+
+@elseif($modulo=="asambleau")
+@include('paginasportal.organo4.vue')
+
+@elseif($modulo=="concejou")
+@include('paginasportal.organo5.vue')
+
 {{-- //Paginas Portales Facultades--}}
 
 @elseif($modulo=="bannerfacultad")

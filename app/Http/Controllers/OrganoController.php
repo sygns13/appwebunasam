@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Validator;
 use Auth;
 
@@ -10,7 +11,7 @@ use App\Persona;
 use App\Tipouser;
 use App\User;
 
-use App\Presentacion;
+use App\Organo;
 
 use stdClass;
 use DB;
@@ -18,14 +19,14 @@ use Storage;
 
 use Image;
 
-class PresentacionController extends Controller
+class OrganoController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index0()
+    public function index01()
     {
         if(accesoUser([1,2,3])){
 
@@ -33,16 +34,16 @@ class PresentacionController extends Controller
             $idtipouser=Auth::user()->tipouser_id;
             $tipouser=Tipouser::find($idtipouser);
 
-            $modulo="presentacionportal";
+            $modulo="rector";
 
-            return view('adminportal.presentacion.index',compact('tipouser','modulo'));
+            return view('paginasportal.organo1.index',compact('tipouser','modulo'));
         }
         else
         {
             return redirect('home');    
         }
     }
-    public function index1()
+    public function index02()
     {
         if(accesoUser([1,2,3])){
 
@@ -50,16 +51,66 @@ class PresentacionController extends Controller
             $idtipouser=Auth::user()->tipouser_id;
             $tipouser=Tipouser::find($idtipouser);
 
-            $modulo="presentacionfacultad";
+            $modulo="vicerrector1";
 
-            return view('adminfacultad.presentacion.index',compact('tipouser','modulo'));
+            return view('paginasportal.organo2.index',compact('tipouser','modulo'));
         }
         else
         {
             return redirect('home');    
         }
     }
+    public function index03()
+    {
+        if(accesoUser([1,2,3])){
 
+
+            $idtipouser=Auth::user()->tipouser_id;
+            $tipouser=Tipouser::find($idtipouser);
+
+            $modulo="vicerrector2";
+
+            return view('paginasportal.organo3.index',compact('tipouser','modulo'));
+        }
+        else
+        {
+            return redirect('home');    
+        }
+    }
+    public function index04()
+    {
+        if(accesoUser([1,2,3])){
+
+
+            $idtipouser=Auth::user()->tipouser_id;
+            $tipouser=Tipouser::find($idtipouser);
+
+            $modulo="asambleau";
+
+            return view('paginasportal.organo4.index',compact('tipouser','modulo'));
+        }
+        else
+        {
+            return redirect('home');    
+        }
+    }
+    public function index05()
+    {
+        if(accesoUser([1,2,3])){
+
+
+            $idtipouser=Auth::user()->tipouser_id;
+            $tipouser=Tipouser::find($idtipouser);
+
+            $modulo="concejou";
+
+            return view('paginasportal.organo5.index',compact('tipouser','modulo'));
+        }
+        else
+        {
+            return redirect('home');    
+        }
+    }
     public function index(Request $request)
     {
         //$buscar=$request->busca;
@@ -67,7 +118,9 @@ class PresentacionController extends Controller
         $facultad_id=$request->v2;
         $programaestudio_id=$request->v3;
 
-        $queryZero=Presentacion::where('borrado','0');
+        $tipo = $request->tipo;
+
+        $queryZero=Organo::where('borrado','0');
        /* ->where(function($query) use ($buscar){
             $query->where('titulo','like','%'.$buscar.'%');
             //$query->orWhere('users.name','like','%'.$buscar.'%');
@@ -85,10 +138,10 @@ class PresentacionController extends Controller
             $queryZero->where('nivel',$nivel);
         }
 
-        $presentacion = $queryZero->first();
+        $organo = $queryZero->where('tipo',$tipo)->first();
 
           return [
-            'presentacion'=>$presentacion
+            'organo'=>$organo
             ];
     }
 
@@ -119,6 +172,7 @@ class PresentacionController extends Controller
         $descripcion=$request->descripcion;
         $url=$request->url;
         $tieneimagen=$request->tieneimagen;
+        $tipo = $request->tipo;
 
         $activo=1;
 
@@ -139,7 +193,7 @@ class PresentacionController extends Controller
         if(intval($tieneimagen) == 1){
             if ($request->hasFile('imagen')) { 
 
-                $aux='presentacion_fec-'.date('d-m-Y').'-'.date('H-i-s');
+                $aux='organo_gobierno-'.date('d-m-Y').'-'.date('H-i-s');
                 $input  = array('imagen' => $img) ;
                 $reglas = array('imagen' => 'required||mimes:png,jpg,jpeg,gif,jpe,PNG,JPG,JPEG,GIF,JPE');
                 $validator = Validator::make($input, $reglas);
@@ -177,19 +231,19 @@ class PresentacionController extends Controller
                         $constraint->aspectRatio();
                     })->stream(); */
 
-                    //$subir=Storage::disk('presentacionFacultad')->put($nuevoNombre, \File::get($img));
+                    //$subir=Storage::disk('organoFacultad')->put($nuevoNombre, \File::get($img));
 
                     $subir=false;
                     if(intval($nivel) == 0){
-                        $subir=Storage::disk('presentacionUNASAM')->put($nuevoNombre, \File::get($img));
+                        $subir=Storage::disk('organoUNASAM')->put($nuevoNombre, \File::get($img));
                     //$subir=Storage::disk('banerUNASAM')->put($nuevoNombre, $imgR);
                     }
                     elseif(intval($nivel) == 1){
-                        $subir=Storage::disk('presentacionFacultad')->put($nuevoNombre, \File::get($img));
+                        $subir=Storage::disk('organoFacultad')->put($nuevoNombre, \File::get($img));
                     //$subir=Storage::disk('banerFacultad')->put($nuevoNombre, $imgR);
                     }
                     elseif(intval($nivel) == 2){
-                        $subir=Storage::disk('presentacionProgramaEstudio')->put($nuevoNombre, \File::get($img));
+                        $subir=Storage::disk('organoProgramaEstudio')->put($nuevoNombre, \File::get($img));
                     // $subir=Storage::disk('banerProgramaEstudio')->put($nuevoNombre, $imgR);
                     }
 
@@ -220,13 +274,13 @@ class PresentacionController extends Controller
             
 
             if(intval($nivel) == 0){
-                Storage::disk('presentacionUNASAM')->delete($imagen);
+                Storage::disk('organoUNASAM')->delete($imagen);
             }
             elseif(intval($nivel) == 1){
-                Storage::disk('presentacionFacultad')->delete($imagen);
+                Storage::disk('organoFacultad')->delete($imagen);
             }
             elseif(intval($nivel) == 2){
-                Storage::disk('presentacionProgramaEstudio')->delete($imagen);
+                Storage::disk('organoProgramaEstudio')->delete($imagen);
             }
 
 
@@ -244,26 +298,48 @@ class PresentacionController extends Controller
             if ($validator1->fails())
             {
                 $result='0';
-                $msj='Debe ingresar el título de la Presentación';
+                if($tipo == '1'){
+                    $msj='Debe ingresar el nombre del Rector';
+                }
+                elseif($tipo == '2'){
+                    $msj='Debe ingresar el nombre del Vicerrector Académico';
+                }
+                elseif($tipo == '3'){
+                    $msj='Debe ingresar el nombre del Vicerrector Administrativo';
+                }
+                elseif($tipo == '4'){
+                    $msj='Debe ingresar el nombre de la Asamblea Universitaria';
+                }
+                elseif($tipo == '5'){
+                    $msj='Debe ingresar el nombre del Concejo Universitario';
+                }
+                elseif($tipo == '6'){
+                    $msj='Debe ingresar el nombre del Decano de Facultad';
+                }
+                elseif($tipo == '7'){
+                    $msj='Debe ingresar el nombre del Director de Escuela';
+                }
+
+                
                 $selector='txttitulo';
             }
             elseif ($validator2->fails())
             {
                 $result='0';
-                $msj='Debe ingresar la descripción de la Presentación';
+                $msj='Debe ingresar la descripción del órgano de Gobierno';
                 $selector='txtdescripcion';
             }
             else{
 
                 if(Strlen($oldImg) > 0 && intval($tieneimagen) == 0){
                     if(intval($nivel) == 0){
-                        Storage::disk('presentacionUNASAM')->delete($oldImg);
+                        Storage::disk('organoUNASAM')->delete($oldImg);
                     }
                     elseif(intval($nivel) == 1){
-                        Storage::disk('presentacionFacultad')->delete($oldImg);
+                        Storage::disk('organoFacultad')->delete($oldImg);
                     }
                     elseif(intval($nivel) == 2){
-                        Storage::disk('presentacionProgramaEstudio')->delete($oldImg);
+                        Storage::disk('organoProgramaEstudio')->delete($oldImg);
                     }
                 }
                 if( intval($tieneimagen) == 1 && strlen($imagen)==0){
@@ -278,99 +354,123 @@ class PresentacionController extends Controller
                     if(strlen($imagen)>0)
                     {
                         if(intval($nivel) == 0){
-                            Storage::disk('presentacionUNASAM')->delete($oldImg);
+                            Storage::disk('organoUNASAM')->delete($oldImg);
                         }
                         elseif(intval($nivel) == 1){
-                            Storage::disk('presentacionFacultad')->delete($oldImg);
+                            Storage::disk('organoFacultad')->delete($oldImg);
                         }
                         elseif(intval($nivel) == 2){
-                            Storage::disk('presentacionProgramaEstudio')->delete($oldImg);
+                            Storage::disk('organoProgramaEstudio')->delete($oldImg);
                         }
 
                         
 
-                        $presentacion = new Presentacion();
-                        $presentacion->titulo=$titulo;
-                        $presentacion->subtitulo=$subtitulo;
-                        $presentacion->descripcion=$descripcion;
-                        $presentacion->tieneimagen=$tieneimagen;
-                        $presentacion->url=$imagen;
-                        $presentacion->activo=$activo;
-                        $presentacion->borrado='0';
-                        $presentacion->nivel=$nivel;
-                        $presentacion->user_id=Auth::user()->id;
+                        $organo = new Organo();
+                        $organo->titulo=$titulo;
+                        $organo->subtitulo=$subtitulo;
+                        $organo->descripcion=$descripcion;
+                        $organo->tieneimagen=$tieneimagen;
+                        $organo->url=$imagen;
+                        $organo->activo=$activo;
+                        $organo->borrado='0';
+                        $organo->tipo=$tipo;
+                        $organo->nivel=$nivel;
+                        $organo->user_id=Auth::user()->id;
                         if($facultad_id != null && intval($facultad_id) > 0){
-                            $presentacion->facultad_id=$facultad_id;
+                            $organo->facultad_id=$facultad_id;
                         }
                         if($programaestudio_id != null && intval($programaestudio_id) > 0){
-                            $presentacion->programaestudio_id=$programaestudio_id;
+                            $organo->programaestudio_id=$programaestudio_id;
                         }
 
-                        $presentacion->save();
+                        $organo->save();
                     }
                     else
                     {
-                        $presentacion = new Presentacion();
-                        $presentacion->titulo=$titulo;
-                        $presentacion->subtitulo=$subtitulo;
-                        $presentacion->descripcion=$descripcion;
-                        $presentacion->tieneimagen=$tieneimagen;
-                        $presentacion->url=$imagen;
-                        $presentacion->activo=$activo;
-                        $presentacion->borrado='0';
-                        $presentacion->nivel=$nivel;
-                        $presentacion->user_id=Auth::user()->id;
+                        $organo = new Presentacion();
+                        $organo->titulo=$titulo;
+                        $organo->subtitulo=$subtitulo;
+                        $organo->descripcion=$descripcion;
+                        $organo->tieneimagen=$tieneimagen;
+                        $organo->url=$imagen;
+                        $organo->activo=$activo;
+                        $organo->borrado='0';
+                        $organo->nivel=$nivel;
+                        $organo->tipo=$tipo;
+                        $organo->user_id=Auth::user()->id;
                         if($facultad_id != null && intval($facultad_id) > 0){
-                            $presentacion->facultad_id=$facultad_id;
+                            $organo->facultad_id=$facultad_id;
                         }
                         if($programaestudio_id != null && intval($programaestudio_id) > 0){
-                            $presentacion->programaestudio_id=$programaestudio_id;
+                            $organo->programaestudio_id=$programaestudio_id;
                         }
 
-                        $presentacion->save();
+                        $organo->save();
                     }
                 }
                 else{
                     if(strlen($imagen)>0)
                     {
                         if(intval($nivel) == 0){
-                            Storage::disk('presentacionUNASAM')->delete($oldImg);
+                            Storage::disk('organoUNASAM')->delete($oldImg);
                         }
                         elseif(intval($nivel) == 1){
-                            Storage::disk('presentacionFacultad')->delete($oldImg);
+                            Storage::disk('organoFacultad')->delete($oldImg);
                         }
                         elseif(intval($nivel) == 2){
-                            Storage::disk('presentacionProgramaEstudio')->delete($oldImg);
+                            Storage::disk('organoProgramaEstudio')->delete($oldImg);
                         }
 
-                        $presentacion = Presentacion::findOrFail($id);
-                        $presentacion->titulo=$titulo;
-                        $presentacion->subtitulo=$subtitulo;
-                        $presentacion->descripcion=$descripcion;
-                        $presentacion->tieneimagen=$tieneimagen;
-                        $presentacion->url=$imagen;
-                        $presentacion->activo=$activo;
-                        $presentacion->user_id=Auth::user()->id;
+                        $organo = Organo::findOrFail($id);
+                        $organo->titulo=$titulo;
+                        $organo->subtitulo=$subtitulo;
+                        $organo->descripcion=$descripcion;
+                        $organo->tieneimagen=$tieneimagen;
+                        $organo->url=$imagen;
+                        $organo->activo=$activo;
+                        $organo->user_id=Auth::user()->id;
 
-                        $presentacion->save();
+                        $organo->save();
                     }
                     else
                     {
-                        $presentacion = Presentacion::findOrFail($id);
-                        $presentacion->titulo=$titulo;
-                        $presentacion->subtitulo=$subtitulo;
-                        $presentacion->descripcion=$descripcion;
-                        $presentacion->tieneimagen=$tieneimagen;
-                        $presentacion->url=$imagen;
-                        $presentacion->activo=$activo;
-                        $presentacion->user_id=Auth::user()->id;
+                        $organo = Organo::findOrFail($id);
+                        $organo->titulo=$titulo;
+                        $organo->subtitulo=$subtitulo;
+                        $organo->descripcion=$descripcion;
+                        $organo->tieneimagen=$tieneimagen;
+                        $organo->url=$imagen;
+                        $organo->activo=$activo;
+                        $organo->user_id=Auth::user()->id;
 
-                        $presentacion->save();
+                        $organo->save();
                     }
                 }
                 
 
-                $msj='Presentación Registrada con Éxito';
+                
+
+                if($tipo == '1'){
+                    $msj='Registro del Rector actualizado con éxito';
+                }
+                elseif($tipo == '2'){
+                    $msj='Registro del Vicerrector Académico actualizado con éxito';
+                }
+                elseif($tipo == '3'){
+                    $msj='Registro del Vicerrector de Investigación actualizado con éxito';
+                }
+                elseif($tipo == '4'){
+                    $msj='Registro de la Asamblea Universitaria actualizado con éxito';
+                }
+                elseif($tipo == '5'){
+                    $msj='Registro del Concejo Universitario actualizado con éxito';
+                }
+                elseif($tipo == '6'){
+                    $msj='Registro del Decano de Facultad actualizado con éxito';
+                }
+                elseif($tipo == '7'){
+                    $msj='Registro del Director de Escuela actualizado con éxito';
+                }
 
             }
         }
@@ -384,27 +484,28 @@ class PresentacionController extends Controller
         $msj='';
         $selector='';
 
-        $presentacion = Presentacion::findOrFail($id);
+        $organo = Organo::findOrFail($id);
 
-        if(intval($presentacion->nivel) == 0){
-            Storage::disk('presentacionUNASAM')->delete($presentacion->url);
+        if(intval($organo->nivel) == 0){
+            Storage::disk('organoUNASAM')->delete($organo->url);
         }
-        elseif(intval($presentacion->nivel) == 1){
-            Storage::disk('presentacionFacultad')->delete($presentacion->url);
+        elseif(intval($organo->nivel) == 1){
+            Storage::disk('organoFacultad')->delete($organo->url);
         }
-        elseif(intval($presentacion->nivel) == 2){
-            Storage::disk('presentacionProgramaEstudio')->delete($presentacion->url);
+        elseif(intval($organo->nivel) == 2){
+            Storage::disk('organoProgramaEstudio')->delete($organo->url);
         }
 
 
-        $presentacion->url='';
-        $presentacion->save();
+        $organo->url='';
+        $organo->save();
 
         $msj='Se eliminó la imagen exitosamente';
 
         return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
 
     }
+
 
     /**
      * Display the specified resource.

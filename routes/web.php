@@ -20,6 +20,11 @@
 Route::get('/','IndexWebController@index');
 Route::get('historia','IndexWebController@historia');
 Route::get('misionvision','IndexWebController@misionvision');
+Route::get('rector','IndexWebController@rector');
+Route::get('vicerrectoracademico','IndexWebController@vicerrectoracademico');
+Route::get('vicerrectorinvestigacion','IndexWebController@vicerrectorinvestigacion');
+Route::get('asambleauniversitaria','IndexWebController@asambleauniversitaria');
+Route::get('concejouniversitario','IndexWebController@concejouniversitario');
 
 
 
@@ -58,6 +63,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('intranet/historia', 'HistoriaController@index1');
     Route::get('intranet/misionvisionportal', 'MisionvisionController@index0');
     Route::get('intranet/misionvision', 'MisionvisionController@index1');
+    Route::get('intranet/rector', 'OrganoController@index01');
+    Route::get('intranet/vicerrectoracademico', 'OrganoController@index02');
+    Route::get('intranet/vicerrectorinvestigacion', 'OrganoController@index03');
+    Route::get('intranet/asambleauniversitaria', 'OrganoController@index04');
+    Route::get('intranet/concejouniversitario', 'OrganoController@index05');
 
     Route::get('intranet/politicas', 'PoliticacalidadController@index1');
     Route::get('intranet/objetivos', 'ObjetivoController@index1');
@@ -107,6 +117,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('intranet/historiare', 'HistoriaController');
     Route::resource('intranet/misionvisionre', 'MisionvisionController');
+    Route::resource('intranet/organosre', 'OrganoController');
+
     Route::resource('intranet/politicasre', 'PoliticacalidadController');
     Route::resource('intranet/objetivosre', 'ObjetivoController');
     Route::resource('intranet/directoriore', 'DirectorioController');
@@ -157,6 +169,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('intranet/historiare/altabaja/{id}/{var}', 'HistoriaController@altabaja');
     Route::get('intranet/misionvisionre/altabaja/{id}/{var}', 'MisionvisionController@altabaja');
+    Route::get('intranet/organosre/altabaja/{id}/{var}', 'OrganoController@altabaja');
+
     Route::get('intranet/politicasre/altabaja/{id}/{var}', 'PoliticacalidadController@altabaja');
     Route::get('intranet/objetivosre/altabaja/{id}/{var}', 'ObjetivoController@altabaja');
     Route::get('intranet/directoriore/altabaja/{id}/{var}', 'DirectorioController@altabaja');

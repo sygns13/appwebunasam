@@ -113,11 +113,11 @@
                                                     <li class="dropdown-submenu">
                                                         <a class="dropdown-item" href="#">Órganos de Gobierno</a>
                                                         <ul class="dropdown-menu">
-                                                            <li><a class="dropdown-item" href="index-classic.html">Rectorado</a></li>
-                                                            <li><a class="dropdown-item" href="index-classic-color.html">Vicerrector Académico</a></li>
-                                                            <li><a class="dropdown-item" href="index-classic-light.html">Vicerrector Administrativo</a></li>
-                                                            <li><a class="dropdown-item" href="index-classic-video.html">Asamblea Universitaria</a></li>
-                                                            <li><a class="dropdown-item" href="index-classic-video-light.html">Consejo Universitario</a></li>
+                                                            <li><a class="dropdown-item" href="rector">Rectorado</a></li>
+                                                            <li><a class="dropdown-item" href="vicerrectoracademico">Vicerrector Académico</a></li>
+                                                            <li><a class="dropdown-item" href="vicerrectorinvestigacion">Vicerrector Administrativo</a></li>
+                                                            <li><a class="dropdown-item" href="asambleauniversitaria">Asamblea Universitaria</a></li>
+                                                            <li><a class="dropdown-item" href="concejouniversitario">Consejo Universitario</a></li>
                                                         </ul>
                                                     </li>
                                                     <li>

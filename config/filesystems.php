@@ -194,6 +194,22 @@ return [
             'visibility' => 'public',
          ],
 
+         'organoUNASAM' => [
+            'driver' => 'local',
+            'root' => public_path('web/organounasam'), // mision vision facultad
+            'visibility' => 'public',
+         ],
+         'organoFacultad' => [
+            'driver' => 'local',
+            'root' => public_path('web/organofacultad'), // mision vision facultad
+            'visibility' => 'public',
+         ],
+         'organoProgramaEstudio' => [
+            'driver' => 'local',
+            'root' => public_path('web/organoprograma'), // mision vision facultad
+            'visibility' => 'public',
+         ],
+
 
         'local' => [
             'driver' => 'local',
