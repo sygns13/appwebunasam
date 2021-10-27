@@ -258,6 +258,22 @@ return [
             'visibility' => 'public',
          ],
 
+         'licenciamientoUNASAM' => [
+            'driver' => 'local',
+            'root' => public_path('web/licenciamientounasam'), // mision vision facultad
+            'visibility' => 'public',
+         ],
+         'licenciamientoFacultad' => [
+            'driver' => 'local',
+            'root' => public_path('web/licenciamientofacultad'), // mision vision facultad
+            'visibility' => 'public',
+         ],
+         'licenciamientoProgramaEstudio' => [
+            'driver' => 'local',
+            'root' => public_path('web/licenciamientoprograma'), // mision vision facultad
+            'visibility' => 'public',
+         ],
+
 
         'local' => [
             'driver' => 'local',

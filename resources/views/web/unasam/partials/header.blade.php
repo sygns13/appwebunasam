@@ -280,7 +280,7 @@
                                             </li>
 
                                             <li class="dropdown">
-                                                <a class="dropdown-item {{$menusActivos->menu5}}" href="#">
+                                                <a class="dropdown-item {{$menusActivos->menu5}}" href="http://investigacion.unasam.edu.pe/">
                                                     Investigación
                                                 </a>
                                             </li>

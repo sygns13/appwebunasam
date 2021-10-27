@@ -74,6 +74,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('intranet/objetivosunasam', 'ObjetivoController@index0');
     Route::get('intranet/objetivos', 'ObjetivoController@index1');
     Route::get('intranet/estatuto', 'EstatutoController@index0');
+    Route::get('intranet/licenciamiento', 'LicenciamientoController@index01');
+    Route::get('intranet/acreditacion', 'LicenciamientoController@index02');
     Route::get('intranet/himno', 'ContenidoController@index01');
 
     Route::get('intranet/politicas', 'PoliticacalidadController@index1');
@@ -128,6 +130,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('intranet/estatutore', 'EstatutoController');
     Route::resource('intranet/docuemntoestatutore', 'DocumentoestatutoController');
     Route::resource('intranet/contenidosre', 'ContenidoController');
+    Route::resource('intranet/licenciamientore', 'LicenciamientoController');
 
     Route::resource('intranet/politicasre', 'PoliticacalidadController');
     Route::resource('intranet/directoriore', 'DirectorioController');
@@ -181,6 +184,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('intranet/organosre/altabaja/{id}/{var}', 'OrganoController@altabaja');
     Route::get('intranet/objetivosre/altabaja/{id}/{var}', 'ObjetivoController@altabaja');
     Route::get('intranet/estatutore/altabaja/{id}/{var}', 'EstatutoController@altabaja');
+    Route::get('intranet/licenciamientore/altabaja/{id}/{var}', 'LicenciamientoController@altabaja');
 
     Route::get('intranet/politicasre/altabaja/{id}/{var}', 'PoliticacalidadController@altabaja');
     Route::get('intranet/directoriore/altabaja/{id}/{var}', 'DirectorioController@altabaja');

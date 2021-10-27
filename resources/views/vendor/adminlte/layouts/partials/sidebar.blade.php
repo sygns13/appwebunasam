@@ -76,11 +76,11 @@
                     <li><a href="{{URL::to('intranet/concejouniversitario')}}"><i class='fa fa-paper-plane'></i> Concejo Universitario</a></li>
                     <li><a href="{{URL::to('intranet/objetivosunasam')}}"><i class='fa fa-paper-plane'></i> Objetivos Estratégicos</a></li>
                     <li><a href="{{URL::to('intranet/estatuto')}}"><i class='fa fa-paper-plane'></i> Gestión del Estatuto</a></li>
-                    <li><a href="{{URL::to('intranet/licenciamiento')}}"><i class='fa fa-paper-plane'></i> Publicaciones de Licenciamiento</a></li>
-                    <li><a href="{{URL::to('intranet/acreditacion')}}"><i class='fa fa-paper-plane'></i> Publicaciones de Acreditación</a></li>
-                    <li><a href="{{URL::to('intranet/himno')}}"><i class='fa fa-paper-plane'></i> Gestión del Himno de la UNASAM</a></li>
+                    <li><a href="{{URL::to('intranet/licenciamiento')}}"><i class='fa fa-paper-plane'></i> Gestión de Licenciamiento</a></li>
+                    <li><a href="{{URL::to('intranet/acreditacion')}}"><i class='fa fa-paper-plane'></i> Gestión de Acreditación</a></li>
+                    <li><a href="{{URL::to('intranet/himno')}}"><i class='fa fa-paper-plane'></i> Gestión del Himno Institucional</a></li>
 
-                    <li><a href="{{URL::to('intranet/directorio')}}"><i class='fa fa-paper-plane'></i> Gestión de Directorio</a></li> 
+{{--                     <li><a href="{{URL::to('intranet/directorio')}}"><i class='fa fa-paper-plane'></i> Gestión de Directorio</a></li> 
                     <li><a href="{{URL::to('intranet/documentosnormativos')}}"><i class='fa fa-paper-plane'></i> Documentos Normativos</a></li> 
                     <li><a href="{{URL::to('intranet/gestioncalidad')}}"><i class='fa fa-paper-plane'></i> Gestión de Calidad</a></li> 
                     <li><a href="{{URL::to('intranet/revistas')}}"><i class='fa fa-paper-plane'></i> Gestión de Revistas</a></li> 
@@ -90,7 +90,7 @@
                     <li><a href="{{URL::to('intranet/estudiantesfec')}}"><i class='fa fa-paper-plane'></i> Gestión de Estudiantes FEC</a></li> 
                     <li><a href="{{URL::to('intranet/docentesfec')}}"><i class='fa fa-paper-plane'></i> Gestión de Docentes FEC</a></li> 
                     <li><a href="{{URL::to('intranet/resoluciones')}}"><i class='fa fa-paper-plane'></i> Resoluciones y Actas</a></li> 
-                    <li><a href="{{URL::to('intranet/tupa')}}"><i class='fa fa-paper-plane'></i> Gestión del TUPA</a></li> 
+                    <li><a href="{{URL::to('intranet/tupa')}}"><i class='fa fa-paper-plane'></i> Gestión del TUPA</a></li>  --}}
                 </ul>
             </li>
             @endif
