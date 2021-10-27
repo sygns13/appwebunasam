@@ -242,6 +242,22 @@ return [
             'visibility' => 'public',
          ],
 
+         'contenidoUNASAM' => [
+            'driver' => 'local',
+            'root' => public_path('web/contenidounasam'), // mision vision facultad
+            'visibility' => 'public',
+         ],
+         'contenidoFacultad' => [
+            'driver' => 'local',
+            'root' => public_path('web/contenidofacultad'), // mision vision facultad
+            'visibility' => 'public',
+         ],
+         'contenidoProgramaEstudio' => [
+            'driver' => 'local',
+            'root' => public_path('web/contenidoprograma'), // mision vision facultad
+            'visibility' => 'public',
+         ],
+
 
         'local' => [
             'driver' => 'local',

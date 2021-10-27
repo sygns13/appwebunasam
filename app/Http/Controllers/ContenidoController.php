@@ -11,7 +11,7 @@ use App\Persona;
 use App\Tipouser;
 use App\User;
 
-use App\Organo;
+use App\Contenido;
 
 use stdClass;
 use DB;
@@ -19,7 +19,7 @@ use Storage;
 
 use Image;
 
-class OrganoController extends Controller
+class ContenidoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,16 +34,16 @@ class OrganoController extends Controller
             $idtipouser=Auth::user()->tipouser_id;
             $tipouser=Tipouser::find($idtipouser);
 
-            $modulo="rector";
+            $modulo="himno";
 
-            return view('paginasportal.organo1.index',compact('tipouser','modulo'));
+            return view('paginasportal.contenido1.index',compact('tipouser','modulo'));
         }
         else
         {
             return redirect('home');    
         }
     }
-    public function index02()
+   /*  public function index02()
     {
         if(accesoUser([1,2,3])){
 
@@ -53,7 +53,7 @@ class OrganoController extends Controller
 
             $modulo="vicerrector1";
 
-            return view('paginasportal.organo2.index',compact('tipouser','modulo'));
+            return view('paginasportal.contenido2.index',compact('tipouser','modulo'));
         }
         else
         {
@@ -70,7 +70,7 @@ class OrganoController extends Controller
 
             $modulo="vicerrector2";
 
-            return view('paginasportal.organo3.index',compact('tipouser','modulo'));
+            return view('paginasportal.contenido3.index',compact('tipouser','modulo'));
         }
         else
         {
@@ -87,7 +87,7 @@ class OrganoController extends Controller
 
             $modulo="asambleau";
 
-            return view('paginasportal.organo4.index',compact('tipouser','modulo'));
+            return view('paginasportal.contenido4.index',compact('tipouser','modulo'));
         }
         else
         {
@@ -104,13 +104,13 @@ class OrganoController extends Controller
 
             $modulo="concejou";
 
-            return view('paginasportal.organo5.index',compact('tipouser','modulo'));
+            return view('paginasportal.contenido5.index',compact('tipouser','modulo'));
         }
         else
         {
             return redirect('home');    
         }
-    }
+    } */
     public function index(Request $request)
     {
         //$buscar=$request->busca;
@@ -120,7 +120,7 @@ class OrganoController extends Controller
 
         $tipo = $request->tipo;
 
-        $queryZero=Organo::where('borrado','0');
+        $queryZero=Contenido::where('borrado','0');
        /* ->where(function($query) use ($buscar){
             $query->where('titulo','like','%'.$buscar.'%');
             //$query->orWhere('users.name','like','%'.$buscar.'%');
@@ -138,10 +138,10 @@ class OrganoController extends Controller
             $queryZero->where('nivel',$nivel);
         }
 
-        $organo = $queryZero->where('tipo',$tipo)->first();
+        $contenido = $queryZero->where('tipo',$tipo)->first();
 
           return [
-            'organo'=>$organo
+            'contenido'=>$contenido
             ];
     }
 
@@ -168,7 +168,7 @@ class OrganoController extends Controller
 
         $id=$request->id;
         $titulo=$request->titulo;
-        $subtitulo=$request->subtitulo;
+        $mediaurl=$request->mediaurl;
         $descripcion=$request->descripcion;
         $url=$request->url;
         $tieneimagen=$request->tieneimagen;
@@ -193,7 +193,7 @@ class OrganoController extends Controller
         if(intval($tieneimagen) == 1){
             if ($request->hasFile('imagen')) { 
 
-                $aux='organo_gobierno-'.date('d-m-Y').'-'.date('H-i-s');
+                $aux='contenido_gobierno-'.date('d-m-Y').'-'.date('H-i-s');
                 $input  = array('imagen' => $img) ;
                 $reglas = array('imagen' => 'required||mimes:png,jpg,jpeg,gif,jpe,PNG,JPG,JPEG,GIF,JPE');
                 $validator = Validator::make($input, $reglas);
@@ -231,19 +231,19 @@ class OrganoController extends Controller
                         $constraint->aspectRatio();
                     })->stream(); */
 
-                    //$subir=Storage::disk('organoFacultad')->put($nuevoNombre, \File::get($img));
+                    //$subir=Storage::disk('contenidoFacultad')->put($nuevoNombre, \File::get($img));
 
                     $subir=false;
                     if(intval($nivel) == 0){
-                        $subir=Storage::disk('organoUNASAM')->put($nuevoNombre, \File::get($img));
+                        $subir=Storage::disk('contenidoUNASAM')->put($nuevoNombre, \File::get($img));
                     //$subir=Storage::disk('banerUNASAM')->put($nuevoNombre, $imgR);
                     }
                     elseif(intval($nivel) == 1){
-                        $subir=Storage::disk('organoFacultad')->put($nuevoNombre, \File::get($img));
+                        $subir=Storage::disk('contenidoFacultad')->put($nuevoNombre, \File::get($img));
                     //$subir=Storage::disk('banerFacultad')->put($nuevoNombre, $imgR);
                     }
                     elseif(intval($nivel) == 2){
-                        $subir=Storage::disk('organoProgramaEstudio')->put($nuevoNombre, \File::get($img));
+                        $subir=Storage::disk('contenidoProgramaEstudio')->put($nuevoNombre, \File::get($img));
                     // $subir=Storage::disk('banerProgramaEstudio')->put($nuevoNombre, $imgR);
                     }
 
@@ -274,13 +274,13 @@ class OrganoController extends Controller
             
 
             if(intval($nivel) == 0){
-                Storage::disk('organoUNASAM')->delete($imagen);
+                Storage::disk('contenidoUNASAM')->delete($imagen);
             }
             elseif(intval($nivel) == 1){
-                Storage::disk('organoFacultad')->delete($imagen);
+                Storage::disk('contenidoFacultad')->delete($imagen);
             }
             elseif(intval($nivel) == 2){
-                Storage::disk('organoProgramaEstudio')->delete($imagen);
+                Storage::disk('contenidoProgramaEstudio')->delete($imagen);
             }
 
 
@@ -299,9 +299,9 @@ class OrganoController extends Controller
             {
                 $result='0';
                 if($tipo == '1'){
-                    $msj='Debe ingresar el nombre del Rector';
+                    $msj='Debe ingresar el nombre del Himno de la UNASAM';
                 }
-                elseif($tipo == '2'){
+/*                 elseif($tipo == '2'){
                     $msj='Debe ingresar el nombre del Vicerrector Académico';
                 }
                 elseif($tipo == '3'){
@@ -318,7 +318,7 @@ class OrganoController extends Controller
                 }
                 elseif($tipo == '7'){
                     $msj='Debe ingresar el nombre del Director de Escuela';
-                }
+                } */
 
                 
                 $selector='txttitulo';
@@ -326,124 +326,124 @@ class OrganoController extends Controller
             elseif ($validator2->fails())
             {
                 $result='0';
-                $msj='Debe ingresar la descripción del órgano de Gobierno';
+                $msj='Debe ingresar el contenido del Himno de la UNASAM';
                 $selector='txtdescripcion';
             }
             else{
 
                 if(Strlen($oldImg) > 0 && intval($tieneimagen) == 0){
                     if(intval($nivel) == 0){
-                        Storage::disk('organoUNASAM')->delete($oldImg);
+                        Storage::disk('contenidoUNASAM')->delete($oldImg);
                     }
                     elseif(intval($nivel) == 1){
-                        Storage::disk('organoFacultad')->delete($oldImg);
+                        Storage::disk('contenidoFacultad')->delete($oldImg);
                     }
                     elseif(intval($nivel) == 2){
-                        Storage::disk('organoProgramaEstudio')->delete($oldImg);
+                        Storage::disk('contenidoProgramaEstudio')->delete($oldImg);
                     }
                 }
                 if( intval($tieneimagen) == 1 && strlen($imagen)==0){
                     $imagen = $url;
                 }
 
-                if($subtitulo == null){
-                    $subtitulo = "";
+                if($mediaurl == null){
+                    $mediaurl = "";
                 }
 
                 if($id== null || Strlen($id) == 0){
                     if(strlen($imagen)>0)
                     {
                         if(intval($nivel) == 0){
-                            Storage::disk('organoUNASAM')->delete($oldImg);
+                            Storage::disk('contenidoUNASAM')->delete($oldImg);
                         }
                         elseif(intval($nivel) == 1){
-                            Storage::disk('organoFacultad')->delete($oldImg);
+                            Storage::disk('contenidoFacultad')->delete($oldImg);
                         }
                         elseif(intval($nivel) == 2){
-                            Storage::disk('organoProgramaEstudio')->delete($oldImg);
+                            Storage::disk('contenidoProgramaEstudio')->delete($oldImg);
                         }
 
                         
 
-                        $organo = new Organo();
-                        $organo->titulo=$titulo;
-                        $organo->subtitulo=$subtitulo;
-                        $organo->descripcion=$descripcion;
-                        $organo->tieneimagen=$tieneimagen;
-                        $organo->url=$imagen;
-                        $organo->activo=$activo;
-                        $organo->borrado='0';
-                        $organo->tipo=$tipo;
-                        $organo->nivel=$nivel;
-                        $organo->user_id=Auth::user()->id;
+                        $contenido = new Contenido();
+                        $contenido->titulo=$titulo;
+                        $contenido->mediaurl=$mediaurl;
+                        $contenido->descripcion=$descripcion;
+                        $contenido->tieneimagen=$tieneimagen;
+                        $contenido->url=$imagen;
+                        $contenido->activo=$activo;
+                        $contenido->borrado='0';
+                        $contenido->tipo=$tipo;
+                        $contenido->nivel=$nivel;
+                        $contenido->user_id=Auth::user()->id;
                         if($facultad_id != null && intval($facultad_id) > 0){
-                            $organo->facultad_id=$facultad_id;
+                            $contenido->facultad_id=$facultad_id;
                         }
                         if($programaestudio_id != null && intval($programaestudio_id) > 0){
-                            $organo->programaestudio_id=$programaestudio_id;
+                            $contenido->programaestudio_id=$programaestudio_id;
                         }
 
-                        $organo->save();
+                        $contenido->save();
                     }
                     else
                     {
-                        $organo = new Contenido();
-                        $organo->titulo=$titulo;
-                        $organo->subtitulo=$subtitulo;
-                        $organo->descripcion=$descripcion;
-                        $organo->tieneimagen=$tieneimagen;
-                        $organo->url=$imagen;
-                        $organo->activo=$activo;
-                        $organo->borrado='0';
-                        $organo->nivel=$nivel;
-                        $organo->tipo=$tipo;
-                        $organo->user_id=Auth::user()->id;
+                        $contenido = new Contenido();
+                        $contenido->titulo=$titulo;
+                        $contenido->mediaurl=$mediaurl;
+                        $contenido->descripcion=$descripcion;
+                        $contenido->tieneimagen=$tieneimagen;
+                        $contenido->url=$imagen;
+                        $contenido->activo=$activo;
+                        $contenido->borrado='0';
+                        $contenido->nivel=$nivel;
+                        $contenido->tipo=$tipo;
+                        $contenido->user_id=Auth::user()->id;
                         if($facultad_id != null && intval($facultad_id) > 0){
-                            $organo->facultad_id=$facultad_id;
+                            $contenido->facultad_id=$facultad_id;
                         }
                         if($programaestudio_id != null && intval($programaestudio_id) > 0){
-                            $organo->programaestudio_id=$programaestudio_id;
+                            $contenido->programaestudio_id=$programaestudio_id;
                         }
 
-                        $organo->save();
+                        $contenido->save();
                     }
                 }
                 else{
                     if(strlen($imagen)>0)
                     {
                         if(intval($nivel) == 0){
-                            Storage::disk('organoUNASAM')->delete($oldImg);
+                            Storage::disk('contenidoUNASAM')->delete($oldImg);
                         }
                         elseif(intval($nivel) == 1){
-                            Storage::disk('organoFacultad')->delete($oldImg);
+                            Storage::disk('contenidoFacultad')->delete($oldImg);
                         }
                         elseif(intval($nivel) == 2){
-                            Storage::disk('organoProgramaEstudio')->delete($oldImg);
+                            Storage::disk('contenidoProgramaEstudio')->delete($oldImg);
                         }
 
-                        $organo = Organo::findOrFail($id);
-                        $organo->titulo=$titulo;
-                        $organo->subtitulo=$subtitulo;
-                        $organo->descripcion=$descripcion;
-                        $organo->tieneimagen=$tieneimagen;
-                        $organo->url=$imagen;
-                        $organo->activo=$activo;
-                        $organo->user_id=Auth::user()->id;
+                        $contenido = Contenido::findOrFail($id);
+                        $contenido->titulo=$titulo;
+                        $contenido->mediaurl=$mediaurl;
+                        $contenido->descripcion=$descripcion;
+                        $contenido->tieneimagen=$tieneimagen;
+                        $contenido->url=$imagen;
+                        $contenido->activo=$activo;
+                        $contenido->user_id=Auth::user()->id;
 
-                        $organo->save();
+                        $contenido->save();
                     }
                     else
                     {
-                        $organo = Organo::findOrFail($id);
-                        $organo->titulo=$titulo;
-                        $organo->subtitulo=$subtitulo;
-                        $organo->descripcion=$descripcion;
-                        $organo->tieneimagen=$tieneimagen;
-                        $organo->url=$imagen;
-                        $organo->activo=$activo;
-                        $organo->user_id=Auth::user()->id;
+                        $contenido = Contenido::findOrFail($id);
+                        $contenido->titulo=$titulo;
+                        $contenido->mediaurl=$mediaurl;
+                        $contenido->descripcion=$descripcion;
+                        $contenido->tieneimagen=$tieneimagen;
+                        $contenido->url=$imagen;
+                        $contenido->activo=$activo;
+                        $contenido->user_id=Auth::user()->id;
 
-                        $organo->save();
+                        $contenido->save();
                     }
                 }
                 
@@ -451,9 +451,9 @@ class OrganoController extends Controller
                 
 
                 if($tipo == '1'){
-                    $msj='Registro del Rector actualizado con éxito';
+                    $msj='Registro del Himno actualizado con éxito';
                 }
-                elseif($tipo == '2'){
+/*                 elseif($tipo == '2'){
                     $msj='Registro del Vicerrector Académico actualizado con éxito';
                 }
                 elseif($tipo == '3'){
@@ -470,7 +470,7 @@ class OrganoController extends Controller
                 }
                 elseif($tipo == '7'){
                     $msj='Registro del Director de Escuela actualizado con éxito';
-                }
+                } */
 
             }
         }
@@ -484,21 +484,21 @@ class OrganoController extends Controller
         $msj='';
         $selector='';
 
-        $organo = Organo::findOrFail($id);
+        $contenido = Contenido::findOrFail($id);
 
-        if(intval($organo->nivel) == 0){
-            Storage::disk('organoUNASAM')->delete($organo->url);
+        if(intval($contenido->nivel) == 0){
+            Storage::disk('contenidoUNASAM')->delete($contenido->url);
         }
-        elseif(intval($organo->nivel) == 1){
-            Storage::disk('organoFacultad')->delete($organo->url);
+        elseif(intval($contenido->nivel) == 1){
+            Storage::disk('contenidoFacultad')->delete($contenido->url);
         }
-        elseif(intval($organo->nivel) == 2){
-            Storage::disk('organoProgramaEstudio')->delete($organo->url);
+        elseif(intval($contenido->nivel) == 2){
+            Storage::disk('contenidoProgramaEstudio')->delete($contenido->url);
         }
 
 
-        $organo->url='';
-        $organo->save();
+        $contenido->url='';
+        $contenido->save();
 
         $msj='Se eliminó la imagen exitosamente';
 

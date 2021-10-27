@@ -27,6 +27,7 @@ Route::get('asambleauniversitaria','IndexWebController@asambleauniversitaria');
 Route::get('concejouniversitario','IndexWebController@concejouniversitario');
 Route::get('objetivos','IndexWebController@objetivos');
 Route::get('estatuto','IndexWebController@estatuto');
+Route::get('himno','IndexWebController@himno');
 
 
 
@@ -73,6 +74,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('intranet/objetivosunasam', 'ObjetivoController@index0');
     Route::get('intranet/objetivos', 'ObjetivoController@index1');
     Route::get('intranet/estatuto', 'EstatutoController@index0');
+    Route::get('intranet/himno', 'ContenidoController@index01');
 
     Route::get('intranet/politicas', 'PoliticacalidadController@index1');
     Route::get('intranet/directorio', 'DirectorioController@index1');
@@ -125,6 +127,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('intranet/objetivosre', 'ObjetivoController');
     Route::resource('intranet/estatutore', 'EstatutoController');
     Route::resource('intranet/docuemntoestatutore', 'DocumentoestatutoController');
+    Route::resource('intranet/contenidosre', 'ContenidoController');
 
     Route::resource('intranet/politicasre', 'PoliticacalidadController');
     Route::resource('intranet/directoriore', 'DirectorioController');

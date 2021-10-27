@@ -133,6 +133,9 @@ desired effect
 @elseif($modulo=="estatutoportal")
 @include('paginasportal.estatuto.vue')
 
+@elseif($modulo=="himno")
+@include('paginasportal.contenido1.vue')
+
 {{-- //Paginas Portales Facultades--}}
 
 @elseif($modulo=="bannerfacultad")
