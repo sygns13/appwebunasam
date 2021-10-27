@@ -226,6 +226,22 @@ return [
             'visibility' => 'public',
          ],
 
+         'estatutoUNASAM' => [
+            'driver' => 'local',
+            'root' => public_path('web/estatutounasam'), // mision vision facultad
+            'visibility' => 'public',
+         ],
+         'estatutoFacultad' => [
+            'driver' => 'local',
+            'root' => public_path('web/estatutofacultad'), // mision vision facultad
+            'visibility' => 'public',
+         ],
+         'estatutoProgramaEstudio' => [
+            'driver' => 'local',
+            'root' => public_path('web/estatutoprograma'), // mision vision facultad
+            'visibility' => 'public',
+         ],
+
 
         'local' => [
             'driver' => 'local',

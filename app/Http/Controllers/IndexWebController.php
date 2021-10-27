@@ -32,6 +32,8 @@ use App\Imagenhistoria;
 use App\Misionvision;
 use App\Organo;
 use App\Objetivo;
+use App\Estatuto;
+use App\Documentoestatuto;
 
 use DateTime;
 
@@ -318,6 +320,34 @@ class IndexWebController extends Controller
         $menusActivos->menu9 = "";
 
         return view('web/unasam/objetivos',compact('objetivos','redsocials','unasam','menusActivos'));
+
+    }
+
+    public function estatuto(){
+
+        $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+        $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 0)->orderBy('id')->get();
+
+        $estatuto=Estatuto::where('borrado','0')->where('nivel', 0)->where('activo','1')->first();
+
+        if ($estatuto != null && $estatuto->id != null) {    
+            $documentoestatuto = Documentoestatuto::where('activo','1')->where('borrado','0')->where('estatuto_id', $estatuto->id)->orderBy('posicion')->orderBy('id')->get();
+            $estatuto->documentoestatuto = $documentoestatuto;
+            }
+
+        $menusActivos = new stdClass;
+
+        $menusActivos->menu1 = "active";
+        $menusActivos->menu2 = "";
+        $menusActivos->menu3 = "";
+        $menusActivos->menu4 = "";
+        $menusActivos->menu5 = "";
+        $menusActivos->menu6 = "";
+        $menusActivos->menu7 = "";
+        $menusActivos->menu8 = "";
+        $menusActivos->menu9 = "";
+
+        return view('web/unasam/estatuto',compact('unasam','redsocials','estatuto','menusActivos'));
 
     }
 

@@ -26,6 +26,7 @@ Route::get('vicerrectorinvestigacion','IndexWebController@vicerrectorinvestigaci
 Route::get('asambleauniversitaria','IndexWebController@asambleauniversitaria');
 Route::get('concejouniversitario','IndexWebController@concejouniversitario');
 Route::get('objetivos','IndexWebController@objetivos');
+Route::get('estatuto','IndexWebController@estatuto');
 
 
 
@@ -71,6 +72,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('intranet/concejouniversitario', 'OrganoController@index05');
     Route::get('intranet/objetivosunasam', 'ObjetivoController@index0');
     Route::get('intranet/objetivos', 'ObjetivoController@index1');
+    Route::get('intranet/estatuto', 'EstatutoController@index0');
 
     Route::get('intranet/politicas', 'PoliticacalidadController@index1');
     Route::get('intranet/directorio', 'DirectorioController@index1');
@@ -121,6 +123,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('intranet/misionvisionre', 'MisionvisionController');
     Route::resource('intranet/organosre', 'OrganoController');
     Route::resource('intranet/objetivosre', 'ObjetivoController');
+    Route::resource('intranet/estatutore', 'EstatutoController');
+    Route::resource('intranet/docuemntoestatutore', 'DocumentoestatutoController');
 
     Route::resource('intranet/politicasre', 'PoliticacalidadController');
     Route::resource('intranet/directoriore', 'DirectorioController');
@@ -173,6 +177,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('intranet/misionvisionre/altabaja/{id}/{var}', 'MisionvisionController@altabaja');
     Route::get('intranet/organosre/altabaja/{id}/{var}', 'OrganoController@altabaja');
     Route::get('intranet/objetivosre/altabaja/{id}/{var}', 'ObjetivoController@altabaja');
+    Route::get('intranet/estatutore/altabaja/{id}/{var}', 'EstatutoController@altabaja');
 
     Route::get('intranet/politicasre/altabaja/{id}/{var}', 'PoliticacalidadController@altabaja');
     Route::get('intranet/directoriore/altabaja/{id}/{var}', 'DirectorioController@altabaja');
