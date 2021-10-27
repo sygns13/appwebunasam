@@ -28,6 +28,8 @@ Route::get('concejouniversitario','IndexWebController@concejouniversitario');
 Route::get('objetivos','IndexWebController@objetivos');
 Route::get('estatuto','IndexWebController@estatuto');
 Route::get('himno','IndexWebController@himno');
+Route::get('acreditacion','IndexWebController@acreditacion');
+Route::get('licenciamiento','IndexWebController@licenciamiento');
 
 
 
@@ -185,6 +187,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('intranet/objetivosre/altabaja/{id}/{var}', 'ObjetivoController@altabaja');
     Route::get('intranet/estatutore/altabaja/{id}/{var}', 'EstatutoController@altabaja');
     Route::get('intranet/licenciamientore/altabaja/{id}/{var}', 'LicenciamientoController@altabaja');
+    Route::delete('intranet/licenciamientore/deleteimg/{id}', 'LicenciamientoController@deleteImg');
+    Route::delete('intranet/licenciamientore/deletefile/{id}', 'LicenciamientoController@deleteFile');
 
     Route::get('intranet/politicasre/altabaja/{id}/{var}', 'PoliticacalidadController@altabaja');
     Route::get('intranet/directoriore/altabaja/{id}/{var}', 'DirectorioController@altabaja');

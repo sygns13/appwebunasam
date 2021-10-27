@@ -131,13 +131,13 @@
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="index.html#demos">
+                                                        <a class="dropdown-item" href="acreditacion">
                                                             Acreditación Institucional
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="index.html#demos">
-                                                            Licnciamiento Institucional
+                                                        <a class="dropdown-item" href="licenciamiento">
+                                                            Licenciamiento Institucional
                                                         </a>
                                                     </li>
                                                     <li>

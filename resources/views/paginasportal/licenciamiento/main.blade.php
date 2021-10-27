@@ -78,6 +78,7 @@
           <center>
             <template v-if="licenciamiento.tieneimagen == 1">
             <img v-bind:src="'{{ asset('/web/licenciamientounasam/')}}'+'/'+licenciamiento.url" style="max-height: 200px;border: solid 1px black;" class="img-responsive" alt="Imagen del Contenido Informativo" id="imgInformacion">
+            <a href="#" class="btn btn-danger btn-sm" v-on:click.prevent="borrarImage(licenciamiento)" data-placement="top" data-toggle="tooltip" title="Borrar Imagen"><i class="fa fa-trash"></i></a>
           </template>
           <template v-else>
             No Registrada
@@ -88,6 +89,7 @@
           <center>
             <template v-if="licenciamiento.tienearchivo == 1">
               <a v-bind:href="'{{ asset('/web/licenciamientounasam/')}}'+'/'+licenciamiento.urlfile"  class="btn btn-primary btn-xs" target="_blank"> @{{ licenciamiento.nombrefile }}</a>
+              <a href="#" class="btn btn-danger btn-sm" v-on:click.prevent="borrarFile(licenciamiento)" data-placement="top" data-toggle="tooltip" title="Borrar Archivo"><i class="fa fa-trash"></i></a>
           </template>
           <template v-else>
             No Registrada

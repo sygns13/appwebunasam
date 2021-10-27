@@ -35,6 +35,7 @@ use App\Objetivo;
 use App\Estatuto;
 use App\Documentoestatuto;
 use App\Contenido;
+use App\Licenciamiento;
 
 use DateTime;
 
@@ -372,6 +373,52 @@ class IndexWebController extends Controller
         $menusActivos->menu9 = "";
 
         return view('web/unasam/himno',compact('himno','redsocials','unasam','menusActivos'));
+
+    }
+
+    public function acreditacion(){
+
+        $acreditacions=Licenciamiento::where('borrado','0')->where('activo','1')->where('nivel', 0 )->where('tipo', 2 )->orderBy('id','desc')->get();
+        $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 0)->orderBy('id')->get();
+
+        $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+
+        $menusActivos = new stdClass;
+
+        $menusActivos->menu1 = "active";
+        $menusActivos->menu2 = "";
+        $menusActivos->menu3 = "";
+        $menusActivos->menu4 = "";
+        $menusActivos->menu5 = "";
+        $menusActivos->menu6 = "";
+        $menusActivos->menu7 = "";
+        $menusActivos->menu8 = "";
+        $menusActivos->menu9 = "";
+
+        return view('web/unasam/acreditacion',compact('acreditacions','redsocials','unasam','menusActivos'));
+
+    }
+
+    public function licenciamiento(){
+
+        $licenciamientos=Licenciamiento::where('borrado','0')->where('activo','1')->where('nivel', 0 )->where('tipo', 1 )->orderBy('id','desc')->get();
+        $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 0)->orderBy('id')->get();
+
+        $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+
+        $menusActivos = new stdClass;
+
+        $menusActivos->menu1 = "active";
+        $menusActivos->menu2 = "";
+        $menusActivos->menu3 = "";
+        $menusActivos->menu4 = "";
+        $menusActivos->menu5 = "";
+        $menusActivos->menu6 = "";
+        $menusActivos->menu7 = "";
+        $menusActivos->menu8 = "";
+        $menusActivos->menu9 = "";
+
+        return view('web/unasam/licenciamiento',compact('licenciamientos','redsocials','unasam','menusActivos'));
 
     }
 

@@ -78,6 +78,7 @@
           <center>
             <template v-if="acreditacion.tieneimagen == 1">
             <img v-bind:src="'{{ asset('/web/licenciamientounasam/')}}'+'/'+acreditacion.url" style="max-height: 200px;border: solid 1px black;" class="img-responsive" alt="Imagen del Contenido Informativo" id="imgInformacion">
+            <a href="#" class="btn btn-danger btn-sm" v-on:click.prevent="borrarImage(acreditacion)" data-placement="top" data-toggle="tooltip" title="Borrar Imagen"><i class="fa fa-trash"></i></a>
           </template>
           <template v-else>
             No Registrada
@@ -88,9 +89,10 @@
           <center>
             <template v-if="acreditacion.tienearchivo == 1">
               <a v-bind:href="'{{ asset('/web/licenciamientounasam/')}}'+'/'+acreditacion.urlfile"  class="btn btn-primary btn-xs" target="_blank"> @{{ acreditacion.nombrefile }}</a>
+              <a href="#" class="btn btn-danger btn-sm" v-on:click.prevent="borrarFile(acreditacion)" data-placement="top" data-toggle="tooltip" title="Borrar Archivo"><i class="fa fa-trash"></i></a>
           </template>
           <template v-else>
-            No Registrada
+            No Registrado
           </template>
             </center>
         </td>

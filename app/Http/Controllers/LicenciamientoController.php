@@ -807,7 +807,7 @@ class LicenciamientoController extends Controller
         return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
     }
 
-    public function deleteImg($id,$image)
+    public function deleteImg($id)
     {
         $result='1';
         $msj='';
@@ -816,17 +816,18 @@ class LicenciamientoController extends Controller
         $licenciamiento = Licenciamiento::findOrFail($id);
 
         if(intval($licenciamiento->nivel) == 0){
-            Storage::disk('licenciamientoUNASAM')->delete($image);
+            Storage::disk('licenciamientoUNASAM')->delete($licenciamiento->url);
         }
         elseif(intval($licenciamiento->nivel) == 1){
-            Storage::disk('licenciamientoFacultad')->delete($image);
+            Storage::disk('licenciamientoFacultad')->delete($licenciamiento->url);
         }
         elseif(intval($licenciamiento->nivel) == 2){
-            Storage::disk('licenciamientoProgramaEstudio')->delete($image);
+            Storage::disk('licenciamientoProgramaEstudio')->delete($licenciamiento->url);
         }
 
 
         $licenciamiento->url='';
+        $licenciamiento->tieneimagen=0;
         $licenciamiento->save();
 
         $msj='Se eliminó la imagen exitosamente';
@@ -835,7 +836,7 @@ class LicenciamientoController extends Controller
 
     }
 
-    public function deleteFile($id,$file)
+    public function deleteFile($id)
     {
         $result='1';
         $msj='';
@@ -844,20 +845,22 @@ class LicenciamientoController extends Controller
         $licenciamiento = Licenciamiento::findOrFail($id);
 
         if(intval($licenciamiento->nivel) == 0){
-            Storage::disk('licenciamientoUNASAM')->delete($file);
+            Storage::disk('licenciamientoUNASAM')->delete($licenciamiento->urlfile);
         }
         elseif(intval($licenciamiento->nivel) == 1){
-            Storage::disk('licenciamientoFacultad')->delete($file);
+            Storage::disk('licenciamientoFacultad')->delete($licenciamiento->urlfile);
         }
         elseif(intval($licenciamiento->nivel) == 2){
-            Storage::disk('licenciamientoProgramaEstudio')->delete($file);
+            Storage::disk('licenciamientoProgramaEstudio')->delete($licenciamiento->urlfile);
         }
 
 
         $licenciamiento->urlfile='';
+        $licenciamiento->nombrefile='';
+        $licenciamiento->tienearchivo=0;
         $licenciamiento->save();
 
-        $msj='Se eliminó la imagen exitosamente';
+        $msj='Se eliminó el archivo exitosamente';
 
         return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
 

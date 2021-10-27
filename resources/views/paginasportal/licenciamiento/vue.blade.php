@@ -487,6 +487,62 @@ Vue.component('ckeditor2', {
 
             }).catch(swal.noop);
         },
+        borrarImage:function (dato) {
+          swal.fire({
+              title: '¿Estás seguro?',
+              text: "¿Desea eliminar la Imagen seleccionada? -- Nota: Este proceso no se podrá revertir",
+              type: 'info',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Si, eliminar'
+          }).then((result) => {
+
+
+            if (result.value) {
+                var url = '/intranet/licenciamientore/deleteimg/'+dato.id;
+                axios.delete(url).then(response=>{//eliminamos
+
+                    if(response.data.result=='1'){
+                        app.getDatos(app.thispage);//listamos
+                        toastr.success(response.data.msj);//mostramos mensaje
+                    }else{
+                        // $('#'+response.data.selector).focus();
+                        toastr.error(response.data.msj);
+                    }
+                });
+            }
+
+            }).catch(swal.noop);
+        },
+        borrarFile:function (dato) {
+          swal.fire({
+              title: '¿Estás seguro?',
+              text: "¿Desea eliminar el Archivo seleccionado? -- Nota: Este proceso no se podrá revertir",
+              type: 'info',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Si, eliminar'
+          }).then((result) => {
+
+
+            if (result.value) {
+                var url = '/intranet/licenciamientore/deletefile/'+dato.id;
+                axios.delete(url).then(response=>{//eliminamos
+
+                    if(response.data.result=='1'){
+                        app.getDatos(app.thispage);//listamos
+                        toastr.success(response.data.msj);//mostramos mensaje
+                    }else{
+                        // $('#'+response.data.selector).focus();
+                        toastr.error(response.data.msj);
+                    }
+                });
+            }
+
+            }).catch(swal.noop);
+        },
         edit:function (dato) {
 
         this.uploadReadyE=false;
