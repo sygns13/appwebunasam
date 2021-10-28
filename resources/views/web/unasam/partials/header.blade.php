@@ -78,7 +78,7 @@
                             <li>
                                 <div class="header-extra-info-text">
                                     <label>Comuníquese</label>
-                                    <strong><a href="tel:8001234567">Directorio Institucional</a></strong>
+                                    <strong><a href="https://www.gob.pe/institucion/unasam/funcionarios">Directorio Institucional</a></strong>
                                 </div>
                             </li>
                         </ul>
@@ -96,10 +96,15 @@
                                     <nav class="collapse">
                                         <ul class="nav nav-pills" id="mainNav" data-sticky-header-style="{'minResolution': 991}" data-sticky-header-style-active="{'margin-left': '50px'}" data-sticky-header-style-deactive="{'margin-left': '0'}">
                                             <li class="dropdown" style="margin-left:0px;">
-                                                <a class="dropdown-item dropdown-toggle {{$menusActivos->menu1}}" href="/">
+                                                <a class="dropdown-item dropdown-toggle {{$menusActivos->menu1}}" href="#">
                                                     LA UNASAM
                                                 </a>
                                                 <ul class="dropdown-menu">
+                                                    <li>
+                                                        <a class="dropdown-item" href="/">
+                                                            Inicio <i class="fas fa-home"></i>
+                                                        </a>
+                                                    </li>
                                                     <li>
                                                         <a class="dropdown-item" href="historia">
                                                             Reseña Histórica
@@ -149,27 +154,30 @@
                                                 </ul>
                                             </li>
                                             <li class="dropdown">
-                                                <a class="dropdown-item dropdown-toggle {{$menusActivos->menu2}}" href="#">
+                                                <a class="dropdown-item dropdown-toggle {{$menusActivos->menu2}}" href="javascript:void(0);">
                                                     Admisión
                                                 </a>
                                                 <ul class="dropdown-menu">
                                                     <li class="dropdown-submenu">
                                                         <a class="dropdown-item" href="#">Pregrado</a>
                                                         <ul class="dropdown-menu">
-                                                            <li><a class="dropdown-item" href="contact-us-advanced.php">Portal Admisión Pregrado</a></li>
-                                                            <li><a class="dropdown-item" href="contact-us.html">Modalidades de Admisión</a></li>
-                                                            <li><a class="dropdown-item" href="contact-us-recaptcha.html">Costos de Admisión</a></li>
-                                                            <li><a class="dropdown-item" href="contact-us-recaptcha.html">Cronograma de Admisión</a></li>
-                                                            <li><a class="dropdown-item" href="contact-us-recaptcha.html">Vacantes y Plazas</a></li>
+                                                            <li><a target="_blank" class="dropdown-item" href="https://www.admisionunasam.com/">Portal Admisión Pregrado</a></li>
+                                                            <li><a target="_blank" class="dropdown-item" href="https://www.admisionunasam.com/carreras">Programas Profesionales</a></li>
+                                                            <li><a target="_blank" class="dropdown-item" href="https://www.admisionunasam.com/requisitos/pagos">Costos de Admisión</a></li>
+                                                            <li><a target="_blank" class="dropdown-item" href="https://www.admisionunasam.com/requisitos/cronograma">Cronograma de Admisión</a></li>
+                                                            <li><a target="_blank" class="dropdown-item" href="https://www.admisionunasam.com/requisitos/vacante">Vacantes y Plazas</a></li>
+                                                            <li><a target="_blank" class="dropdown-item" href="https://www.admisionunasam.com/resultados">Resultados de Admisión</a></li>
+                                                            <li><a target="_blank" class="dropdown-item" href="https://www.admisionunasam.com/reglamento-pregrado">Reglamento de Admisión</a></li>
                                                         </ul>
                                                     </li>
                                                     <li class="dropdown-submenu">
                                                         <a class="dropdown-item" href="#">Postgrado</a>
                                                         <ul class="dropdown-menu">
-                                                            <li><a class="dropdown-item" href="about-us-advanced.html">Datos de Admisión</a></li>
-                                                            <li><a class="dropdown-item" href="about-us.html">Costos de Admisión</a></li>
+                                                            <li><a target="_blank" class="dropdown-item" href="http://postgrado.unasam.edu.pe/admision">Portal Admisión Postgrado</a></li>
+                                                            <li><a target="_blank" class="dropdown-item" href="https://www.admisionunasam.com/reglamento-postgrado">Reglamento de Admisión</a></li>
+                                                          {{--   <li><a class="dropdown-item" href="about-us.html">Costos de Admisión</a></li>
                                                             <li><a class="dropdown-item" href="contact-us-recaptcha.html">Cronograma de Admisión</a></li>
-                                                            <li><a class="dropdown-item" href="contact-us-recaptcha.html">Vacantes y Plazas</a></li>
+                                                            <li><a class="dropdown-item" href="contact-us-recaptcha.html">Vacantes y Plazas</a></li> --}}
                                                         </ul>
                                                     </li>
                                                 </ul>
@@ -262,25 +270,25 @@
                                                 </a>
                                                 <ul class="dropdown-menu">
                                                     <li>
-                                                        <a class="dropdown-item" href="index.html#demos">
+                                                        <a class="dropdown-item" target="_blank" href="http://postgrado.unasam.edu.pe/">
                                                             Escuela de Postgrado
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="index.html#demos">
-                                                            Maestrías
+                                                        <a class="dropdown-item" target="_blank" href="http://sgapg.unasam.edu.pe/login">
+                                                            Sistema de Gestión Académica
                                                         </a>
                                                     </li>
-                                                    <li>
+                                                   {{--  <li>
                                                         <a class="dropdown-item" href="index.html#demos">
                                                             Doctorados
                                                         </a>
-                                                    </li>
+                                                    </li> --}}
                                                 </ul>
                                             </li>
 
                                             <li class="dropdown">
-                                                <a class="dropdown-item {{$menusActivos->menu5}}" href="http://investigacion.unasam.edu.pe/">
+                                                <a class="dropdown-item {{$menusActivos->menu5}}" target="_blank" href="http://investigacion.unasam.edu.pe/">
                                                     Investigación
                                                 </a>
                                             </li>
@@ -314,13 +322,13 @@
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="index.html#demos">
+                                                        <a class="dropdown-item" target="_blank" href="http://repositorio.unasam.edu.pe/">
                                                             Repositorio Institucional
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="index.html#demos">
-                                                            Revista UNASAM
+                                                        <a class="dropdown-item" target="_blank" href="http://revistas.unasam.edu.pe/">
+                                                            Revistas UNASAM
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -343,7 +351,17 @@
                                                     </li>
                                                     <li>
                                                         <a class="dropdown-item" href="index.html#demos">
+                                                            Informes y Publicaciones
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" href="index.html#demos">
                                                             Transparencia Institucional
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" target="_blank" href="http://sga.unasam.edu.pe/reportes">
+                                                            Reportes Académicos
                                                         </a>
                                                     </li>
                                                 </ul>
@@ -355,18 +373,18 @@
                                                 </a>
                                                 <ul class="dropdown-menu">
                                                     <li>
-                                                        <a class="dropdown-item" href="index.html#demos">
+                                                        <a class="dropdown-item" href="noticias">
                                                             Noticias
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="index.html#demos">
+                                                        <a class="dropdown-item" href="eventos">
                                                             Eventos
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="index.html#demos">
-                                                            Comunicados
+                                                        <a class="dropdown-item" href="actividades">
+                                                            Actividades Programadas
                                                         </a>
                                                     </li>
                                                 </ul>

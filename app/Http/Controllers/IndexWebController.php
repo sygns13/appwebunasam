@@ -51,9 +51,9 @@ class IndexWebController extends Controller
         $banners=Banner::where('borrado','0')->where('activo','1')->where('nivel', 0 )->orderBy('posision')->orderBy('id')->get();
         $presentacion=Presentacion::where('borrado','0')->where('nivel', 0)->where('activo','1')->first();
         $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
-        $noticias = Noticia::where('borrado','0')->where('nivel', 0)->where('activo','1')->orderBy('hora','desc')->orderBy('id')->limit(4)->get();
-        $eventos = Evento::where('borrado','0')->where('nivel', 0)->where('activo','1')->orderBy('hora','desc')->orderBy('id')->limit(6)->get();
-        $actividades = Comunicado::where('borrado','0')->where('nivel', 0)->where('activo','1')->orderBy('hora','desc')->orderBy('id')->limit(10)->get();
+        $noticias = Noticia::where('borrado','0')->where('nivel', 0)->where('activo','1')->orderBy('fecha','desc')->orderBy('hora','desc')->orderBy('id')->limit(4)->get();
+        $eventos = Evento::where('borrado','0')->where('nivel', 0)->where('activo','1')->orderBy('fecha','desc')->orderBy('hora','desc')->orderBy('id')->limit(6)->get();
+        $actividades = Comunicado::where('borrado','0')->where('nivel', 0)->where('activo','1')->orderBy('fecha','desc')->orderBy('hora','desc')->orderBy('id')->limit(10)->get();
         $plataformas=Plataforma::where('borrado','0')->where('activo','1')->where('nivel', 0)->orderBy('id')->get();
         $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 0)->orderBy('id')->get();
         $linkinteres=Linkinteres::where('borrado','0')->where('activo','1')->where('nivel', 0 )->orderBy('posision')->get();
@@ -419,6 +419,29 @@ class IndexWebController extends Controller
         $menusActivos->menu9 = "";
 
         return view('web/unasam/licenciamiento',compact('licenciamientos','redsocials','unasam','menusActivos'));
+
+    }
+
+    public function presentacion(){
+
+        $presentacion=Presentacion::where('borrado','0')->where('nivel', 0)->where('activo','1')->first();
+        $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 0)->orderBy('id')->get();
+
+        $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+
+        $menusActivos = new stdClass;
+
+        $menusActivos->menu1 = "active";
+        $menusActivos->menu2 = "";
+        $menusActivos->menu3 = "";
+        $menusActivos->menu4 = "";
+        $menusActivos->menu5 = "";
+        $menusActivos->menu6 = "";
+        $menusActivos->menu7 = "";
+        $menusActivos->menu8 = "";
+        $menusActivos->menu9 = "";
+
+        return view('web/unasam/presentacion',compact('presentacion','redsocials','unasam','menusActivos'));
 
     }
 

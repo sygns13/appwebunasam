@@ -3,10 +3,10 @@
         <div class="row py-5" style="padding-bottom:0px!important; padding-top:20px!important;">
             <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
                 <h5 class="text-3 mb-3 opacity-7">Nosotros</h5>
-                <a href="#"><p class="pe-1 text-color-light" style="margin-bottom: 0px;">Misión y Visión</p></a>
-                <a href="#"><p class="pe-1 text-color-light" style="margin-bottom: 0px;">Himno Institucional</p></a>
-                <a href="#"><p class="pe-1 text-color-light" style="margin-bottom: 0px;">Organigrama Institucional</p></a>
-                <a href="#"><p class="pe-1 text-color-light" style="margin-bottom: 0px;">Directorio Institucional</p></a>
+                <a href="misionvision"><p class="pe-1 text-color-light" style="margin-bottom: 0px;">Misión y Visión</p></a>
+                <a href="himno"><p class="pe-1 text-color-light" style="margin-bottom: 0px;">Himno Institucional</p></a>
+                <a href="https://www.unasam.edu.pe/img/file/organigrama.pdf"><p class="pe-1 text-color-light" style="margin-bottom: 0px;">Organigrama Institucional</p></a>
+                <a href="https://www.gob.pe/institucion/unasam/funcionarios"><p class="pe-1 text-color-light" style="margin-bottom: 0px;">Directorio Institucional</p></a>
                 <div class="alert alert-success d-none" id="newsletterSuccess">
                     <strong>Success!</strong> You've been added to our email list.
                 </div>
@@ -14,11 +14,12 @@
             </div>
             <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
                 <h5 class="text-3 mb-3 opacity-7">Servicios</h5>
-                <a href="#"><p class="pe-1 text-color-light" style="margin-bottom: 0px;"><i class="fa fa-paper-plane text-color-light"></i> SVA Campus Virtual</p></a>
-                <a href="#"><p class="pe-1 text-color-light" style="margin-bottom: 0px;"><i class="fa fa-paper-plane text-color-light"></i> SGA UNASAM</p></a>
-                <a href="#"><p class="pe-1 text-color-light" style="margin-bottom: 0px;"><i class="fa fa-paper-plane text-color-light"></i> SGA Postgrado</p></a>
-                <a href="#"><p class="pe-1 text-color-light" style="margin-bottom: 0px;"><i class="fa fa-paper-plane text-color-light"></i> Repositorio Institucional</p></a>
-                <a href="#"><p class="pe-1 text-color-light" style="margin-bottom: 0px;"><i class="fa fa-paper-plane text-color-light"></i> Sistema de Actas y Resoluciones</p></a>	
+                <a href="http://campus.unasam.edu.pe/"><p class="pe-1 text-color-light" style="margin-bottom: 0px;"><i class="fa fa-paper-plane text-color-light"></i> SVA Campus Virtual</p></a>
+                <a href="http://sga.unasam.edu.pe/login"><p class="pe-1 text-color-light" style="margin-bottom: 0px;"><i class="fa fa-paper-plane text-color-light"></i> SGA UNASAM</p></a>
+                <a href="http://sgapg.unasam.edu.pe/login"><p class="pe-1 text-color-light" style="margin-bottom: 0px;"><i class="fa fa-paper-plane text-color-light"></i> SGA Postgrado</p></a>
+                <a href="http://repositorio.unasam.edu.pe/"><p class="pe-1 text-color-light" style="margin-bottom: 0px;"><i class="fa fa-paper-plane text-color-light"></i> Repositorio Institucional</p></a>
+                <a href="http://sisres.unasam.edu.pe/"><p class="pe-1 text-color-light" style="margin-bottom: 0px;"><i class="fa fa-paper-plane text-color-light"></i> Sistema de Actas y Resoluciones</p></a>	
+                <a href="http://sisres.unasam.edu.pe/ResolucionFacultad"><p class="pe-1 text-color-light" style="margin-bottom: 0px;"><i class="fa fa-paper-plane text-color-light"></i> SISRES Facultades</p></a>	
             </div>
             <div class="col-md-6 col-lg-3 mb-4 mb-md-0">
                 <h5 class="text-3 mb-3 opacity-7">CONTÁCTENOS</h5>

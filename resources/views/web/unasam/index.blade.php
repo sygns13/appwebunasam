@@ -208,12 +208,14 @@
 									@endif
 
 									@if($presentacion->descripcion != null)
+									<div style="height: 100px; overflow: hidden;"> 
 									{!! $presentacion->descripcion !!}
+									</div>
 									{{-- <p>La Universidad Nacional Santiago Antúnez de Mayolo les da la bienvenida a su nuevo Portal Web Institucional donde podrá encontrar toda la información que requiera...</p> --}}
 									@endif
 
 									
-									<a class="btn btn-outline btn-quaternary custom-button text-uppercase mt-4 mb-4 mb-md-0 font-weight-bold">Leer más</a>
+									<a class="btn btn-outline btn-quaternary custom-button text-uppercase mt-4 mb-4 mb-md-0 font-weight-bold" href="presentacion">Leer más</a>
 									
 								</div>
 								@if($presentacion->tieneimagen != null && $presentacion->tieneimagen == 1 && $presentacion->url != null)
@@ -291,7 +293,7 @@
 
 						<div class="row mb-5">
 							<div class="col-lg-12 text-center" style="padding-top: 50px;">
-								<a href="#" class="btn btn-dark btn-px-5 btn-py-2 font-weight-bold text-color-light rounded-0 text-2">VER TODAS LAS NOTICIAS</a>
+								<a href="noticias" class="btn btn-dark btn-px-5 btn-py-2 font-weight-bold text-color-light rounded-0 text-2">VER TODAS LAS NOTICIAS</a>
 							</div>
 						</div>
 
@@ -350,7 +352,7 @@
 								</div>
 							@endforeach
 
-							<center><a class="btn btn-outline btn-quaternary custom-button text-uppercase mt-4 mb-4 mb-md-0 font-weight-bold">Ver Todos los Comunicados</a></center>
+							<center><a class="btn btn-outline btn-quaternary custom-button text-uppercase mt-4 mb-4 mb-md-0 font-weight-bold" href="eventos">Ver Todos los Comunicados</a></center>
 						</div>
 					</div>
 				</section>
@@ -513,7 +515,7 @@
 							</div>
 						</div>
 
-						<center><a class="btn btn-outline btn-quaternary custom-button text-uppercase mt-4 mb-4 mb-md-0 font-weight-bold">Ver Todas las Actividades</a></center>
+						<center><a class="btn btn-outline btn-quaternary custom-button text-uppercase mt-4 mb-4 mb-md-0 font-weight-bold" href="actividades">Ver Todas las Actividades</a></center>
 					</div>
 				</div>
 			</section>

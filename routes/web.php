@@ -11,7 +11,7 @@
 |
 */
 
-//TODO: Valery aca modificas las rutas para la vista web TODO:
+//TODO: Acá se muestran las Rutas de la Web TODO:
 /* Route::get('/', function () {
     return view('web/unasam/index');
     //return redirect('login');
@@ -30,7 +30,12 @@ Route::get('estatuto','IndexWebController@estatuto');
 Route::get('himno','IndexWebController@himno');
 Route::get('acreditacion','IndexWebController@acreditacion');
 Route::get('licenciamiento','IndexWebController@licenciamiento');
+Route::get('presentacion','IndexWebController@presentacion');
 
+
+Route::get('noticias','PublicacionWebController@noticias');
+Route::get('eventos','PublicacionWebController@eventos');
+Route::get('actividades','PublicacionWebController@actividades');
 
 
 Route::group(['middleware' => 'auth'], function () {
