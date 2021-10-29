@@ -111,7 +111,7 @@
                                 <div class="row mb-3">
                                     <div class="col-lg-5">
                                         <div class="post-image">
-                                            <a href="blog-post.html">
+                                            <a href="noticia/{{$dato->hash}}">
                                                 @if($dato->imagennoticias != null && $dato->imagennoticias->count() >0 && $dato->imagennoticias[0]->url != null)
 												    <img src="{{ asset('/web/noticiaunasam/'.$dato->imagennoticias[0]->url) }}" class="img-fluid img-thumbnail img-thumbnail-no-borders rounded-0" alt="" id="imgNoticia-{{$dato->id}}" />
 												@else
@@ -126,12 +126,12 @@
                                             <span><i class="far fa-calendar-alt"></i> 
                                             
                                                 @if($dato->nombreMes != null)
-                                                {{$dato->dia}} de {{$dato->nombreMes}} , {{$dato->anio}} {{$dato->hora}}
+                                                {{$dato->dia}} de {{$dato->nombreMes}} , {{$dato->anio}} - {{$dato->hora}}
                                                 @endif
                                             </span>
                                             
                                             <h2 class="font-weight-semibold pt-4 pt-lg-0 text-5 line-height-4 mb-2">
-                                                <a href="blog-post.html">
+                                                <a href="noticia/{{$dato->hash}}">
                                                     @if($dato->titular != null)
 														{{$dato->titular}}
 													@endif
@@ -156,13 +156,13 @@
                                             <span><i class="far fa-calendar-alt"></i> 
                                                 
                                                 @if($dato->nombreMes != null)
-                                                {{$dato->dia}} de {{$dato->nombreMes}} , {{$dato->anio}} {{$dato->hora}}
+                                                {{$dato->dia}} de {{$dato->nombreMes}} , {{$dato->anio}} - {{$dato->hora}}
                                                 @endif
                                             </span>
 {{--                                             <span><i class="far fa-user"></i> By <a href="#">John Doe</a> </span>
                                             <span><i class="far fa-folder"></i> <a href="#">Lifestyle</a>, <a href="#">Design</a> </span>
                                             <span><i class="far fa-comments"></i> <a href="#">12 Comments</a></span> --}}
-                                            <span class="d-block d-sm-inline-block float-sm-end mt-3 mt-sm-0"><a href="blog-post.html" class="btn btn-xs btn-light text-1 text-uppercase">Leer más</a></span>
+                                            <span class="d-block d-sm-inline-block float-sm-end mt-3 mt-sm-0"><a href="noticia/{{$dato->hash}}" class="btn btn-xs btn-light text-1 text-uppercase">Leer más</a></span>
                                         </div>
                                     </div>
                                 </div>

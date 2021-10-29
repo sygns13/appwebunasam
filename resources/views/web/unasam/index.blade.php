@@ -138,7 +138,7 @@
 							</div>
 							<div class="col-xl-3 box-two bg-color-tertiary appear-animation" data-appear-animation="fadeInLeft" data-appear-animation-delay="600">
 								<h5 class="m-0">
-									<a href="demo-medical-doctors.html" title="">
+									<a href="#" title="">
 										Atención Permanente
 										<i class="icon-arrow-right-circle icons"></i>
 									</a>
@@ -245,7 +245,7 @@
 								<article>
 									<div class="row">
 										<div class="col">
-											<a href="blog-post.html" class="text-decoration-none">
+											<a href="noticia/{{$dato->hash}}" class="text-decoration-none">
 												@if($dato->imagennoticia != null && $dato->imagennoticia->url != null)
 												<img src="{{ asset('/web/noticiaunasam/'.$dato->imagennoticia->url) }}" class="img-fluid hover-effect-2 mb-3" alt="" />
 												@else
@@ -271,7 +271,7 @@
 										</div>
 										<div class="col ps-1">
 											<h4 class="line-height-3 text-4">
-												<a href="blog-post.html" class="text-light">
+												<a href="noticia/{{$dato->hash}}" class="text-light">
 													@if($dato->titular != null)
 														{{$dato->titular}}
 													@endif
@@ -283,7 +283,7 @@
 													@endif
 												</div>
 											</p>
-											<a href="/" class="read-more text-color-light font-weight-semibold text-2">leer más <i class="fas fa-chevron-right text-1 ms-1"></i></a>
+											<a href="noticia/{{$dato->hash}}" class="read-more text-color-light font-weight-semibold text-2">leer más <i class="fas fa-chevron-right text-1 ms-1"></i></a>
 										</div>
 									</div>
 								</article>
@@ -312,7 +312,7 @@
 
 							@foreach($eventos as  $key => $dato)
 								<div class="col-sm-6 col-lg-4 mb-4 pb-2">
-									<a href="blog-post.html">
+									<a href="evento/{{$dato->hash}}">
 										<article>
 											<div class="thumb-info thumb-info-no-borders thumb-info-bottom-info thumb-info-bottom-info-dark thumb-info-bottom-info-show-more thumb-info-no-zoom border-radius-0">
 												<div class="thumb-info-wrapper thumb-info-wrapper-opacity-6">
@@ -379,7 +379,7 @@
 											<article>
 												<div class="post-image">
 													<div class="img-thumbnail img-thumbnail-no-borders d-block">
-														<a href="blog-post.html">
+														<a href="actividad/{{$dato->hash}}">
 															@if($dato->imagenactividad != null && $dato->imagenactividad->url != null)
 																<img src="{{ asset('/web/comunicadoUNASAM/'.$dato->imagenactividad->url) }}" class="border-radius-0" width="50" height="50" alt=" @if($dato->titulo != null)
 																{{$dato->titulo}}
@@ -394,7 +394,7 @@
 												</div>
 												<div class="post-info">
 													<h4 class="font-weight-normal text-3 line-height-4 mb-0">
-														<a href="blog-post.html" class="text-dark">
+														<a href="actividad/{{$dato->hash}}" class="text-dark">
 															@if($dato->titulo != null)
 																{{$dato->titulo}}
 															@endif
@@ -425,7 +425,7 @@
 											<article>
 												<div class="post-image">
 													<div class="img-thumbnail img-thumbnail-no-borders d-block">
-														<a href="blog-post.html">
+														<a href="actividad/{{$dato->hash}}">
 															@if($dato->imagenactividad != null && $dato->imagenactividad->url != null)
 																<img src="{{ asset('/web/comunicadoUNASAM/'.$dato->imagenactividad->url) }}" class="border-radius-0" width="50" height="50" alt=" @if($dato->titulo != null)
 																{{$dato->titulo}}
@@ -440,7 +440,7 @@
 												</div>
 												<div class="post-info">
 													<h4 class="font-weight-normal text-3 line-height-4 mb-0">
-														<a href="blog-post.html" class="text-dark">
+														<a href="actividad/{{$dato->hash}}" class="text-dark">
 															@if($dato->titulo != null)
 																{{$dato->titulo}}
 															@endif
@@ -469,7 +469,7 @@
 								@foreach($actividades as  $key => $dato)
 									@if($key < 2)
 										<div>
-											<a href="blog-post.html">
+											<a href="actividad/{{$dato->hash}}">
 												<article>
 													<div class="thumb-info thumb-info-no-borders thumb-info-bottom-info thumb-info-bottom-info-dark thumb-info-bottom-info-show-more thumb-info-no-zoom border-radius-0">
 														<div class="thumb-info-wrapper thumb-info-wrapper-opacity-6">

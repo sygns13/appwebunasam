@@ -37,6 +37,10 @@ Route::get('noticias','PublicacionWebController@noticias');
 Route::get('eventos','PublicacionWebController@eventos');
 Route::get('actividades','PublicacionWebController@actividades');
 
+Route::get('noticia/{var}', 'PublicacionWebController@noticia');
+Route::get('evento/{var}', 'PublicacionWebController@evento');
+Route::get('actividad/{var}', 'PublicacionWebController@actividad');
+
 
 Route::group(['middleware' => 'auth'], function () {
 

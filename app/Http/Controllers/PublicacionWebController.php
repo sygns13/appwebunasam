@@ -45,14 +45,20 @@ class PublicacionWebController extends Controller
 
                 $mes = $date1->format('m');
                 $dia = $date1->format('d');
+                $anio = $date1->format('Y');
                 $nombreMes = strtoupper(nombremes(intval($mes)));
                 $iniNombreMes = substr($nombreMes, 0, 3);
 
+                $dato->anio = $anio;
                 $dato->mes = $mes;
                 $dato->dia = $dia;
                 $dato->nombreMes = $nombreMes;
                 $dato->iniNombreMes = $iniNombreMes;
             }
+
+            //hash id
+            $hash = base64_encode(gzdeflate('id-'.$dato->id));
+            $dato->hash = $hash;
         }
 
         $pagination = new stdClass;
@@ -99,14 +105,20 @@ class PublicacionWebController extends Controller
 
                 $mes = $date1->format('m');
                 $dia = $date1->format('d');
+                $anio = $date1->format('Y');
                 $nombreMes = strtoupper(nombremes(intval($mes)));
                 $iniNombreMes = substr($nombreMes, 0, 3);
 
+                $dato->anio = $anio;
                 $dato->mes = $mes;
                 $dato->dia = $dia;
                 $dato->nombreMes = $nombreMes;
                 $dato->iniNombreMes = $iniNombreMes;
             }
+
+            //hash id
+            $hash = base64_encode(gzdeflate('id-'.$dato->id));
+            $dato->hash = $hash;
         }
 
         $pagination = new stdClass;
@@ -153,14 +165,20 @@ class PublicacionWebController extends Controller
 
                 $mes = $date1->format('m');
                 $dia = $date1->format('d');
+                $anio = $date1->format('Y');
                 $nombreMes = strtoupper(nombremes(intval($mes)));
                 $iniNombreMes = substr($nombreMes, 0, 3);
 
+                $dato->anio = $anio;
                 $dato->mes = $mes;
                 $dato->dia = $dia;
                 $dato->nombreMes = $nombreMes;
                 $dato->iniNombreMes = $iniNombreMes;
             }
+
+            //hash id
+            $hash = base64_encode(gzdeflate('id-'.$dato->id));
+            $dato->hash = $hash;
         }
 
         $pagination = new stdClass;
@@ -193,6 +211,212 @@ class PublicacionWebController extends Controller
         return view('web/unasam/actividades',compact('comunicados','redsocials','unasam','menusActivos','pagination','offset'));
 
     }
+
+    public function noticia($idhash){
+
+        $strdecoded = $idhash;
+
+        if($idhash != null && strlen($idhash) > 0){
+            
+            try {
+                $strdecoded = gzinflate(base64_decode($idhash));
+
+                if(strlen($strdecoded) > 3){
+                    $id = explode('-', $strdecoded);
+                    $id = $id[1];
+                }
+
+                $noticia = Noticia::find($id);
+
+                $imagennoticias = Imagennoticia::where('activo','1')->where('borrado','0')->where('noticia_id', $noticia->id)->orderBy('posicion')->get();
+                $noticia->imagennoticias = $imagennoticias;
+
+                if($noticia->fecha != null && strlen($noticia->fecha) > 0){
+                    $date1  = new DateTime($noticia->fecha);
+
+                    $mes = $date1->format('m');
+                    $dia = $date1->format('d');
+                    $anio = $date1->format('Y');
+                    $nombreMes = strtoupper(nombremes(intval($mes)));
+                    $iniNombreMes = substr($nombreMes, 0, 3);
+
+                    $noticia->anio = $anio;
+                    $noticia->mes = $mes;
+                    $noticia->dia = $dia;
+                    $noticia->nombreMes = $nombreMes;
+                    $noticia->iniNombreMes = $iniNombreMes;
+                }
+
+                $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 0)->orderBy('id')->get();
+                $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+
+                $menusActivos = new stdClass;
+
+                $menusActivos->menu1 = "";
+                $menusActivos->menu2 = "";
+                $menusActivos->menu3 = "";
+                $menusActivos->menu4 = "";
+                $menusActivos->menu5 = "";
+                $menusActivos->menu6 = "";
+                $menusActivos->menu7 = "";
+                $menusActivos->menu8 = "";
+                $menusActivos->menu9 = "active";
+
+
+                return view('web/unasam/noticia',compact('noticia','redsocials','unasam','menusActivos'));
+
+
+
+
+            } catch (Exception $e) {
+                return redirect('/');
+            }
+        }
+        else{
+            return redirect('/');
+        }
+
+        return $id;
+
+    }
+
+
+    public function evento($idhash){
+
+        $strdecoded = $idhash;
+
+        if($idhash != null && strlen($idhash) > 0){
+            
+            try {
+                $strdecoded = gzinflate(base64_decode($idhash));
+
+                if(strlen($strdecoded) > 3){
+                    $id = explode('-', $strdecoded);
+                    $id = $id[1];
+                }
+
+                $evento = Evento::find($id);
+
+                $imageneventos = Imagenevento::where('activo','1')->where('borrado','0')->where('evento_id', $evento->id)->orderBy('posicion')->get();
+                $evento->imageneventos = $imageneventos;
+
+                if($evento->fecha != null && strlen($evento->fecha) > 0){
+                    $date1  = new DateTime($evento->fecha);
+
+                    $mes = $date1->format('m');
+                    $dia = $date1->format('d');
+                    $anio = $date1->format('Y');
+                    $nombreMes = strtoupper(nombremes(intval($mes)));
+                    $iniNombreMes = substr($nombreMes, 0, 3);
+
+                    $evento->anio = $anio;
+                    $evento->mes = $mes;
+                    $evento->dia = $dia;
+                    $evento->nombreMes = $nombreMes;
+                    $evento->iniNombreMes = $iniNombreMes;
+                }
+
+                $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 0)->orderBy('id')->get();
+                $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+
+                $menusActivos = new stdClass;
+
+                $menusActivos->menu1 = "";
+                $menusActivos->menu2 = "";
+                $menusActivos->menu3 = "";
+                $menusActivos->menu4 = "";
+                $menusActivos->menu5 = "";
+                $menusActivos->menu6 = "";
+                $menusActivos->menu7 = "";
+                $menusActivos->menu8 = "";
+                $menusActivos->menu9 = "active";
+
+
+                return view('web/unasam/evento',compact('evento','redsocials','unasam','menusActivos'));
+
+
+
+
+            } catch (Exception $e) {
+                return redirect('/');
+            }
+        }
+        else{
+            return redirect('/');
+        }
+
+        return $id;
+
+    }
+
+    public function actividad($idhash){
+
+        $strdecoded = $idhash;
+
+        if($idhash != null && strlen($idhash) > 0){
+            
+            try {
+                $strdecoded = gzinflate(base64_decode($idhash));
+
+                if(strlen($strdecoded) > 3){
+                    $id = explode('-', $strdecoded);
+                    $id = $id[1];
+                }
+
+                $comunicado = Comunicado::find($id);
+
+                $imagencomunicados = Imagencomunicado::where('activo','1')->where('borrado','0')->where('comunicado_id', $comunicado->id)->orderBy('posicion')->get();
+                $comunicado->imagencomunicados = $imagencomunicados;
+
+                if($comunicado->fecha != null && strlen($comunicado->fecha) > 0){
+                    $date1  = new DateTime($comunicado->fecha);
+
+                    $mes = $date1->format('m');
+                    $dia = $date1->format('d');
+                    $anio = $date1->format('Y');
+                    $nombreMes = strtoupper(nombremes(intval($mes)));
+                    $iniNombreMes = substr($nombreMes, 0, 3);
+
+                    $comunicado->anio = $anio;
+                    $comunicado->mes = $mes;
+                    $comunicado->dia = $dia;
+                    $comunicado->nombreMes = $nombreMes;
+                    $comunicado->iniNombreMes = $iniNombreMes;
+                }
+
+                $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 0)->orderBy('id')->get();
+                $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+
+                $menusActivos = new stdClass;
+
+                $menusActivos->menu1 = "";
+                $menusActivos->menu2 = "";
+                $menusActivos->menu3 = "";
+                $menusActivos->menu4 = "";
+                $menusActivos->menu5 = "";
+                $menusActivos->menu6 = "";
+                $menusActivos->menu7 = "";
+                $menusActivos->menu8 = "";
+                $menusActivos->menu9 = "active";
+
+
+                return view('web/unasam/actividad',compact('comunicado','redsocials','unasam','menusActivos'));
+
+
+
+
+            } catch (Exception $e) {
+                return redirect('/');
+            }
+        }
+        else{
+            return redirect('/');
+        }
+
+        return $id;
+
+    }
+
 
     public function index()
     {

@@ -1,4 +1,4 @@
-@extends('adminlte::layouts.errors')
+{{-- @extends('adminlte::layouts.errors')
 
 @section('htmlheader_title')
     {{ trans('adminlte_lang::message.serviceunavailable') }}
@@ -24,3 +24,5 @@
         </div>
     </div><!-- /.error-page -->
 @endsection
+ --}}
+ <script>window.location = "/";</script>

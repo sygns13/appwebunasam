@@ -3,8 +3,8 @@
         <div class="row py-5" style="padding-bottom:0px!important; padding-top:20px!important;">
             <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
                 <h5 class="text-3 mb-3 opacity-7">Nosotros</h5>
-                <a href="misionvision"><p class="pe-1 text-color-light" style="margin-bottom: 0px;">Misión y Visión</p></a>
-                <a href="himno"><p class="pe-1 text-color-light" style="margin-bottom: 0px;">Himno Institucional</p></a>
+                <a href="/misionvision"><p class="pe-1 text-color-light" style="margin-bottom: 0px;">Misión y Visión</p></a>
+                <a href="/himno"><p class="pe-1 text-color-light" style="margin-bottom: 0px;">Himno Institucional</p></a>
                 <a href="https://www.unasam.edu.pe/img/file/organigrama.pdf"><p class="pe-1 text-color-light" style="margin-bottom: 0px;">Organigrama Institucional</p></a>
                 <a href="https://www.gob.pe/institucion/unasam/funcionarios"><p class="pe-1 text-color-light" style="margin-bottom: 0px;">Directorio Institucional</p></a>
                 <div class="alert alert-success d-none" id="newsletterSuccess">
@@ -80,7 +80,7 @@
             <div class="container py-2">
                 <div class="row py-4">
                     <div class="col-lg-1 d-flex align-items-center justify-content-center justify-content-lg-start mb-2 mb-lg-0">
-                        <a href="index.html" class="logo pe-0 pe-lg-3">
+                        <a href="/" class="logo pe-0 pe-lg-3">
                             <img alt="Porto Website Template" src="{{ asset('/img/unasam.png') }}" class="opacity-9" height="40">
                         </a>
                     </div>
@@ -90,9 +90,9 @@
                     <div class="col-lg-4 d-flex align-items-center justify-content-center justify-content-lg-end">
                         <nav id="sub-menu">
                             <ul>
-                                <li class="border-0"><i class="fas fa-angle-right text-color-light"></i><a href="page-faq.html" class="ms-1 text-decoration-none text-color-light"> Preguntas</a></li>
-                                <li class="border-0"><i class="fas fa-angle-right text-color-light"></i><a href="sitemap.html" class="ms-1 text-decoration-none text-color-light"> Mapa del Sitio</a></li>
-                                <li class="border-0"><i class="fas fa-angle-right text-color-light"></i><a href="contact-us.html" class="ms-1 text-decoration-none text-color-light"> Contáctenos</a></li>
+                                <li class="border-0"><i class="fas fa-angle-right text-color-light"></i><a href="/" class="ms-1 text-decoration-none text-color-light"> Preguntas</a></li>
+                                <li class="border-0"><i class="fas fa-angle-right text-color-light"></i><a href="/" class="ms-1 text-decoration-none text-color-light"> Mapa del Sitio</a></li>
+                                <li class="border-0"><i class="fas fa-angle-right text-color-light"></i><a href="/" class="ms-1 text-decoration-none text-color-light"> Contáctenos</a></li>
                             </ul>
                         </nav>
                     </div>

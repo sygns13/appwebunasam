@@ -1,4 +1,4 @@
-@extends('adminlte::layouts.errors')
+{{-- @extends('adminlte::layouts.errors')
 
 @section('htmlheader_title')
     {{ trans('adminlte_lang::message.pagenotfound') }}
@@ -24,4 +24,5 @@
             </form>
         </div><!-- /.error-content -->
     </div><!-- /.error-page -->
-@endsection
+@endsection --}}
+<script>window.location = "/";</script>

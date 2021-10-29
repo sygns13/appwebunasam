@@ -112,7 +112,7 @@
                             <div class="row mb-3">
                                 <div class="col-lg-5">
                                     <div class="post-image">
-                                        <a href="blog-post.html">
+                                        <a href="evento/{{$dato->hash}}">
                                             @if($dato->imageneventos != null && $dato->imageneventos->count() >0 && $dato->imageneventos[0]->url != null)
                                                 <img src="{{ asset('/web/eventounasam/'.$dato->imageneventos[0]->url) }}" class="img-fluid img-thumbnail img-thumbnail-no-borders rounded-0" alt="" id="imgEvento-{{$dato->id}}" />
                                             @else
@@ -125,7 +125,7 @@
                                 <div class="col-lg-7">
                                     <div class="post-content">
                                         <h2 class="font-weight-semibold pt-4 pt-lg-0 text-5 line-height-4 mb-2">
-                                            <a href="blog-post.html">
+                                            <a href="evento/{{$dato->hash}}">
                                                 @if($dato->titulo != null)
                                                     {{$dato->titulo}}
                                                 @endif
@@ -135,7 +135,7 @@
                                         <span><i class="far fa-calendar-alt"></i> 
                                             
                                             @if($dato->nombreMes != null)
-                                            {{$dato->dia}} de {{$dato->nombreMes}} , {{$dato->anio}} {{$dato->hora}}
+                                            {{$dato->dia}} de {{$dato->nombreMes}} , {{$dato->anio}} - {{$dato->hora}}
                                             @endif
                                         </span>
 
@@ -153,7 +153,7 @@
                                 <div class="col">
                                     <div class="post-meta">
 
-                                        <span class="d-block d-sm-inline-block float-sm-end mt-3 mt-sm-0"><a href="blog-post.html" class="btn btn-xs btn-light text-1 text-uppercase">Leer más</a></span>
+                                        <span class="d-block d-sm-inline-block float-sm-end mt-3 mt-sm-0"><a href="evento/{{$dato->hash}}" class="btn btn-xs btn-light text-1 text-uppercase">Leer más</a></span>
                                     </div>
                                 </div>
                             </div>
@@ -166,7 +166,7 @@
                                 <div class="col-lg-7">
                                     <div class="post-content">
                                         <h2 class="font-weight-semibold pt-4 pt-lg-0 text-5 line-height-4 mb-2">
-                                            <a href="blog-post.html">
+                                            <a href="evento/{{$dato->hash}}">
                                                 @if($dato->titulo != null)
                                                     {{$dato->titulo}}
                                                 @endif
@@ -176,7 +176,7 @@
                                         <span><i class="far fa-calendar-alt"></i> 
                                             
                                             @if($dato->nombreMes != null)
-                                            {{$dato->dia}} de {{$dato->nombreMes}} , {{$dato->anio}} {{$dato->hora}}
+                                            {{$dato->dia}} de {{$dato->nombreMes}} , {{$dato->anio}} - {{$dato->hora}}
                                             @endif
                                         </span>
 
@@ -192,7 +192,7 @@
                                 
                                 <div class="col-lg-5">
                                     <div class="post-image">
-                                        <a href="blog-post.html">
+                                        <a href="evento/{{$dato->hash}}">
                                             @if($dato->imageneventos != null && $dato->imageneventos->count() >0 && $dato->imageneventos[0]->url != null)
                                                 <img src="{{ asset('/web/eventounasam/'.$dato->imageneventos[0]->url) }}" class="img-fluid img-thumbnail img-thumbnail-no-borders rounded-0" alt="" id="imgEvento-{{$dato->id}}" />
                                             @else
@@ -210,7 +210,7 @@
 {{--                                             <span><i class="far fa-user"></i> By <a href="#">John Doe</a> </span>
                                         <span><i class="far fa-folder"></i> <a href="#">Lifestyle</a>, <a href="#">Design</a> </span>
                                         <span><i class="far fa-comments"></i> <a href="#">12 Comments</a></span> --}}
-                                        <span class="d-block d-sm-inline-block float-sm-end mt-3 mt-sm-0"><a href="blog-post.html" class="btn btn-xs btn-light text-1 text-uppercase">Leer más</a></span>
+                                        <span class="d-block d-sm-inline-block float-sm-end mt-3 mt-sm-0"><a href="evento/{{$dato->hash}}" class="btn btn-xs btn-light text-1 text-uppercase">Leer más</a></span>
                                     </div>
                                 </div>
                             </div>

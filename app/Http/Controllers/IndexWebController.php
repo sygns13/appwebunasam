@@ -67,14 +67,20 @@ class IndexWebController extends Controller
 
                 $mes = $date1->format('m');
                 $dia = $date1->format('d');
+                $anio = $date1->format('Y');
                 $nombreMes = strtoupper(nombremes(intval($mes)));
                 $iniNombreMes = substr($nombreMes, 0, 3);
 
+                $dato->anio = $anio;
                 $dato->mes = $mes;
                 $dato->dia = $dia;
                 $dato->nombreMes = $nombreMes;
                 $dato->iniNombreMes = $iniNombreMes;
             }
+
+            //hash id
+            $hash = base64_encode(gzdeflate('id-'.$dato->id));
+            $dato->hash = $hash;
         }
 
         foreach ($eventos as $key => $dato) {    
@@ -86,14 +92,19 @@ class IndexWebController extends Controller
 
                 $mes = $date1->format('m');
                 $dia = $date1->format('d');
+                $anio = $date1->format('Y');
                 $nombreMes = strtoupper(nombremes(intval($mes)));
                 $iniNombreMes = substr($nombreMes, 0, 3);
 
+                $dato->anio = $anio;
                 $dato->mes = $mes;
                 $dato->dia = $dia;
                 $dato->nombreMes = $nombreMes;
                 $dato->iniNombreMes = $iniNombreMes;
             }
+            //hash id
+            $hash = base64_encode(gzdeflate('id-'.$dato->id));
+            $dato->hash = $hash;
         }
 
         foreach ($actividades as $key => $dato) {    
@@ -115,6 +126,9 @@ class IndexWebController extends Controller
                 $dato->iniNombreMes = $iniNombreMes;
                 $dato->year = $year ;
             }
+            //hash id
+            $hash = base64_encode(gzdeflate('id-'.$dato->id));
+            $dato->hash = $hash;
         }
 
         $menusActivos = new stdClass;

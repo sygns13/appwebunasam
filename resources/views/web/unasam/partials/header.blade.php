@@ -106,47 +106,47 @@
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="historia">
+                                                        <a class="dropdown-item" href="/historia">
                                                             Reseña Histórica
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="misionvision">
+                                                        <a class="dropdown-item" href="/misionvision">
                                                             Misión y Visión {{-- <span class="tip tip-dark">hot</span> --}}
                                                         </a>
                                                     </li>
                                                     <li class="dropdown-submenu">
                                                         <a class="dropdown-item" href="#">Órganos de Gobierno</a>
                                                         <ul class="dropdown-menu">
-                                                            <li><a class="dropdown-item" href="rector">Rectorado</a></li>
-                                                            <li><a class="dropdown-item" href="vicerrectoracademico">Vicerrector Académico</a></li>
-                                                            <li><a class="dropdown-item" href="vicerrectorinvestigacion">Vicerrector Administrativo</a></li>
-                                                            <li><a class="dropdown-item" href="asambleauniversitaria">Asamblea Universitaria</a></li>
-                                                            <li><a class="dropdown-item" href="concejouniversitario">Consejo Universitario</a></li>
+                                                            <li><a class="dropdown-item" href="/rector">Rectorado</a></li>
+                                                            <li><a class="dropdown-item" href="/vicerrectoracademico">Vicerrector Académico</a></li>
+                                                            <li><a class="dropdown-item" href="/vicerrectorinvestigacion">Vicerrector Administrativo</a></li>
+                                                            <li><a class="dropdown-item" href="/asambleauniversitaria">Asamblea Universitaria</a></li>
+                                                            <li><a class="dropdown-item" href="/concejouniversitario">Consejo Universitario</a></li>
                                                         </ul>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="objetivos">
+                                                        <a class="dropdown-item" href="/objetivos">
                                                             Objetivos Estratégicos
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="estatuto">
+                                                        <a class="dropdown-item" href="/estatuto">
                                                             Estatuto
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="acreditacion">
+                                                        <a class="dropdown-item" href="/acreditacion">
                                                             Acreditación Institucional
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="licenciamiento">
+                                                        <a class="dropdown-item" href="/licenciamiento">
                                                             Licenciamiento Institucional
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="himno">
+                                                        <a class="dropdown-item" href="/himno">
                                                             Himno Institucional
                                                         </a>
                                                     </li>
@@ -184,7 +184,7 @@
                                             </li>
 
                                             <li class="dropdown dropdown-mega">
-                                                <a class="dropdown-item dropdown-toggle {{$menusActivos->menu3}}" href="elements.html">
+                                                <a class="dropdown-item dropdown-toggle {{$menusActivos->menu3}}" href="#">
                                                     Pregrado
                                                 </a>
                                                 <ul class="dropdown-menu">
@@ -373,17 +373,17 @@
                                                 </a>
                                                 <ul class="dropdown-menu">
                                                     <li>
-                                                        <a class="dropdown-item" href="noticias">
+                                                        <a class="dropdown-item" href="/noticias">
                                                             Noticias
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="eventos">
+                                                        <a class="dropdown-item" href="/eventos">
                                                             Eventos
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="actividades">
+                                                        <a class="dropdown-item" href="/actividades">
                                                             Actividades Programadas
                                                         </a>
                                                     </li>
