@@ -78,11 +78,15 @@
                                 </label>
                             </div>
                         </div><!-- /.col -->
-                        <div class="col-xs-6">
-                            <button type="submit" class="btn btn-primary btn-block btn-flat"><i class="fa fa-check-square" aria-hidden="true"></i> Iniciar Sesión</button>
+                        <div class="col-xs-4">
+                            <button type="submit" class="btn btn-primary btn-block btn-flat"><i class="fa fa-check-square" aria-hidden="true"></i> Acceder</button>
                         </div><!-- /.col -->
-                        <div class="col-xs-6">
-                        <button type="reset" class="btn btn-warning btn-block btn-flat" id="reset"><i class="fa fa-share-square" aria-hidden="true"></i> Cancelar</button>
+                        <div class="col-xs-4">
+                        <button type="reset" class="btn btn-warning btn-block btn-flat" id="reset"><i class="fa fa-times" aria-hidden="true"></i> Cancelar</button>
+                    </div>
+
+                    <div class="col-xs-4">
+                        <a href="/" class="btn btn-default btn-block btn-flat" id="btnsalir"><i class="fa fa-share-square" aria-hidden="true"></i> Salir</a>
                     </div>
                     </div>
                 </form>

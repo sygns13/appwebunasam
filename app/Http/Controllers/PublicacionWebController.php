@@ -23,6 +23,8 @@ use App\Imagenevento;
 use App\Comunicado;
 use App\Imagencomunicado;
 
+use App\Documento;
+
 use DateTime;
 
 class PublicacionWebController extends Controller
@@ -417,6 +419,50 @@ class PublicacionWebController extends Controller
 
     }
 
+
+    public function documentos()
+    {
+        $documentos = Documento::where('borrado','0')->where('nivel', 0)->where('activo','1')->where('tipo', 1)->orderBy('numero')->orderBy('id')->get();
+
+        $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 0)->orderBy('id')->get();
+        $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+
+        $menusActivos = new stdClass;
+
+        $menusActivos->menu1 = "";
+        $menusActivos->menu2 = "";
+        $menusActivos->menu3 = "";
+        $menusActivos->menu4 = "";
+        $menusActivos->menu5 = "";
+        $menusActivos->menu6 = "";
+        $menusActivos->menu7 = "";
+        $menusActivos->menu8 = "active";
+        $menusActivos->menu9 = "";
+
+        return view('web/unasam/documentos',compact('documentos','redsocials','unasam','menusActivos'));
+    }
+
+    public function informes()
+    {
+        $informes = Documento::where('borrado','0')->where('nivel', 0)->where('activo','1')->where('tipo', 2)->orderBy('numero')->orderBy('id')->get();
+
+        $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 0)->orderBy('id')->get();
+        $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+
+        $menusActivos = new stdClass;
+
+        $menusActivos->menu1 = "";
+        $menusActivos->menu2 = "";
+        $menusActivos->menu3 = "";
+        $menusActivos->menu4 = "";
+        $menusActivos->menu5 = "";
+        $menusActivos->menu6 = "";
+        $menusActivos->menu7 = "";
+        $menusActivos->menu8 = "active";
+        $menusActivos->menu9 = "";
+
+        return view('web/unasam/informes',compact('informes','redsocials','unasam','menusActivos'));
+    }
 
     public function index()
     {

@@ -80,7 +80,7 @@
 
         <td style=";border:1px solid #ddd;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 12px; padding: 5px;">
           <center>
-              <a v-bind:href="'{{ asset('/web/documentounasam/')}}'+'/'+documento.url"  class="btn btn-primary btn-xs" target="_blank"> Descargar</a>
+              <a v-bind:href="'{{ asset('/web/documentounasam/')}}'+'/'+documento.url"  class="btn btn-primary btn-xs" download> Descargar</a>
             </center>
         </td>
         <td style=";border:1px solid #ddd;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 12px; padding: 5px; text-align: center;">

@@ -20,6 +20,7 @@
                 <a href="http://repositorio.unasam.edu.pe/"><p class="pe-1 text-color-light" style="margin-bottom: 0px;"><i class="fa fa-paper-plane text-color-light"></i> Repositorio Institucional</p></a>
                 <a href="http://sisres.unasam.edu.pe/"><p class="pe-1 text-color-light" style="margin-bottom: 0px;"><i class="fa fa-paper-plane text-color-light"></i> Sistema de Actas y Resoluciones</p></a>	
                 <a href="http://sisres.unasam.edu.pe/ResolucionFacultad"><p class="pe-1 text-color-light" style="margin-bottom: 0px;"><i class="fa fa-paper-plane text-color-light"></i> SISRES Facultades</p></a>	
+                <a href="/login"><p class="pe-1 text-color-light" style="margin-bottom: 0px;"><i class="fa fa-paper-plane text-color-light"></i> Sistema Integral de Gestión ADMWEB</p></a>	
             </div>
             <div class="col-md-6 col-lg-3 mb-4 mb-md-0">
                 <h5 class="text-3 mb-3 opacity-7">CONTÁCTENOS</h5>
@@ -85,9 +86,9 @@
                         </a>
                     </div>
                     <div class="col-lg-7 d-flex align-items-center justify-content-center justify-content-lg-start mb-4 mb-lg-0">
-                        <p class="text-color-light">© Copyright 2021. UNASAM Todos los Derechos Reservados.</p>
+                        <p class="text-color-light">© Copyright 2021. Universidad Nacional Santiago Antúnez de Mayolo -  Todos los Derechos Reservados.</p>
                     </div>
-                    <div class="col-lg-4 d-flex align-items-center justify-content-center justify-content-lg-end">
+                  {{--   <div class="col-lg-4 d-flex align-items-center justify-content-center justify-content-lg-end">
                         <nav id="sub-menu">
                             <ul>
                                 <li class="border-0"><i class="fas fa-angle-right text-color-light"></i><a href="/" class="ms-1 text-decoration-none text-color-light"> Preguntas</a></li>
@@ -95,7 +96,7 @@
                                 <li class="border-0"><i class="fas fa-angle-right text-color-light"></i><a href="/" class="ms-1 text-decoration-none text-color-light"> Contáctenos</a></li>
                             </ul>
                         </nav>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
