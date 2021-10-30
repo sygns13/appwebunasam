@@ -65,7 +65,7 @@
 
             @if(accesoUser([1]))
             <li class="treeview" v-bind:class="classMenu11">
-                <a href="#"><i class='fa fa-list-alt'></i> <span>Páginas Módulo UNASAM</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <a href="#"><i class='fa fa-list-alt'></i> <span>Páginas Portal UNASAM</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
                     <li><a href="{{URL::to('intranet/historiaportal')}}"><i class='fa fa-paper-plane'></i> Gestión de Historia</a></li>
                     <li><a href="{{URL::to('intranet/misionvisionportal')}}"><i class='fa fa-paper-plane'></i> Gestión de Misión / Visión</a></li>
@@ -79,29 +79,12 @@
                     <li><a href="{{URL::to('intranet/licenciamiento')}}"><i class='fa fa-paper-plane'></i> Gestión de Licenciamiento</a></li>
                     <li><a href="{{URL::to('intranet/acreditacion')}}"><i class='fa fa-paper-plane'></i> Gestión de Acreditación</a></li>
                     <li><a href="{{URL::to('intranet/himno')}}"><i class='fa fa-paper-plane'></i> Gestión del Himno Institucional</a></li>
+                    <li><a href="{{URL::to('intranet/documentosnormativosportal')}}"><i class='fa fa-paper-plane'></i> Documentos Normativos</a></li>
+                    <li><a href="{{URL::to('intranet/informesportal')}}"><i class='fa fa-paper-plane'></i> Informes y Publicaciones</a></li>
                 </ul>
             </li>
             @endif
 
-            @if(accesoUser([1]))
-            <li class="treeview" v-bind:class="classMenu12">
-                <a href="#"><i class='fa fa-list-alt'></i> <span>Páginas Módulo Admisión</span> <i class="fa fa-angle-left pull-right"></i></a>
-                <ul class="treeview-menu">
-                    <li><a href="{{URL::to('intranet/historiaportal')}}"><i class='fa fa-paper-plane'></i> Gestión de Historia</a></li>
-                    <li><a href="{{URL::to('intranet/misionvisionportal')}}"><i class='fa fa-paper-plane'></i> Gestión de Misión / Visión</a></li>
-                    <li><a href="{{URL::to('intranet/rector')}}"><i class='fa fa-paper-plane'></i> Gestión del Rector</a></li>
-                    <li><a href="{{URL::to('intranet/vicerrectoracademico')}}"><i class='fa fa-paper-plane'></i> Vicerrector Académico</a></li>
-                    <li><a href="{{URL::to('intranet/vicerrectorinvestigacion')}}"><i class='fa fa-paper-plane'></i> Vicerrector de Investigación</a></li>
-                    <li><a href="{{URL::to('intranet/asambleauniversitaria')}}"><i class='fa fa-paper-plane'></i> Asamblea Universitaria</a></li>
-                    <li><a href="{{URL::to('intranet/concejouniversitario')}}"><i class='fa fa-paper-plane'></i> Concejo Universitario</a></li>
-                    <li><a href="{{URL::to('intranet/objetivosunasam')}}"><i class='fa fa-paper-plane'></i> Objetivos Estratégicos</a></li>
-                    <li><a href="{{URL::to('intranet/estatuto')}}"><i class='fa fa-paper-plane'></i> Gestión del Estatuto</a></li>
-                    <li><a href="{{URL::to('intranet/licenciamiento')}}"><i class='fa fa-paper-plane'></i> Gestión de Licenciamiento</a></li>
-                    <li><a href="{{URL::to('intranet/acreditacion')}}"><i class='fa fa-paper-plane'></i> Gestión de Acreditación</a></li>
-                    <li><a href="{{URL::to('intranet/himno')}}"><i class='fa fa-paper-plane'></i> Gestión del Himno Institucional</a></li>
-                </ul>
-            </li>
-            @endif
 
 
 

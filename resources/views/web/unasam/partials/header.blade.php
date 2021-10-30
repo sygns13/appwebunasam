@@ -293,7 +293,7 @@
                                                 </a>
                                             </li>
 
-                                            <li class="dropdown" >
+                                           {{--  <li class="dropdown" >
                                                 <a class="dropdown-item dropdown-toggle {{$menusActivos->menu6}}" href="#">
                                                     Responsabilidad Social
                                                 </a>
@@ -310,17 +310,17 @@
                                                     </li>
                                                 </ul>
                                             </li>
-
+ --}}
                                             <li class="dropdown">
                                                 <a class="dropdown-item dropdown-toggle {{$menusActivos->menu7}}" href="#">
                                                     Publicaciones
                                                 </a>
                                                 <ul class="dropdown-menu">
-                                                    <li>
+   {{--                                                  <li>
                                                         <a class="dropdown-item" href="index.html#demos">
                                                             Fondo Editorial
                                                         </a>
-                                                    </li>
+                                                    </li> --}}
                                                     <li>
                                                         <a class="dropdown-item" target="_blank" href="http://repositorio.unasam.edu.pe/">
                                                             Repositorio Institucional
@@ -340,25 +340,26 @@
                                                 </a>
                                                 <ul class="dropdown-menu">
                                                     <li>
-                                                        <a class="dropdown-item" href="index.html#demos">
+                                                        <a class="dropdown-item" target="_blank" href="https://www.transparencia.gob.pe/enlaces/pte_transparencia_enlaces.aspx?id_entidad=10403#.YXyaXJ7MJPY">
                                                             Portal de Transparencia
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="index.html#demos">
+                                                        <a class="dropdown-item" target="_blank" href="http://licenciamiento.unasam.edu.pe/">
+                                                            Transparencia Institucional
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" href="documentos">
                                                             Documentos Normativos
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a class="dropdown-item" href="index.html#demos">
+                                                        <a class="dropdown-item" href="informes">
                                                             Informes y Publicaciones
                                                         </a>
                                                     </li>
-                                                    <li>
-                                                        <a class="dropdown-item" href="index.html#demos">
-                                                            Transparencia Institucional
-                                                        </a>
-                                                    </li>
+                                                    
                                                     <li>
                                                         <a class="dropdown-item" target="_blank" href="http://sga.unasam.edu.pe/reportes">
                                                             Reportes Académicos
@@ -369,7 +370,7 @@
 
                                             <li class="dropdown">
                                                 <a class="dropdown-item dropdown-toggle {{$menusActivos->menu9}}" href="#">
-                                                    Noticias
+                                                    Noticias y Eventos
                                                 </a>
                                                 <ul class="dropdown-menu">
                                                     <li>

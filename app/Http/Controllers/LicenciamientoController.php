@@ -885,15 +885,15 @@ class LicenciamientoController extends Controller
         if(Strlen($licenciamiento->url) > 0){
             if(intval($licenciamiento->nivel) == 0){
                 Storage::disk('licenciamientoUNASAM')->delete($licenciamiento->url);
-                Storage::disk('licenciamientoUNASAM')->delete($licenciamiento->url);
+                Storage::disk('licenciamientoUNASAM')->delete($licenciamiento->urlfile);
             }
             elseif(intval($licenciamiento->nivel) == 1){
                 Storage::disk('licenciamientoFacultad')->delete($licenciamiento->url);
-                Storage::disk('licenciamientoFacultad')->delete($licenciamiento->url);
+                Storage::disk('licenciamientoFacultad')->delete($licenciamiento->urlfile);
             }
             elseif(intval($licenciamiento->nivel) == 2){
                 Storage::disk('licenciamientoProgramaEstudio')->delete($licenciamiento->url);
-                Storage::disk('licenciamientoProgramaEstudio')->delete($licenciamiento->url);
+                Storage::disk('licenciamientoProgramaEstudio')->delete($licenciamiento->urlfile);
             }
         }
         

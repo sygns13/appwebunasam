@@ -142,6 +142,12 @@ desired effect
 @elseif($modulo=="himno")
 @include('paginasportal.contenido1.vue')
 
+@elseif($modulo=="documentoportal")
+@include('paginasportal.documento.vue')
+
+@elseif($modulo=="informeportal")
+@include('paginasportal.informe.vue')
+
 {{-- //Paginas Portales Facultades--}}
 
 @elseif($modulo=="bannerfacultad")

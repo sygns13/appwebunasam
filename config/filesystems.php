@@ -51,226 +51,242 @@ return [
 
          'banerUNASAM' => [
             'driver' => 'local',
-            'root' => public_path('web/bannerunasam'), // banners facultades
+            'root' => public_path('web/bannerunasam'),
             'visibility' => 'public',
          ],
          'banerFacultad' => [
             'driver' => 'local',
-            'root' => public_path('web/bannerfacultad'), // banners facultades
+            'root' => public_path('web/bannerfacultad'),
             'visibility' => 'public',
          ],
          'banerProgramaEstudio' => [
             'driver' => 'local',
-            'root' => public_path('web/bannerprograma'), // banners facultades
+            'root' => public_path('web/bannerprograma'),
             'visibility' => 'public',
          ],
 
          'presentacionUNASAM' => [
             'driver' => 'local',
-            'root' => public_path('web/presentacionunasam'), // banners facultades
+            'root' => public_path('web/presentacionunasam'),
             'visibility' => 'public',
          ],
          'presentacionFacultad' => [
             'driver' => 'local',
-            'root' => public_path('web/presentacionfacultad'), // presentaciones facultades
+            'root' => public_path('web/presentacionfacultad'),
             'visibility' => 'public',
          ],
          'presentacionProgramaEstudio' => [
             'driver' => 'local',
-            'root' => public_path('web/presentacionprograma'), // presentaciones facultades
+            'root' => public_path('web/presentacionprograma'),
             'visibility' => 'public',
          ],
 
          'noticianUNASAM' => [
             'driver' => 'local',
-            'root' => public_path('web/noticiaunasam'), // noticias facultades
+            'root' => public_path('web/noticiaunasam'),
             'visibility' => 'public',
          ],
          'noticiaFacultad' => [
             'driver' => 'local',
-            'root' => public_path('web/noticiafacultad'), // noticias facultades
+            'root' => public_path('web/noticiafacultad'),
             'visibility' => 'public',
          ],
          'noticiaProgramaEstudio' => [
             'driver' => 'local',
-            'root' => public_path('web/noticiaprograma'), // noticias facultades
+            'root' => public_path('web/noticiaprograma'),
             'visibility' => 'public',
          ],
 
          'eventoUNASAM' => [
             'driver' => 'local',
-            'root' => public_path('web/eventounasam'), // eventos facultades
+            'root' => public_path('web/eventounasam'),
             'visibility' => 'public',
          ],
          'eventoFacultad' => [
             'driver' => 'local',
-            'root' => public_path('web/eventofacultad'), // eventos facultades
+            'root' => public_path('web/eventofacultad'),
             'visibility' => 'public',
          ],
          'eventoProgramaEstudio' => [
             'driver' => 'local',
-            'root' => public_path('web/eventoprograma'), // eventos facultades
+            'root' => public_path('web/eventoprograma'),
             'visibility' => 'public',
          ],
 
          'comunicadoUNASAM' => [
             'driver' => 'local',
-            'root' => public_path('web/comunicadounasam'), // comunicados facultades
+            'root' => public_path('web/comunicadounasam'),
             'visibility' => 'public',
          ],
          'comunicadoFacultad' => [
             'driver' => 'local',
-            'root' => public_path('web/comunicadofacultad'), // comunicados facultades
+            'root' => public_path('web/comunicadofacultad'),
             'visibility' => 'public',
          ],
          'comunicadoProgramaEstudio' => [
             'driver' => 'local',
-            'root' => public_path('web/comunicadoprograma'), // comunicados facultades
+            'root' => public_path('web/comunicadoprograma'),
             'visibility' => 'public',
          ],
 
          'redsocialUNASAM' => [
             'driver' => 'local',
-            'root' => public_path('web/redsocialunasam'), // redes sociales facultades
+            'root' => public_path('web/redsocialunasam'),
             'visibility' => 'public',
          ],
          'redsocialFacultad' => [
             'driver' => 'local',
-            'root' => public_path('web/redsocialfacultad'), // redes sociales facultades
+            'root' => public_path('web/redsocialfacultad'),
             'visibility' => 'public',
          ],
          'redsocialProgramaEstudio' => [
             'driver' => 'local',
-            'root' => public_path('web/redsocialprograma'), // redes sociales facultades
+            'root' => public_path('web/redsocialprograma'),
             'visibility' => 'public',
          ],
 
          'linkinteresUNASAM' => [
             'driver' => 'local',
-            'root' => public_path('web/linkinteresunasam'), // redes sociales facultades
+            'root' => public_path('web/linkinteresunasam'),
             'visibility' => 'public',
          ],
          'linkinteresFacultad' => [
             'driver' => 'local',
-            'root' => public_path('web/linkinteresfacultad'), // redes sociales facultades
+            'root' => public_path('web/linkinteresfacultad'),
             'visibility' => 'public',
          ],
          'linkinteresProgramaEstudio' => [
             'driver' => 'local',
-            'root' => public_path('web/linkinteresprograma'), // redes sociales facultades
+            'root' => public_path('web/linkinteresprograma'),
             'visibility' => 'public',
          ],
 
          'historiaUNASAM' => [
             'driver' => 'local',
-            'root' => public_path('web/historiaunasam'), // historia facultad
+            'root' => public_path('web/historiaunasam'),
             'visibility' => 'public',
          ],
          'historiaFacultad' => [
             'driver' => 'local',
-            'root' => public_path('web/historiafacultad'), // historia facultad
+            'root' => public_path('web/historiafacultad'),
             'visibility' => 'public',
          ],
          'historiaProgramaEstudio' => [
             'driver' => 'local',
-            'root' => public_path('web/historiaprograma'), // historia facultad
+            'root' => public_path('web/historiaprograma'),
             'visibility' => 'public',
          ],
          
 
          'misionvisionUNASAM' => [
             'driver' => 'local',
-            'root' => public_path('web/misionvisionunasam'), // mision vision facultad
+            'root' => public_path('web/misionvisionunasam'),
             'visibility' => 'public',
          ],
          'misionvisionFacultad' => [
             'driver' => 'local',
-            'root' => public_path('web/misionvisionfacultad'), // mision vision facultad
+            'root' => public_path('web/misionvisionfacultad'),
             'visibility' => 'public',
          ],
          'misionvisionProgramaEstudio' => [
             'driver' => 'local',
-            'root' => public_path('web/misionvisionprograma'), // mision vision facultad
+            'root' => public_path('web/misionvisionprograma'),
             'visibility' => 'public',
          ],
 
          'organoUNASAM' => [
             'driver' => 'local',
-            'root' => public_path('web/organounasam'), // mision vision facultad
+            'root' => public_path('web/organounasam'),
             'visibility' => 'public',
          ],
          'organoFacultad' => [
             'driver' => 'local',
-            'root' => public_path('web/organofacultad'), // mision vision facultad
+            'root' => public_path('web/organofacultad'),
             'visibility' => 'public',
          ],
          'organoProgramaEstudio' => [
             'driver' => 'local',
-            'root' => public_path('web/organoprograma'), // mision vision facultad
+            'root' => public_path('web/organoprograma'),
             'visibility' => 'public',
          ],
 
          'objetivoUNASAM' => [
             'driver' => 'local',
-            'root' => public_path('web/objetivounasam'), // mision vision facultad
+            'root' => public_path('web/objetivounasam'),
             'visibility' => 'public',
          ],
          'objetivoFacultad' => [
             'driver' => 'local',
-            'root' => public_path('web/objetivofacultad'), // mision vision facultad
+            'root' => public_path('web/objetivofacultad'),
             'visibility' => 'public',
          ],
          'objetivoProgramaEstudio' => [
             'driver' => 'local',
-            'root' => public_path('web/objetivoprograma'), // mision vision facultad
+            'root' => public_path('web/objetivoprograma'),
             'visibility' => 'public',
          ],
 
          'estatutoUNASAM' => [
             'driver' => 'local',
-            'root' => public_path('web/estatutounasam'), // mision vision facultad
+            'root' => public_path('web/estatutounasam'),
             'visibility' => 'public',
          ],
          'estatutoFacultad' => [
             'driver' => 'local',
-            'root' => public_path('web/estatutofacultad'), // mision vision facultad
+            'root' => public_path('web/estatutofacultad'),
             'visibility' => 'public',
          ],
          'estatutoProgramaEstudio' => [
             'driver' => 'local',
-            'root' => public_path('web/estatutoprograma'), // mision vision facultad
+            'root' => public_path('web/estatutoprograma'),
             'visibility' => 'public',
          ],
 
          'contenidoUNASAM' => [
             'driver' => 'local',
-            'root' => public_path('web/contenidounasam'), // mision vision facultad
+            'root' => public_path('web/contenidounasam'),
             'visibility' => 'public',
          ],
          'contenidoFacultad' => [
             'driver' => 'local',
-            'root' => public_path('web/contenidofacultad'), // mision vision facultad
+            'root' => public_path('web/contenidofacultad'),
             'visibility' => 'public',
          ],
          'contenidoProgramaEstudio' => [
             'driver' => 'local',
-            'root' => public_path('web/contenidoprograma'), // mision vision facultad
+            'root' => public_path('web/contenidoprograma'),
             'visibility' => 'public',
          ],
 
          'licenciamientoUNASAM' => [
             'driver' => 'local',
-            'root' => public_path('web/licenciamientounasam'), // mision vision facultad
+            'root' => public_path('web/licenciamientounasam'),
             'visibility' => 'public',
          ],
          'licenciamientoFacultad' => [
             'driver' => 'local',
-            'root' => public_path('web/licenciamientofacultad'), // mision vision facultad
+            'root' => public_path('web/licenciamientofacultad'),
             'visibility' => 'public',
          ],
          'licenciamientoProgramaEstudio' => [
             'driver' => 'local',
-            'root' => public_path('web/licenciamientoprograma'), // mision vision facultad
+            'root' => public_path('web/licenciamientoprograma'),
+            'visibility' => 'public',
+         ],
+
+         'documentoUNASAM' => [
+            'driver' => 'local',
+            'root' => public_path('web/documentounasam'),
+            'visibility' => 'public',
+         ],
+         'documentoFacultad' => [
+            'driver' => 'local',
+            'root' => public_path('web/documentofacultad'),
+            'visibility' => 'public',
+         ],
+         'documentoProgramaEstudio' => [
+            'driver' => 'local',
+            'root' => public_path('web/documentoprograma'),
             'visibility' => 'public',
          ],
 
