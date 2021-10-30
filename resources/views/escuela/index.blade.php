@@ -1,7 +1,7 @@
 @extends('vendor.adminlte.layouts.app')
 
 @section('htmlheader_title')
-	Gestión de Escuelas Profesionales
+	Gestión de Programas de Estudios
 @endsection
 
 <style type="text/css">         

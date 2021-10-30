@@ -28,7 +28,7 @@ data:{
    divtitulo:true,
    classTitle:'fa fa-mortar-board',
    classMenu0:'',
-   classMenu1:'active',
+   classMenu1:'',
    classMenu2:'',
    classMenu3:'',
    classMenu4:'',
@@ -39,16 +39,15 @@ data:{
    classMenu9:'',
    classMenu10:'',
    classMenu11:'',
-   classMenu12:'',
+   classMenu12:'active',
 
 
    divprincipal:false,
 
-   locals: [],
    facultads: [],
    errors:[],
 
-   fillFacultad:{'id':'', 'nombre':'', 'activo':'','local_id':''},
+   fillFacultad:{'id':'', 'nombre':'', 'activo':''},
 
    pagination: {
    'total': 0,
@@ -68,7 +67,6 @@ data:{
 
    newFacultad:'',
    newActivo:'1',
-   newLocal:'',
 
 
 
@@ -76,7 +74,6 @@ data:{
 created:function () {
    this.getFacultad(this.thispage);
 
-   $("#cbslocalE").select2();
 },
 mounted: function () {
    this.divloader0=false;
@@ -143,12 +140,11 @@ filters:{
 methods: {
    getFacultad: function (page) {
        var busca=this.buscar;
-       var url = 'facultad?page='+page+'&busca='+busca;
+       var url = 'facultadesre?page='+page+'&busca='+busca;
 
        axios.get(url).then(response=>{
            this.facultads= response.data.facultads.data;
            this.pagination= response.data.pagination;
-           this.locals= response.data.locals;
 
            if(this.facultads.length==0 && this.thispage!='1'){
                var a = parseInt(this.thispage) ;
@@ -185,23 +181,17 @@ methods: {
        this.newFacultad='';
        this.newActivo='1';
 
-       this.newLocal='';
-
-       $("#cbslocal").select2();
-       $('#cbslocal').val('').trigger('change');
-
        $(".form-control").css("border","1px solid #d2d6de");
    },
    create:function () {
 
-       this.newLocal=$("#cbslocal").val();
-       var url='facultad';
+       var url='facultadesre';
        $("#btnGuardar").attr('disabled', true);
        $("#btnCancel").attr('disabled', true);
        $("#btnClose").attr('disabled', true);
        this.divloaderNuevo=true;
        $(".form-control").css("border","1px solid #d2d6de");
-       axios.post(url,{nombre:this.newFacultad, activo:this.newActivo, local_id:this.newLocal}).then(response=>{
+       axios.post(url,{nombre:this.newFacultad, activo:this.newActivo }).then(response=>{
            //console.log(response.data);
 
            $("#btnGuardar").removeAttr("disabled");
@@ -240,7 +230,7 @@ methods: {
 
             if (result.value) {
 
-                var url = 'facultad/'+facultad.id;
+                var url = 'facultadesre/'+facultad.id;
                 axios.delete(url).then(response=>{//eliminamos
 
                 if(response.data.result=='1'){
@@ -261,13 +251,7 @@ methods: {
        this.fillFacultad.id=facultad.id;
        this.fillFacultad.nombre=facultad.nombre;
        this.fillFacultad.activo=facultad.activo;
-       this.fillFacultad.local_id=facultad.local_id;
 
-       $("#cbslocalE").select2();
-       this.$nextTick(function () { 
-       $("#cbslocalE").val( this.fillFacultad.local_id).trigger('change');
-       $('.select2').css("width","100%");
-        });
 
        $("#boxTitulo").text('Facultad: '+facultad.nombre);
        $("#modalEditar").modal('show');
@@ -275,12 +259,10 @@ methods: {
        $("#txtfacE").focus();
    },
    updateFacultad:function (id) {
-       var url="facultad/"+id;
+       var url="facultadesre/"+id;
        $("#btnSaveE").attr('disabled', true);
        $("#btnCancelE").attr('disabled', true);
        this.divloaderEdit=true;
-
-       this.fillFacultad.local_id=$("#cbslocalE").val();
 
        axios.put(url, this.fillFacultad).then(response=>{
 
@@ -290,7 +272,7 @@ methods: {
            
            if(response.data.result=='1'){   
            this.getFacultad(this.thispage);
-           this.fillLocal={'id':'', 'nombre':'', 'activo':'','local_id':''};
+           this.fillLocal={'id':'', 'nombre':'', 'activo':''};
            this.errors=[];
            $("#modalEditar").modal('hide');
            toastr.success(response.data.msj);
@@ -309,7 +291,7 @@ methods: {
 
     swal.fire({
              title: '¿Estás seguro?',
-             text: "Desea desactivar la Facultad seleccionada",
+             text: "Desea desactivar la Facultad seleccionada, No se visualizará en el Portal Web Hasta que sea activada nuevamente",
              type: 'info',
              showCancelButton: true,
              confirmButtonColor: '#3085d6',
@@ -319,7 +301,7 @@ methods: {
 
             if (result.value) {
 
-                var url = 'facultad/altabaja/'+facultad.id+'/0';
+                var url = 'facultadesre/altabaja/'+facultad.id+'/0';
                        axios.get(url).then(response=>{//eliminamos
 
                        if(response.data.result=='1'){
@@ -340,7 +322,7 @@ methods: {
 
     swal.fire({
              title: '¿Estás seguro?',
-             text: "Desea activar la Facultad seleccionada",
+             text: "Desea activar la Facultad seleccionada, Se visualizará en el Portal Web",
              type: 'info',
              showCancelButton: true,
              confirmButtonColor: '#3085d6',
@@ -350,7 +332,7 @@ methods: {
 
             if (result.value) {
 
-                var url = 'facultad/altabaja/'+facultad.id+'/1';
+                var url = 'facultadesre/altabaja/'+facultad.id+'/1';
                        axios.get(url).then(response=>{//eliminamos
 
                        if(response.data.result=='1'){

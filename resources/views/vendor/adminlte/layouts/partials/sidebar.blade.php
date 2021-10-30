@@ -85,6 +85,16 @@
             </li>
             @endif
 
+            @if(accesoUser([1]))
+            <li class="treeview" v-bind:class="classMenu12">
+                <a href="#"><i class='fa fa-list-alt'></i> <span>Gestión de Facultades</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <ul class="treeview-menu">
+                    <li><a href="{{URL::to('intranet/facultades')}}"><i class='fa fa-paper-plane'></i> Gestión de Facultades</a></li>
+                    <li><a href="{{URL::to('intranet/programasprogesionales')}}"><i class='fa fa-paper-plane'></i> Programas de Estudios</a></li>
+                </ul>
+            </li>
+            @endif
+
 
 
 
@@ -96,7 +106,7 @@
           
             @if(accesoUser([1]))
             <li class="treeview" v-bind:class="classMenu1">
-                <a href="#"><i class='fa fa-list-alt'></i> <span>Portal de Inicio FEC</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <a href="#"><i class='fa fa-list-alt'></i> <span>Inicio Facultad</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
                     <li><a href="{{URL::to('intranet/banner')}}"><i class='fa fa-paper-plane'></i> Gestión de Banners</a></li>
                     <li><a href="{{URL::to('intranet/presentacion')}}"><i class='fa fa-paper-plane'></i> Gestión de Presentación</a></li>
@@ -111,7 +121,7 @@
 
             @if(accesoUser([1]))
             <li class="treeview" v-bind:class="classMenu2">
-                <a href="#"><i class='fa fa-list-alt'></i> <span>Páginas FEC</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <a href="#"><i class='fa fa-list-alt'></i> <span>Portal Facultad</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
                     <li><a href="{{URL::to('intranet/historia')}}"><i class='fa fa-paper-plane'></i> Gestión de Historia</a></li>
                     <li><a href="{{URL::to('intranet/misionvision')}}"><i class='fa fa-paper-plane'></i> Gestión de Misión / Visión</a></li>
@@ -138,7 +148,7 @@
 
             @if(accesoUser([1]))
             <li class="treeview" v-bind:class="classMenu3">
-                <a href="#"><i class='fa fa-list-alt'></i> <span>Gestión de Portal de Inicio</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <a href="#"><i class='fa fa-list-alt'></i> <span>Inicio Programa de Estudio</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
                     <li><a href="{{URL::to('intranet/bannerprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Banners</a></li>
                     <li><a href="{{URL::to('intranet/presentacionprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Presentación</a></li>
@@ -151,7 +161,7 @@
 
             @if(accesoUser([1]))
             <li class="treeview" v-bind:class="classMenu4">
-                <a href="#"><i class='fa fa-list-alt'></i> <span>Gestión de Páginas Web</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <a href="#"><i class='fa fa-list-alt'></i> <span>Portal Programa de Estudio</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
                     <li><a href="{{URL::to('intranet/historiaprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Historia</a></li>
                     <li><a href="{{URL::to('intranet/misionvisionprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Misión / Visión</a></li>

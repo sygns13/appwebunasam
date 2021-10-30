@@ -94,6 +94,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('intranet/informesportal', 'DocumentoController@index02');
     Route::get('intranet/documentosnormativos', 'DocumentoController@index1');
 
+    Route::get('intranet/facultades', 'FacultadesController@index1');
+    Route::get('intranet/programasprogesionales', 'ProgramasEstudiosController@index1');
+
     Route::get('intranet/politicas', 'PoliticacalidadController@index1');
     Route::get('intranet/directorio', 'DirectorioController@index1');
     Route::get('intranet/gestioncalidad', 'GestioncalidadController@index1');
@@ -148,6 +151,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('intranet/licenciamientore', 'LicenciamientoController');
     Route::resource('intranet/documentore', 'DocumentoController');
 
+    Route::resource('intranet/facultadesre', 'FacultadesController');
+    Route::resource('intranet/programasprogesionalesre', 'ProgramasEstudiosController');
+
     Route::resource('intranet/politicasre', 'PoliticacalidadController');
     Route::resource('intranet/directoriore', 'DirectorioController');
     Route::resource('intranet/gestioncalidadre', 'GestioncalidadController');
@@ -199,6 +205,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('intranet/estatutore/altabaja/{id}/{var}', 'EstatutoController@altabaja');
     Route::get('intranet/licenciamientore/altabaja/{id}/{var}', 'LicenciamientoController@altabaja');
     Route::get('intranet/documentore/altabaja/{id}/{var}', 'DocumentoController@altabaja');
+
+    Route::get('intranet/facultadesre/altabaja/{id}/{var}', 'FacultadesController@altabaja');
+    Route::get('intranet/programasprogesionalesre/altabaja/{id}/{var}', 'ProgramasEstudiosController@altabaja');
 
     Route::get('intranet/politicasre/altabaja/{id}/{var}', 'PoliticacalidadController@altabaja');
     Route::get('intranet/directoriore/altabaja/{id}/{var}', 'DirectorioController@altabaja');

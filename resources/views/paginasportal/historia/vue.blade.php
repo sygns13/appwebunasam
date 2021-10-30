@@ -12,7 +12,7 @@ Vue.component('ckeditor1', {
       },
       height: {
         type: String,
-        default: '400px',
+        default: '450px',
       },
       toolbar: {
         type: Array,

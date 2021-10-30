@@ -12,7 +12,7 @@ Vue.component('ckeditor1', {
       },
       height: {
         type: String,
-        default: '150px',
+        default: '200px',
       },
       toolbar: {
         type: Array,
@@ -81,7 +81,7 @@ Vue.component('ckeditor2', {
       },
       height: {
         type: String,
-        default: '150px',
+        default: '200px',
       },
       toolbar: {
         type: Array,

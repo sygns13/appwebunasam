@@ -1,6 +1,6 @@
 <div class="box box-primary panel-group">
         <div class="box-header with-border" style="border: 1px solid #3c8dbc;background-color: #3c8dbc; color: white;">
-          <h3 class="box-title">Gestión de Facultades</h3>
+          <h3 class="box-title">Gestión Maestra de Facultades</h3>
           <a style="float: right;" type="button" class="btn btn-default" href="{{URL::to('home')}}"><i class="fa fa-reply-all" aria-hidden="true"></i> 
           Volver</a>
         </div>
@@ -9,20 +9,9 @@
           <div class="form-group form-primary">
             <button type="button" class="btn btn-primary" id="btnCrear" @click.prevent="nuevo()"><i class="fa fa-plus-square-o" aria-hidden="true" ></i> Nueva Facultad</button>
 
-            <a type="button" class="btn btn-success" id="btnDescargarPlantilla" v-bind:href="'facultades/exportarExcel?busca='+buscar" data-placement="top" data-toggle="tooltip" title="Descargar Base de Datos Según el Filtro de Semestre y Búsqueda Empleado"><i class="fa fa-file-excel-o" aria-hidden="true" ></i> Descargar Base de Datos</a>
-
-
           </div>
       
-      
-      
-          {{--  
-            <div class="box-footer">
-              <button type="button" class="btn btn-primary" onclick="enviarMSj();" id="btnEnviarMsj"><i class="fa fa-envelope-o" aria-hidden="true" ></i> Enviar Mensaje</button>
-              <div id="divCarga0" style="display: inline-block;"><div id="dcarga0" style="display: none;"><img src="{{ asset('/img/ajax-loader.gif')}}"/></div></div>
-            </div>
-            --}}
-      
+     
           </div>
       
         </div>
@@ -44,25 +33,7 @@
                   <input type="text" class="form-control" id="txtfac" name="txtfac" placeholder="Facultad" maxlength="500" autofocus v-model="newFacultad" >
                 </div>
               </div>
-            </div>
-
-
-            <div class="col-md-12"  style="padding-top: 15px;">
-      
-                <div class="form-group">
-                  <label for="cbslocal" class="col-sm-2 control-label">Local:*</label>
-        
-                  <div class="col-sm-8">
-
-                    <select name="cbslocal" id="cbslocal" class="form-control">
-
-                        <option disabled value="">Seleccione un Local</option>
-                    <option v-for="local, key in locals" v-bind:value="local.id">@{{local.nombre}}</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-      
+            </div>    
       
       
             <div class="col-md-12" style="padding-top: 15px;">
@@ -132,15 +103,13 @@
           <table class="table table-hover table-bordered table-dark table-condensed table-striped" >
             <tbody><tr>
               <th style="border:1px solid #ddd;padding: 5px; width: 5%;">#</th>
-              <th style="border:1px solid #ddd;padding: 5px; width: 40%;">Facultad</th>
-              <th style="border:1px solid #ddd;padding: 5px; width: 35%;">Local</th>
-              <th style="border:1px solid #ddd;padding: 5px; width: 7%;">Estado</th>
-              <th style="border:1px solid #ddd;padding: 5px; width: 14%;">Gestión</th>
+              <th style="border:1px solid #ddd;padding: 5px; width: 65%;">Facultad</th>
+              <th style="border:1px solid #ddd;padding: 5px; width: 15%;">Estado</th>
+              <th style="border:1px solid #ddd;padding: 5px; width: 15%;">Gestión</th>
             </tr>
             <tr v-for="facultad, key in facultads">
               <td style="border:1px solid #ddd;font-size: 14px; padding: 5px;">@{{key+pagination.from}}</td>
               <td style="border:1px solid #ddd;font-size: 14px; padding: 5px;">@{{ facultad.nombre }}</td>
-              <td style="border:1px solid #ddd;font-size: 14px; padding: 5px;">@{{ facultad.local }}</td>
               <td style="border:1px solid #ddd;font-size: 14px; padding: 5px; vertical-align: middle;">
                   <center>
                <span class="label label-success" v-if="facultad.activo=='1'">Activo</span>
@@ -149,9 +118,6 @@
              </td>
              <td style="border:1px solid #ddd;font-size: 14px; padding: 5px;">
       <center>
-
-          <a v-bind:href="'datosfacultad/'+facultad.id"  class="btn btn-info btn-sm" data-placement="top" data-toggle="tooltip" title="Registrar Datos de la Facultad"><i class="fa fa-file-text-o"></i></a>
-
 
                <a href="#" v-if="facultad.activo=='1'" class="btn bg-navy btn-sm" v-on:click.prevent="bajafacultad(facultad)" data-placement="top" data-toggle="tooltip" title="Desactivar Facultad"><i class="fa fa-arrow-circle-down"></i></a>
       
@@ -235,24 +201,6 @@
                         </div>
                       </div>
                     </div>
-
-      
-                    <div class="col-md-12"  style="padding-top: 15px;">
-      
-                        <div class="form-group">
-                          <label for="cbslocalE" class="col-sm-2 control-label">Local:*</label>
-                
-                          <div class="col-sm-8">
-        
-                            <select name="cbslocalE" id="cbslocalE" class="form-control">
-        
-                                <option disabled value="">Seleccione un Local</option>
-                            <option v-for="local, key in locals" v-bind:value="local.id">@{{local.nombre}}</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-
 
       
                     <div class="col-md-12" style="padding-top: 15px;">

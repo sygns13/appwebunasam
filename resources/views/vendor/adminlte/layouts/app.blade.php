@@ -148,6 +148,15 @@ desired effect
 @elseif($modulo=="informeportal")
 @include('paginasportal.informe.vue')
 
+{{-- //Paginas Gestionar Facultades y Programas de Estudios--}}
+
+@elseif($modulo=="facultad")
+@include('facultad.vue')
+
+@elseif($modulo=="escuela")
+@include('escuela.vue')
+
+
 {{-- //Paginas Portales Facultades--}}
 
 @elseif($modulo=="bannerfacultad")

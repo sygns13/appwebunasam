@@ -1,17 +1,13 @@
 <div class="box box-primary panel-group">
         <div class="box-header with-border" style="border: 1px solid #3c8dbc;background-color: #3c8dbc; color: white;">
-          <h3 class="box-title">Gestión de Escuelas Profesionales</h3>
+          <h3 class="box-title">Gestión de Programas de Estudios</h3>
           <a style="float: right;" type="button" class="btn btn-default" href="{{URL::to('home')}}"><i class="fa fa-reply-all" aria-hidden="true"></i> 
           Volver</a>
         </div>
       
       <div class="box-body" style="border: 1px solid #3c8dbc;">
           <div class="form-group form-primary">
-            <button type="button" class="btn btn-primary" id="btnCrear" @click.prevent="nuevo()"><i class="fa fa-plus-square-o" aria-hidden="true" ></i> Nueva Escuela Profesional</button>
-
-
-            <a type="button" class="btn btn-success" id="btnDescargarPlantilla" v-bind:href="'escuelas/exportarExcel?busca='+buscar" data-placement="top" data-toggle="tooltip" title="Descargar Base de Datos Según el Filtro de Semestre y Búsqueda Empleado"><i class="fa fa-file-excel-o" aria-hidden="true" ></i> Descargar Base de Datos</a>
-
+            <button type="button" class="btn btn-primary" id="btnCrear" @click.prevent="nuevo()"><i class="fa fa-plus-square-o" aria-hidden="true" ></i> Nuevo Programa de Estudio</button>
 
           </div>
       
@@ -30,7 +26,7 @@
       
         <div class="box box-success" v-if="divNuevo" style="border: 1px solid #00a65a;">
           <div class="box-header with-border" style="border: 1px solid #00a65a;background-color: #00a65a; color: white;">
-            <h3 class="box-title" id="tituloAgregar">Nueva Escuela Profesional</h3>
+            <h3 class="box-title" id="tituloAgregar">Nuevo Programa de Estudio</h3>
           </div>
       
           <form v-on:submit.prevent="create">
@@ -39,10 +35,10 @@
             <div class="col-md-12" >
       
               <div class="form-group">
-                <label for="txtesc" class="col-sm-2 control-label">Escuela Profesional:*</label>
+                <label for="txtesc" class="col-sm-2 control-label">Programa de Estudio:*</label>
       
                 <div class="col-sm-8">
-                  <input type="text" class="form-control" id="txtesc" name="txtesc" placeholder="Escuela" maxlength="500" autofocus v-model="newEscuela" >
+                  <input type="text" class="form-control" id="txtesc" name="txtesc" placeholder="Programa" maxlength="500" autofocus v-model="newEscuela" >
                 </div>
               </div>
             </div>
@@ -114,7 +110,7 @@
       
       <div class="box box-primary" style="border: 1px solid #3c8dbc;">
         <div class="box-header" style="border: 1px solid #3c8dbc;background-color: #3c8dbc; color: white;">
-          <h3 class="box-title">Listado de Escuelas Profesionales</h3>
+          <h3 class="box-title">Listado de Programas de Estudios</h3>
       
           <div class="box-tools">
             <div class="input-group input-group-sm" style="width: 300px;">
@@ -133,12 +129,12 @@
           <table class="table table-hover table-bordered table-dark table-condensed table-striped" >
             <tbody><tr>
               <th style="border:1px solid #ddd;padding: 5px; width: 5%;">#</th>
-              <th style="border:1px solid #ddd;padding: 5px; width: 40%;">Escuela</th>
+              <th style="border:1px solid #ddd;padding: 5px; width: 40%;">Programa</th>
               <th style="border:1px solid #ddd;padding: 5px; width: 35%;">Facultad</th>
               <th style="border:1px solid #ddd;padding: 5px; width: 10%;">Estado</th>
               <th style="border:1px solid #ddd;padding: 5px; width: 10%;">Gestión</th>
             </tr>
-            <tr v-for="escuela, key in escuelas">
+            <tr v-for="escuela, key in programaestudios">
               <td style="border:1px solid #ddd;font-size: 14px; padding: 5px;">@{{key+pagination.from}}</td>
               <td style="border:1px solid #ddd;font-size: 14px; padding: 5px;">@{{ escuela.nombre }}</td>
               <td style="border:1px solid #ddd;font-size: 14px; padding: 5px;">@{{ escuela.facultad }}</td>
@@ -150,13 +146,13 @@
              </td>
              <td style="border:1px solid #ddd;font-size: 14px; padding: 5px;">
       <center>
-               <a href="#" v-if="escuela.activo=='1'" class="btn bg-navy btn-sm" v-on:click.prevent="bajaescuela(escuela)" data-placement="top" data-toggle="tooltip" title="Desactivar Escuela"><i class="fa fa-arrow-circle-down"></i></a>
+               <a href="#" v-if="escuela.activo=='1'" class="btn bg-navy btn-sm" v-on:click.prevent="bajaescuela(escuela)" data-placement="top" data-toggle="tooltip" title="Desactivar Programa de Estudio"><i class="fa fa-arrow-circle-down"></i></a>
       
-               <a href="#" v-if="escuela.activo=='0'" class="btn btn-success btn-sm" v-on:click.prevent="altaescuela(escuela)" data-placement="top" data-toggle="tooltip" title="Activar Escuela"><i class="fa fa-check-circle"></i></a>
+               <a href="#" v-if="escuela.activo=='0'" class="btn btn-success btn-sm" v-on:click.prevent="altaescuela(escuela)" data-placement="top" data-toggle="tooltip" title="Activar Programa de Estudio"><i class="fa fa-check-circle"></i></a>
       
       
-               <a href="#" class="btn btn-warning btn-sm" v-on:click.prevent="editescuela(escuela)" data-placement="top" data-toggle="tooltip" title="Editar Escuela"><i class="fa fa-edit"></i></a>
-               <a href="#" class="btn btn-danger btn-sm" v-on:click.prevent="borrarescuela(escuela)" data-placement="top" data-toggle="tooltip" title="Borrar Escuela"><i class="fa fa-trash"></i></a>
+               <a href="#" class="btn btn-warning btn-sm" v-on:click.prevent="editescuela(escuela)" data-placement="top" data-toggle="tooltip" title="Editar Programa de Estudio"><i class="fa fa-edit"></i></a>
+               <a href="#" class="btn btn-danger btn-sm" v-on:click.prevent="borrarescuela(escuela)" data-placement="top" data-toggle="tooltip" title="Borrar Programa de Estudio"><i class="fa fa-trash"></i></a>
       </center>
              </td>
            </tr>
@@ -207,7 +203,7 @@
             <div class="modal-content" style="border: 1px solid #3c8dbc;">
               <div class="modal-header" style="border: 1px solid #3c8dbc;background-color: #3c8dbc; color: white;">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="font-size: 35px;">&times;</span></button>
-                <h4 class="modal-title" id="desEditarTitulo" style="font-weight: bold;text-decoration: underline;">EDITAR ESCUELA PROFESIONAL</h4>
+                <h4 class="modal-title" id="desEditarTitulo" style="font-weight: bold;text-decoration: underline;">EDITAR PROGRAMA DE ESTUDIO</h4>
       
               </div> 
               <div class="modal-body">
@@ -217,7 +213,7 @@
       
                   <div class="box" id="o" style="border:0px; box-shadow:none;" >
                     <div class="box-header with-border">
-                      <h3 class="box-title" id="boxTitulo">Escuela Profesional:</h3>
+                      <h3 class="box-title" id="boxTitulo">Programa de Estudio:</h3>
                     </div>
                     <!-- /.box-header -->
                     <!-- form start -->
@@ -225,7 +221,7 @@
                     <div class="box-body">
       
                       <div class="form-group">
-                        <label for="txtescE" class="col-sm-2 control-label">Escuela Profesional:*</label>
+                        <label for="txtescE" class="col-sm-2 control-label">Programa de Estudio:*</label>
       
                         <div class="col-sm-8">
                           <input type="text" class="form-control" id="txtescE" name="txtescE" placeholder="Descripción" maxlength="500" autofocus v-model="fillEscuela.nombre" required>

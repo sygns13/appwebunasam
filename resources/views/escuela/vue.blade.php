@@ -3,7 +3,7 @@
 el: '#app',
 data:{
        titulo:"Tablas Maestras",
-       subtitulo: "Gestión de Escuelas",
+       subtitulo: "Gestión de Programas de Estudios",
        subtitulo2: "Principal",
 
    subtitle2:false,
@@ -28,7 +28,7 @@ data:{
    divtitulo:true,
    classTitle:'fa fa-bookmark',
    classMenu0:'',
-   classMenu1:'active',
+   classMenu1:'',
    classMenu2:'',
    classMenu3:'',
    classMenu4:'',
@@ -39,13 +39,13 @@ data:{
    classMenu9:'',
    classMenu10:'',
    classMenu11:'',
-   classMenu12:'',
+   classMenu12:'active',
 
 
    divprincipal:false,
 
    facultads: [],
-   escuelas: [],
+   programaestudios: [],
    errors:[],
 
    fillEscuela:{'id':'', 'nombre':'', 'activo':'','facultad_id':''},
@@ -143,14 +143,14 @@ filters:{
 methods: {
    getEscuela: function (page) {
        var busca=this.buscar;
-       var url = 'escuela?page='+page+'&busca='+busca;
+       var url = 'programasprogesionalesre?page='+page+'&busca='+busca;
 
        axios.get(url).then(response=>{
-           this.escuelas= response.data.escuelas.data;
+           this.programaestudios= response.data.programaestudios.data;
            this.pagination= response.data.pagination;
            this.facultads= response.data.facultads;
 
-           if(this.escuelas.length==0 && this.thispage!='1'){
+           if(this.programaestudios.length==0 && this.thispage!='1'){
                var a = parseInt(this.thispage) ;
                a--;
                this.thispage=a.toString();
@@ -195,7 +195,7 @@ methods: {
    create:function () {
 
        this.newFacultad=$("#cbsFacultad").val();
-       var url='escuela';
+       var url='programasprogesionalesre';
        $("#btnGuardar").attr('disabled', true);
        $("#btnCancel").attr('disabled', true);
        $("#btnClose").attr('disabled', true);
@@ -230,7 +230,7 @@ methods: {
     
         swal.fire({
              title: '¿Estás seguro?',
-             text: "¿Desea eliminar la Escuela Profesional Seleccionada? -- Nota: este proceso no se podrá revertir.",
+             text: "¿Desea eliminar el Programa de Estudio Seleccionado? -- Nota: este proceso no se podrá revertir.",
              type: 'info',
              showCancelButton: true,
              confirmButtonColor: '#3085d6',
@@ -240,7 +240,7 @@ methods: {
 
             if (result.value) {
 
-                var url = 'escuela/'+escuela.id;
+                var url = 'programasprogesionalesre/'+escuela.id;
                 axios.delete(url).then(response=>{//eliminamos
 
                 if(response.data.result=='1'){
@@ -270,13 +270,13 @@ methods: {
        $('.select2').css("width","100%");
     });
 
-       $("#boxTitulo").text('Escuela: '+escuela.nombre);
+       $("#boxTitulo").text('Prrograma de Estudio: '+escuela.nombre);
        $("#modalEditar").modal('show');
 
        $("#txtfacE").focus();
    },
    updateEscuela:function (id) {
-       var url="escuela/"+id;
+       var url="programasprogesionalesre/"+id;
        $("#btnSaveE").attr('disabled', true);
        $("#btnCancelE").attr('disabled', true);
        this.divloaderEdit=true;
@@ -310,7 +310,7 @@ methods: {
 
     swal.fire({
              title: '¿Estás seguro?',
-             text: "Desea desactivar la Escuela seleccionada",
+             text: "Desea desactivar el programa de Estudio, No se visualizará en el Portal Web Hasta que sea activada nuevamente",
              type: 'info',
              showCancelButton: true,
              confirmButtonColor: '#3085d6',
@@ -320,7 +320,7 @@ methods: {
 
             if (result.value) {
 
-                var url = 'escuela/altabaja/'+escuela.id+'/0';
+                var url = 'programasprogesionalesre/altabaja/'+escuela.id+'/0';
                        axios.get(url).then(response=>{//eliminamos
 
                        if(response.data.result=='1'){
@@ -341,7 +341,7 @@ methods: {
 
     swal.fire({
              title: '¿Estás seguro?',
-             text: "Desea activar la Escuela seleccionada",
+             text: "Desea activar la Escuela seleccionada, Se visualizará en el Portal Web",
              type: 'info',
              showCancelButton: true,
              confirmButtonColor: '#3085d6',
@@ -351,7 +351,7 @@ methods: {
 
             if (result.value) {
 
-                var url = 'escuela/altabaja/'+escuela.id+'/1';
+                var url = 'programasprogesionalesre/altabaja/'+escuela.id+'/1';
                        axios.get(url).then(response=>{//eliminamos
 
                        if(response.data.result=='1'){
