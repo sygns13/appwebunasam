@@ -37,6 +37,12 @@ use App\Documentoestatuto;
 use App\Contenido;
 use App\Licenciamiento;
 
+
+
+use App\Facultad;
+use App\Programaestudio;
+
+
 use DateTime;
 
 class IndexWebController extends Controller
@@ -57,6 +63,39 @@ class IndexWebController extends Controller
         $plataformas=Plataforma::where('borrado','0')->where('activo','1')->where('nivel', 0)->orderBy('id')->get();
         $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 0)->orderBy('id')->get();
         $linkinteres=Linkinteres::where('borrado','0')->where('activo','1')->where('nivel', 0 )->orderBy('posision')->get();
+
+        $facultades=Facultad::where('borrado','0')->where('activo','1')->orderBy('nombre')->get();
+        $totalRegistros=Facultad::where('borrado','0')->where('activo','1')->orderBy('nombre')->count();
+
+        $FacultadesEscuelas = array();
+
+        foreach ($facultades as $key => $dato) {
+
+            $FacultadEscuela = new stdClass;
+
+            $FacultadEscuela->nombre = $dato->nombre;
+            $FacultadEscuela->nivel = 1;
+            $FacultadEscuela->hash = base64_encode(gzdeflate('idhijofacultad-'.$dato->id));
+
+            array_push($FacultadesEscuelas, $FacultadEscuela);
+
+            
+            $escuelas = Programaestudio::where('borrado','0')->where('activo','1')->where('facultad_id', $dato->id)->orderBy('nombre')->get();
+            $dato->escuelas = $escuelas;
+
+            foreach ($escuelas as $key => $dato2) {
+
+                $FacultadEscuela = new stdClass;
+
+                $FacultadEscuela->nombre = $dato2->nombre;
+                $FacultadEscuela->nivel = 2;
+                $FacultadEscuela->hash = base64_encode(gzdeflate('idhijoescuela-'.$dato2->id));
+
+                array_push($FacultadesEscuelas, $FacultadEscuela);
+            }
+        }
+
+        $totalRegistros = count($FacultadesEscuelas);
 
         foreach ($noticias as $key => $dato) {    
             $imagennoticia = Imagennoticia::where('activo','1')->where('borrado','0')->where('posicion','0')->where('noticia_id', $dato->id)->first();
@@ -146,7 +185,7 @@ class IndexWebController extends Controller
         
 
 
-        return view('web/unasam/index',compact('banners','presentacion','unasam','noticias','eventos','actividades','plataformas','redsocials','linkinteres','menusActivos'));
+        return view('web/unasam/index',compact('banners','presentacion','unasam','noticias','eventos','actividades','plataformas','redsocials','linkinteres','menusActivos', 'FacultadesEscuelas','totalRegistros'));
     }
 
     public function historia(){

@@ -191,73 +191,130 @@
                                                     <li>
                                                         <div class="dropdown-mega-content">
                                                             <div class="row">
-                                                                <div class="col-lg-3">
-                                                                    {{-- <span class="dropdown-mega-sub-title">Elements 1</span> --}}
+
+                                                                @php
+                                                                    /* $val1 = intval($totalRegistros/4);
+                                                                    $val2 = $val1 * 2;
+                                                                    $val3 = $val1 * 3;
+                                                                    $val4 = $totalRegistros - $val3; */
+
+                                                                    $val1 = 0;
+                                                                    $val2 = 0;
+                                                                    $val3 = 0;
+                                                                    $val4 = 0;
+
+                                                                    $pivot = 0;
+                                                                    for ($i=0; $i < $totalRegistros ; $i++) { 
+                                                                        switch ($pivot) {
+                                                                            case 0:
+                                                                                $val1++;
+                                                                                $pivot++;
+                                                                            break;
+                                                                            case 1:
+                                                                                $val2++;
+                                                                                $pivot++;
+                                                                            break;
+                                                                            case 2:
+                                                                                $val3++;
+                                                                                $pivot++;
+                                                                            break;
+                                                                            case 3:
+                                                                                $val4++;
+                                                                                $pivot = 0;
+                                                                            break;
+                                                                            
+                                                                            default:
+                                                                                $pivot = 0;
+                                                                            break;
+                                                                        }
+                                                                    }
+
+                                                                    $limit1 = $val1;
+                                                                    $limit2 = $limit1 + $val2;
+                                                                    $limit3 = $limit2 + $val3;
+                                                                    $limit4 = $limit3 + $val4;
+                                                                @endphp
+
+                                                                <div class="col-md-3">
                                                                     <ul class="dropdown-mega-sub-nav">
-                                                                        <li><a class="dropdown-item" href="elements-accordions.html">Facultad de Ciencias del Ambiente</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-toggles.html">Ingeniería Ambiental</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-tabs.html">Ingeniería Sanitaria</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-icons.html">Icons</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-icon-boxes.html">Icon Boxes</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-carousels.html">Carousels</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-modals.html">Modals</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-lightboxes.html">Lightboxes</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-word-rotator.html">Word Rotator</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-tooltips-popovers.html">Tooltips &amp; Popovers</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-buttons.html">Buttons</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-badges.html">Badges</a></li>
+                                                                        @foreach($FacultadesEscuelas as  $key => $dato)
+                                                                            @if($key <$limit1)
+                                                                                <li>
+                                                                                    @if($dato->nivel == 1)
+                                                                                        <a class="dropdown-item" href="/facultad/{{$dato->hash}}">
+                                                                                        <div style="white-space: break-spaces;"><b>{{$dato->nombre}}</b></div>
+                                                                                        </a>
+                                                                                    @elseif($dato->nivel == 2)
+                                                                                        <a class="dropdown-item" href="/escuela/{{$dato->hash}}">
+                                                                                        <div style="white-space: break-spaces;">{{$dato->nombre}}</div>
+                                                                                        </a>
+                                                                                    @endif
+                                                                                </li>
+                                                                            @endif
+                                                                        @endforeach
                                                                     </ul>
                                                                 </div>
-                                                                <div class="col-lg-3">
-                                                                    <span class="dropdown-mega-sub-title">Elements 2</span>
+
+                                                                <div class="col-md-3">
                                                                     <ul class="dropdown-mega-sub-nav">
-                                                                        <li><a class="dropdown-item" href="elements-lists.html">Lists</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-cards.html">Cards</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-image-gallery.html">Image Gallery</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-image-frames.html">Image Frames</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-image-hotspots.html">Image Hotspots</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-before-after.html">Before / After</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-360-image-viewer.html">360º Image Viewer</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-cascading-images.html">Cascading Images</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-random-images.html">Random Images</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-testimonials.html">Testimonials</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-blockquotes.html">Blockquotes</a></li>							
-                                                                        <li><a class="dropdown-item" href="elements-sticky-elements.html">Sticky Elements</a></li>							
+                                                                        @foreach($FacultadesEscuelas as  $key => $dato)
+                                                                            @if($key >= $limit1 && $key < $limit2)
+                                                                                <li>
+                                                                                    @if($dato->nivel == 1)
+                                                                                        <a class="dropdown-item" href="/facultad/{{$dato->hash}}">
+                                                                                        <div style="white-space: break-spaces;"><b>{{$dato->nombre}}</b></div>
+                                                                                        </a>
+                                                                                    @elseif($dato->nivel == 2)
+                                                                                        <a class="dropdown-item" href="/escuela/{{$dato->hash}}">
+                                                                                        <div style="white-space: break-spaces;">{{$dato->nombre}}</div>
+                                                                                        </a>
+                                                                                    @endif
+                                                                                </li>
+                                                                            @endif
+                                                                        @endforeach
                                                                     </ul>
                                                                 </div>
-                                                                <div class="col-lg-3">
-                                                                    <span class="dropdown-mega-sub-title">Elements 3</span>
+
+                                                                <div class="col-md-3">
                                                                     <ul class="dropdown-mega-sub-nav">
-                                                                        <li><a class="dropdown-item" href="elements-typography.html">Typography</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-read-more.html">Read More</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-call-to-action.html">Call to Action</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-pricing-tables.html">Pricing Tables</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-tables.html">Tables</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-progressbars.html">Progress Bars</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-process.html">Process</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-counters.html">Counters</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-countdowns.html">Countdowns</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-sections.html">Sections</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-parallax.html">Parallax</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-shape-dividers.html">Shape Dividers</a></li>
+                                                                        @foreach($FacultadesEscuelas as  $key => $dato)
+                                                                            @if($key >= $limit2 && $key < $limit3)
+                                                                                <li>
+                                                                                    @if($dato->nivel == 1)
+                                                                                        <a class="dropdown-item" href="/facultad/{{$dato->hash}}">
+                                                                                        <div style="white-space: break-spaces;"><b>{{$dato->nombre}}</b></div>
+                                                                                        </a>
+                                                                                    @elseif($dato->nivel == 2)
+                                                                                        <a class="dropdown-item" href="/escuela/{{$dato->hash}}">
+                                                                                        <div style="white-space: break-spaces;">{{$dato->nombre}}</div>
+                                                                                        </a>
+                                                                                    @endif
+                                                                                </li>
+                                                                            @endif
+                                                                        @endforeach
                                                                     </ul>
                                                                 </div>
-                                                                <div class="col-lg-3">
-                                                                    <span class="dropdown-mega-sub-title">Elements 4</span>
+
+                                                                <div class="col-md-3">
                                                                     <ul class="dropdown-mega-sub-nav">
-                                                                        <li><a class="dropdown-item" href="elements-headings.html">Headings</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-dividers.html">Dividers</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-animations.html">Animations</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-particles.html">Particles</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-medias.html">Medias</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-maps.html">Maps</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-arrows.html">Arrows</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-star-ratings.html">Star Ratings</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-alerts.html">Alerts</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-posts.html">Posts</a></li>
-                                                                        <li><a class="dropdown-item" href="elements-forms.html">Forms</a></li>
+                                                                        @foreach($FacultadesEscuelas as  $key => $dato)
+                                                                            @if($key >= $limit3 && $key < $limit4)
+                                                                                <li >
+                                                                                    @if($dato->nivel == 1)
+                                                                                        <a class="dropdown-item" href="/facultad/{{$dato->hash}}">
+                                                                                        <div style="white-space: break-spaces;"><b>{{$dato->nombre}}</b></div>
+                                                                                        </a>
+                                                                                    @elseif($dato->nivel == 2)
+                                                                                        <a class="dropdown-item" href="/escuela/{{$dato->hash}}">
+                                                                                        <div style="white-space: break-spaces;">{{$dato->nombre}}</div>
+                                                                                        </a>
+                                                                                    @endif
+                                                                                </li>
+                                                                            @endif
+                                                                        @endforeach
                                                                     </ul>
                                                                 </div>
+
                                                             </div>
                                                         </div>
                                                     </li>
