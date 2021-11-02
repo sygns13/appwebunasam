@@ -8,7 +8,7 @@
 
     <meta name="keywords" content="universidad, Huaraz, Ancash, Perú, UNASAM, Universidad Nacional, universidad Huaraz, Santiago Antúnez, Santiago Antúnez de Mayolo, Antúnez de Mayolo" />
     <meta name="description" content="Universidad Nacional Santiago Antunez de Mayolo ubicada en la ciudad de Huaraz Ancash-Perú">
-    <meta name="author" content="UNASAM, Universidad Nacional Santiago Antunez de Mayolo">
+    <meta name="author" content="Ing. Cristian Chávez - Construyendo Soluciones Informáticas E.I.R.L.">
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ asset('/img/icon.png') }}" type="image/x-icon" />

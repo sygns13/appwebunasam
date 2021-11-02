@@ -17,6 +17,7 @@
     //return redirect('login');
 }); */
 
+//Rutas Portal Web UNASAM
 Route::get('/','IndexWebController@index');
 Route::get('historia','IndexWebController@historia');
 Route::get('misionvision','IndexWebController@misionvision');
@@ -43,6 +44,11 @@ Route::get('actividad/{var}', 'PublicacionWebController@actividad');
 
 Route::get('documentos','PublicacionWebController@documentos');
 Route::get('informes','PublicacionWebController@informes');
+
+
+//Rutas Portal Web FACULTADES
+
+Route::get('facultad/{var}','IndexFacultadWebController@index');
 
 Route::group(['middleware' => 'auth'], function () {
 

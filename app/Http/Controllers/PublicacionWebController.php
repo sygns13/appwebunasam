@@ -25,6 +25,9 @@ use App\Imagencomunicado;
 
 use App\Documento;
 
+use App\Facultad;
+use App\Programaestudio;
+
 use DateTime;
 
 class PublicacionWebController extends Controller
@@ -78,6 +81,39 @@ class PublicacionWebController extends Controller
         $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 0)->orderBy('id')->get();
         $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
 
+        $facultades = Facultad::where('borrado','0')->where('activo','1')->orderBy('nombre')->get();
+        $totalRegistros = 0;
+
+        $FacultadesEscuelas = array();
+
+        foreach ($facultades as $key => $dato) {
+
+            $FacultadEscuela = new stdClass;
+
+            $FacultadEscuela->nombre = $dato->nombre;
+            $FacultadEscuela->nivel = 1;
+            $FacultadEscuela->hash = base64_encode(gzdeflate('idhijofacultad-'.$dato->id));
+
+            array_push($FacultadesEscuelas, $FacultadEscuela);
+
+            
+            $escuelas = Programaestudio::where('borrado','0')->where('activo','1')->where('facultad_id', $dato->id)->orderBy('nombre')->get();
+            $dato->escuelas = $escuelas;
+
+            foreach ($escuelas as $key => $dato2) {
+
+                $FacultadEscuela = new stdClass;
+
+                $FacultadEscuela->nombre = $dato2->nombre;
+                $FacultadEscuela->nivel = 2;
+                $FacultadEscuela->hash = base64_encode(gzdeflate('idhijoescuela-'.$dato2->id));
+
+                array_push($FacultadesEscuelas, $FacultadEscuela);
+            }
+        }
+
+        $totalRegistros = count($FacultadesEscuelas);
+
         $menusActivos = new stdClass;
 
         $menusActivos->menu1 = "";
@@ -90,7 +126,7 @@ class PublicacionWebController extends Controller
         $menusActivos->menu8 = "";
         $menusActivos->menu9 = "active";
 
-        return view('web/unasam/noticias',compact('noticias','redsocials','unasam','menusActivos','pagination','offset'));
+        return view('web/unasam/noticias',compact('noticias','redsocials','unasam','menusActivos','pagination','offset', 'FacultadesEscuelas','totalRegistros'));
 
     }
 
@@ -138,6 +174,39 @@ class PublicacionWebController extends Controller
         $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 0)->orderBy('id')->get();
         $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
 
+        $facultades = Facultad::where('borrado','0')->where('activo','1')->orderBy('nombre')->get();
+        $totalRegistros = 0;
+
+        $FacultadesEscuelas = array();
+
+        foreach ($facultades as $key => $dato) {
+
+            $FacultadEscuela = new stdClass;
+
+            $FacultadEscuela->nombre = $dato->nombre;
+            $FacultadEscuela->nivel = 1;
+            $FacultadEscuela->hash = base64_encode(gzdeflate('idhijofacultad-'.$dato->id));
+
+            array_push($FacultadesEscuelas, $FacultadEscuela);
+
+            
+            $escuelas = Programaestudio::where('borrado','0')->where('activo','1')->where('facultad_id', $dato->id)->orderBy('nombre')->get();
+            $dato->escuelas = $escuelas;
+
+            foreach ($escuelas as $key => $dato2) {
+
+                $FacultadEscuela = new stdClass;
+
+                $FacultadEscuela->nombre = $dato2->nombre;
+                $FacultadEscuela->nivel = 2;
+                $FacultadEscuela->hash = base64_encode(gzdeflate('idhijoescuela-'.$dato2->id));
+
+                array_push($FacultadesEscuelas, $FacultadEscuela);
+            }
+        }
+
+        $totalRegistros = count($FacultadesEscuelas);
+
         $menusActivos = new stdClass;
 
         $menusActivos->menu1 = "";
@@ -150,7 +219,7 @@ class PublicacionWebController extends Controller
         $menusActivos->menu8 = "";
         $menusActivos->menu9 = "active";
 
-        return view('web/unasam/eventos',compact('eventos','redsocials','unasam','menusActivos','pagination','offset'));
+        return view('web/unasam/eventos',compact('eventos','redsocials','unasam','menusActivos','pagination','offset', 'FacultadesEscuelas','totalRegistros'));
 
     }
 
@@ -198,6 +267,39 @@ class PublicacionWebController extends Controller
         $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 0)->orderBy('id')->get();
         $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
 
+        $facultades = Facultad::where('borrado','0')->where('activo','1')->orderBy('nombre')->get();
+        $totalRegistros = 0;
+
+        $FacultadesEscuelas = array();
+
+        foreach ($facultades as $key => $dato) {
+
+            $FacultadEscuela = new stdClass;
+
+            $FacultadEscuela->nombre = $dato->nombre;
+            $FacultadEscuela->nivel = 1;
+            $FacultadEscuela->hash = base64_encode(gzdeflate('idhijofacultad-'.$dato->id));
+
+            array_push($FacultadesEscuelas, $FacultadEscuela);
+
+            
+            $escuelas = Programaestudio::where('borrado','0')->where('activo','1')->where('facultad_id', $dato->id)->orderBy('nombre')->get();
+            $dato->escuelas = $escuelas;
+
+            foreach ($escuelas as $key => $dato2) {
+
+                $FacultadEscuela = new stdClass;
+
+                $FacultadEscuela->nombre = $dato2->nombre;
+                $FacultadEscuela->nivel = 2;
+                $FacultadEscuela->hash = base64_encode(gzdeflate('idhijoescuela-'.$dato2->id));
+
+                array_push($FacultadesEscuelas, $FacultadEscuela);
+            }
+        }
+
+        $totalRegistros = count($FacultadesEscuelas);
+
         $menusActivos = new stdClass;
 
         $menusActivos->menu1 = "";
@@ -210,7 +312,7 @@ class PublicacionWebController extends Controller
         $menusActivos->menu8 = "";
         $menusActivos->menu9 = "active";
 
-        return view('web/unasam/actividades',compact('comunicados','redsocials','unasam','menusActivos','pagination','offset'));
+        return view('web/unasam/actividades',compact('comunicados','redsocials','unasam','menusActivos','pagination','offset', 'FacultadesEscuelas','totalRegistros'));
 
     }
 
@@ -252,6 +354,39 @@ class PublicacionWebController extends Controller
                 $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 0)->orderBy('id')->get();
                 $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
 
+                $facultades = Facultad::where('borrado','0')->where('activo','1')->orderBy('nombre')->get();
+                $totalRegistros = 0;
+
+                $FacultadesEscuelas = array();
+
+                foreach ($facultades as $key => $dato) {
+
+                    $FacultadEscuela = new stdClass;
+
+                    $FacultadEscuela->nombre = $dato->nombre;
+                    $FacultadEscuela->nivel = 1;
+                    $FacultadEscuela->hash = base64_encode(gzdeflate('idhijofacultad-'.$dato->id));
+
+                    array_push($FacultadesEscuelas, $FacultadEscuela);
+
+                    
+                    $escuelas = Programaestudio::where('borrado','0')->where('activo','1')->where('facultad_id', $dato->id)->orderBy('nombre')->get();
+                    $dato->escuelas = $escuelas;
+
+                    foreach ($escuelas as $key => $dato2) {
+
+                        $FacultadEscuela = new stdClass;
+
+                        $FacultadEscuela->nombre = $dato2->nombre;
+                        $FacultadEscuela->nivel = 2;
+                        $FacultadEscuela->hash = base64_encode(gzdeflate('idhijoescuela-'.$dato2->id));
+
+                        array_push($FacultadesEscuelas, $FacultadEscuela);
+                    }
+                }
+
+                $totalRegistros = count($FacultadesEscuelas);
+
                 $menusActivos = new stdClass;
 
                 $menusActivos->menu1 = "";
@@ -265,7 +400,7 @@ class PublicacionWebController extends Controller
                 $menusActivos->menu9 = "active";
 
 
-                return view('web/unasam/noticia',compact('noticia','redsocials','unasam','menusActivos'));
+                return view('web/unasam/noticia',compact('noticia','redsocials','unasam','menusActivos', 'FacultadesEscuelas','totalRegistros'));
 
 
 
@@ -278,7 +413,7 @@ class PublicacionWebController extends Controller
             return redirect('/');
         }
 
-        return $id;
+        return redirect('/');
 
     }
 
@@ -321,6 +456,39 @@ class PublicacionWebController extends Controller
                 $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 0)->orderBy('id')->get();
                 $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
 
+                $facultades = Facultad::where('borrado','0')->where('activo','1')->orderBy('nombre')->get();
+                $totalRegistros = 0;
+
+                $FacultadesEscuelas = array();
+
+                foreach ($facultades as $key => $dato) {
+
+                    $FacultadEscuela = new stdClass;
+
+                    $FacultadEscuela->nombre = $dato->nombre;
+                    $FacultadEscuela->nivel = 1;
+                    $FacultadEscuela->hash = base64_encode(gzdeflate('idhijofacultad-'.$dato->id));
+
+                    array_push($FacultadesEscuelas, $FacultadEscuela);
+
+                    
+                    $escuelas = Programaestudio::where('borrado','0')->where('activo','1')->where('facultad_id', $dato->id)->orderBy('nombre')->get();
+                    $dato->escuelas = $escuelas;
+
+                    foreach ($escuelas as $key => $dato2) {
+
+                        $FacultadEscuela = new stdClass;
+
+                        $FacultadEscuela->nombre = $dato2->nombre;
+                        $FacultadEscuela->nivel = 2;
+                        $FacultadEscuela->hash = base64_encode(gzdeflate('idhijoescuela-'.$dato2->id));
+
+                        array_push($FacultadesEscuelas, $FacultadEscuela);
+                    }
+                }
+
+                $totalRegistros = count($FacultadesEscuelas);
+
                 $menusActivos = new stdClass;
 
                 $menusActivos->menu1 = "";
@@ -334,7 +502,7 @@ class PublicacionWebController extends Controller
                 $menusActivos->menu9 = "active";
 
 
-                return view('web/unasam/evento',compact('evento','redsocials','unasam','menusActivos'));
+                return view('web/unasam/evento',compact('evento','redsocials','unasam','menusActivos','FacultadesEscuelas','totalRegistros'));
 
 
 
@@ -347,7 +515,7 @@ class PublicacionWebController extends Controller
             return redirect('/');
         }
 
-        return $id;
+        return redirect('/');
 
     }
 
@@ -389,6 +557,39 @@ class PublicacionWebController extends Controller
                 $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 0)->orderBy('id')->get();
                 $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
 
+                $facultades = Facultad::where('borrado','0')->where('activo','1')->orderBy('nombre')->get();
+                $totalRegistros = 0;
+
+                $FacultadesEscuelas = array();
+
+                foreach ($facultades as $key => $dato) {
+
+                    $FacultadEscuela = new stdClass;
+
+                    $FacultadEscuela->nombre = $dato->nombre;
+                    $FacultadEscuela->nivel = 1;
+                    $FacultadEscuela->hash = base64_encode(gzdeflate('idhijofacultad-'.$dato->id));
+
+                    array_push($FacultadesEscuelas, $FacultadEscuela);
+
+                    
+                    $escuelas = Programaestudio::where('borrado','0')->where('activo','1')->where('facultad_id', $dato->id)->orderBy('nombre')->get();
+                    $dato->escuelas = $escuelas;
+
+                    foreach ($escuelas as $key => $dato2) {
+
+                        $FacultadEscuela = new stdClass;
+
+                        $FacultadEscuela->nombre = $dato2->nombre;
+                        $FacultadEscuela->nivel = 2;
+                        $FacultadEscuela->hash = base64_encode(gzdeflate('idhijoescuela-'.$dato2->id));
+
+                        array_push($FacultadesEscuelas, $FacultadEscuela);
+                    }
+                }
+
+                $totalRegistros = count($FacultadesEscuelas);
+
                 $menusActivos = new stdClass;
 
                 $menusActivos->menu1 = "";
@@ -402,7 +603,7 @@ class PublicacionWebController extends Controller
                 $menusActivos->menu9 = "active";
 
 
-                return view('web/unasam/actividad',compact('comunicado','redsocials','unasam','menusActivos'));
+                return view('web/unasam/actividad',compact('comunicado','redsocials','unasam','menusActivos', 'FacultadesEscuelas','totalRegistros'));
 
 
 
@@ -415,7 +616,7 @@ class PublicacionWebController extends Controller
             return redirect('/');
         }
 
-        return $id;
+        return redirect('/');
 
     }
 
@@ -427,6 +628,39 @@ class PublicacionWebController extends Controller
         $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 0)->orderBy('id')->get();
         $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
 
+        $facultades = Facultad::where('borrado','0')->where('activo','1')->orderBy('nombre')->get();
+        $totalRegistros = 0;
+
+        $FacultadesEscuelas = array();
+
+        foreach ($facultades as $key => $dato) {
+
+            $FacultadEscuela = new stdClass;
+
+            $FacultadEscuela->nombre = $dato->nombre;
+            $FacultadEscuela->nivel = 1;
+            $FacultadEscuela->hash = base64_encode(gzdeflate('idhijofacultad-'.$dato->id));
+
+            array_push($FacultadesEscuelas, $FacultadEscuela);
+
+            
+            $escuelas = Programaestudio::where('borrado','0')->where('activo','1')->where('facultad_id', $dato->id)->orderBy('nombre')->get();
+            $dato->escuelas = $escuelas;
+
+            foreach ($escuelas as $key => $dato2) {
+
+                $FacultadEscuela = new stdClass;
+
+                $FacultadEscuela->nombre = $dato2->nombre;
+                $FacultadEscuela->nivel = 2;
+                $FacultadEscuela->hash = base64_encode(gzdeflate('idhijoescuela-'.$dato2->id));
+
+                array_push($FacultadesEscuelas, $FacultadEscuela);
+            }
+        }
+
+        $totalRegistros = count($FacultadesEscuelas);
+
         $menusActivos = new stdClass;
 
         $menusActivos->menu1 = "";
@@ -439,7 +673,7 @@ class PublicacionWebController extends Controller
         $menusActivos->menu8 = "active";
         $menusActivos->menu9 = "";
 
-        return view('web/unasam/documentos',compact('documentos','redsocials','unasam','menusActivos'));
+        return view('web/unasam/documentos',compact('documentos','redsocials','unasam','menusActivos', 'FacultadesEscuelas','totalRegistros'));
     }
 
     public function informes()
@@ -449,6 +683,39 @@ class PublicacionWebController extends Controller
         $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 0)->orderBy('id')->get();
         $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
 
+        $facultades = Facultad::where('borrado','0')->where('activo','1')->orderBy('nombre')->get();
+        $totalRegistros = 0;
+
+        $FacultadesEscuelas = array();
+
+        foreach ($facultades as $key => $dato) {
+
+            $FacultadEscuela = new stdClass;
+
+            $FacultadEscuela->nombre = $dato->nombre;
+            $FacultadEscuela->nivel = 1;
+            $FacultadEscuela->hash = base64_encode(gzdeflate('idhijofacultad-'.$dato->id));
+
+            array_push($FacultadesEscuelas, $FacultadEscuela);
+
+            
+            $escuelas = Programaestudio::where('borrado','0')->where('activo','1')->where('facultad_id', $dato->id)->orderBy('nombre')->get();
+            $dato->escuelas = $escuelas;
+
+            foreach ($escuelas as $key => $dato2) {
+
+                $FacultadEscuela = new stdClass;
+
+                $FacultadEscuela->nombre = $dato2->nombre;
+                $FacultadEscuela->nivel = 2;
+                $FacultadEscuela->hash = base64_encode(gzdeflate('idhijoescuela-'.$dato2->id));
+
+                array_push($FacultadesEscuelas, $FacultadEscuela);
+            }
+        }
+
+        $totalRegistros = count($FacultadesEscuelas);
+
         $menusActivos = new stdClass;
 
         $menusActivos->menu1 = "";
@@ -461,7 +728,7 @@ class PublicacionWebController extends Controller
         $menusActivos->menu8 = "active";
         $menusActivos->menu9 = "";
 
-        return view('web/unasam/informes',compact('informes','redsocials','unasam','menusActivos'));
+        return view('web/unasam/informes',compact('informes','redsocials','unasam','menusActivos', 'FacultadesEscuelas','totalRegistros'));
     }
 
     public function index()
