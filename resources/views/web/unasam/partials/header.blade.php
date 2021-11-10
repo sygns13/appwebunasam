@@ -60,7 +60,11 @@
                     <div class="header-row">
                         <div class="header-logo">
                             <a href="/">
-                                <img alt="UNASAM" height="60"   data-sticky-height="50" data-sticky-top="110"    src="{{ asset('/webvendor/img/logo_unasam_2.png') }}">
+                                @if($unasam != null && $unasam->logourl != null)
+                                    <img alt="UNASAM" height="60"   data-sticky-height="50" data-sticky-top="110"    src="{{ asset('/web/logounasam/'.$unasam->logourl) }}">
+                                @else
+                                    <img alt="UNASAM" height="60"   data-sticky-height="50" data-sticky-top="110"    src="{{ asset('/webvendor/img/logo_unasam_2.png') }}">
+                                @endif
                         {{-- 		<img alt="Porto" width="100" height="48" data-sticky-width="69" data-sticky-height="34" data-sticky-top="86" src="{{ asset('/webvendor/img/logo-default-slim.png') }}"> --}}
                             </a>
                         </div>

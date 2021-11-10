@@ -49,7 +49,7 @@
         user:[],
         errors:[],
 
-        filluser:{ 'id':'', 'name':'', 'email':'', 'activo':'','persona_id':'','tipouser_id':'','dni':'','apellidos':'','nombres':'','telefono':'','direccion':'','cargo':'','tipouser':'','modifpassword': 0 , 'password':'', 'programaestudio_id':'', 'programaestudio':''},
+        filluser:{ 'id':'', 'name':'', 'email':'', 'activo':'','persona_id':'','tipouser_id':'','dni':'','apellidos':'','nombres':'','telefono':'','direccion':'','cargo':'','tipouser':'','modifpassword': 0 , 'password':'', 'programaestudio_id': 0, 'facultad_id': 0, 'tipouser_id_ori':'','permisos':[], 'rolmodulos':[], 'rolsubmodulos':[]},
 
         pagination: {
             'total': 0,
@@ -64,6 +64,7 @@
         buscar:'',
         divNuevoUsuario:false,
         divEditUsuario:false,
+        divPermisos:false,
 
         name : '',
         email : '',
@@ -78,6 +79,7 @@
         cargo : '',
         password : '',
         programaestudio_id : 0,
+        facultad_id : 0,
 
 
         divloaderNuevo:false,
@@ -197,6 +199,7 @@
         },
         nuevoUsuario:function () {
             this.divNuevoUsuario=true;
+            this.divPermisos=false;
             this.divloaderEditUsuario=false;
 
             this.$nextTick(function () {
@@ -228,6 +231,7 @@
             this.cargo = '';
             this.password = '';
             this.programaestudio_id = 0;
+            this.facultad_id = 0;
 
             this.divEditUsuario=false;
 
@@ -325,6 +329,7 @@ var url='persona/buscarDNI';
             data.append('cargo', this.cargo);
             data.append('password', this.password);
             data.append('programaestudio_id', this.programaestudio_id);
+            data.append('facultad_id', this.facultad_id);
 
 
             const config = { headers: { 'Content-Type': 'multipart/form-data' } };
@@ -385,7 +390,7 @@ var url='persona/buscarDNI';
             this.filluser.activo=usuario.activo;
             this.filluser.persona_id=usuario.persona_id;
             this.filluser.tipouser_id=usuario.tipouser_id;
-            this.filluser.programaestudio_id=usuario.programaestudio_id;
+            this.filluser.tipouser_id_ori=usuario.tipouser_id;
             this.filluser.dni=usuario.dni;
             this.filluser.apellidos=usuario.apellidos;
             this.filluser.nombres=usuario.nombres;
@@ -394,11 +399,17 @@ var url='persona/buscarDNI';
             this.filluser.cargo=usuario.cargo;
             this.filluser.modifpassword= 0;
             this.filluser.password='';
+
+            this.filluser.permisos=usuario.permisos;
+            this.filluser.rolmodulos=usuario.rolmodulos;
+            this.filluser.rolsubmodulos=usuario.rolsubmodulos;
            
 
             this.divNuevoUsuario=false;
             this.divEditUsuario=true;
             this.divloaderEdit=false;
+
+            this.divPermisos=false;
 
         },
         cerrarFormUsuarioE: function(){
@@ -406,7 +417,7 @@ var url='persona/buscarDNI';
             this.divEditUsuario=false;
 
             this.$nextTick(function () {
-                this.filluser={ 'id':'', 'name':'', 'email':'', 'activo':'','persona_id':'','tipouser_id':'','dni':'','apellidos':'','nombres':'','telefono':'','direccion':'','cargo':'','tipouser':'','modifpassword': 0 , 'password':'', 'programaestudio_id':'', 'programaestudio':''};
+                this.filluser={ 'id':'', 'name':'', 'email':'', 'activo':'','persona_id':'','tipouser_id':'','dni':'','apellidos':'','nombres':'','telefono':'','direccion':'','cargo':'','tipouser':'','modifpassword': 0 , 'password':'', 'programaestudio_id': 0, 'facultad_id': 0, 'tipouser_id_ori':'','permisos':[], 'rolmodulos':[], 'rolsubmodulos':[]};
     
             })
 
@@ -423,9 +434,11 @@ var url='persona/buscarDNI';
 
         },
         modifTipoUser: function(){
+            this.facultad_id = 0;
             this.programaestudio_id = 0;
         },
         modifTipoUserE: function(){
+            this.filluser.facultad_id = 0;
             this.filluser.programaestudio_id = 0;
         },
         updateUsuario: function (id) {
@@ -520,7 +533,31 @@ var url='persona/buscarDNI';
             this.filluser.activo=usuario.activo;
             this.filluser.persona_id=usuario.persona_id;
             this.filluser.tipouser_id=usuario.tipouser_id;
-            this.filluser.programaestudio_id=usuario.programaestudio_id;
+            this.filluser.dni=usuario.dni;
+            this.filluser.apellidos=usuario.apellidos;
+            this.filluser.nombres=usuario.nombres;
+            this.filluser.telefono=usuario.telefono;
+            this.filluser.direccion=usuario.direccion;
+            this.filluser.cargo=usuario.cargo;
+            this.filluser.modifpassword= 0;
+            this.filluser.password='';
+            
+            this.filluser.tipouser=usuario.tipouser;
+
+            $('#modalFicha').modal(); 
+
+    },
+    Imprimir:function (usuario) {
+        $("#FichaUsuario").printArea();
+    },
+
+    gestionPermisos:function (usuario) {
+            this.filluser.id=usuario.id;
+            this.filluser.name=usuario.name;
+            this.filluser.email=usuario.email;
+            this.filluser.activo=usuario.activo;
+            this.filluser.persona_id=usuario.persona_id;
+            this.filluser.tipouser_id=usuario.tipouser_id;
             this.filluser.dni=usuario.dni;
             this.filluser.apellidos=usuario.apellidos;
             this.filluser.nombres=usuario.nombres;
@@ -533,12 +570,12 @@ var url='persona/buscarDNI';
             this.filluser.tipouser=usuario.tipouser;
             this.filluser.programaestudio=usuario.programaestudio;
 
-            $('#modalFicha').modal(); 
+        this.divNuevoUsuario=false;
+        this.divPermisos=true;
+        this.divloaderEditUsuario=false;
 
-    },
-    Imprimir:function (usuario) {
-        $("#FichaUsuario").printArea();
-    },
+
+    }
     
 
 }

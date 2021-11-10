@@ -19,6 +19,6 @@ class Universidad extends Model
                             'activo',
                             'borrado',
                             'user_id',
-                        'tipo_vista'];
+                        'tipo_vista','logourl'];
 	protected $guarded = ['id'];
 }

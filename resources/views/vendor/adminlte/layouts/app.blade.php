@@ -159,6 +159,9 @@ desired effect
 
 {{-- //Paginas Portales Facultades--}}
 
+@elseif($modulo=="configuracion")
+@include('adminfacultad.configuracion.vue')
+
 @elseif($modulo=="bannerfacultad")
 @include('adminfacultad.banner.vue')
 

@@ -49,6 +49,23 @@ return [
             'visibility' => 'public',
          ],
 
+         'logoUNASAM' => [
+            'driver' => 'local',
+            'root' => public_path('web/logounasam'),
+            'visibility' => 'public',
+         ],
+         'logoFacultad' => [
+            'driver' => 'local',
+            'root' => public_path('web/logofacultad'),
+            'visibility' => 'public',
+         ],
+         'logoProgramaEstudio' => [
+            'driver' => 'local',
+            'root' => public_path('web/logoprograma'),
+            'visibility' => 'public',
+         ],
+
+
          'banerUNASAM' => [
             'driver' => 'local',
             'root' => public_path('web/bannerunasam'),

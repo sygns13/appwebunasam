@@ -25,6 +25,24 @@ class FacultadController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function index0()
+    {
+        if(accesoUser([1,2,3])){
+
+
+            $idtipouser=Auth::user()->tipouser_id;
+            $tipouser=Tipouser::find($idtipouser);
+
+            $modulo="configuracion";
+
+            return view('adminfacultad.configuracion.index',compact('tipouser','modulo'));
+        }
+        else
+        {
+            return redirect('home');    
+        }
+    }
+
     public function index1()
     {
         if(accesoUser([1,2,3])){

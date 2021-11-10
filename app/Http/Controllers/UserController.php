@@ -10,7 +10,15 @@ use DB;
 use App\Persona;
 use App\Tipouser;
 use App\User;
+use App\Facultad;
 use App\Programaestudio;
+
+use App\Permiso;
+use App\Rolmodulo;
+use App\Rolsubmodulo;
+
+use App\Modulo;
+use App\Submodulo;
 
 
 use Illuminate\Support\Facades\Hash;
@@ -31,16 +39,24 @@ class UserController extends Controller
         if(accesoUser([1])){
 
 
-            $idtipouser=Auth::user()->tipouser_id;
-            $tipouser=Tipouser::find($idtipouser);
+            $idtipouser = Auth::user()->tipouser_id;
+            $tipouser = Tipouser::find($idtipouser);
 
 
-            $modulo="usuario";
-            $tipousers=Tipouser::orderBy('id')->where('borrado','0')->get();
-            $programaestudios=Programaestudio::orderBy('id')->where('borrado','0')->get();
+            $modulo = "usuario";
+            $tipousers = Tipouser::orderBy('id')->where('borrado','0')->get();
+
+            $facultads = Facultad::orderBy('nombre')->where('borrado','0')->get();
+            $programaestudios = Programaestudio::orderBy('id')->where('borrado','0')->get();
+            $modulos = Modulo::orderBy('id')->where('borrado','0')->get();
+
+            foreach ($modulos as $key => $dato) {
+                $submodulos = Submodulo::orderBy('id')->where('borrado','0')->where('modulo_id',$dato)->get();
+                $dato->submodulos = $submodulos;
+            }
 
 
-            return view('usuario.index',compact('tipouser','modulo','tipousers','programaestudios'));
+            return view('usuario.index',compact('tipouser','modulo','tipousers','facultads','programaestudios','modulos'));
         }
         else
         {
@@ -75,7 +91,7 @@ class UserController extends Controller
         ->join('tipousers', 'tipousers.id', '=', 'users.tipouser_id')
         ->join('personas', 'personas.id', '=', 'users.persona_id')
 
-        ->leftjoin('programaestudios', 'programaestudios.id', '=', 'users.programaestudio_id')
+/*         ->leftjoin('programaestudios', 'programaestudios.id', '=', 'users.programaestudio_id') */
 
         ->where('users.borrado','0')
         ->where(function($query) use ($buscar){
@@ -91,11 +107,33 @@ class UserController extends Controller
         ->orderBy('users.name')
         ->select('users.id as id','users.name','users.email','users.activo','users.borrado','users.persona_id','users.tipouser_id', 'users.programaestudio_id',
         'personas.id as idpersona','personas.dni','personas.apellidos','personas.nombres','personas.telefono','personas.direccion','personas.cargo',
-        'tipousers.id as idtipouser','tipousers.nombre as tipouser',
-        DB::Raw("IFNULL( `programaestudios`.`id` , '0' ) as idprogramaestudios"),
-        DB::Raw("IFNULL( `programaestudios`.`nombre` , '' ) as programaestudio"),
+        'tipousers.id as idtipouser','tipousers.nombre as tipouser'
+/*         DB::Raw("IFNULL( `programaestudios`.`id` , '0' ) as idprogramaestudios"),
+        DB::Raw("IFNULL( `programaestudios`.`nombre` , '' ) as programaestudio"), */
         )
         ->paginate(30);
+
+        foreach ($usuarios as $key => $dato) {   
+            
+            $permisos1= Permiso::where('user_id',$dato->id)->where('nivel', 0)->orderBy('id')->get();
+
+            $permisos2=  DB::table('permisos')
+            ->join('facultads', 'facultads.id', '=', 'permisos.facultad_id')
+            ->where('permisos.user_id', $dato->id)
+            ->where('permisos.nivel', 0)
+            ->orderBy('facultads.nombre')
+            ->select
+
+
+
+            $rolmodulos = Rolmodulo::where('user_id',$dato->id)->orderBy('id')->get();
+            $rolsubmodulos = Rolsubmodulo::where('user_id',$dato->id)->orderBy('id')->get();
+
+            $dato->permisos1 = $permisos1;
+            $dato->rolmodulos = $rolmodulos;
+            $dato->rolsubmodulos = $rolsubmodulos;
+
+        }
 
         
         /*
@@ -310,10 +348,12 @@ class UserController extends Controller
         $direccion=$request->direccion;
         $cargo=$request->cargo;
         $password=$request->password;
+        $facultad_id=$request->facultad_id;
         $programaestudio_id=$request->programaestudio_id;
 
-        if(intval($tipouser_id) != 4)
+        if(intval($tipouser_id) < 4)
         {
+            $facultad_id = 0;
             $programaestudio_id = 0;
         }
 
@@ -428,7 +468,12 @@ class UserController extends Controller
             $msj='Seleccione el Tipo de Usuario';
             $selector='cbutipouser_id';
         }
-        elseif (intval($programaestudio_id)==0 && intval($tipouser_id)==4) {
+        elseif (intval($facultad_id)==0 && intval($tipouser_id)==4) {
+            $result='0';
+            $msj='Seleccione la Facultad a Cargo del Usuario';
+            $selector='cbufacultad_id';
+        }
+        elseif (intval($programaestudio_id)==0 && intval($tipouser_id)==5) {
             $result='0';
             $msj='Seleccione el Programa de Estudio a Cargo del Usuario';
             $selector='cbuprogramaestudio_id';
@@ -475,10 +520,43 @@ class UserController extends Controller
                     $newUser->persona_id=$persona_id;
                     $newUser->tipouser_id=$tipouser_id;
                     $newUser->activo=$activo;
-                    $newUser->programaestudio_id=$programaestudio_id;
                     $newUser->borrado='0';                   
 
                     $newUser->save();
+
+                    if($tipouser_id == 3)
+                    {
+                        $newPermiso = new Permiso();
+                        $newPermiso->facultad_id = 0;
+                        $newPermiso->programaestudio_id = 0;
+                        $newPermiso->nivel = 0;
+                        $newPermiso->roles = 1;
+                        $newPermiso->user_id = $newUser->id;
+
+                        $newPermiso->save();
+                    }
+                    elseif($tipouser_id == 4)
+                    {
+                        $newPermiso = new Permiso();
+                        $newPermiso->facultad_id = $facultad_id;
+                        $newPermiso->programaestudio_id = 0;
+                        $newPermiso->nivel = 1;
+                        $newPermiso->roles = 1;
+                        $newPermiso->user_id = $newUser->id;
+
+                        $newPermiso->save();
+                    }
+                    elseif($tipouser_id == 5)
+                    {
+                        $newPermiso = new Permiso();
+                        $newPermiso->facultad_id = 0;
+                        $newPermiso->programaestudio_id = $programaestudio_id;
+                        $newPermiso->nivel = 2;
+                        $newPermiso->roles = 1;
+                        $newPermiso->user_id = $newUser->id;
+
+                        $newPermiso->save();
+                    }
         
     
 
@@ -541,14 +619,18 @@ class UserController extends Controller
         $direccion=$request->direccion;
         $cargo=$request->cargo;
         $password=$request->password;
+        $facultad_id=$request->facultad_id;
         $programaestudio_id=$request->programaestudio_id;
 
-        if(intval($tipouser_id) != 4)
+        if(intval($tipouser_id) < 4)
         {
+            $facultad_id = 0;
             $programaestudio_id = 0;
         }
 
         $modifpassword=$request->modifpassword;
+
+        $tipouser_id_ori=$request->tipouser_id_ori;
 
 
 
@@ -664,7 +746,12 @@ class UserController extends Controller
             $msj='Seleccione el Tipo de Usuario';
             $selector='cbutipouser_idE';
         }
-        elseif (intval($programaestudio_id)==0 && intval($tipouser_id)==4) {
+        elseif (intval($facultad_id)==0 && intval($tipouser_id)==4 && $tipouser_id!=$tipouser_id_ori) {
+            $result='0';
+            $msj='Seleccione la Facultad a Cargo del Usuario';
+            $selector='cbufacultad_idE';
+        }
+        elseif (intval($programaestudio_id)==0 && intval($tipouser_id)==5 && $tipouser_id!=$tipouser_id_ori) {
             $result='0';
             $msj='Seleccione el Programa de Estudio a Cargo del Usuario';
             $selector='cbuprogramaestudio_idE';
@@ -676,9 +763,7 @@ class UserController extends Controller
             $selector='txtpasswordE';
         }
 
-
-
-       
+ 
             else{
 
                     $editPersona =Persona::find($persona_id);
@@ -688,8 +773,6 @@ class UserController extends Controller
                     $editPersona->telefono=$telefono;
                     $editPersona->direccion=$direccion;
                     $editPersona->cargo=$cargo;
-
-
         
                     $editPersona->save();
              
@@ -702,9 +785,7 @@ class UserController extends Controller
                     $newUser->persona_id=$persona_id;
                     $newUser->tipouser_id=$tipouser_id;
                     $newUser->activo=$activo;
-                    $newUser->programaestudio_id=$programaestudio_id;
-   
-                    
+
                     $newUser->save();
                 }
                 else{
@@ -714,9 +795,50 @@ class UserController extends Controller
                     $newUser->persona_id=$persona_id;
                     $newUser->tipouser_id=$tipouser_id;
                     $newUser->activo=$activo;
-                    $newUser->programaestudio_id=$programaestudio_id;
 
                     $newUser->save();
+                }
+
+                if($tipouser_id!=$tipouser_id_ori){
+
+                    Rolmodulo::where('user_id',$id)->delete();
+                    Rolsubmodulo::where('user_id',$id)->delete();
+                    Permiso::where('user_id',$id)->delete();
+
+                    if($tipouser_id == 3)
+                    {
+                        $newPermiso = new Permiso();
+                        $newPermiso->facultad_id = 0;
+                        $newPermiso->programaestudio_id = 0;
+                        $newPermiso->nivel = 0;
+                        $newPermiso->roles = 1;
+                        $newPermiso->user_id = $newUser->id;
+
+                        $newPermiso->save();
+                    }
+                    elseif($tipouser_id == 4)
+                    {
+                        $newPermiso = new Permiso();
+                        $newPermiso->facultad_id = $facultad_id;
+                        $newPermiso->programaestudio_id = 0;
+                        $newPermiso->nivel = 1;
+                        $newPermiso->roles = 1;
+                        $newPermiso->user_id = $newUser->id;
+
+                        $newPermiso->save();
+                    }
+                    elseif($tipouser_id == 5)
+                    {
+                        $newPermiso = new Permiso();
+                        $newPermiso->facultad_id = 0;
+                        $newPermiso->programaestudio_id = $programaestudio_id;
+                        $newPermiso->nivel = 2;
+                        $newPermiso->roles = 1;
+                        $newPermiso->user_id = $newUser->id;
+
+                        $newPermiso->save();
+                    }
+
                 }
                     
 

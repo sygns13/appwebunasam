@@ -37,7 +37,17 @@
 
 </div>
 
-<div class="box box-info" >
+<div class="box box-primary" v-if="divPermisos">
+  <div class="box-header with-border" style="border: 1px solid rgb(0, 166, 90); background-color: rgb(0, 166, 90); color: white;">
+    <h3 class="box-title" id="tituloAgregar">Gestión de Permisos
+    </h3>
+  </div>
+  @include('usuario.permisos')  
+</div>
+
+
+
+<div class="box box-info">
   <div class="box-header">
     <h3 class="box-title">Listado de Usuarios del Sistema
     </h3>
@@ -69,18 +79,20 @@
         <th style="padding: 5px; width: 13%;">Gestión</th>
       </tr>
       <tr v-for="usuario, key in usuarios">
-        <td style="font-size: 11px; padding: 5px;">@{{key+pagination.from}}</td>
-        <td style="font-size: 11px; padding: 5px;">@{{ usuario.tipouser }}</td>
-        <td style="font-size: 11px; padding: 5px;">@{{ usuario.dni }}</td>
-        <td style="font-size: 11px; padding: 5px;">@{{ usuario.apellidos }}, @{{ usuario.nombres }}</td>
-        <td style="font-size: 11px; padding: 5px;">@{{ usuario.name }}</td>
-        <td style="font-size: 11px; padding: 5px;">@{{ usuario.cargo }}</td>
-        <td style="font-size: 11px; padding: 5px;">@{{ usuario.email }}</td>
-        <td style="font-size: 11px; padding: 5px; text-align: center;">
+        <td style="font-size: 13px; padding: 5px;">@{{key+pagination.from}}</td>
+        <td style="font-size: 13px; padding: 5px;">@{{ usuario.tipouser }}</td>
+        <td style="font-size: 13px; padding: 5px;">@{{ usuario.dni }}</td>
+        <td style="font-size: 13px; padding: 5px;">@{{ usuario.apellidos }}, @{{ usuario.nombres }}</td>
+        <td style="font-size: 13px; padding: 5px;">@{{ usuario.name }}</td>
+        <td style="font-size: 13px; padding: 5px;">@{{ usuario.cargo }}</td>
+        <td style="font-size: 13px; padding: 5px;">@{{ usuario.email }}</td>
+        <td style="font-size: 13px; padding: 5px; text-align: center;">
          <span class="label label-success" v-if="usuario.activo=='1'">Activo</span>
          <span class="label label-warning" v-if="usuario.activo=='0'">Inactivo</span>
        </td>
-       <td style="font-size: 11px; padding: 5px;">
+       <td style="font-size: 13px; padding: 5px;">
+
+        <a href="#" class="btn btn-primary btn-sm" v-on:click.prevent="gestionPermisos(usuario)" data-placement="top" data-toggle="tooltip" title="Gestionar Permisos de Usuario"><i class="fa fa-cogs"></i></a>
 
         <a href="#" class="btn btn-info btn-sm" v-on:click.prevent="impFicha(usuario)" data-placement="top" data-toggle="tooltip" title="Imprimir Ficha de Usuario"><i class="fa fa-print"></i></a>
 

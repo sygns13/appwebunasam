@@ -48,7 +48,7 @@
 
                             <td style="width: 11.5cm;text-align: center;padding-top: 15px;padding-bottom: 20px;">
                                 
-                                <p style="margin-bottom: 0px;font-size: 19px"><strong>FICHA DE USUARIO DEL SISTEMA DE GESTIÓN DEL PORTAL INSTITUCIONAL DE LA FACULTAD DE ECONOMÍA  Y CONTABILIDAD</strong></p>
+                                <p style="margin-bottom: 0px;font-size: 19px"><strong>FICHA DE USUARIO DEL SISTEMA DE GESTIÓN DEL PORTAL INSTITUCIONAL</strong></p>
                                 
                             </td>
                             <td style="width: 3.52cm; text-align: center;padding-top: 17px;">
@@ -155,7 +155,7 @@
         </table>
     </div>
 
-    <div style="width: 18cm;" v-if="filluser.tipouser_id==4"> 
+{{--     <div style="width: 18cm;" v-if="filluser.tipouser_id==4"> 
         <table>
             <tbody>
                 <tr>
@@ -175,7 +175,7 @@
             </tbody>
         </table>
     </div>
-
+ --}}
 
 
 

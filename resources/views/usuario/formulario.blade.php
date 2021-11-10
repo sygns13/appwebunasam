@@ -110,6 +110,20 @@
 
       <div class="col-md-12" style="padding-top: 15px;" v-if="tipouser_id==4">
         <div class="form-group">
+          <label for="cbufacultad_id" class="col-sm-2 control-label">Facultad Asignada:*</label>
+          <div class="col-sm-4">
+            <select class="form-control" id="cbufacultad_id" name="cbufacultad_id" v-model="facultad_id" >
+              <option disabled value="0">Seleccione un Facultad</option>
+              @foreach ($facultads as $dato)
+                <option value="{{$dato->id}}">{{$dato->nombre}}</option> 
+              @endforeach
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12" style="padding-top: 15px;" v-if="tipouser_id==5">
+        <div class="form-group">
           <label for="cbuprogramaestudio_id" class="col-sm-2 control-label">Programa de Estudio Asignado:*</label>
           <div class="col-sm-4">
             <select class="form-control" id="cbuprogramaestudio_id" name="cbuprogramaestudio_id" v-model="programaestudio_id" >

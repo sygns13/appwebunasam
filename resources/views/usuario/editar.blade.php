@@ -109,12 +109,27 @@
         </div>
       </div>
 
-      <div class="col-md-12" style="padding-top: 15px;" v-if="filluser.tipouser_id==4">
+
+      <div class="col-md-12" style="padding-top: 15px;" v-if="filluser.tipouser_id==4 && filluser.tipouser_id!=filluser.tipouser_id_ori">
+        <div class="form-group">
+          <label for="cbufacultad_idE" class="col-sm-2 control-label">Facultad Asignada:*</label>
+          <div class="col-sm-4">
+            <select class="form-control" id="cbufacultad_idE" name="cbufacultad_idE" v-model="filluser.facultad_id" >
+              <option disabled value="0">Seleccione un Facultad</option>
+              @foreach ($facultads as $dato)
+                <option value="{{$dato->id}}">{{$dato->nombre}}</option> 
+              @endforeach
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12" style="padding-top: 15px;" v-if="filluser.tipouser_id==5 && filluser.tipouser_id!=filluser.tipouser_id_ori">
         <div class="form-group">
           <label for="cbuprogramaestudio_idE" class="col-sm-2 control-label">Programa de Estudio Asignado:*</label>
           <div class="col-sm-4">
             <select class="form-control" id="cbuprogramaestudio_idE" name="cbuprogramaestudio_idE" v-model="filluser.programaestudio_id" >
-              <option disabled value="">Seleccione un Tipo de Usuario</option>
+              <option disabled value="0">Seleccione un Programa de Estudio</option>
               @foreach ($programaestudios as $dato)
                 <option value="{{$dato->id}}">{{$dato->nombre}}</option> 
               @endforeach
