@@ -10,7 +10,7 @@ class Rolsubmodulo extends Model
     protected $fillable = [ 'nivel',
                             'modulo_id',
                             'submodulo_id',
-                            'user_id'];
+                            'user_id','facultad_id','programaestudio_id'];
 
 	protected $guarded = ['id'];
 }

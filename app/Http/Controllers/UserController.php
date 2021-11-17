@@ -49,14 +49,10 @@ class UserController extends Controller
             $facultads = Facultad::orderBy('nombre')->where('borrado','0')->get();
             $programaestudios = Programaestudio::orderBy('id')->where('borrado','0')->get();
             $modulos = Modulo::orderBy('id')->where('borrado','0')->get();
-
-            foreach ($modulos as $key => $dato) {
-                $submodulos = Submodulo::orderBy('id')->where('borrado','0')->where('modulo_id',$dato)->get();
-                $dato->submodulos = $submodulos;
-            }
+            $submodulos=Submodulo::orderBy('id')->where('borrado','0')->get();
 
 
-            return view('usuario.index',compact('tipouser','modulo','tipousers','facultads','programaestudios','modulos'));
+            return view('usuario.index',compact('tipouser','modulo','tipousers','facultads','programaestudios','modulos','submodulos'));
         }
         else
         {
@@ -120,16 +116,79 @@ class UserController extends Controller
             $permisos2=  DB::table('permisos')
             ->join('facultads', 'facultads.id', '=', 'permisos.facultad_id')
             ->where('permisos.user_id', $dato->id)
-            ->where('permisos.nivel', 0)
+            ->where('permisos.nivel', 1)
             ->orderBy('facultads.nombre')
-            ->select
+            ->select('permisos.id',
+                'permisos.facultad_id',
+                'permisos.programaestudio_id',
+                'permisos.nivel',
+                'permisos.created_at',
+                'permisos.updated_at',
+                'permisos.roles',
+                'permisos.user_id',
+                'facultads.nombre as facultad',
+                'facultads.id as idfacultad')
+                ->get();
+
+            $permisos3=  DB::table('permisos')
+            ->join('programaestudios', 'programaestudios.id', '=', 'permisos.programaestudio_id')
+            ->where('permisos.user_id', $dato->id)
+            ->where('permisos.nivel', 2)
+            ->orderBy('programaestudios.nombre')
+            ->select('permisos.id',
+                'permisos.facultad_id',
+                'permisos.programaestudio_id',
+                'permisos.nivel',
+                'permisos.created_at',
+                'permisos.updated_at',
+                'permisos.roles',
+                'permisos.user_id',
+                'programaestudios.nombre as programa',
+                'programaestudios.id as idPrograma')
+                ->get();
+
+
+            $rolmodulos= DB::table('rolmodulos')
+            ->join('modulos', 'modulos.id', '=', 'rolmodulos.modulo_id')
+            ->where('rolmodulos.user_id', $dato->id)
+            ->orderBy('modulos.nivel')
+            ->orderBy('modulos.id')
+            ->orderBy('rolmodulos.id')
+            ->select('rolmodulos.id',
+            'rolmodulos.user_id',
+            'rolmodulos.modulo_id',
+            'rolmodulos.rolessub',
+            'modulos.modulo',
+            'modulos.nivel',
+            'rolmodulos.facultad_id',
+            'rolmodulos.programaestudio_id')
+            ->get();
+
+            $rolsubmodulos= DB::table('rolsubmodulos')
+            ->join('submodulos', 'submodulos.id', '=', 'rolsubmodulos.submodulo_id')
+            ->where('rolsubmodulos.user_id', $dato->id)
+            ->orderBy('rolsubmodulos.nivel')
+            ->orderBy('submodulos.id')
+            ->orderBy('rolsubmodulos.id')
+            ->select('rolsubmodulos.id',
+            'rolsubmodulos.nivel',
+            'rolsubmodulos.modulo_id',
+            'rolsubmodulos.submodulo_id',
+            'rolsubmodulos.user_id',
+            'submodulos.submodulo',
+            'submodulos.modulo_id as idmodulo',
+            'rolsubmodulos.facultad_id',
+            'rolsubmodulos.programaestudio_id')
+            ->get();
 
 
 
-            $rolmodulos = Rolmodulo::where('user_id',$dato->id)->orderBy('id')->get();
-            $rolsubmodulos = Rolsubmodulo::where('user_id',$dato->id)->orderBy('id')->get();
+            
+            //$rolsubmodulos = Rolsubmodulo::where('user_id',$dato->id)->orderBy('id')->get();
 
             $dato->permisos1 = $permisos1;
+            $dato->permisos2 = $permisos2;
+            $dato->permisos3 = $permisos3;
             $dato->rolmodulos = $rolmodulos;
             $dato->rolsubmodulos = $rolsubmodulos;
 
@@ -914,5 +973,183 @@ class UserController extends Controller
 
       return response()->json(["persona"=>$persona, "id"=>$id, "user"=>$user , "idUser"=>$idUser]);
 
+    }
+
+
+
+    public function borrarpermiso(Request $request)
+    {
+        $result='1';
+        $msj='';
+        $selector='';
+
+        $id=$request->id;
+        $facultad_id=$request->facultad_id;
+        $programaestudio_id=$request->programaestudio_id;
+        $nivel=$request->nivel;
+        $roles=$request->roles;
+        $user_id=$request->user_id;
+
+        if(intval($nivel) == 0){
+            
+            $rolmodulo = Rolmodulo::where('nivel',$nivel)->where('user_id',$user_id)->delete();
+            $rolsubmodulo = Rolsubmodulo::where('nivel',$nivel)->where('user_id',$user_id)->delete();
+            
+        }elseif(intval($nivel) == 1){
+            
+            $rolmodulo = Rolmodulo::where('nivel',$nivel)->where('user_id',$user_id)->where('facultad_id',$facultad_id)->delete();
+            $rolsubmodulo = Rolsubmodulo::where('nivel',$nivel)->where('user_id',$user_id)->where('facultad_id',$facultad_id)->delete();
+
+
+        }elseif(intval($nivel) == 2){
+            
+            $rolmodulo = Rolmodulo::where('nivel',$nivel)->where('user_id',$user_id)->where('programaestudio_id',$programaestudio_id)->delete();
+            $rolsubmodulo = Rolsubmodulo::where('nivel',$nivel)->where('user_id',$user_id)->where('programaestudio_id',$programaestudio_id)->delete();
+        }
+
+        $permiso = Permiso::find($id)->delete();
+
+        $permisos1= Permiso::where('user_id',$user_id)->where('nivel', 0)->orderBy('id')->get();
+
+            $permisos2=  DB::table('permisos')
+            ->join('facultads', 'facultads.id', '=', 'permisos.facultad_id')
+            ->where('permisos.user_id', $user_id)
+            ->where('permisos.nivel', 1)
+            ->orderBy('facultads.nombre')
+            ->select('permisos.id',
+                'permisos.facultad_id',
+                'permisos.programaestudio_id',
+                'permisos.nivel',
+                'permisos.created_at',
+                'permisos.updated_at',
+                'permisos.roles',
+                'permisos.user_id',
+                'facultads.nombre as facultad',
+                'facultads.id as idfacultad')
+                ->get();
+
+            $permisos3=  DB::table('permisos')
+            ->join('programaestudios', 'programaestudios.id', '=', 'permisos.programaestudio_id')
+            ->where('permisos.user_id', $user_id)
+            ->where('permisos.nivel', 2)
+            ->orderBy('programaestudios.nombre')
+            ->select('permisos.id',
+                'permisos.facultad_id',
+                'permisos.programaestudio_id',
+                'permisos.nivel',
+                'permisos.created_at',
+                'permisos.updated_at',
+                'permisos.roles',
+                'permisos.user_id',
+                'programaestudios.nombre as programa',
+                'programaestudios.id as idPrograma')
+                ->get();
+
+
+
+        return response()->json(["permisos1"=>$permisos1, "permisos2"=>$permisos2, "permisos3"=>$permisos3, "result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+
+    }
+
+    public function borrarrolmodulo(Request $request)
+    {
+        $result='1';
+        $msj='';
+        $selector='';
+
+        $id=$request->id;
+        $facultad_id=$request->facultad_id;
+        $programaestudio_id=$request->programaestudio_id;
+        $nivel=$request->nivel;
+        $user_id=$request->user_id;
+        $modulo_id=$request->modulo_id;
+
+        if(intval($nivel) == 0){
+            
+            $rolsubmodulo = Rolsubmodulo::where('nivel',$nivel)->where('user_id',$user_id)->where('modulo_id',$modulo_id)->delete();
+
+        }elseif(intval($nivel) == 1){
+
+            $rolsubmodulo = Rolsubmodulo::where('nivel',$nivel)->where('user_id',$user_id)->where('modulo_id',$modulo_id)->where('facultad_id',$facultad_id)->delete();
+
+        }elseif(intval($nivel) == 2){
+
+            $rolsubmodulo = Rolsubmodulo::where('nivel',$nivel)->where('user_id',$user_id)->where('modulo_id',$modulo_id)->where('programaestudio_id',$programaestudio_id)->delete();
+        }
+
+        $rolmodulo = Rolmodulo::find($id)->delete();
+
+        $rolmodulos= DB::table('rolmodulos')
+            ->join('modulos', 'modulos.id', '=', 'rolmodulos.modulo_id')
+            ->where('rolmodulos.user_id', $dato->id)
+            ->orderBy('rolmodulos.nivel')
+            ->orderBy('modulos.id')
+            ->orderBy('rolmodulos.id')
+            ->select('rolmodulos.id',
+            'rolmodulos.user_id',
+            'rolmodulos.modulo_id',
+            'rolmodulos.rolessub',
+            'modulos.modulo',
+            'modulos.id as idmodulo',
+            'rolmodulos.nivel',
+            'rolmodulos.facultad_id',
+            'rolmodulos.programaestudio_id')
+            ->get();
+
+            $rolsubmodulos= DB::table('rolsubmodulos')
+            ->join('submodulos', 'submodulos.id', '=', 'rolsubmodulos.submodulo_id')
+            ->where('rolsubmodulos.user_id', $dato->id)
+            ->orderBy('rolsubmodulos.nivel')
+            ->orderBy('submodulos.id')
+            ->orderBy('rolsubmodulos.id')
+            ->select('rolsubmodulos.id',
+            'rolsubmodulos.nivel',
+            'rolsubmodulos.modulo_id',
+            'rolsubmodulos.submodulo_id',
+            'rolsubmodulos.user_id',
+            'submodulos.submodulo',
+            'submodulos.modulo_id as idmodulo',
+            'rolsubmodulos.facultad_id',
+            'rolsubmodulos.programaestudio_id')
+            ->get();
+
+            return response()->json(["rolmodulos"=>$rolmodulos, "rolsubmodulos"=>$rolsubmodulos, "result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+    }
+
+    public function borrarrollsubmodulo(Request $request)
+    {
+        $result='1';
+        $msj='';
+        $selector='';
+
+        $id=$request->id;
+        $facultad_id=$request->facultad_id;
+        $programaestudio_id=$request->programaestudio_id;
+        $nivel=$request->nivel;
+        $user_id=$request->user_id;
+        $modulo_id=$request->modulo_id;
+        $submodulo_id=$request->submodulo_id;
+
+        $rolmodulo = Rolsubmodulo::find($id)->delete();
+
+        
+        $rolsubmodulos= DB::table('rolsubmodulos')
+        ->join('submodulos', 'submodulos.id', '=', 'rolsubmodulos.submodulo_id')
+        ->where('rolsubmodulos.user_id', $dato->id)
+        ->orderBy('rolsubmodulos.nivel')
+        ->orderBy('submodulos.id')
+        ->orderBy('rolsubmodulos.id')
+        ->select('rolsubmodulos.id',
+        'rolsubmodulos.nivel',
+        'rolsubmodulos.modulo_id',
+        'rolsubmodulos.submodulo_id',
+        'rolsubmodulos.user_id',
+        'submodulos.submodulo',
+        'submodulos.modulo_id as idmodulo',
+        'rolsubmodulos.facultad_id',
+        'rolsubmodulos.programaestudio_id')
+        ->get();
+
+        return response()->json(["rolsubmodulos"=>$rolsubmodulos, "result"=>$result,'msj'=>$msj,'selector'=>$selector]);
     }
 }

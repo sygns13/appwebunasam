@@ -49,7 +49,7 @@
         user:[],
         errors:[],
 
-        filluser:{ 'id':'', 'name':'', 'email':'', 'activo':'','persona_id':'','tipouser_id':'','dni':'','apellidos':'','nombres':'','telefono':'','direccion':'','cargo':'','tipouser':'','modifpassword': 0 , 'password':'', 'programaestudio_id': 0, 'facultad_id': 0, 'tipouser_id_ori':'','permisos':[], 'rolmodulos':[], 'rolsubmodulos':[]},
+        filluser:{ 'id':'', 'name':'', 'email':'', 'activo':'','persona_id':'','tipouser_id':'','dni':'','apellidos':'','nombres':'','telefono':'','direccion':'','cargo':'','tipouser':'','modifpassword': 0 , 'password':'', 'programaestudio_id': 0, 'facultad_id': 0, 'tipouser_id_ori':'','permisos1':[], 'permisos2':[], 'permisos3':[], 'rolmodulos':[], 'rolsubmodulos':[]},
 
         pagination: {
             'total': 0,
@@ -97,6 +97,26 @@
         thispage:'1',
 
         divprincipal:false,
+
+        //formulario web unasam
+        formularioCredenciales0:false,
+        idmodulo0:0,
+        idsubmodulo0:0,
+        divloaderCredencial0:false,
+
+        //formulario web facultades
+        facultad_id1:0,
+        formularioCredenciales1:false,
+        idmodulo1:0,
+        idsubmodulo1:0,
+        divloaderCredencial1:false,
+
+        //formulario web programas
+        programaestudio_id2:0,
+        formularioCredenciales2:false,
+        idmodulo2:0,
+        idsubmodulo2:0,
+        divloaderCredencial2:false,
 
 
     },
@@ -400,7 +420,9 @@ var url='persona/buscarDNI';
             this.filluser.modifpassword= 0;
             this.filluser.password='';
 
-            this.filluser.permisos=usuario.permisos;
+            this.filluser.permisos1=usuario.permisos1;
+            this.filluser.permisos2=usuario.permisos2;
+            this.filluser.permisos3=usuario.permisos3;
             this.filluser.rolmodulos=usuario.rolmodulos;
             this.filluser.rolsubmodulos=usuario.rolsubmodulos;
            
@@ -411,13 +433,15 @@ var url='persona/buscarDNI';
 
             this.divPermisos=false;
 
+            
+
         },
         cerrarFormUsuarioE: function(){
 
             this.divEditUsuario=false;
 
             this.$nextTick(function () {
-                this.filluser={ 'id':'', 'name':'', 'email':'', 'activo':'','persona_id':'','tipouser_id':'','dni':'','apellidos':'','nombres':'','telefono':'','direccion':'','cargo':'','tipouser':'','modifpassword': 0 , 'password':'', 'programaestudio_id': 0, 'facultad_id': 0, 'tipouser_id_ori':'','permisos':[], 'rolmodulos':[], 'rolsubmodulos':[]};
+                this.filluser= { 'id':'', 'name':'', 'email':'', 'activo':'','persona_id':'','tipouser_id':'','dni':'','apellidos':'','nombres':'','telefono':'','direccion':'','cargo':'','tipouser':'','modifpassword': 0 , 'password':'', 'programaestudio_id': 0, 'facultad_id': 0, 'tipouser_id_ori':'','permisos1':[], 'permisos2':[], 'permisos3':[], 'rolmodulos':[], 'rolsubmodulos':[]};
     
             })
 
@@ -570,12 +594,349 @@ var url='persona/buscarDNI';
             this.filluser.tipouser=usuario.tipouser;
             this.filluser.programaestudio=usuario.programaestudio;
 
+            this.filluser.permisos1=usuario.permisos1;
+            this.filluser.permisos2=usuario.permisos2;
+            this.filluser.permisos3=usuario.permisos3;
+            this.filluser.rolmodulos=usuario.rolmodulos;
+            this.filluser.rolsubmodulos=usuario.rolsubmodulos;
+
         this.divNuevoUsuario=false;
         this.divPermisos=true;
         this.divloaderEditUsuario=false;
 
 
-    }
+    },
+
+    borrarPermiso:function (permiso) {
+        swal.fire({
+              title: '¿Estás seguro?',
+              text: "Desea borrar el acceso seleccionado",
+              type: 'info',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Si, borrar'
+          }).then((result) => {
+
+            if(result.value) {
+                app.confirmarBorrarPermiso(permiso);
+            }
+        }).catch(swal.noop);
+    },
+
+    confirmarBorrarPermiso: function (permiso) {
+
+        var url="usuario/borrarpermiso";
+
+        axios.post(url, permiso).then(response=>{
+
+            if(response.data.result=='1'){   
+
+                this.getUsuarios(this.thispage);
+
+                this.filluser.permisos1 = response.data.permisos1;
+                this.filluser.permisos2 = response.data.permisos2;
+                this.filluser.permisos3 = response.data.permisos3;
+
+                toastr.success(response.data.msj);
+
+            }else{
+                $('#'+response.data.selector).focus();
+                toastr.error(response.data.msj);
+            }
+
+        }).catch(error=>{
+            this.errors=error.response.data
+        })
+    },
+
+    borrarModulo:function (rolModulo) {
+        swal.fire({
+              title: '¿Estás seguro?',
+              text: "Desea borrar el acceso seleccionado",
+              type: 'info',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Si, borrar'
+          }).then((result) => {
+
+            if(result.value) {
+                app.confirmarBorrarRolModulo(rolModulo);
+            }
+        }).catch(swal.noop);
+    },
+
+    confirmarBorrarRolModulo: function (rolModulo) {
+
+        var url="usuario/borrarrolmodulo";
+
+        axios.post(url, rolModulo).then(response=>{
+
+            if(response.data.result=='1'){   
+
+                this.getUsuarios(this.thispage);
+
+                this.filluser.rolmodulos=response.data.rolmodulos;
+                this.filluser.rolSubModulos=response.data.rolSubModulos;
+
+                toastr.success(response.data.msj);
+
+            }else{
+                $('#'+response.data.selector).focus();
+                toastr.error(response.data.msj);
+            }
+
+        }).catch(error=>{
+            this.errors=error.response.data
+        })
+    },
+
+    borrarSubmodulo:function (rolSubModulo) {
+        swal.fire({
+              title: '¿Estás seguro?',
+              text: "Desea borrar el acceso seleccionado",
+              type: 'info',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Si, borrar'
+          }).then((result) => {
+
+            if(result.value) {
+                app.confirmarBorrarRolSubmodulo(rolModulo);
+            }
+        }).catch(swal.noop);
+    },
+
+    confirmarBorrarRolSubmodulo: function (rolSubModulo) {
+
+        var url="usuario/borrarrollsubmodulo";
+
+        axios.post(url, rolSubModulo).then(response=>{
+
+            if(response.data.result=='1'){   
+
+                this.getUsuarios(this.thispage);
+
+                this.filluser.rolSubModulos=response.data.rolSubModulos;
+
+                toastr.success(response.data.msj);
+
+            }else{
+                $('#'+response.data.selector).focus();
+                toastr.error(response.data.msj);
+            }
+
+        }).catch(error=>{
+            this.errors=error.response.data
+        })
+    },
+
+    nuevaCredencial0:function(){
+        this.idmodulo0 = 0;
+        this.idsubmodulo0 = 0;
+        this.formularioCredenciales0 = true;
+        this.formularioCredenciales1 = false;
+        this.formularioCredenciales2 = false;
+    },
+    cerrarFormCred0: function () {
+        this.idmodulo0=0;
+        this.idsubmodulo0=0;
+
+        this.formularioCredenciales0=false;
+    },
+    cancelFormCred0: function () {
+        this.idmodulo0=0;
+        this.idsubmodulo0=0;
+    },
+    cambioModulo0:function () {
+        this.idsubmodulo0=0;
+    },
+
+    ActualizarCredenciales0:function () {
+        var url='usuario/grabarcredenciales0';
+
+        $("#btnGuardarCred0").attr('disabled', true);
+        $("#btnCancelCred0").attr('disabled', true);
+        $("#btnCloseCred0").attr('disabled', true);
+
+        this.divloaderCredencial0=true;
+
+        var data = new  FormData();
+
+        data.append('idmodulo', this.idmodulo0);
+        data.append('idsubmodulo', this.idsubmodulo0);
+        data.append('id', this.filluser.id);
+
+        const config = { headers: { 'Content-Type': 'multipart/form-data' } };
+
+        axios.post(url,data,config).then(response=>{
+
+            $("#btnGuardarCred0").removeAttr("disabled");
+            $("#btnCancelCred0").removeAttr("disabled");
+            $("#btnCloseCred0").removeAttr("disabled");
+            this.divloaderCredencial0=false;
+
+            if(response.data.result=='1'){
+                this.getUsuarios(this.thispage);
+
+                this.filluser.permisos1 = response.data.permisos1;
+                this.filluser.rolmodulos=response.data.rolmodulos;
+                this.filluser.rolSubModulos=response.data.rolSubModulos;
+
+                this.errors=[];
+                this.cerrarFormCred0();
+                toastr.success(response.data.msj);
+            }else{
+                $('#'+response.data.selector).focus();
+                toastr.error(response.data.msj);
+            }
+        }).catch(error=>{
+            this.errors=error.response.data
+        })
+    },
+
+
+
+    nuevaCredencial1:function(){
+        this.idmodulo1 = 0;
+        this.idsubmodulo1 = 0;
+        this.formularioCredenciales0 = false;
+        this.formularioCredenciales1 = true;
+        this.formularioCredenciales2 = false;
+    },
+    cerrarFormCred1: function () {
+        this.idmodulo1=0;
+        this.idsubmodulo1=0;
+        this.facultad_id1=0;
+
+        this.formularioCredenciales1=false;
+    },
+    cancelFormCred1: function () {
+        this.idmodulo1=0;
+        this.idsubmodulo1=0;
+        this.facultad_id1=0;
+    },
+    cambioModulo1:function () {
+        this.idsubmodulo1=0;
+    },
+
+    ActualizarCredenciales1:function () {
+        var url='usuario/grabarcredenciales1';
+
+        $("#btnGuardarCred1").attr('disabled', true);
+        $("#btnCancelCred1").attr('disabled', true);
+        $("#btnCloseCred1").attr('disabled', true);
+
+        this.divloaderCredencial1=true;
+
+        var data = new  FormData();
+
+        data.append('idmodulo', this.idmodulo1);
+        data.append('idsubmodulo', this.idsubmodulo1);
+        data.append('facultad_id', this.facultad_id1);
+        data.append('id', this.filluser.id);
+
+        const config = { headers: { 'Content-Type': 'multipart/form-data' } };
+
+        axios.post(url,data,config).then(response=>{
+
+            $("#btnGuardarCred1").removeAttr("disabled");
+            $("#btnCancelCred1").removeAttr("disabled");
+            $("#btnCloseCred1").removeAttr("disabled");
+            this.divloaderCredencial1=false;
+
+            if(response.data.result=='1'){
+                this.getUsuarios(this.thispage);
+
+                this.filluser.permisos2 = response.data.permisos2;
+                this.filluser.rolmodulos=response.data.rolmodulos;
+                this.filluser.rolSubModulos=response.data.rolSubModulos;
+
+                this.errors=[];
+                this.cerrarFormCred1();
+                toastr.success(response.data.msj);
+            }else{
+                $('#'+response.data.selector).focus();
+                toastr.error(response.data.msj);
+            }
+        }).catch(error=>{
+            this.errors=error.response.data
+        })
+    },
+
+
+
+
+    nuevaCredencial2:function(){
+        this.idmodulo2 = 0;
+        this.idsubmodulo2 = 0;
+        this.formularioCredenciales0 = false;
+        this.formularioCredenciales1 = false;
+        this.formularioCredenciales2 = true;
+    },
+    cerrarFormCred2: function () {
+        this.idmodulo2=0;
+        this.idsubmodulo2=0;
+        this.programaestudio_id2=0;
+
+        this.formularioCredenciales2=false;
+    },
+    cancelFormCred2: function () {
+        this.idmodulo2=0;
+        this.idsubmodulo2=0;
+        this.programaestudio_id2=0;
+    },
+    cambioModulo2:function () {
+        this.idsubmodulo2=0;
+    },
+
+
+    ActualizarCredenciales2:function () {
+        var url='usuario/grabarcredenciales2';
+
+        $("#btnGuardarCred2").attr('disabled', true);
+        $("#btnCancelCred2").attr('disabled', true);
+        $("#btnCloseCred2").attr('disabled', true);
+
+        this.divloaderCredencial1=true;
+
+        var data = new  FormData();
+
+        data.append('idmodulo', this.idmodulo2);
+        data.append('idsubmodulo', this.idsubmodulo2);
+        data.append('programaestudio_id', this.programaestudio_id2);
+        data.append('id', this.filluser.id);
+
+        const config = { headers: { 'Content-Type': 'multipart/form-data' } };
+
+        axios.post(url,data,config).then(response=>{
+
+            $("#btnGuardarCred2").removeAttr("disabled");
+            $("#btnCancelCred2").removeAttr("disabled");
+            $("#btnCloseCred2").removeAttr("disabled");
+            this.divloaderCredencial2=false;
+
+            if(response.data.result=='1'){
+                this.getUsuarios(this.thispage);
+
+                this.filluser.permisos3 = response.data.permisos3;
+                this.filluser.rolmodulos=response.data.rolmodulos;
+                this.filluser.rolSubModulos=response.data.rolSubModulos;
+
+                this.errors=[];
+                this.cerrarFormCred1();
+                toastr.success(response.data.msj);
+            }else{
+                $('#'+response.data.selector).focus();
+                toastr.error(response.data.msj);
+            }
+        }).catch(error=>{
+            this.errors=error.response.data
+        })
+    },
+    
     
 
 }

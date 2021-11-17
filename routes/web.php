@@ -276,6 +276,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('intranet/datosportalre/configuracion','UniversidadController@configuracion');
     Route::post('intranet/datosportalre/logo','UniversidadController@logo');
 
+    Route::post('usuario/borrarpermiso','UserController@borrarpermiso');
+    Route::post('usuario/borrarrolmodulo','UserController@borrarrolmodulo');
+    Route::post('usuario/borrarrollsubmodulo','UserController@borrarrollsubmodulo');
+
 
     /*
     Route::get('semestres','SemestreController@index1');

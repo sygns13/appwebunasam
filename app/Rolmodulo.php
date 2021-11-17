@@ -9,7 +9,7 @@ class Rolmodulo extends Model
     protected $table = 'rolmodulos';
     protected $fillable = [ 'user_id',
                             'modulo_id',
-                            'rolessub'];
+                            'rolessub','facultad_id','programaestudio_id','nivel'];
 
 	protected $guarded = ['id'];
 }
