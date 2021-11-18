@@ -68,29 +68,29 @@
   <div class="box-body table-responsive">
     <table class="table table-hover table-bordered" >
       <tbody><tr>
-        <th style="padding: 5px; width: 5%;">#</th>
-        <th style="padding: 5px; width: 10%;">Tipo de Usuario</th>
-        <th style="padding: 5px; width: 7%;">DNI</th>
-        <th style="padding: 5px; width: 15%;">Apellidos y Nombres</th>
-        <th style="padding: 5px; width: 10%;">Usuario</th> 
-        <th style="padding: 5px; width: 19%;">Cargo</th> 
-        <th style="padding: 5px; width: 15%;">Email</th> 
-        <th style="padding: 5px; width: 6%;">Estado</th>
-        <th style="padding: 5px; width: 13%;">Gestión</th>
+        <th style="border: 1px solid gray; padding: 5px; width: 5%;">#</th>
+        <th style="border: 1px solid gray; padding: 5px; width: 10%;">Tipo de Usuario</th>
+        <th style="border: 1px solid gray; padding: 5px; width: 7%;">DNI</th>
+        <th style="border: 1px solid gray; padding: 5px; width: 15%;">Apellidos y Nombres</th>
+        <th style="border: 1px solid gray; padding: 5px; width: 10%;">Usuario</th> 
+        <th style="border: 1px solid gray; padding: 5px; width: 19%;">Cargo</th> 
+        <th style="border: 1px solid gray; padding: 5px; width: 15%;">Email</th> 
+        <th style="border: 1px solid gray; padding: 5px; width: 6%;">Estado</th>
+        <th style="border: 1px solid gray; padding: 5px; width: 13%;">Gestión</th>
       </tr>
       <tr v-for="usuario, key in usuarios">
-        <td style="font-size: 13px; padding: 5px;">@{{key+pagination.from}}</td>
-        <td style="font-size: 13px; padding: 5px;">@{{ usuario.tipouser }}</td>
-        <td style="font-size: 13px; padding: 5px;">@{{ usuario.dni }}</td>
-        <td style="font-size: 13px; padding: 5px;">@{{ usuario.apellidos }}, @{{ usuario.nombres }}</td>
-        <td style="font-size: 13px; padding: 5px;">@{{ usuario.name }}</td>
-        <td style="font-size: 13px; padding: 5px;">@{{ usuario.cargo }}</td>
-        <td style="font-size: 13px; padding: 5px;">@{{ usuario.email }}</td>
-        <td style="font-size: 13px; padding: 5px; text-align: center;">
+        <td style="border: 1px solid gray; font-size: 13px; padding: 5px;">@{{key+pagination.from}}</td>
+        <td style="border: 1px solid gray; font-size: 13px; padding: 5px;">@{{ usuario.tipouser }}</td>
+        <td style="border: 1px solid gray; font-size: 13px; padding: 5px;">@{{ usuario.dni }}</td>
+        <td style="border: 1px solid gray; font-size: 13px; padding: 5px;">@{{ usuario.apellidos }}, @{{ usuario.nombres }}</td>
+        <td style="border: 1px solid gray; font-size: 13px; padding: 5px;">@{{ usuario.name }}</td>
+        <td style="border: 1px solid gray; font-size: 13px; padding: 5px;">@{{ usuario.cargo }}</td>
+        <td style="border: 1px solid gray; font-size: 13px; padding: 5px;">@{{ usuario.email }}</td>
+        <td style="border: 1px solid gray; font-size: 13px; padding: 5px; text-align: center;">
          <span class="label label-success" v-if="usuario.activo=='1'">Activo</span>
          <span class="label label-warning" v-if="usuario.activo=='0'">Inactivo</span>
        </td>
-       <td style="font-size: 13px; padding: 5px;">
+       <td style="border: 1px solid gray; font-size: 13px; padding: 5px;">
 
         <a href="#" class="btn btn-primary btn-sm" v-on:click.prevent="gestionPermisos(usuario)" data-placement="top" data-toggle="tooltip" title="Gestionar Permisos de Usuario"><i class="fa fa-cogs"></i></a>
 

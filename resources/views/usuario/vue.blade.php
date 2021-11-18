@@ -641,12 +641,13 @@ var url='persona/buscarDNI';
                 toastr.success(response.data.msj);
 
             }else{
-                $('#'+response.data.selector).focus();
+                //$('#'+response.data.selector).focus();
                 toastr.error(response.data.msj);
             }
 
         }).catch(error=>{
-            this.errors=error.response.data
+            //this.errors=error.response.data
+            console.log(error);
         })
     },
 
@@ -678,17 +679,18 @@ var url='persona/buscarDNI';
                 this.getUsuarios(this.thispage);
 
                 this.filluser.rolmodulos=response.data.rolmodulos;
-                this.filluser.rolSubModulos=response.data.rolSubModulos;
+                this.filluser.rolsubmodulos=response.data.rolsubmodulos;
 
                 toastr.success(response.data.msj);
 
             }else{
-                $('#'+response.data.selector).focus();
+                //$('#'+response.data.selector).focus();
                 toastr.error(response.data.msj);
             }
 
         }).catch(error=>{
-            this.errors=error.response.data
+            //this.errors=error.response.data
+            console.log(error);
         })
     },
 
@@ -704,7 +706,7 @@ var url='persona/buscarDNI';
           }).then((result) => {
 
             if(result.value) {
-                app.confirmarBorrarRolSubmodulo(rolModulo);
+                app.confirmarBorrarRolSubmodulo(rolSubModulo);
             }
         }).catch(swal.noop);
     },
@@ -719,17 +721,18 @@ var url='persona/buscarDNI';
 
                 this.getUsuarios(this.thispage);
 
-                this.filluser.rolSubModulos=response.data.rolSubModulos;
+                this.filluser.rolsubmodulos=response.data.rolsubmodulos;
 
                 toastr.success(response.data.msj);
 
             }else{
-                $('#'+response.data.selector).focus();
+                //$('#'+response.data.selector).focus();
                 toastr.error(response.data.msj);
             }
 
         }).catch(error=>{
-            this.errors=error.response.data
+            //this.errors=error.response.data
+            console.log(error);
         })
     },
 
@@ -767,7 +770,7 @@ var url='persona/buscarDNI';
 
         data.append('idmodulo', this.idmodulo0);
         data.append('idsubmodulo', this.idsubmodulo0);
-        data.append('id', this.filluser.id);
+        data.append('id_user', this.filluser.id);
 
         const config = { headers: { 'Content-Type': 'multipart/form-data' } };
 
@@ -778,22 +781,25 @@ var url='persona/buscarDNI';
             $("#btnCloseCred0").removeAttr("disabled");
             this.divloaderCredencial0=false;
 
+            console.log(response.data);
+
             if(response.data.result=='1'){
                 this.getUsuarios(this.thispage);
 
                 this.filluser.permisos1 = response.data.permisos1;
                 this.filluser.rolmodulos=response.data.rolmodulos;
-                this.filluser.rolSubModulos=response.data.rolSubModulos;
+                this.filluser.rolsubmodulos=response.data.rolsubmodulos;
 
                 this.errors=[];
                 this.cerrarFormCred0();
                 toastr.success(response.data.msj);
             }else{
-                $('#'+response.data.selector).focus();
+                //$('#'+response.data.selector).focus();
                 toastr.error(response.data.msj);
             }
         }).catch(error=>{
-            this.errors=error.response.data
+            //this.errors=error.response.data;
+            console.log(error);
         })
     },
 
@@ -836,7 +842,7 @@ var url='persona/buscarDNI';
         data.append('idmodulo', this.idmodulo1);
         data.append('idsubmodulo', this.idsubmodulo1);
         data.append('facultad_id', this.facultad_id1);
-        data.append('id', this.filluser.id);
+        data.append('id_user', this.filluser.id);
 
         const config = { headers: { 'Content-Type': 'multipart/form-data' } };
 
@@ -852,17 +858,20 @@ var url='persona/buscarDNI';
 
                 this.filluser.permisos2 = response.data.permisos2;
                 this.filluser.rolmodulos=response.data.rolmodulos;
-                this.filluser.rolSubModulos=response.data.rolSubModulos;
+                this.filluser.rolsubmodulos=response.data.rolsubmodulos;
 
                 this.errors=[];
                 this.cerrarFormCred1();
                 toastr.success(response.data.msj);
             }else{
-                $('#'+response.data.selector).focus();
+                if(response.data.selector != ''){
+                    $('#'+response.data.selector).focus();
+                }
                 toastr.error(response.data.msj);
             }
         }).catch(error=>{
-            this.errors=error.response.data
+            //this.errors=error.response.data
+            console.log(error);
         })
     },
 
@@ -907,7 +916,7 @@ var url='persona/buscarDNI';
         data.append('idmodulo', this.idmodulo2);
         data.append('idsubmodulo', this.idsubmodulo2);
         data.append('programaestudio_id', this.programaestudio_id2);
-        data.append('id', this.filluser.id);
+        data.append('id_user', this.filluser.id);
 
         const config = { headers: { 'Content-Type': 'multipart/form-data' } };
 
@@ -923,17 +932,20 @@ var url='persona/buscarDNI';
 
                 this.filluser.permisos3 = response.data.permisos3;
                 this.filluser.rolmodulos=response.data.rolmodulos;
-                this.filluser.rolSubModulos=response.data.rolSubModulos;
+                this.filluser.rolsubmodulos=response.data.rolsubmodulos;
 
                 this.errors=[];
                 this.cerrarFormCred1();
                 toastr.success(response.data.msj);
             }else{
-                $('#'+response.data.selector).focus();
+                if(response.data.selector != ''){
+                    $('#'+response.data.selector).focus();
+                }
                 toastr.error(response.data.msj);
             }
         }).catch(error=>{
-            this.errors=error.response.data
+            //this.errors=error.response.data
+            console.log(error);
         })
     },
     

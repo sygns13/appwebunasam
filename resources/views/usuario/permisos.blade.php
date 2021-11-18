@@ -341,20 +341,20 @@
             <div class="box-body table-responsive">
                 <table class="table table-hover table-bordered" >
                   <tbody><tr>   
-                    <th style="padding: 5px; width: 40%;">Módulo</th>
-                    <th style="padding: 5px; width: 45%;">Submódulos</th>
-                    <th style="padding: 5px; width: 15%;">Gestión</th>
+                    <th style="border: 1px solid gray; padding: 5px; width: 40%;">Módulo</th>
+                    <th style="border: 1px solid gray; padding: 5px; width: 45%;">Submódulos</th>
+                    <th style="border: 1px solid gray; padding: 5px; width: 15%;">Gestión</th>
                   </tr>
                   <template v-for="(permisoPortalWeb, index) in filluser.permisos1">
 
                       <template v-if="parseInt(permisoPortalWeb.roles)==1">
 
                         <tr>
-                          <td style="font-size: 11px; padding: 5px;"> <b>Acceso a Todos los Módulos</b></td>
-                          <td style="font-size: 11px; padding: 5px;"> - Acceso a Todos los Submódulos
+                          <td style="border: 1px solid gray; font-size: 11px; padding: 5px;"> <b>Acceso a Todos los Módulos</b></td>
+                          <td style="border: 1px solid gray; font-size: 11px; padding: 5px;"> - Acceso a Todos los Submódulos
                             </td>
 
-                            <td style="font-size: 11px; padding: 5px;">
+                            <td style="border: 1px solid gray; font-size: 11px; padding: 5px;">
                                 <center>  <a href="#" class="btn btn-danger btn-sm" v-on:click.prevent="borrarPermiso(permisoPortalWeb)" data-placement="top" data-toggle="tooltip" title="Borrar Acceso General"><i class="fa fa-trash"></i></a>
                             </center>
                            </td>
@@ -364,23 +364,22 @@
                         <template v-if="parseInt(permisoPortalWeb.roles)==0">
                             <template v-for="(rolModulo, index) in filluser.rolmodulos" v-if="parseInt(rolModulo.nivel)==0">
                                 <tr>
-                                <td style="font-size: 11px; padding: 5px;"> <b>Módulo: @{{rolModulo.modulo}}</b></td>
-                                <td style="font-size: 11px; padding: 5px;">  
-                                  <template v-if="parseInt(rolmodulos.rolessub) == 0">
+                                <td style="border: 1px solid gray; font-size: 11px; padding: 5px;"> <b>Módulo: @{{rolModulo.modulo}}</b></td>
+                                <td style="border: 1px solid gray; font-size: 11px; padding: 5px;">  
+                                  <template v-if="parseInt(rolModulo.rolessub) == 1">
                                     - Acceso a Todos los Submódulos
                                   </template>
                                   <template v-else>
-                                      - Acceso a los siguientes Submódulos:<br>
                                       <table class="table table-hover table-bordered">
                                         <tr>
-                                          <th style="padding: 5px; width: 70%;">Submódulos</th>
-                                          <th style="padding: 5px; width: 30%;">Gestión</th>
+                                          <th style="border: 1px solid gray; font-size: 11px; padding: 5px; width: 70%;">Acceso a los siguientes Submódulos:</th>
+                                          <th style="border: 1px solid gray; font-size: 11px;padding: 5px; width: 30%;">Gestión</th>
                                         </tr>
                                         <tr v-for="(rolSubmodulo, index) in filluser.rolsubmodulos" v-if="rolModulo.modulo_id == rolSubmodulo.modulo_id">
-                                          <td>
+                                          <td style="border: 1px solid gray;">
                                             @{{rolSubmodulo.submodulo}}
                                           </td>
-                                          <td>
+                                          <td style="border: 1px solid gray;">
                                             <center>
                                               <a href="#" class="btn btn-danger btn-sm" v-on:click.prevent="borrarSubmodulo(rolSubmodulo)" data-placement="top" data-toggle="tooltip" title="Borrar Acceso al Submódulo"><i class="fa fa-trash"></i></a>
                                             </center>
@@ -389,7 +388,7 @@
                                       </table>
                                   </template>
                                 </td>
-                                <td style="font-size: 11px; padding: 5px;">
+                                <td style="border: 1px solid gray; font-size: 11px; padding: 5px;">
                                   <center> 
                                     <a href="#" class="btn btn-danger btn-sm" v-on:click.prevent="borrarModulo(rolModulo)" data-placement="top" data-toggle="tooltip" title="Borrar Acceso al Módulo"><i class="fa fa-trash"></i></a>
                                   </center>
@@ -422,22 +421,22 @@
             <div class="box-body table-responsive">
                 <table class="table table-hover table-bordered" >
                   <tbody><tr>  
-                    <th style="padding: 5px; width: 30%;">Facultad</th> 
-                    <th style="padding: 5px; width: 30%;">Módulo</th>
-                    <th style="padding: 5px; width: 30%;">Submódulos</th>
-                    <th style="padding: 5px; width: 10%;">Gestión</th>
+                    <th style="border: 1px solid gray; padding: 5px; width: 30%;">Facultad</th> 
+                    <th style="border: 1px solid gray; padding: 5px; width: 30%;">Módulo</th>
+                    <th style="border: 1px solid gray; padding: 5px; width: 30%;">Submódulos</th>
+                    <th style="border: 1px solid gray; padding: 5px; width: 10%;">Gestión</th>
                   </tr>
                   <template v-for="(permisoFacultad, index) in filluser.permisos2">
 
                       <template v-if="parseInt(permisoFacultad.roles)==1">
 
                         <tr>
-                          <td style="font-size: 11px; padding: 5px;"> @{{permisoFacultad.facultad}}</td>
-                          <td style="font-size: 11px; padding: 5px;"> <b>Acceso a Todos los Módulos</b></td>
-                          <td style="font-size: 11px; padding: 5px;"> - Acceso a Todos los Submódulos
+                          <td style="border: 1px solid gray; font-size: 11px; padding: 5px;"> @{{permisoFacultad.facultad}}</td>
+                          <td style="border: 1px solid gray; font-size: 11px; padding: 5px;"> <b>Acceso a Todos los Módulos</b></td>
+                          <td style="border: 1px solid gray; font-size: 11px; padding: 5px;"> - Acceso a Todos los Submódulos
                             </td>
 
-                            <td style="font-size: 11px; padding: 5px;">
+                            <td style="border: 1px solid gray; font-size: 11px; padding: 5px;">
                                 <center>  <a href="#" class="btn btn-danger btn-sm" v-on:click.prevent="borrarPermiso(permisoFacultad)" data-placement="top" data-toggle="tooltip" title="Borrar Acceso General de Facultad"><i class="fa fa-trash"></i></a>
                             </center>
                            </td>
@@ -447,24 +446,23 @@
                         <template v-if="parseInt(permisoFacultad.roles)==0">
                             <template v-for="(rolModulo, index) in filluser.rolmodulos" v-if="parseInt(rolModulo.nivel) == 1 && parseInt(rolModulo.facultad_id) == parseInt(permisoFacultad.facultad_id)">
                                 <tr>
-                                <td style="font-size: 11px; padding: 5px;"> @{{permisoFacultad.facultad}}</td>
-                                <td style="font-size: 11px; padding: 5px;"> <b>Módulo: @{{rolModulo.modulo}}</b></td>
-                                <td style="font-size: 11px; padding: 5px;">  
-                                  <template v-if="parseInt(rolmodulos.rolessub) == 0">
+                                <td style="border: 1px solid gray; font-size: 11px; padding: 5px;"> @{{permisoFacultad.facultad}}</td>
+                                <td style="border: 1px solid gray; font-size: 11px; padding: 5px;"> <b>Módulo: @{{rolModulo.modulo}}</b></td>
+                                <td style="border: 1px solid gray; font-size: 11px; padding: 5px;">  
+                                  <template v-if="parseInt(rolModulo.rolessub) == 1">
                                     - Acceso a Todos los Submódulos
                                   </template>
                                   <template v-else>
-                                      - Acceso a los siguientes Submódulos:<br>
                                       <table class="table table-hover table-bordered">
                                         <tr>
-                                          <th style="padding: 5px; width: 70%;">Submódulos</th>
-                                          <th style="padding: 5px; width: 30%;">Gestión</th>
+                                          <th style="border: 1px solid gray; padding: 5px; width: 70%; font-size: 11px;">Acceso a los siguientes Submódulos:</th>
+                                          <th style="border: 1px solid gray; padding: 5px; width: 30%; font-size: 11px;">Gestión</th>
                                         </tr>
                                         <tr v-for="(rolSubmodulo, index) in filluser.rolsubmodulos" v-if="rolModulo.modulo_id == rolSubmodulo.modulo_id && parseInt(rolModulo.facultad_id) == parseInt(permisoFacultad.facultad_id)">
-                                          <td>
+                                          <td style="border: 1px solid gray;">
                                             @{{rolSubmodulo.submodulo}}
                                           </td>
-                                          <td>
+                                          <td style="border: 1px solid gray;">
                                             <center>
                                               <a href="#" class="btn btn-danger btn-sm" v-on:click.prevent="borrarSubmodulo(rolSubmodulo)" data-placement="top" data-toggle="tooltip" title="Borrar Acceso al Submódulo"><i class="fa fa-trash"></i></a>
                                             </center>
@@ -473,7 +471,7 @@
                                       </table>
                                   </template>
                                 </td>
-                                <td style="font-size: 11px; padding: 5px;">
+                                <td style="border: 1px solid gray; font-size: 11px; padding: 5px;">
                                   <center> 
                                     <a href="#" class="btn btn-danger btn-sm" v-on:click.prevent="borrarModulo(rolModulo)" data-placement="top" data-toggle="tooltip" title="Borrar Acceso al Módulo"><i class="fa fa-trash"></i></a>
                                   </center>
@@ -503,22 +501,22 @@
             <div class="box-body table-responsive">
                 <table class="table table-hover table-bordered" >
                   <tbody><tr>  
-                    <th style="padding: 5px; width: 30%;">Programa de Estudio</th> 
-                    <th style="padding: 5px; width: 30%;">Módulo</th>
-                    <th style="padding: 5px; width: 30%;">Submódulos</th>
-                    <th style="padding: 5px; width: 10%;">Gestión</th>
+                    <th style="border: 1px solid gray; padding: 5px; width: 30%;">Programa de Estudio</th> 
+                    <th style="border: 1px solid gray; padding: 5px; width: 30%;">Módulo</th>
+                    <th style="border: 1px solid gray; padding: 5px; width: 30%;">Submódulos</th>
+                    <th style="border: 1px solid gray; padding: 5px; width: 10%;">Gestión</th>
                   </tr>
                   <template v-for="(permisoProgramaEstudio, index) in filluser.permisos3">
 
                       <template v-if="parseInt(permisoProgramaEstudio.roles)==1">
 
                         <tr>
-                          <td style="font-size: 11px; padding: 5px;"> @{{permisoProgramaEstudio.programa}}</td>
-                          <td style="font-size: 11px; padding: 5px;"> <b>Acceso a Todos los Módulos</b></td>
-                          <td style="font-size: 11px; padding: 5px;"> - Acceso a Todos los Submódulos
+                          <td style="border: 1px solid gray; font-size: 11px; padding: 5px;"> @{{permisoProgramaEstudio.programa}}</td>
+                          <td style="border: 1px solid gray; font-size: 11px; padding: 5px;"> <b>Acceso a Todos los Módulos</b></td>
+                          <td style="border: 1px solid gray; font-size: 11px; padding: 5px;"> - Acceso a Todos los Submódulos
                             </td>
 
-                            <td style="font-size: 11px; padding: 5px;">
+                            <td style="border: 1px solid gray; font-size: 11px; padding: 5px;">
                                 <center>  <a href="#" class="btn btn-danger btn-sm" v-on:click.prevent="borrarPermiso(permisoProgramaEstudio)" data-placement="top" data-toggle="tooltip" title="Borrar Acceso General de Programa de Estudio"><i class="fa fa-trash"></i></a>
                             </center>
                            </td>
@@ -528,24 +526,24 @@
                         <template v-if="parseInt(permisoProgramaEstudio.roles)==0">
                             <template v-for="(rolModulo, index) in filluser.rolmodulos" v-if="parseInt(rolModulo.nivel) == 1 && parseInt(rolModulo.programaestudio_id) == parseInt(permisoProgramaEstudio.programaestudio_id)">
                                 <tr>
-                                <td style="font-size: 11px; padding: 5px;"> @{{permisoProgramaEstudio.programa}}</td>
-                                <td style="font-size: 11px; padding: 5px;"> <b>Módulo: @{{rolModulo.modulo}}</b></td>
-                                <td style="font-size: 11px; padding: 5px;">  
-                                  <template v-if="parseInt(rolmodulos.rolessub) == 0">
+                                <td style="border: 1px solid gray; font-size: 11px; padding: 5px;"> @{{permisoProgramaEstudio.programa}}</td>
+                                <td style="border: 1px solid gray; font-size: 11px; padding: 5px;"> <b>Módulo: @{{rolModulo.modulo}}</b></td>
+                                <td style="border: 1px solid gray; font-size: 11px; padding: 5px;">  
+                                  <template v-if="parseInt(rolModulo.rolessub) == 1">
                                     - Acceso a Todos los Submódulos
                                   </template>
                                   <template v-else>
-                                      - Acceso a los siguientes Submódulos:<br>
+                                      
                                       <table class="table table-hover table-bordered">
                                         <tr>
-                                          <th style="padding: 5px; width: 70%;">Submódulos</th>
-                                          <th style="padding: 5px; width: 30%;">Gestión</th>
+                                          <th style="border: 1px solid gray; padding: 5px; width: 70%; font-size: 11px;">Acceso a los siguientes Submódulos</th>
+                                          <th style="border: 1px solid gray; padding: 5px; width: 30%; font-size: 11px;">Gestión</th>
                                         </tr>
                                         <tr v-for="(rolSubmodulo, index) in filluser.rolsubmodulos" v-if="rolModulo.modulo_id == rolSubmodulo.modulo_id && parseInt(rolModulo.programaestudio_id) == parseInt(permisoProgramaEstudio.programaestudio_id)">
-                                          <td>
+                                          <td style="border: 1px solid gray;">
                                             @{{rolSubmodulo.submodulo}}
                                           </td>
-                                          <td>
+                                          <td style="border: 1px solid gray;">
                                             <center>
                                               <a href="#" class="btn btn-danger btn-sm" v-on:click.prevent="borrarSubmodulo(rolSubmodulo)" data-placement="top" data-toggle="tooltip" title="Borrar Acceso al Submódulo"><i class="fa fa-trash"></i></a>
                                             </center>
@@ -554,7 +552,7 @@
                                       </table>
                                   </template>
                                 </td>
-                                <td style="font-size: 11px; padding: 5px;">
+                                <td style="border: 1px solid gray; font-size: 11px; padding: 5px;">
                                   <center> 
                                     <a href="#" class="btn btn-danger btn-sm" v-on:click.prevent="borrarModulo(rolModulo)" data-placement="top" data-toggle="tooltip" title="Borrar Acceso al Módulo"><i class="fa fa-trash"></i></a>
                                   </center>

@@ -1081,7 +1081,7 @@ class UserController extends Controller
 
         $rolmodulos= DB::table('rolmodulos')
             ->join('modulos', 'modulos.id', '=', 'rolmodulos.modulo_id')
-            ->where('rolmodulos.user_id', $dato->id)
+            ->where('rolmodulos.user_id', $user_id)
             ->orderBy('rolmodulos.nivel')
             ->orderBy('modulos.id')
             ->orderBy('rolmodulos.id')
@@ -1098,7 +1098,7 @@ class UserController extends Controller
 
             $rolsubmodulos= DB::table('rolsubmodulos')
             ->join('submodulos', 'submodulos.id', '=', 'rolsubmodulos.submodulo_id')
-            ->where('rolsubmodulos.user_id', $dato->id)
+            ->where('rolsubmodulos.user_id', $user_id)
             ->orderBy('rolsubmodulos.nivel')
             ->orderBy('submodulos.id')
             ->orderBy('rolsubmodulos.id')
@@ -1135,7 +1135,7 @@ class UserController extends Controller
         
         $rolsubmodulos= DB::table('rolsubmodulos')
         ->join('submodulos', 'submodulos.id', '=', 'rolsubmodulos.submodulo_id')
-        ->where('rolsubmodulos.user_id', $dato->id)
+        ->where('rolsubmodulos.user_id', $user_id)
         ->orderBy('rolsubmodulos.nivel')
         ->orderBy('submodulos.id')
         ->orderBy('rolsubmodulos.id')
@@ -1151,5 +1151,666 @@ class UserController extends Controller
         ->get();
 
         return response()->json(["rolsubmodulos"=>$rolsubmodulos, "result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+    }
+
+    public function grabarcredenciales0(Request $request){
+
+        $result='1';
+        $msj='';
+        $selector='';
+
+        $idmodulo=$request->idmodulo;
+        $idsubmodulo=$request->idsubmodulo;
+        $id_user=$request->id_user;
+
+        $borrarPermisos = false;
+        $borrarModulo = false;
+        $borrarSubmodulo = false;
+
+        $registroPermiso = false;
+        $registroRolModulo = false;
+        $registroRolsubmodulo = false;
+        
+        $numPermiso = Permiso::where('user_id',$id_user)->where('nivel', 0)->count();
+        $permiso = "";
+        
+        if($numPermiso > 0){
+            $permiso = Permiso::where('user_id',$id_user)->where('nivel', 0)->first();
+
+            if($permiso->roles == "1"){
+
+                $result='0';
+                $msj='No se puede registrar ya que el Usuario tiene acceso a Todos los Módulos del Portal UNASAM ';
+                $selector='';
+
+                return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+
+            }
+            else{
+                if($idmodulo == 0){
+                    /* $borrarPermisos = true;
+                    $borrarModulo = true;
+                    $borrarSubmodulo = true; */
+
+                    $registroPermiso = true;
+                    $registroRolModulo = true;
+                    $registroRolsubmodulo = true;
+
+                    $borrarSubmodulos = Rolsubmodulo::where('user_id',$id_user)->where('nivel', 0)->delete();
+                    $borrarModulos = Rolmodulo::where('user_id',$id_user)->where('nivel', 0)->delete();
+                    $borrarPermisos = Permiso::where('user_id',$id_user)->where('nivel', 0)->delete();
+                }
+                else{
+                    $numModulos = Rolmodulo::where('user_id',$id_user)->where('nivel', 0)->where('modulo_id', $idmodulo)->count();
+                    $rolmodulo = "";
+
+                    if($numModulos > 0){
+
+                        $rolmodulo = Rolmodulo::where('user_id',$id_user)->where('nivel', 0)->where('modulo_id', $idmodulo)->first();
+
+                        if($rolmodulo->rolessub == "1"){
+
+                            $result='0';
+                            $msj='No se puede registrar ya que el Usuario tiene acceso a Todos los Submodulos del Módulo seleccionado del Portal UNASAM ';
+                            $selector='';
+            
+                            return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+            
+                        }
+                        else{
+                            if($idsubmodulo == 0){
+                                /* $borrarModulo = true;
+                                $borrarSubmodulo = true; */
+
+                                $registroRolModulo = true;
+                                $registroRolsubmodulo = true;
+
+                                $borrarSubmodulos = Rolsubmodulo::where('user_id',$id_user)->where('nivel', 0)->where('modulo_id', $idmodulo)->delete();
+                                $borrarModulos = Rolmodulo::where('user_id',$id_user)->where('nivel', 0)->where('modulo_id', $idmodulo)->delete();
+                            }
+                            else{
+                                $numSubmodulos = Rolsubmodulo::where('user_id',$id_user)->where('nivel', 0)->where('submodulo_id', $idsubmodulo)->count();
+                                $rolsubmodulo = "";
+
+                                if($numSubmodulos > 0){
+
+                                    $result='0';
+                                    $msj='No se puede registrar ya que el Usuario ya cuenta con acceso al Submódulo seleccionado ';
+                                    $selector='';
+            
+                                    return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+                                }
+                                else{
+                                    $registroRolsubmodulo = true;
+                                }
+                            }
+                        }
+
+                    }
+                    else{
+                        $registroRolModulo = true;
+                        $registroRolsubmodulo = true;
+                    }
+
+                }
+            }
+
+        }
+        else{
+            $registroPermiso = true;
+            $registroRolModulo = true;
+            $registroRolsubmodulo = true;
+        }
+
+        if($registroPermiso){
+
+            $permiso = new Permiso();
+            $permiso->user_id = $id_user;
+            $permiso->facultad_id = 0;
+            $permiso->programaestudio_id = 0;
+            $permiso->nivel = 0;
+
+            if($idmodulo == "0"){
+                $permiso->roles = "1";
+            }
+            else{
+                $permiso->roles = "0";
+            }
+            
+            $permiso->save();
+        }
+
+        if($registroRolModulo && $idmodulo != "0"){
+                
+                $rolmodulo = new Rolmodulo();
+                $rolmodulo->user_id = $id_user;
+                $rolmodulo->modulo_id = $idmodulo;
+                $rolmodulo->nivel = 0;
+                $rolmodulo->facultad_id = 0;
+                $rolmodulo->programaestudio_id = 0;
+    
+                if($idsubmodulo == "0"){
+                    $rolmodulo->rolessub = "1";
+                }
+                else{
+                    $rolmodulo->rolessub = "0";
+                }
+                
+                $rolmodulo->save();
+        }
+
+        if($registroRolsubmodulo && $idmodulo != "0" && $idsubmodulo != "0"){
+                
+                $rolsubmodulo = new Rolsubmodulo();
+                $rolsubmodulo->user_id = $id_user;
+                $rolsubmodulo->submodulo_id = $idsubmodulo;
+                $rolsubmodulo->modulo_id = $idmodulo;
+                $rolsubmodulo->nivel = 0;
+                $rolsubmodulo->facultad_id = 0;
+                $rolsubmodulo->programaestudio_id = 0;
+                
+                $rolsubmodulo->save();
+        }
+
+
+        $permisos1= Permiso::where('user_id',$id_user)->where('nivel', 0)->orderBy('id')->get();
+
+        $rolmodulos= DB::table('rolmodulos')
+            ->join('modulos', 'modulos.id', '=', 'rolmodulos.modulo_id')
+            ->where('rolmodulos.user_id', $id_user)
+            ->orderBy('rolmodulos.nivel')
+            ->orderBy('modulos.id')
+            ->orderBy('rolmodulos.id')
+            ->select('rolmodulos.id',
+            'rolmodulos.user_id',
+            'rolmodulos.modulo_id',
+            'rolmodulos.rolessub',
+            'modulos.modulo',
+            'modulos.id as idmodulo',
+            'rolmodulos.nivel',
+            'rolmodulos.facultad_id',
+            'rolmodulos.programaestudio_id')
+            ->get();
+
+            $rolsubmodulos= DB::table('rolsubmodulos')
+            ->join('submodulos', 'submodulos.id', '=', 'rolsubmodulos.submodulo_id')
+            ->where('rolsubmodulos.user_id', $id_user)
+            ->orderBy('rolsubmodulos.nivel')
+            ->orderBy('submodulos.id')
+            ->orderBy('rolsubmodulos.id')
+            ->select('rolsubmodulos.id',
+            'rolsubmodulos.nivel',
+            'rolsubmodulos.modulo_id',
+            'rolsubmodulos.submodulo_id',
+            'rolsubmodulos.user_id',
+            'submodulos.submodulo',
+            'submodulos.modulo_id as idmodulo',
+            'rolsubmodulos.facultad_id',
+            'rolsubmodulos.programaestudio_id')
+            ->get();
+
+
+            $msj = "Se ha grabado correctamente el registro de acceso";
+
+
+            return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector, 'permisos1'=>$permisos1, 'rolmodulos'=>$rolmodulos, 'rolsubmodulos'=>$rolsubmodulos]);
+
+    }
+
+
+    public function grabarcredenciales1(Request $request){
+
+        $result='1';
+        $msj='';
+        $selector='';
+
+        $idmodulo=$request->idmodulo;
+        $idsubmodulo=$request->idsubmodulo;
+        $id_user=$request->id_user;
+        $facultad_id=$request->facultad_id;
+
+        if ($facultad_id == null || strval($facultad_id)== "" || intval($facultad_id) <= 0) {
+            $result='0';
+            $msj='Debe seleccionar una facultad para continuar';
+            $selector='cbufacultad_id1';
+
+            return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+        }
+
+        $borrarPermisos = false;
+        $borrarModulo = false;
+        $borrarSubmodulo = false;
+
+        $registroPermiso = false;
+        $registroRolModulo = false;
+        $registroRolsubmodulo = false;
+        
+        $numPermiso = Permiso::where('user_id',$id_user)->where('nivel', 1)->where('facultad_id', $facultad_id)->count();
+        $permiso = "";
+        
+        if($numPermiso > 0){
+            $permiso = Permiso::where('user_id',$id_user)->where('nivel', 1)->where('facultad_id', $facultad_id)->first();
+
+            if($permiso->roles == "1"){
+
+                $result='0';
+                $msj='No se puede registrar ya que el Usuario tiene acceso a Todos los Módulos de la Facultad Seleccionada';
+                $selector='';
+
+                return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+
+            }
+            else{
+                if($idmodulo == 0){
+                    /* $borrarPermisos = true;
+                    $borrarModulo = true;
+                    $borrarSubmodulo = true; */
+
+                    $registroPermiso = true;
+                    $registroRolModulo = true;
+                    $registroRolsubmodulo = true;
+
+                    $borrarSubmodulos = Rolsubmodulo::where('user_id',$id_user)->where('nivel', 1)->where('facultad_id', $facultad_id)->delete();
+                    $borrarModulos = Rolmodulo::where('user_id',$id_user)->where('nivel', 1)->where('facultad_id', $facultad_id)->delete();
+                    $borrarPermisos = Permiso::where('user_id',$id_user)->where('nivel', 1)->where('facultad_id', $facultad_id)->delete();
+                }
+                else{
+                    $numModulos = Rolmodulo::where('user_id',$id_user)->where('nivel', 1)->where('facultad_id', $facultad_id)->where('modulo_id', $idmodulo)->count();
+                    $rolmodulo = "";
+
+                    if($numModulos > 0){
+
+                        $rolmodulo = Rolmodulo::where('user_id',$id_user)->where('nivel', 1)->where('facultad_id', $facultad_id)->where('modulo_id', $idmodulo)->first();
+
+                        if($rolmodulo->rolessub == "1"){
+
+                            $result='0';
+                            $msj='No se puede registrar ya que el Usuario tiene acceso a Todos los Submodulos del Módulo seleccionado de la Facultad seleccionada';
+                            $selector='';
+            
+                            return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+            
+                        }
+                        else{
+                            if($idsubmodulo == 0){
+                                /* $borrarModulo = true;
+                                $borrarSubmodulo = true; */
+
+                                $registroRolModulo = true;
+                                $registroRolsubmodulo = true;
+
+                                $borrarSubmodulos = Rolsubmodulo::where('user_id',$id_user)->where('nivel', 1)->where('facultad_id', $facultad_id)->where('modulo_id', $idmodulo)->delete();
+                                $borrarModulos = Rolmodulo::where('user_id',$id_user)->where('nivel', 1)->where('facultad_id', $facultad_id)->where('modulo_id', $idmodulo)->delete();
+                            }
+                            else{
+                                $numSubmodulos = Rolsubmodulo::where('user_id',$id_user)->where('nivel', 1)->where('facultad_id', $facultad_id)->where('submodulo_id', $idsubmodulo)->count();
+                                $rolsubmodulo = "";
+
+                                if($numSubmodulos > 0){
+
+                                    $result='0';
+                                    $msj='No se puede registrar ya que el Usuario ya cuenta con acceso al Submódulo seleccionado';
+                                    $selector='';
+            
+                                    return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+                                }
+                                else{
+                                    $registroRolsubmodulo = true;
+                                }
+                            }
+                        }
+
+                    }
+                    else{
+                        $registroRolModulo = true;
+                        $registroRolsubmodulo = true;
+                    }
+
+                }
+            }
+
+        }
+        else{
+            $registroPermiso = true;
+            $registroRolModulo = true;
+            $registroRolsubmodulo = true;
+        }
+
+        if($registroPermiso){
+
+            $permiso = new Permiso();
+            $permiso->user_id = $id_user;
+            $permiso->facultad_id = $facultad_id;
+            $permiso->programaestudio_id = 0;
+            $permiso->nivel = 1;
+
+            if($idmodulo == "0"){
+                $permiso->roles = "1";
+            }
+            else{
+                $permiso->roles = "0";
+            }
+            
+            $permiso->save();
+        }
+
+        if($registroRolModulo && $idmodulo != "0"){
+                
+                $rolmodulo = new Rolmodulo();
+                $rolmodulo->user_id = $id_user;
+                $rolmodulo->modulo_id = $idmodulo;
+                $rolmodulo->nivel = 1;
+                $rolmodulo->facultad_id = $facultad_id;
+                $rolmodulo->programaestudio_id = 0;
+    
+                if($idsubmodulo == "0"){
+                    $rolmodulo->rolessub = "1";
+                }
+                else{
+                    $rolmodulo->rolessub = "0";
+                }
+                
+                $rolmodulo->save();
+        }
+
+        if($registroRolsubmodulo && $idmodulo != "0" && $idsubmodulo != "0"){
+                
+                $rolsubmodulo = new Rolsubmodulo();
+                $rolsubmodulo->user_id = $id_user;
+                $rolsubmodulo->submodulo_id = $idsubmodulo;
+                $rolsubmodulo->modulo_id = $idmodulo;
+                $rolsubmodulo->nivel = 1;
+                $rolsubmodulo->facultad_id = $facultad_id;
+                $rolsubmodulo->programaestudio_id = 0;
+                
+                $rolsubmodulo->save();
+        }
+
+
+        $permisos2=  DB::table('permisos')
+            ->join('facultads', 'facultads.id', '=', 'permisos.facultad_id')
+            ->where('permisos.user_id', $id_user)
+            ->where('permisos.nivel', 1)
+            ->orderBy('facultads.nombre')
+            ->select('permisos.id',
+                'permisos.facultad_id',
+                'permisos.programaestudio_id',
+                'permisos.nivel',
+                'permisos.created_at',
+                'permisos.updated_at',
+                'permisos.roles',
+                'permisos.user_id',
+                'facultads.nombre as facultad',
+                'facultads.id as idfacultad')
+                ->get();
+
+        $rolmodulos= DB::table('rolmodulos')
+            ->join('modulos', 'modulos.id', '=', 'rolmodulos.modulo_id')
+            ->where('rolmodulos.user_id', $id_user)
+            ->orderBy('rolmodulos.nivel')
+            ->orderBy('modulos.id')
+            ->orderBy('rolmodulos.id')
+            ->select('rolmodulos.id',
+            'rolmodulos.user_id',
+            'rolmodulos.modulo_id',
+            'rolmodulos.rolessub',
+            'modulos.modulo',
+            'modulos.id as idmodulo',
+            'rolmodulos.nivel',
+            'rolmodulos.facultad_id',
+            'rolmodulos.programaestudio_id')
+            ->get();
+
+            $rolsubmodulos= DB::table('rolsubmodulos')
+            ->join('submodulos', 'submodulos.id', '=', 'rolsubmodulos.submodulo_id')
+            ->where('rolsubmodulos.user_id', $id_user)
+            ->orderBy('rolsubmodulos.nivel')
+            ->orderBy('submodulos.id')
+            ->orderBy('rolsubmodulos.id')
+            ->select('rolsubmodulos.id',
+            'rolsubmodulos.nivel',
+            'rolsubmodulos.modulo_id',
+            'rolsubmodulos.submodulo_id',
+            'rolsubmodulos.user_id',
+            'submodulos.submodulo',
+            'submodulos.modulo_id as idmodulo',
+            'rolsubmodulos.facultad_id',
+            'rolsubmodulos.programaestudio_id')
+            ->get();
+
+
+            $msj = "Se ha grabado correctamente el registro de acceso";
+
+
+            return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector, 'permisos2'=>$permisos2, 'rolmodulos'=>$rolmodulos, 'rolsubmodulos'=>$rolsubmodulos]);
+
+    }
+
+    public function grabarcredenciales2(Request $request){
+
+        $result='1';
+        $msj='';
+        $selector='';
+
+        $idmodulo=$request->idmodulo;
+        $idsubmodulo=$request->idsubmodulo;
+        $id_user=$request->id_user;
+        $programaestudio_id=$request->programaestudio_id;
+
+        if ($programaestudio_id == null || strval($programaestudio_id)== "" || intval($programaestudio_id) <= 0) {
+            $result='0';
+            $msj='Debe seleccionar un programa de estudio para continuar';
+            $selector='cbuprogramaestudio_id1';
+
+            return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+        }
+
+        $borrarPermisos = false;
+        $borrarModulo = false;
+        $borrarSubmodulo = false;
+
+        $registroPermiso = false;
+        $registroRolModulo = false;
+        $registroRolsubmodulo = false;
+        
+        $numPermiso = Permiso::where('user_id',$id_user)->where('nivel', 2)->where('programaestudio_id', $programaestudio_id)->count();
+        $permiso = "";
+        
+        if($numPermiso > 0){
+            $permiso = Permiso::where('user_id',$id_user)->where('nivel', 2)->where('programaestudio_id', $programaestudio_id)->first();
+
+            if($permiso->roles == "1"){
+
+                $result='0';
+                $msj='No se puede registrar ya que el Usuario tiene acceso a Todos los Módulos del Programa de Estudio Seleccionado';
+                $selector='';
+
+                return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+
+            }
+            else{
+                if($idmodulo == 0){
+                    /* $borrarPermisos = true;
+                    $borrarModulo = true;
+                    $borrarSubmodulo = true; */
+
+                    $registroPermiso = true;
+                    $registroRolModulo = true;
+                    $registroRolsubmodulo = true;
+
+                    $borrarSubmodulos = Rolsubmodulo::where('user_id',$id_user)->where('nivel', 2)->where('programaestudio_id', $programaestudio_id)->delete();
+                    $borrarModulos = Rolmodulo::where('user_id',$id_user)->where('nivel', 2)->where('programaestudio_id', $programaestudio_id)->delete();
+                    $borrarPermisos = Permiso::where('user_id',$id_user)->where('nivel', 2)->where('programaestudio_id', $programaestudio_id)->delete();
+                }
+                else{
+                    $numModulos = Rolmodulo::where('user_id',$id_user)->where('nivel', 2)->where('programaestudio_id', $programaestudio_id)->where('modulo_id', $idmodulo)->count();
+                    $rolmodulo = "";
+
+                    if($numModulos > 0){
+
+                        $rolmodulo = Rolmodulo::where('user_id',$id_user)->where('nivel', 2)->where('programaestudio_id', $programaestudio_id)->where('modulo_id', $idmodulo)->first();
+
+                        if($rolmodulo->rolessub == "1"){
+
+                            $result='0';
+                            $msj='No se puede registrar ya que el Usuario tiene acceso a Todos los Submodulos del Módulo seleccionado del Programa de Estudio seleccionado';
+                            $selector='';
+            
+                            return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+            
+                        }
+                        else{
+                            if($idsubmodulo == 0){
+                                /* $borrarModulo = true;
+                                $borrarSubmodulo = true; */
+
+                                $registroRolModulo = true;
+                                $registroRolsubmodulo = true;
+
+                                $borrarSubmodulos = Rolsubmodulo::where('user_id',$id_user)->where('nivel', 2)->where('programaestudio_id', $programaestudio_id)->where('modulo_id', $idmodulo)->delete();
+                                $borrarModulos = Rolmodulo::where('user_id',$id_user)->where('nivel', 2)->where('programaestudio_id', $programaestudio_id)->where('modulo_id', $idmodulo)->delete();
+                            }
+                            else{
+                                $numSubmodulos = Rolsubmodulo::where('user_id',$id_user)->where('nivel', 2)->where('programaestudio_id', $programaestudio_id)->where('submodulo_id', $idsubmodulo)->count();
+                                $rolsubmodulo = "";
+
+                                if($numSubmodulos > 0){
+
+                                    $result='0';
+                                    $msj='No se puede registrar ya que el Usuario ya cuenta con acceso al Submódulo seleccionado';
+                                    $selector='';
+            
+                                    return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+                                }
+                                else{
+                                    $registroRolsubmodulo = true;
+                                }
+                            }
+                        }
+
+                    }
+                    else{
+                        $registroRolModulo = true;
+                        $registroRolsubmodulo = true;
+                    }
+
+                }
+            }
+
+        }
+        else{
+            $registroPermiso = true;
+            $registroRolModulo = true;
+            $registroRolsubmodulo = true;
+        }
+
+        if($registroPermiso){
+
+            $permiso = new Permiso();
+            $permiso->user_id = $id_user;
+            $permiso->facultad_id = 0;
+            $permiso->programaestudio_id = $programaestudio_id;
+            $permiso->nivel = 2;
+
+            if($idmodulo == "0"){
+                $permiso->roles = "1";
+            }
+            else{
+                $permiso->roles = "0";
+            }
+            
+            $permiso->save();
+        }
+
+        if($registroRolModulo && $idmodulo != "0"){
+                
+                $rolmodulo = new Rolmodulo();
+                $rolmodulo->user_id = $id_user;
+                $rolmodulo->modulo_id = $idmodulo;
+                $rolmodulo->nivel = 2;
+                $rolmodulo->facultad_id = 0;
+                $rolmodulo->programaestudio_id = $programaestudio_id;
+    
+                if($idsubmodulo == "0"){
+                    $rolmodulo->rolessub = "1";
+                }
+                else{
+                    $rolmodulo->rolessub = "0";
+                }
+                
+                $rolmodulo->save();
+        }
+
+        if($registroRolsubmodulo && $idmodulo != "0" && $idsubmodulo != "0"){
+                
+                $rolsubmodulo = new Rolsubmodulo();
+                $rolsubmodulo->user_id = $id_user;
+                $rolsubmodulo->submodulo_id = $idsubmodulo;
+                $rolsubmodulo->modulo_id = $idmodulo;
+                $rolsubmodulo->nivel = 2;
+                $rolsubmodulo->facultad_id = 0;
+                $rolsubmodulo->programaestudio_id = $programaestudio_id;
+                
+                $rolsubmodulo->save();
+        }
+
+
+        $permisos3=  DB::table('permisos')
+            ->join('programaestudios', 'programaestudios.id', '=', 'permisos.programaestudio_id')
+            ->where('permisos.user_id', $id_user)
+            ->where('permisos.nivel', 2)
+            ->orderBy('programaestudios.nombre')
+            ->select('permisos.id',
+                'permisos.facultad_id',
+                'permisos.programaestudio_id',
+                'permisos.nivel',
+                'permisos.created_at',
+                'permisos.updated_at',
+                'permisos.roles',
+                'permisos.user_id',
+                'programaestudios.nombre as programa',
+                'programaestudios.id as idPrograma')
+                ->get();
+
+        $rolmodulos= DB::table('rolmodulos')
+            ->join('modulos', 'modulos.id', '=', 'rolmodulos.modulo_id')
+            ->where('rolmodulos.user_id', $id_user)
+            ->orderBy('rolmodulos.nivel')
+            ->orderBy('modulos.id')
+            ->orderBy('rolmodulos.id')
+            ->select('rolmodulos.id',
+            'rolmodulos.user_id',
+            'rolmodulos.modulo_id',
+            'rolmodulos.rolessub',
+            'modulos.modulo',
+            'modulos.id as idmodulo',
+            'rolmodulos.nivel',
+            'rolmodulos.facultad_id',
+            'rolmodulos.programaestudio_id')
+            ->get();
+
+            $rolsubmodulos= DB::table('rolsubmodulos')
+            ->join('submodulos', 'submodulos.id', '=', 'rolsubmodulos.submodulo_id')
+            ->where('rolsubmodulos.user_id', $id_user)
+            ->orderBy('rolsubmodulos.nivel')
+            ->orderBy('submodulos.id')
+            ->orderBy('rolsubmodulos.id')
+            ->select('rolsubmodulos.id',
+            'rolsubmodulos.nivel',
+            'rolsubmodulos.modulo_id',
+            'rolsubmodulos.submodulo_id',
+            'rolsubmodulos.user_id',
+            'submodulos.submodulo',
+            'submodulos.modulo_id as idmodulo',
+            'rolsubmodulos.facultad_id',
+            'rolsubmodulos.programaestudio_id')
+            ->get();
+
+
+            $msj = "Se ha grabado correctamente el registro de acceso";
+
+
+            return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector, 'permisos3'=>$permisos3, 'rolmodulos'=>$rolmodulos, 'rolsubmodulos'=>$rolsubmodulos]);
+
     }
 }

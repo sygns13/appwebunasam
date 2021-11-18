@@ -279,6 +279,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('usuario/borrarpermiso','UserController@borrarpermiso');
     Route::post('usuario/borrarrolmodulo','UserController@borrarrolmodulo');
     Route::post('usuario/borrarrollsubmodulo','UserController@borrarrollsubmodulo');
+    Route::post('usuario/grabarcredenciales0','UserController@grabarcredenciales0');
+    Route::post('usuario/grabarcredenciales1','UserController@grabarcredenciales1');
+    Route::post('usuario/grabarcredenciales2','UserController@grabarcredenciales2');
 
 
     /*
