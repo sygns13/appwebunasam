@@ -442,7 +442,6 @@ var url='persona/buscarDNI';
 
             this.$nextTick(function () {
                 this.filluser= { 'id':'', 'name':'', 'email':'', 'activo':'','persona_id':'','tipouser_id':'','dni':'','apellidos':'','nombres':'','telefono':'','direccion':'','cargo':'','tipouser':'','modifpassword': 0 , 'password':'', 'programaestudio_id': 0, 'facultad_id': 0, 'tipouser_id_ori':'','permisos1':[], 'permisos2':[], 'permisos3':[], 'rolmodulos':[], 'rolsubmodulos':[]};
-    
             })
 
         },
@@ -948,6 +947,16 @@ var url='persona/buscarDNI';
             console.log(error);
         })
     },
+
+    cerrarFormPermisos: function() {
+
+        this.divPermisos=false;
+
+        this.$nextTick(function () {
+            this.filluser= { 'id':'', 'name':'', 'email':'', 'activo':'','persona_id':'','tipouser_id':'','dni':'','apellidos':'','nombres':'','telefono':'','direccion':'','cargo':'','tipouser':'','modifpassword': 0 , 'password':'', 'programaestudio_id': 0, 'facultad_id': 0, 'tipouser_id_ori':'','permisos1':[], 'permisos2':[], 'permisos3':[], 'rolmodulos':[], 'rolsubmodulos':[]};
+        })
+        
+    }
     
     
 

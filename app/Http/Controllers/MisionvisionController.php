@@ -18,6 +18,10 @@ use Storage;
 
 use Image;
 
+use App\Permiso;
+use App\Rolmodulo;
+use App\Rolsubmodulo;
+
 class MisionvisionController extends Controller
 {
     /**
@@ -27,7 +31,15 @@ class MisionvisionController extends Controller
      */
     public function index0()
     {
-        if(accesoUser([1,2,3])){
+        $permisos=Permiso::where('user_id',Auth::user()->id)->get();
+        $rolModulos=Rolmodulo::where('user_id',Auth::user()->id)->get();
+        $rolSubModulos=Rolsubmodulo::where('user_id',Auth::user()->id)->get();
+
+        $nivel = 0;
+        $modulo = 2;
+        $submodulo = 12;
+
+        if(accesoUser([1,2]) || (accesoUser([3]) && accesoModulo($permisos, $rolModulos, $rolSubModulos, $nivel, $modulo, $submodulo))){
 
 
             $idtipouser=Auth::user()->tipouser_id;
@@ -35,7 +47,7 @@ class MisionvisionController extends Controller
 
             $modulo="misionvisionportal";
 
-            return view('paginasportal.misionvision.index',compact('tipouser','modulo'));
+            return view('paginasportal.misionvision.index',compact('tipouser','modulo','permisos','rolModulos','rolSubModulos'));
         }
         else
         {

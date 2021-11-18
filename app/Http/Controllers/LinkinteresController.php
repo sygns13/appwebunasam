@@ -20,6 +20,9 @@ use Storage;
 
 use Image;
 
+use App\Permiso;
+use App\Rolmodulo;
+use App\Rolsubmodulo;
 
 class LinkinteresController extends Controller
 {
@@ -30,7 +33,15 @@ class LinkinteresController extends Controller
      */
     public function index0()
     {
-        if(accesoUser([1,2,3])){
+        $permisos=Permiso::where('user_id',Auth::user()->id)->get();
+        $rolModulos=Rolmodulo::where('user_id',Auth::user()->id)->get();
+        $rolSubModulos=Rolsubmodulo::where('user_id',Auth::user()->id)->get();
+
+        $nivel = 0;
+        $modulo = 1;
+        $submodulo = 10;
+
+        if(accesoUser([1,2]) || (accesoUser([3]) && accesoModulo($permisos, $rolModulos, $rolSubModulos, $nivel, $modulo, $submodulo))){
 
 
             $idtipouser=Auth::user()->tipouser_id;
@@ -38,7 +49,7 @@ class LinkinteresController extends Controller
 
             $modulo="linkinteresportal";
 
-            return view('adminportal.linkinteres.index',compact('tipouser','modulo'));
+            return view('adminportal.linkinteres.index',compact('tipouser','modulo','permisos','rolModulos','rolSubModulos'));
         }
         else
         {

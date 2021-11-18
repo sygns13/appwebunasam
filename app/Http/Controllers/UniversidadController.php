@@ -19,6 +19,11 @@ use DB;
 use Storage;
 set_time_limit(600);
 
+use App\Permiso;
+use App\Rolmodulo;
+use App\Rolsubmodulo;
+
+
 class UniversidadController extends Controller
 {
     /**
@@ -29,7 +34,16 @@ class UniversidadController extends Controller
 
     public function index0()
     {
-        if(accesoUser([1,2,3])){
+
+        $permisos=Permiso::where('user_id',Auth::user()->id)->get();
+        $rolModulos=Rolmodulo::where('user_id',Auth::user()->id)->get();
+        $rolSubModulos=Rolsubmodulo::where('user_id',Auth::user()->id)->get();
+
+        $nivel = 0;
+        $modulo = 1;
+        $submodulo = 1;
+
+        if(accesoUser([1,2]) || (accesoUser([3]) && accesoModulo($permisos, $rolModulos, $rolSubModulos, $nivel, $modulo, $submodulo))){
 
 
             $idtipouser=Auth::user()->tipouser_id;
@@ -37,7 +51,7 @@ class UniversidadController extends Controller
 
             $modulo="configuracion";
 
-            return view('adminportal.configuracion.index',compact('tipouser','modulo'));
+            return view('adminportal.configuracion.index',compact('tipouser','modulo','permisos','rolModulos','rolSubModulos'));
         }
         else
         {
@@ -47,15 +61,22 @@ class UniversidadController extends Controller
 
     public function index1()
     {
-        if(accesoUser([1,2,3])){
+        $permisos=Permiso::where('user_id',Auth::user()->id)->get();
+        $rolModulos=Rolmodulo::where('user_id',Auth::user()->id)->get();
+        $rolSubModulos=Rolsubmodulo::where('user_id',Auth::user()->id)->get();
 
+        $nivel = 0;
+        $modulo = 1;
+        $submodulo = 4;
+
+        if(accesoUser([1,2]) || (accesoUser([3]) && accesoModulo($permisos, $rolModulos, $rolSubModulos, $nivel, $modulo, $submodulo))){
 
             $idtipouser=Auth::user()->tipouser_id;
             $tipouser=Tipouser::find($idtipouser);
 
             $modulo="datosunasam";
 
-            return view('adminportal.datosunasam.index',compact('tipouser','modulo'));
+            return view('adminportal.datosunasam.index',compact('tipouser','modulo','permisos','rolModulos','rolSubModulos'));
         }
         else
         {

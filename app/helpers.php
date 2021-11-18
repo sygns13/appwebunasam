@@ -44,6 +44,36 @@ function accesoUser($array=[])
 	}
 
 
+function accesoModulo($permisos, $rolModulos, $rolSubModulos, $nivel, $modulo, $submodulo){
+
+    foreach ($permisos as $permiso) {
+
+        if($permiso->nivel == $nivel && $permiso->roles == 1){
+            return true;
+        }
+        elseif($permiso->nivel == $nivel && $permiso->roles == 0){
+            foreach ($rolModulos as $rolModulo) {
+                if($rolModulo->modulo_id == $modulo && $rolModulo->nivel == $nivel && $rolModulo->rolessub == 1){
+                    return true;
+                }
+                elseif($rolModulo->modulo_id == $modulo && $rolModulo->nivel == $nivel && $rolModulo->rolessub == 0){
+                    foreach ($rolSubModulos as $rolSubModulo) {
+                        if($rolSubModulo->submodulo_id == $submodulo && $rolSubModulo->nivel == $nivel && $rolSubModulo->modulo_id == $modulo){
+                            return true;
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
+    return false;
+
+
+}
+
+
 
 
 function pasFechaBD($fecha)

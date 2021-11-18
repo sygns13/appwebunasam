@@ -19,6 +19,10 @@ use Storage;
 
 use Image;
 
+use App\Permiso;
+use App\Rolmodulo;
+use App\Rolsubmodulo;
+
 class EventoController extends Controller
 {
     /**
@@ -28,7 +32,15 @@ class EventoController extends Controller
      */
     public function index0()
     {
-        if(accesoUser([1,2,3])){
+        $permisos=Permiso::where('user_id',Auth::user()->id)->get();
+        $rolModulos=Rolmodulo::where('user_id',Auth::user()->id)->get();
+        $rolSubModulos=Rolsubmodulo::where('user_id',Auth::user()->id)->get();
+
+        $nivel = 0;
+        $modulo = 1;
+        $submodulo = 6;
+
+        if(accesoUser([1,2]) || (accesoUser([3]) && accesoModulo($permisos, $rolModulos, $rolSubModulos, $nivel, $modulo, $submodulo))){
 
 
             $idtipouser=Auth::user()->tipouser_id;
@@ -38,7 +50,7 @@ class EventoController extends Controller
 
             $modulo="eventoportal";
 
-            return view('adminportal.evento.index',compact('tipouser','modulo','fecha'));
+            return view('adminportal.evento.index',compact('tipouser','modulo','fecha','permisos','rolModulos','rolSubModulos'));
         }
         else
         {

@@ -48,11 +48,16 @@ class UserController extends Controller
 
             $facultads = Facultad::orderBy('nombre')->where('borrado','0')->get();
             $programaestudios = Programaestudio::orderBy('id')->where('borrado','0')->get();
-            $modulos = Modulo::orderBy('id')->where('borrado','0')->get();
-            $submodulos=Submodulo::orderBy('id')->where('borrado','0')->get();
+
+            $modulos = Modulo::orderBy('id')->where('borrado','0')->where('activo','1')->get();
+            $submodulos=Submodulo::orderBy('id')->where('borrado','0')->where('activo','1')->get();
+
+            $permisos=Permiso::where('user_id',Auth::user()->id)->get();
+            $rolModulos=Rolmodulo::where('user_id',Auth::user()->id)->get();
+            $rolSubModulos=Rolsubmodulo::where('user_id',Auth::user()->id)->get();
 
 
-            return view('usuario.index',compact('tipouser','modulo','tipousers','facultads','programaestudios','modulos','submodulos'));
+            return view('usuario.index',compact('tipouser','modulo','tipousers','facultads','programaestudios','modulos','submodulos','permisos','rolModulos','rolSubModulos'));
         }
         else
         {
@@ -68,10 +73,14 @@ class UserController extends Controller
             $idtipouser=Auth::user()->tipouser_id;
             $tipouser=Tipouser::find($idtipouser);
 
+            $permisos=Permiso::where('user_id',Auth::user()->id)->get();
+            $rolModulos=Rolmodulo::where('user_id',Auth::user()->id)->get();
+            $rolSubModulos=Rolsubmodulo::where('user_id',Auth::user()->id)->get();
+
 
 
             $modulo="miperfil";
-            return view('miperfil.index',compact('tipouser','modulo'));
+            return view('miperfil.index',compact('tipouser','modulo','permisos','rolModulos','rolSubModulos'));
         }
         else
         {
@@ -923,6 +932,8 @@ class UserController extends Controller
         //$task->delete();
 
         $borrarUsuario->borrado='1';
+        $borrarUsuario->password='---';
+        $borrarUsuario->name='--borrado--'.$borrarUsuario->name;
 
         $borrarUsuario->save();
 
@@ -1045,6 +1056,8 @@ class UserController extends Controller
                 'programaestudios.id as idPrograma')
                 ->get();
 
+                $msj='Se eliminó exitosamente la credencial de acceso';
+
 
 
         return response()->json(["permisos1"=>$permisos1, "permisos2"=>$permisos2, "permisos3"=>$permisos3, "result"=>$result,'msj'=>$msj,'selector'=>$selector]);
@@ -1113,6 +1126,8 @@ class UserController extends Controller
             'rolsubmodulos.programaestudio_id')
             ->get();
 
+            $msj='Se eliminó exitosamente la credencial de acceso';
+
             return response()->json(["rolmodulos"=>$rolmodulos, "rolsubmodulos"=>$rolsubmodulos, "result"=>$result,'msj'=>$msj,'selector'=>$selector]);
     }
 
@@ -1149,6 +1164,8 @@ class UserController extends Controller
         'rolsubmodulos.facultad_id',
         'rolsubmodulos.programaestudio_id')
         ->get();
+
+        $msj='Se eliminó exitosamente la credencial de acceso';
 
         return response()->json(["rolsubmodulos"=>$rolsubmodulos, "result"=>$result,'msj'=>$msj,'selector'=>$selector]);
     }

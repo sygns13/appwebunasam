@@ -19,6 +19,10 @@ use Storage;
 
 use Image;
 
+use App\Permiso;
+use App\Rolmodulo;
+use App\Rolsubmodulo;
+
 class OrganoController extends Controller
 {
     /**
@@ -28,7 +32,15 @@ class OrganoController extends Controller
      */
     public function index01()
     {
-        if(accesoUser([1,2,3])){
+        $permisos=Permiso::where('user_id',Auth::user()->id)->get();
+        $rolModulos=Rolmodulo::where('user_id',Auth::user()->id)->get();
+        $rolSubModulos=Rolsubmodulo::where('user_id',Auth::user()->id)->get();
+
+        $nivel = 0;
+        $modulo = 2;
+        $submodulo = 13;
+
+        if(accesoUser([1,2]) || (accesoUser([3]) && accesoModulo($permisos, $rolModulos, $rolSubModulos, $nivel, $modulo, $submodulo))){
 
 
             $idtipouser=Auth::user()->tipouser_id;
@@ -36,7 +48,7 @@ class OrganoController extends Controller
 
             $modulo="rector";
 
-            return view('paginasportal.organo1.index',compact('tipouser','modulo'));
+            return view('paginasportal.organo1.index',compact('tipouser','modulo','permisos','rolModulos','rolSubModulos'));
         }
         else
         {
@@ -45,7 +57,16 @@ class OrganoController extends Controller
     }
     public function index02()
     {
-        if(accesoUser([1,2,3])){
+
+        $permisos=Permiso::where('user_id',Auth::user()->id)->get();
+        $rolModulos=Rolmodulo::where('user_id',Auth::user()->id)->get();
+        $rolSubModulos=Rolsubmodulo::where('user_id',Auth::user()->id)->get();
+
+        $nivel = 0;
+        $modulo = 2;
+        $submodulo = 14;
+
+        if(accesoUser([1,2]) || (accesoUser([3]) && accesoModulo($permisos, $rolModulos, $rolSubModulos, $nivel, $modulo, $submodulo))){
 
 
             $idtipouser=Auth::user()->tipouser_id;
@@ -53,7 +74,7 @@ class OrganoController extends Controller
 
             $modulo="vicerrector1";
 
-            return view('paginasportal.organo2.index',compact('tipouser','modulo'));
+            return view('paginasportal.organo2.index',compact('tipouser','modulo','permisos','rolModulos','rolSubModulos'));
         }
         else
         {
@@ -62,7 +83,15 @@ class OrganoController extends Controller
     }
     public function index03()
     {
-        if(accesoUser([1,2,3])){
+        $permisos=Permiso::where('user_id',Auth::user()->id)->get();
+        $rolModulos=Rolmodulo::where('user_id',Auth::user()->id)->get();
+        $rolSubModulos=Rolsubmodulo::where('user_id',Auth::user()->id)->get();
+
+        $nivel = 0;
+        $modulo = 2;
+        $submodulo = 15;
+
+        if(accesoUser([1,2]) || (accesoUser([3]) && accesoModulo($permisos, $rolModulos, $rolSubModulos, $nivel, $modulo, $submodulo))){
 
 
             $idtipouser=Auth::user()->tipouser_id;
@@ -70,7 +99,7 @@ class OrganoController extends Controller
 
             $modulo="vicerrector2";
 
-            return view('paginasportal.organo3.index',compact('tipouser','modulo'));
+            return view('paginasportal.organo3.index',compact('tipouser','modulo','permisos','rolModulos','rolSubModulos'));
         }
         else
         {
@@ -79,7 +108,16 @@ class OrganoController extends Controller
     }
     public function index04()
     {
-        if(accesoUser([1,2,3])){
+
+        $permisos=Permiso::where('user_id',Auth::user()->id)->get();
+        $rolModulos=Rolmodulo::where('user_id',Auth::user()->id)->get();
+        $rolSubModulos=Rolsubmodulo::where('user_id',Auth::user()->id)->get();
+
+        $nivel = 0;
+        $modulo = 2;
+        $submodulo = 16;
+
+        if(accesoUser([1,2]) || (accesoUser([3]) && accesoModulo($permisos, $rolModulos, $rolSubModulos, $nivel, $modulo, $submodulo))){
 
 
             $idtipouser=Auth::user()->tipouser_id;
@@ -87,7 +125,7 @@ class OrganoController extends Controller
 
             $modulo="asambleau";
 
-            return view('paginasportal.organo4.index',compact('tipouser','modulo'));
+            return view('paginasportal.organo4.index',compact('tipouser','modulo','permisos','rolModulos','rolSubModulos'));
         }
         else
         {
@@ -96,7 +134,16 @@ class OrganoController extends Controller
     }
     public function index05()
     {
-        if(accesoUser([1,2,3])){
+
+        $permisos=Permiso::where('user_id',Auth::user()->id)->get();
+        $rolModulos=Rolmodulo::where('user_id',Auth::user()->id)->get();
+        $rolSubModulos=Rolsubmodulo::where('user_id',Auth::user()->id)->get();
+
+        $nivel = 0;
+        $modulo = 2;
+        $submodulo = 17;
+
+        if(accesoUser([1,2]) || (accesoUser([3]) && accesoModulo($permisos, $rolModulos, $rolSubModulos, $nivel, $modulo, $submodulo))){
 
 
             $idtipouser=Auth::user()->tipouser_id;
@@ -104,7 +151,7 @@ class OrganoController extends Controller
 
             $modulo="concejou";
 
-            return view('paginasportal.organo5.index',compact('tipouser','modulo'));
+            return view('paginasportal.organo5.index',compact('tipouser','modulo','permisos','rolModulos','rolSubModulos'));
         }
         else
         {

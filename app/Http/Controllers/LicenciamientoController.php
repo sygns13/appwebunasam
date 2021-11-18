@@ -20,6 +20,9 @@ use Storage;
 
 use Image;
 
+use App\Permiso;
+use App\Rolmodulo;
+use App\Rolsubmodulo;
 class LicenciamientoController extends Controller
 {
     /**
@@ -30,7 +33,15 @@ class LicenciamientoController extends Controller
 
     public function index01()
     {
-        if(accesoUser([1,2,3])){
+        $permisos=Permiso::where('user_id',Auth::user()->id)->get();
+        $rolModulos=Rolmodulo::where('user_id',Auth::user()->id)->get();
+        $rolSubModulos=Rolsubmodulo::where('user_id',Auth::user()->id)->get();
+
+        $nivel = 0;
+        $modulo = 2;
+        $submodulo = 20;
+
+        if(accesoUser([1,2]) || (accesoUser([3]) && accesoModulo($permisos, $rolModulos, $rolSubModulos, $nivel, $modulo, $submodulo))){
 
 
             $idtipouser=Auth::user()->tipouser_id;
@@ -38,7 +49,7 @@ class LicenciamientoController extends Controller
 
             $modulo="licenciamientoportal";
 
-            return view('paginasportal.licenciamiento.index',compact('tipouser','modulo'));
+            return view('paginasportal.licenciamiento.index',compact('tipouser','modulo', 'permisos','rolModulos','rolSubModulos'));
         }
         else
         {
@@ -48,7 +59,15 @@ class LicenciamientoController extends Controller
 
     public function index02()
     {
-        if(accesoUser([1,2,3])){
+        $permisos=Permiso::where('user_id',Auth::user()->id)->get();
+        $rolModulos=Rolmodulo::where('user_id',Auth::user()->id)->get();
+        $rolSubModulos=Rolsubmodulo::where('user_id',Auth::user()->id)->get();
+
+        $nivel = 0;
+        $modulo = 2;
+        $submodulo = 21;
+
+        if(accesoUser([1,2]) || (accesoUser([3]) && accesoModulo($permisos, $rolModulos, $rolSubModulos, $nivel, $modulo, $submodulo))){
 
 
             $idtipouser=Auth::user()->tipouser_id;
@@ -56,7 +75,7 @@ class LicenciamientoController extends Controller
 
             $modulo="acreditacionportal";
 
-            return view('paginasportal.acreditacion.index',compact('tipouser','modulo'));
+            return view('paginasportal.acreditacion.index',compact('tipouser','modulo', 'permisos','rolModulos','rolSubModulos'));
         }
         else
         {

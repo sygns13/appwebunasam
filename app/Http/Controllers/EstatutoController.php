@@ -21,6 +21,9 @@ use Storage;
 
 use Image;
 
+use App\Permiso;
+use App\Rolmodulo;
+use App\Rolsubmodulo;
 
 class EstatutoController extends Controller
 {
@@ -32,7 +35,15 @@ class EstatutoController extends Controller
 
     public function index0()
     {
-        if(accesoUser([1,2,3])){
+        $permisos=Permiso::where('user_id',Auth::user()->id)->get();
+        $rolModulos=Rolmodulo::where('user_id',Auth::user()->id)->get();
+        $rolSubModulos=Rolsubmodulo::where('user_id',Auth::user()->id)->get();
+
+        $nivel = 0;
+        $modulo = 2;
+        $submodulo = 19;
+
+        if(accesoUser([1,2]) || (accesoUser([3]) && accesoModulo($permisos, $rolModulos, $rolSubModulos, $nivel, $modulo, $submodulo))){
 
 
             $idtipouser=Auth::user()->tipouser_id;
@@ -40,7 +51,7 @@ class EstatutoController extends Controller
 
             $modulo="estatutoportal";
 
-            return view('paginasportal.estatuto.index',compact('tipouser','modulo'));
+            return view('paginasportal.estatuto.index',compact('tipouser','modulo','permisos','rolModulos','rolSubModulos'));
         }
         else
         {

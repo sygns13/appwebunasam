@@ -177,7 +177,7 @@
       </div>
       
 
-      <div class="col-md-12" style="padding-top: 15px;" v-if="parseInt(filluser.modifpassword)==2">
+      <div class="col-md-12" style="padding-top: 15px;" v-if="parseInt(filluser.modifpassword)==1">
         <div class="form-group">
           <label for="txtpasswordE" class="col-sm-2 control-label">Password:*</label>
           <div class="col-sm-4">

@@ -578,6 +578,9 @@
     <!-- /.box-body -->
     <div class="box-footer">
 
+      <button type="button" class="btn btn-danger" id="btnClosepermiso" @click.prevent="cerrarFormPermisos()"><span
+        class="fa fa-power-off"></span> Cerrar</button>
+
     </div>
     <!-- /.box-footer -->
   

@@ -15,8 +15,10 @@ use Auth;
 
 use App\Modulo;
 use App\Submodulo;
-use App\Permisomodulo;
-use App\Permisossubmodulo;
+
+use App\Permiso;
+use App\Rolmodulo;
+use App\Rolsubmodulo;
 
 /**
  * Class HomeController
@@ -46,6 +48,14 @@ class HomeController extends Controller
         $tipouser=Tipouser::find($idtipouser);
         $modulo="inicioAdmin";
 
-        return view('inicio.home',compact('tipouser','modulo','iduser'));
+        $permisos=Permiso::where('user_id',Auth::user()->id)->get();
+        $rolModulos=Rolmodulo::where('user_id',Auth::user()->id)->get();
+        $rolSubModulos=Rolsubmodulo::where('user_id',Auth::user()->id)->get();
+
+        //return var_dump($permisos);
+
+       // return Auth::user()->id;
+
+        return view('inicio.home',compact('tipouser','modulo','iduser','permisos','rolModulos','rolSubModulos'));
     }
 }

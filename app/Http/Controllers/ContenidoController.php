@@ -19,6 +19,9 @@ use Storage;
 
 use Image;
 
+use App\Permiso;
+use App\Rolmodulo;
+use App\Rolsubmodulo;
 class ContenidoController extends Controller
 {
     /**
@@ -28,7 +31,15 @@ class ContenidoController extends Controller
      */
     public function index01()
     {
-        if(accesoUser([1,2,3])){
+        $permisos=Permiso::where('user_id',Auth::user()->id)->get();
+        $rolModulos=Rolmodulo::where('user_id',Auth::user()->id)->get();
+        $rolSubModulos=Rolsubmodulo::where('user_id',Auth::user()->id)->get();
+
+        $nivel = 0;
+        $modulo = 2;
+        $submodulo = 22;
+
+        if(accesoUser([1,2]) || (accesoUser([3]) && accesoModulo($permisos, $rolModulos, $rolSubModulos, $nivel, $modulo, $submodulo))){
 
 
             $idtipouser=Auth::user()->tipouser_id;
@@ -36,7 +47,7 @@ class ContenidoController extends Controller
 
             $modulo="himno";
 
-            return view('paginasportal.contenido1.index',compact('tipouser','modulo'));
+            return view('paginasportal.contenido1.index',compact('tipouser','modulo', 'permisos','rolModulos','rolSubModulos'));
         }
         else
         {
