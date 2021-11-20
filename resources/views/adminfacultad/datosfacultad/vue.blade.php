@@ -3,7 +3,7 @@
  let app = new Vue({
     el: '#app',
     data:{
-        titulo:"Portal Web FEC",
+        titulo:"Portal Web Facultades",
         subtitulo: "Datos de Contacto",
         subtitulo2: "Principal",
 
@@ -62,9 +62,15 @@
 
         divprincipal:false,
 
+        //seccion facultades
+        nivel : 1,
+        facultad:'',
+        facultad_id: 0,
+        tipo_vista: 1,
+
     },
     created:function () {
-        this.getDatos(this.thispage);
+        //this.getDatos(this.thispage);
     },
     mounted: function () {
         $("#divtitulo").show('slow');
@@ -132,7 +138,7 @@
 
         getDatos: function (page) {
             var busca=this.buscar;
-            var url = '/intranet/datosfecre';
+            var url = '/intranet/datosfacre?v1='+this.facultad_id;
 
             axios.get(url).then(response=>{
 
@@ -175,13 +181,17 @@
         },
 
         grabar:function (tipo) {
-            var url='/intranet/datosfecre';
+            var url='/intranet/datosfacre';
 
             $("#btnGuardar1").attr('disabled', true);
             $("#btnGuardar2").attr('disabled', true);
             $("#btnGuardar3").attr('disabled', true);
 
             this.divloaderNuevo=true;
+
+            var v1 = this.nivel;
+            var v2 = this.facultad_id;
+            var v3 = 0;
 
              var data = new  FormData();
 
@@ -192,6 +202,9 @@
             data.append('telefono', this.telefono);
             data.append('email', this.email);
             data.append('tipo', tipo);
+            data.append('v1', v1);
+            data.append('v2', v2);
+            data.append('v3', v3);
 
 
             const config = { headers: { 'Content-Type': 'multipart/form-data' } };
@@ -217,6 +230,18 @@
                 this.errors=error.response.data
             })
         },  
+
+        //Modificaciones Facultades
+        irAtras:function(){
+            this.facultad_id = 0;
+            this.facultad = '';
+            this.divNuevo = false;
+            this.divNuevoLogo = false;
+        },
+        cambioFacultad:function(){
+            this.facultad = $('#cbufacultad_id option:selected').html();
+            this.getDatos(this.thispage);
+        },
 
 }
 });

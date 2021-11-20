@@ -1,7 +1,7 @@
 @extends('adminlte::layouts.app')
 
 @section('htmlheader_title')
-Gestión de Datos de Contacto del Portal Web Facultad
+Gestión de Datos de Contacto de las Facultades
 @endsection
 
 <style type="text/css">         

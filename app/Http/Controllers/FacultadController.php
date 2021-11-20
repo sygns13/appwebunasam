@@ -69,20 +69,42 @@ class FacultadController extends Controller
 
     public function index1()
     {
-        if(accesoUser([1,2,3])){
+        $permisos=Permiso::where('user_id',Auth::user()->id)->get();
+        $rolModulos=Rolmodulo::where('user_id',Auth::user()->id)->get();
+        $rolSubModulos=Rolsubmodulo::where('user_id',Auth::user()->id)->get();
+
+        $nivel = 1;
+        $modulo = 4;
+        $submodulo = 27;
+
+        if(accesoUser([1,2]) || (accesoUser([3,4]) && accesoModulo($permisos, $rolModulos, $rolSubModulos, $nivel, $modulo, $submodulo))){
 
 
             $idtipouser=Auth::user()->tipouser_id;
             $tipouser=Tipouser::find($idtipouser);
+            $facultads = [];
 
             $modulo="datosfacultad";
 
-            return view('adminfacultad.datosfacultad.index',compact('tipouser','modulo'));
+            if(accesoUser([1,2])){
+                $facultads = Facultad::orderBy('nombre')->where('borrado','0')->get();
+            }
+            else{
+                foreach ($permisos as $key => $dato) {
+                    if($dato->nivel == $nivel){
+                        $facultad = Facultad::find($dato->facultad_id);
+                        array_push($facultads, $facultad);
+                    } 
+                }
+            }
+
+            return view('adminfacultad.datosfacultad.index',compact('tipouser','modulo', 'permisos','rolModulos','rolSubModulos','facultads'));
         }
         else
         {
             return redirect('home');    
         }
+
     }
 
     public function index(Request $request)
@@ -127,6 +149,10 @@ class FacultadController extends Controller
         $selector='';
 
         $pasaValidacion = true;
+
+        $nivel=$request->v1;
+        $facultad_id=$request->v2;
+        $programaestudio_id=$request->v3;
 
         if(intval($tipo) == 1)
         {
@@ -210,7 +236,7 @@ class FacultadController extends Controller
 
         if($pasaValidacion){
 
-            $facultad = Facultad::find(1);
+            $facultad = Facultad::find($facultad_id);
 
             if(intval($tipo) == 1){
                 $facultad->nombre = $nombre;
