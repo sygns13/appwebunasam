@@ -1,7 +1,7 @@
 @extends('adminlte::layouts.app')
 
 @section('htmlheader_title')
-Gestión de Redes Sociales del Portal Web Facultad
+Gestión de Redes Sociales de las Facultades
 @endsection
 
 <style type="text/css">         

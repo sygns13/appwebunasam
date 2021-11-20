@@ -2,7 +2,7 @@
  let app = new Vue({
     el: '#app',
     data:{
-        titulo:"Portal Web FEC",
+        titulo:"Portal Web Facultades",
         subtitulo: "Gestión de Redes Sociales",
         subtitulo2: "Principal",
 
@@ -84,10 +84,16 @@
         oldImg:'',
         image:'',
 
+        //seccion facultades
+        nivel : 1,
+        facultad:'',
+        facultad_id: 0,
+        tipo_vista: 1,
+
 
     },
     created:function () {
-        this.getDatos(this.thispage);
+        //this.getDatos(this.thispage);
 
         
     },
@@ -157,7 +163,10 @@
 
         getDatos: function (page) {
             var busca=this.buscar;
-            var url = '/intranet/redessolicalesre?page='+page+'&busca='+busca;
+            var v1 = this.nivel;
+            var v2 = this.facultad_id;
+            var v3 = 0;
+            var url = '/intranet/redessolicalesre?page='+page+'&busca='+busca+'&v1='+v1+'&v2='+v2+'&v3='+v3;
 
             axios.get(url).then(response=>{
 
@@ -230,6 +239,10 @@
 
             this.divloaderNuevo=true;
 
+            var v1 = this.nivel;
+            var v2 = this.facultad_id;
+            var v3 = 0;
+
 
             var data = new  FormData();
 
@@ -238,6 +251,9 @@
             data.append('url', this.url);
             data.append('activo', this.activo);
             data.append('imagen', this.imagen);
+            data.append('v1', v1);
+            data.append('v2', v2);
+            data.append('v3', v3);
 
 
             const config = { headers: { 'Content-Type': 'multipart/form-data' } };
@@ -341,6 +357,8 @@
             this.divloaderEdit=true;
 
             this.fillobject.oldImg= this.oldImg;
+            var v1 = this.nivel;
+            var v2 = this.facultad_id;
 
             var data = new  FormData();
 
@@ -352,6 +370,7 @@
 
             data.append('imagen', this.imagenE);
             data.append('oldimg', this.fillobject.oldImg);
+            data.append('v1', v1);
 
             data.append('_method', 'PUT');
 
@@ -432,6 +451,18 @@
             }
         }).catch(swal.noop);
       },
+
+      //Modificaciones Facultades
+      irAtras:function(){
+            this.facultad_id = 0;
+            this.facultad = '';
+            this.divNuevo = false;
+            this.divNuevoLogo = false;
+        },
+        cambioFacultad:function(){
+            this.facultad = $('#cbufacultad_id option:selected').html();
+            this.getDatos(this.thispage);
+        },
     
 
 }
