@@ -22,6 +22,10 @@ use App\Permiso;
 use App\Rolmodulo;
 use App\Rolsubmodulo;
 
+use App\Facultad;
+
+
+
 class BannerController extends Controller
 {
     /**

@@ -66,7 +66,7 @@
     <h3 class="box-title" id="tituloAgregar">Gestión del Diseño de la @{{facultad}}
     </h3>
   </div>
-  @include('adminportal.configuracion.formulario')  
+  @include('adminfacultad.configuracion.formulario')  
 </div>
 
 <div class="box box-success" v-if="divNuevoLogo && facultad_id!=0">
@@ -74,7 +74,7 @@
     <h3 class="box-title" id="tituloAgregar">Gestión del Logo de la @{{facultad}}
     </h3>
   </div>
-  @include('adminportal.configuracion.formulariologo')  
+  @include('adminfacultad.configuracion.formulariologo')  
 </div>
 
 
@@ -111,7 +111,7 @@
           <label for="txttitulo" class="col-sm-2 control-label">Logo del Portal:</label>
           <div class="col-sm-10">
             <template  v-if="fillobject.logourl != null && fillobject.logourl.trim()!=''">
-              <img src="" height="60" class="img-responsive" alt="Imagen del Logo" id="imgInformacion">
+              <img src="" style="max-height: 100px;" class="img-responsive" alt="Imagen del Logo" id="imgInformacion">
             </template>
             <template v-else>
               No registrado

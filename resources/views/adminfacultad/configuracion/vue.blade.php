@@ -98,7 +98,7 @@ Vue.component('ckeditor1', {
         divtitulo:true,
         classTitle:'fa fa-list-alt',
         classMenu0:'',
-        classMenu1:'',
+        classMenu1:'active',
         classMenu2:'',
         classMenu3:'',
         classMenu4:'',
@@ -107,7 +107,7 @@ Vue.component('ckeditor1', {
         classMenu7:'',
         classMenu8:'',
         classMenu9:'',
-        classMenu10:'active',
+        classMenu10:'',
         classMenu11:'',
         classMenu12:'',
 

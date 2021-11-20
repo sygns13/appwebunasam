@@ -2,7 +2,7 @@
  let app = new Vue({
     el: '#app',
     data:{
-        titulo:"Portal Web FEC",
+        titulo:"Portal Web Facultades",
         subtitulo: "Gestión de Banners",
         subtitulo2: "Principal",
 
@@ -84,10 +84,16 @@
         oldImg:'',
         image:'',
 
+        //seccion facultades
+        nivel : 1,
+        facultad:'',
+        facultad_id: 0,
+        tipo_vista: 1,
+
 
     },
     created:function () {
-        this.getDatos(this.thispage);
+        //this.getDatos(this.thispage);
 
         
     },
@@ -157,7 +163,10 @@
 
         getDatos: function (page) {
             var busca=this.buscar;
-            var url = '/intranet/bannerre?page='+page+'&busca='+busca;
+            var v1 = this.nivel;
+            var v2 = this.facultad_id;
+            var v3 = 0;
+            var url = '/intranet/bannerre?page='+page+'&busca='+busca+'&v1='+v1+'&v2='+v2+'&v3='+v3;
 
             axios.get(url).then(response=>{
 
@@ -230,6 +239,10 @@
 
             this.divloaderNuevo=true;
 
+            var v1 = this.nivel;
+            var v2 = this.facultad_id;
+            var v3 = 0;
+
 
             var data = new  FormData();
 
@@ -238,6 +251,9 @@
             data.append('url', this.url);
             data.append('activo', this.activo);
             data.append('imagen', this.imagen);
+            data.append('v1', v1);
+            data.append('v2', v2);
+            data.append('v3', v3);
 
 
             const config = { headers: { 'Content-Type': 'multipart/form-data' } };
@@ -341,6 +357,7 @@
             this.divloaderEdit=true;
 
             this.fillobject.oldImg= this.oldImg;
+            var v1 = this.nivel;
 
             var data = new  FormData();
 
@@ -352,6 +369,7 @@
 
             data.append('imagen', this.imagenE);
             data.append('oldimg', this.fillobject.oldImg);
+            data.append('v1', v1);
 
             data.append('_method', 'PUT');
 
@@ -382,7 +400,7 @@
         baja:function (dato) {
           swal.fire({
               title: '¿Estás seguro?',
-              text: "Nota: Si se desactiva el Banner, No se mostrará en el Portal Web, hasta que sea activado nuevamente",
+              text: "Nota: Si se desactiva el Banner, No se mostrará en el Portal Web de la Facultad, hasta que sea activado nuevamente",
               type: 'info',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
@@ -409,7 +427,7 @@
       alta:function (dato) {
           swal.fire({
               title: '¿Estás seguro?',
-              text: "Nota: Si activa el Banner, se mostrará en el Portal Web en el número de su posición",
+              text: "Nota: Si activa el Banner, se mostrará en el Portal Web de la Facultad en el número de su posición",
               type: 'info',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
@@ -432,6 +450,18 @@
             }
         }).catch(swal.noop);
       },
+
+      //Modificaciones Facultades
+      irAtras:function(){
+            this.facultad_id = 0;
+            this.facultad = '';
+            this.divNuevo = false;
+            this.divNuevoLogo = false;
+        },
+        cambioFacultad:function(){
+            this.facultad = $('#cbufacultad_id option:selected').html();
+            this.getDatos(this.thispage);
+        },
     
 
 }

@@ -67,7 +67,7 @@
           <label for="txttitulo" class="col-sm-2 control-label">Logo del Portal:</label>
           <div class="col-sm-10">
             <template  v-if="fillobject.logourl != null && fillobject.logourl.trim()!=''">
-              <img src="" height="60" class="img-responsive" alt="Imagen del Logo" id="imgInformacion">
+              <img src="" style="max-height: 100px;" class="img-responsive" alt="Imagen del Logo" id="imgInformacion">
             </template>
             <template v-else>
               No registrado
