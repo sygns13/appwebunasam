@@ -183,6 +183,11 @@ desired effect
 @elseif($modulo=="redsocialfacultad")
 @include('adminfacultad.redsocial.vue')
 
+@elseif($modulo=="linkinteresfacultad")
+@include('adminfacultad.linkinteres.vue')
+
+{{-- //Paginas Portal Web Facultades--}}
+
 @elseif($modulo=="historiafacultad")
 @include('adminfacultad.historia.vue')
 

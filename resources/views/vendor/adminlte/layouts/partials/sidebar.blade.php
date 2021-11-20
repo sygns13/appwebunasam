@@ -267,6 +267,7 @@
                     <li><a href="{{URL::to('intranet/eventos')}}"><i class='fa fa-paper-plane'></i> Gestión de Eventos</a></li> 
                     <li><a href="{{URL::to('intranet/comunicados')}}"><i class='fa fa-paper-plane'></i> Gestión de Comunicados</a></li> 
                     <li><a href="{{URL::to('intranet/redessolicales')}}"><i class='fa fa-paper-plane'></i> Gestión de Redes Sociales</a></li>
+                    <li><a href="{{URL::to('intranet/linkinteres')}}"><i class='fa fa-paper-plane'></i> Gestión de Links de Interés</a></li>
                 </ul>
             </li>
             @endif
