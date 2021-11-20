@@ -72,7 +72,7 @@ Vue.component('ckeditor1', {
  let app = new Vue({
     el: '#app',
     data:{
-        titulo:"Portal Web UNASAM",
+        titulo:"Portal Web Facultades",
         subtitulo: "Configuraciones Principales",
         subtitulo2: "Principal",
 
@@ -143,10 +143,16 @@ Vue.component('ckeditor1', {
 
         content1:'',
 
+        //seccion facultades
+        facultad:'',
+        facultad_id: 0,
+        tipo_vista: 1,
+
+
 
     },
     created:function () {
-        this.getDatos(this.thispage);
+        //this.getDatos(this.thispage);
 
         
     },
@@ -216,18 +222,18 @@ Vue.component('ckeditor1', {
 
         getDatos: function (page) {
 
-            var url = '/intranet/datosportalre';
+            var url = '/intranet/datosfacre?v1='+this.facultad_id;
 
             axios.get(url).then(response=>{
 
-                let unasam= response.data.unasam;
-                //console.log(unasam);
-               // console.log(unasam.length);
+                let facultad= response.data.facultad;
+                //console.log(facultad);
+               // console.log(facultad.length);
 
-                if(unasam!= undefined && unasam != null){
-                    this.fillobject.id = unasam.id;
-                    this.fillobject.tipo_vista = unasam.tipo_vista;
-                    this.fillobject.logourl = unasam.logourl;
+                if(facultad!= undefined && facultad != null){
+                    this.fillobject.id = facultad.id;
+                    this.fillobject.tipo_vista = facultad.tipo_vista;
+                    this.fillobject.logourl = facultad.logourl;
                     this.cancelForm();
                     this.$nextTick(() => {
                       this.verImg();
@@ -240,7 +246,7 @@ Vue.component('ckeditor1', {
 
         let image=this.fillobject.logourl;
         if(this.fillobject.logourl!= null && this.fillobject.logourl.trim() != ''){
-            $("#imgInformacion").attr("src","{{ asset('/web/logounasam/')}}"+"/"+image);
+            $("#imgInformacion").attr("src","{{ asset('/web/logofacultad/')}}"+"/"+image);
         }
 
         },
@@ -263,7 +269,7 @@ Vue.component('ckeditor1', {
         },
 
         create:function () {
-            var url='/intranet/datosportalre/configuracion';
+            var url='/intranet/datosfacre/configuracion';
 
             $("#btnGuardar").attr('disabled', true);
             $("#btnCancel").attr('disabled', true);
@@ -273,8 +279,8 @@ Vue.component('ckeditor1', {
 
             var data = new  FormData();
 
-            var v1 = 0;
-            var v2 = 0;
+            var v1 = 1;
+            var v2 = this.facultad_id;
             var v3 = 0;
 
             data.append('id', this.id);
@@ -337,7 +343,7 @@ Vue.component('ckeditor1', {
 
 
         createLogo:function () {
-            var url='/intranet/datosportalre/logo';
+            var url='/intranet/datosfacre/logo';
 
             $("#btnGuardarLogo").attr('disabled', true);
             $("#btnCloseLogo").attr('disabled', true);
@@ -346,8 +352,8 @@ Vue.component('ckeditor1', {
 
             var data = new  FormData();
 
-            var v1 = 0;
-            var v2 = 0;
+            var v1 = 1;
+            var v2 = this.facultad_id;
             var v3 = 0;
 
             data.append('id', this.id);
@@ -378,6 +384,18 @@ Vue.component('ckeditor1', {
                 this.errors=error.response.data
             })
         },  
+
+        //Modificaciones Facultades
+        irAtras:function(){
+            this.facultad_id = 0;
+            this.facultad = '';
+            this.divNuevo = false;
+            this.divNuevoLogo = false;
+        },
+        cambioFacultad:function(){
+            this.facultad = $('#cbufacultad_id option:selected').html();
+            this.getDatos(this.thispage);
+        },
 
 }
 });

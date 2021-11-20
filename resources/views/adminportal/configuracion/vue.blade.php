@@ -142,6 +142,7 @@ Vue.component('ckeditor1', {
         image:'',
 
         content1:'',
+        tipo_vista: 1,
 
 
     },

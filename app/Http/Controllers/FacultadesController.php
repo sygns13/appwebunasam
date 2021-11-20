@@ -131,6 +131,7 @@ class FacultadesController extends Controller
             $newFacultad->borrado='0';
             $newFacultad->user_id=Auth::user()->id;
             $newFacultad->nivel='1';
+            $newFacultad->tipo_vista='1';
 
             $newFacultad->save();
 

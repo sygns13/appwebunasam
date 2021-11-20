@@ -16,6 +16,7 @@ class Facultad extends Model
                             'borrado',
                             'user_id',
                             'nivel',
-                            'logourl' ];
+                            'logourl',
+                        'tipo_vista' ];
 	protected $guarded = ['id'];
 }

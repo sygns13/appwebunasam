@@ -1,7 +1,7 @@
 @extends('adminlte::layouts.app')
 
 @section('htmlheader_title')
-Configuraciones Principales de
+Gestión del Logo de las Facultades
 
 @endsection
 
@@ -21,7 +21,7 @@ Configuraciones Principales de
 
 		@include('adminlte::layouts.partials.loaders')
 
-		@if(accesoUser([1,2,3]))
+		@if(accesoUser([1,2,3,4]))
 
 		<template v-if="divprincipal" id="divprincipal">
 			@include('adminfacultad.configuracion.main')

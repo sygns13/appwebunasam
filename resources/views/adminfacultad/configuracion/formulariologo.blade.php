@@ -7,7 +7,7 @@
     <div class="col-md-12" >
   
       <div class="form-group">
-        <label for="cbuarchivo" class="col-sm-2 control-label">Logo del Portal UNASAM</label>
+        <label for="cbuarchivo" class="col-sm-2 control-label">Logo del Portal de la Facultad</label>
   
         <div class="col-sm-10">
            <input name="archivo" type="file" id="archivo" class="archivo form-control" @change="getImage"  v-if="uploadReady"

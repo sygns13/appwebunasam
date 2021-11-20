@@ -6,7 +6,7 @@
      
       <div class="col-md-12" style="padding-top: 15px;">
         <div class="form-group">
-          <label for="cbutipo_vista" class="col-sm-2 control-label">Tipo de Diseño del Portal UNASAM:*</label>
+          <label for="cbutipo_vista" class="col-sm-2 control-label">Tipo de Diseño del Portal de la Facultad:*</label>
           <div class="col-sm-4">
             <select class="form-control" id="cbutipo_vista" name="cbutipo_vista" v-model="tipo_vista">
               <option value="1">Diseño Full Screen</option>

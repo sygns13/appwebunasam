@@ -45,7 +45,7 @@ class FacultadController extends Controller
             $tipouser=Tipouser::find($idtipouser);
             $facultads = [];
 
-            $modulo="configuracion";
+            $modulo="configuracionfacultad";
 
             if(accesoUser([1,2])){
                 $facultads = Facultad::orderBy('nombre')->where('borrado','0')->get();
@@ -87,9 +87,9 @@ class FacultadController extends Controller
 
     public function index(Request $request)
     {
-        //$buscar=$request->busca;
+        $facultad_id=$request->v1;
 
-        $facultad = Facultad::find(1);
+        $facultad = Facultad::find($facultad_id);
 
           return [
             'facultad'=>$facultad
@@ -235,6 +235,208 @@ class FacultadController extends Controller
         }
 
         return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+    }
+
+
+
+    public function configuracion(Request $request)
+    {
+        $tipo_vista=$request->tipo_vista;
+
+        $result='1';
+        $msj='';
+        $selector='';
+
+        $pasaValidacion = true;
+
+        $nivel=$request->v1;
+        $facultad_id=$request->v2;
+        $programaestudio_id=$request->v3;
+
+
+            $input  = array('tipo_vista' => $tipo_vista);
+            $reglas = array('tipo_vista' => 'required');
+
+            $validator = Validator::make($input, $reglas);
+
+            if ($validator->fails() || $tipo_vista == null || strlen(trim($tipo_vista)) == 0)
+            { 
+                $result='0';
+                $msj='Debe emitir correctamente los datos del formulario '.$tipo_vista.' '.strlen(trim($tipo_vista)).' '.$validator->errors();
+                $selector='cbutipo_vista';
+                $pasaValidacion = false;
+            }
+
+
+        if($pasaValidacion){
+
+            $facultad = Facultad::find($facultad_id);
+
+            $facultad->tipo_vista = $tipo_vista;
+
+            $facultad->user_id=Auth::user()->id;
+
+            $facultad->save();
+        
+            $msj='Configuración de Diseño Modificado con Éxito';
+
+        }
+
+        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+    }
+
+    public function logo(Request $request)
+    {
+        ini_set('memory_limit','256M');
+        ini_set('upload_max_filesize','20M');
+
+                
+        $result='1';
+        $msj='';
+        $selector='';
+
+        $id=$request->id;        
+        $url=$request->url;
+
+        $imagen="";
+        $img=$request->imagen;
+        $segureImg=0;
+
+        $result='1';
+        $msj='';
+        $selector='';
+
+        $nivel=$request->v1;
+        $facultad_id=$request->v2;
+        $programaestudio_id=$request->v3;
+
+        $oldImg=$request->oldimg;
+
+        if ($request->hasFile('imagen')) { 
+
+            $aux='logo-'.date('d-m-Y').'-'.date('H-i-s');
+            $input  = array('imagen' => $img) ;
+            $reglas = array('imagen' => 'required||mimes:png,jpg,jpeg,gif,jpe,PNG,JPG,JPEG,GIF,JPE');
+            $validator = Validator::make($input, $reglas);
+
+            $input2  = array('imagen' => $img) ;
+            $reglas2 = array('imagen' => 'required|file:1,102400');
+            $validatorF = Validator::make($input2, $reglas2);
+
+            if ($validator->fails())
+            {
+
+            $segureImg=1;
+            $msj="El archivo ingresado como imagen no es una imagen válida, ingrese otro archivo o limpie el formulario ";
+            $result='0';
+            $selector='imagen';
+            }
+            elseif($validatorF->fails())
+            {
+
+            $segureImg=1;
+            $msj="El archivo ingresado como imagen tiene un tamaño no válido superior a los 10MB, ingrese otro archivo o limpie el formulario";
+            $result='0';
+            $selector='imagen';
+            }
+
+            else
+            {
+                //$nombre=$img->getClientOriginalName();
+                $extension=$img->getClientOriginalExtension();
+                $nuevoNombre=$aux.".".$extension;
+                
+
+                /* $imgR = Image::make($img);
+                $imgR->resize(1500, 500, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->stream(); */
+
+                //$subir=Storage::disk('logoFacultad')->put($nuevoNombre, \File::get($img));
+
+                $subir=false;
+                if(intval($nivel) == 0){
+                    $subir=Storage::disk('logoUNASAM')->put($nuevoNombre, \File::get($img));
+                //$subir=Storage::disk('banerUNASAM')->put($nuevoNombre, $imgR);
+                }
+                elseif(intval($nivel) == 1){
+                    $subir=Storage::disk('logoFacultad')->put($nuevoNombre, \File::get($img));
+                //$subir=Storage::disk('banerFacultad')->put($nuevoNombre, $imgR);
+                }
+                elseif(intval($nivel) == 2){
+                    $subir=Storage::disk('logoProgramaEstudio')->put($nuevoNombre, \File::get($img));
+                // $subir=Storage::disk('banerProgramaEstudio')->put($nuevoNombre, $imgR);
+                }
+
+
+                if($subir){
+                    $imagen=$nuevoNombre;
+
+                }
+                else{
+                    $msj="Error al subir la imagen, intentelo nuevamente luego";
+                    $segureImg=1;
+                    $result='0';
+                    $selector='imagen';
+                }
+            }
+        }
+        else{
+            $msj="Debe de adjuntar una imagen del válida";
+            $segureImg=1;
+            $result='0';
+            $selector='imagen';
+        }
+
+
+        if($segureImg==1){
+            
+
+            if(intval($nivel) == 0){
+                Storage::disk('logoUNASAM')->delete($imagen);
+            }
+            elseif(intval($nivel) == 1){
+                Storage::disk('logoFacultad')->delete($imagen);
+            }
+            elseif(intval($nivel) == 2){
+                Storage::disk('logoProgramaEstudio')->delete($imagen);
+            }
+
+
+        }
+        else{
+
+            if($oldImg != null && Strlen($oldImg) > 0){
+                if(intval($nivel) == 0){
+                    Storage::disk('logoUNASAM')->delete($oldImg);
+                }
+                elseif(intval($nivel) == 1){
+                    Storage::disk('logoFacultad')->delete($oldImg);
+                }
+                elseif(intval($nivel) == 2){
+                    Storage::disk('logoProgramaEstudio')->delete($oldImg);
+                }
+            }
+
+            if($id == null || Strlen($id) == 0){
+                $facultad = Facultad::find($facultad_id);
+                $facultad->logourl = $imagen;
+                $facultad->user_id=Auth::user()->id;
+                $facultad->save();
+            }
+            else{
+                $facultad = Facultad::find($id);
+                $facultad->logourl = $imagen;
+                $facultad->user_id=Auth::user()->id;
+                $facultad->save();
+            }
+
+            $msj='Configuración de Logo Modificado con Éxito';
+        }
+
+        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+
+
     }
 
     /**
