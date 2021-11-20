@@ -1,7 +1,7 @@
 @extends('adminlte::layouts.app')
 
 @section('htmlheader_title')
-Gestión de Noticias del Portal Web Facultad
+Gestión de Noticias de las Facultades
 @endsection
 
 <style type="text/css">         
@@ -20,7 +20,7 @@ Gestión de Noticias del Portal Web Facultad
 
 		@include('adminlte::layouts.partials.loaders')
 
-		@if(accesoUser([1,2,3]))
+		@if(accesoUser([1,2,3,4]))
 
 		<template v-if="divprincipal" id="divprincipal">
 			@include('adminfacultad.noticia.main')

@@ -23,6 +23,8 @@ use App\Permiso;
 use App\Rolmodulo;
 use App\Rolsubmodulo;
 
+use App\Facultad;
+
 class NoticiaController extends Controller
 {
     /**
@@ -61,7 +63,15 @@ class NoticiaController extends Controller
 
     public function index1()
     {
-        if(accesoUser([1,2,3])){
+        $permisos=Permiso::where('user_id',Auth::user()->id)->get();
+        $rolModulos=Rolmodulo::where('user_id',Auth::user()->id)->get();
+        $rolSubModulos=Rolsubmodulo::where('user_id',Auth::user()->id)->get();
+
+        $nivel = 1;
+        $modulo = 4;
+        $submodulo = 31;
+
+        if(accesoUser([1,2]) || (accesoUser([3,4]) && accesoModulo($permisos, $rolModulos, $rolSubModulos, $nivel, $modulo, $submodulo))){
 
 
             $idtipouser=Auth::user()->tipouser_id;
@@ -71,12 +81,25 @@ class NoticiaController extends Controller
 
             $modulo="noticiafacultad";
 
-            return view('adminfacultad.noticia.index',compact('tipouser','modulo','fecha'));
+            if(accesoUser([1,2])){
+                $facultads = Facultad::orderBy('nombre')->where('borrado','0')->get();
+            }
+            else{
+                foreach ($permisos as $key => $dato) {
+                    if($dato->nivel == $nivel){
+                        $facultad = Facultad::find($dato->facultad_id);
+                        array_push($facultads, $facultad);
+                    } 
+                }
+            }
+
+            return view('adminfacultad.noticia.index',compact('tipouser','modulo','fecha', 'permisos','rolModulos','rolSubModulos','facultads'));
         }
         else
         {
             return redirect('home');    
         }
+
     }
 
     public function index(Request $request)

@@ -65,7 +65,7 @@ class PresentacionController extends Controller
 
         $nivel = 1;
         $modulo = 4;
-        $submodulo = 27;
+        $submodulo = 29;
 
         if(accesoUser([1,2]) || (accesoUser([3,4]) && accesoModulo($permisos, $rolModulos, $rolSubModulos, $nivel, $modulo, $submodulo))){
 

@@ -20,7 +20,7 @@ Gestión de Datos de Contacto de las Facultades
 
 		@include('adminlte::layouts.partials.loaders')
 
-		@if(accesoUser([1,2,3]))
+		@if(accesoUser([1,2,3,4]))
 
 		<template v-if="divprincipal" id="divprincipal">
 			@include('adminfacultad.datosfacultad.main')

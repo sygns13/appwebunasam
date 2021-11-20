@@ -20,7 +20,7 @@ Gestión de Misión y Visión de la FEC
 
 		@include('adminlte::layouts.partials.loaders')
 
-		@if(accesoUser([1,2,3]))
+		@if(accesoUser([1,2,3,4]))
 
 		<template v-if="divprincipal" id="divprincipal">
 			@include('adminfacultad.misionvision.main')
