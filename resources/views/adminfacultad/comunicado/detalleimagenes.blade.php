@@ -13,7 +13,7 @@
     
           <div class="box" id="o" style="border:0px; box-shadow:none;" >
                 <div class="box-header with-border">
-                  <h3 class="box-title" id="boxTituloModalDetalles">Comunicado:</h3>
+                  <h3 class="box-title" id="boxTituloModalDetalles">Actividad:</h3>
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
@@ -29,11 +29,11 @@
 
                       <div class="box box-success" v-if="divNuevaImagen">
                         <div class="box-header with-border" style="border: 1px solid rgb(0, 166, 90); background-color: rgb(0, 166, 90); color: white;">
-                            <h3 class="box-title" id="tituloAgregar">Nueva Imagen del Comunicado
+                            <h3 class="box-title" id="tituloAgregar">Nueva Imagen de la Actividad
                             </h3>
                           </div>
                        
-                        @include('adminfacultad.comunicado.detalleformularioimg')  
+                        @include('adminportal.comunicado.detalleformularioimg')  
                       </div>
 
                       <div class="box box-warning" v-if="divEditImagen">
@@ -42,7 +42,7 @@
                           </h3>
                         </div>
                       
-                        @include('adminfacultad.comunicado.detalleeditarimg')  
+                        @include('adminportal.comunicado.detalleeditarimg')  
                       
                       </div>
 
@@ -65,7 +65,7 @@
                             <td style="border:1px solid #ddd;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 12px; padding: 5px;">@{{ imagen.posicion }}</td>
                             <td style="border:1px solid #ddd;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 12px; padding: 5px;">
                                 <center>
-                                  <img v-bind:src="'{{ asset('/web/comunicadofec/')}}'+'/'+imagen.url" style="max-height: 200px;border: solid 1px black;" class="img-responsive" alt="Imagen del Contenido Informativo" id="imgInformacion">
+                                  <img v-bind:src="'{{ asset('/web/comunicadoUNASAM/')}}'+'/'+imagen.url" style="max-height: 200px;border: solid 1px black;" class="img-responsive" alt="Imagen del Contenido Informativo" id="imgInformacion">
                                 </center>
                             </td>
                            <td style="border:1px solid #ddd; font-size: 11px; padding: 5px;">

@@ -12,7 +12,7 @@ Vue.component('ckeditor1', {
       },
       height: {
         type: String,
-        default: '150px',
+        default: '450px',
       },
       toolbar: {
         type: Array,
@@ -81,7 +81,7 @@ Vue.component('ckeditor2', {
       },
       height: {
         type: String,
-        default: '150px',
+        default: '450px',
       },
       toolbar: {
         type: Array,
@@ -283,8 +283,8 @@ Vue.component('ckeditor4', {
  let app = new Vue({
     el: '#app',
     data:{
-        titulo:"Portal Web FEC",
-        subtitulo: "Gestión de Eventos",
+        titulo:"Portal Web Facultades",
+        subtitulo: "Gestión de Eventoss",
         subtitulo2: "Principal",
 
         subtitle2:false,
@@ -410,12 +410,18 @@ Vue.component('ckeditor4', {
                         'url':'', 
                         'posicion':'', 
                         'oldImg':''},
+                        
 
+        //seccion facultades
+        nivel : 1,
+        facultad:'',
+        facultad_id: 0,
+        tipo_vista: 1,
 
 
     },
     created:function () {
-        this.getDatos(this.thispage);
+        //this.getDatos(this.thispage);
     },
     mounted: function () {
        $("#divtitulo").show('slow');
@@ -482,7 +488,10 @@ Vue.component('ckeditor4', {
     methods: {
       getDatos: function (page) {
             var busca=this.buscar;
-            var url = '/intranet/eventosre?page='+page+'&busca='+busca;
+            var v1 = this.nivel;
+            var v2 = this.facultad_id;
+            var v3 = 0;
+            var url = '/intranet/eventosre?page='+page+'&busca='+busca+'&v1='+v1+'&v2='+v2+'&v3='+v3;
 
             axios.get(url).then(response=>{
 
@@ -562,6 +571,10 @@ Vue.component('ckeditor4', {
             this.desarrollo=CKEDITOR.instances['editor1'].getData();
             this.divloaderNuevo=true;
 
+            var v1 = this.nivel;
+            var v2 = this.facultad_id;
+            var v3 = 0;
+
             var data = new  FormData();
 
             data.append('fecha', this.fecha);
@@ -572,6 +585,9 @@ Vue.component('ckeditor4', {
             data.append('url', this.url);
             data.append('activo', this.activo);
             data.append('imagen', this.imagen);
+            data.append('v1', v1);
+            data.append('v2', v2);
+            data.append('v3', v3);
 
 
             const config = { headers: { 'Content-Type': 'multipart/form-data' } };
@@ -698,6 +714,9 @@ Vue.component('ckeditor4', {
 
             var data = new  FormData();
 
+            var v1 = this.nivel;
+            var v2 = this.facultad_id;
+
             data.append('id', this.fillobject.id);
             data.append('fecha', this.fillobject.fecha);
             data.append('hora', this.fillobject.hora);
@@ -709,6 +728,7 @@ Vue.component('ckeditor4', {
 
             data.append('imagen', this.imagenE);
             data.append('oldimg', this.fillobject.oldImg);
+            data.append('v1', v1);
 
             data.append('_method', 'PUT');
 
@@ -877,12 +897,19 @@ Vue.component('ckeditor4', {
 
           var data = new  FormData();
 
+          var v1 = this.nivel;
+          var v2 = this.facultad_id;
+          var v3 = 0;
+
           data.append('nombre', this.nombreImg);
           data.append('descripcion', this.descripcionImg);
           data.append('posicion', this.posicion);
           data.append('url', this.url);
           data.append('imagen', this.imagenDetalle);
           data.append('evento_id', this.fillobject.id);
+          data.append('v1', v1);
+          data.append('v2', v2);
+          data.append('v3', v3);
 
 
           const config = { headers: { 'Content-Type': 'multipart/form-data' } };
@@ -1015,6 +1042,9 @@ Vue.component('ckeditor4', {
           this.fillobjectImg.oldImg= this.oldImgDetalle;
           this.fillobjectImg.descripcion=CKEDITOR.instances['editor4'].getData();
 
+          var v1 = this.nivel;
+          var v2 = this.facultad_id;
+
           var data = new  FormData();
 
           data.append('id', this.fillobjectImg.id);
@@ -1025,6 +1055,7 @@ Vue.component('ckeditor4', {
 
           data.append('imagen', this.imagenEDetalle);
           data.append('oldimg', this.fillobjectImg.oldImg);
+          data.append('v1', v1);
 
           data.append('_method', 'PUT');
 
@@ -1052,6 +1083,19 @@ Vue.component('ckeditor4', {
               this.errors=error.response.data
           })
         },
+
+        //Modificaciones Facultades
+      irAtras:function(){
+            this.facultad_id = 0;
+            this.facultad = '';
+            this.divNuevo = false;
+            this.divNuevoLogo = false;
+        },
+        cambioFacultad:function(){
+            this.facultad = $('#cbufacultad_id option:selected').html();
+            this.getDatos(this.thispage);
+        },
+
 
 }
 });

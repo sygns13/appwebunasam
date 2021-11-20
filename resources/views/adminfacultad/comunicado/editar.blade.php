@@ -4,9 +4,9 @@
  
     <div class="col-md-12" style="padding-top: 15px;">
       <div class="form-group">
-        <label for="txttitularE" class="col-sm-2 control-label">Título del Comunicado:*</label>
+        <label for="txttitularE" class="col-sm-2 control-label">Título de la Actividad:*</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="txttitularE" name="txttitularE" placeholder="Titular de la Comunicado"
+          <input type="text" class="form-control" id="txttitularE" name="txttitularE" placeholder="Titular de l la Actividad"
             maxlength="500" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="fillobject.titular">
         </div>
       </div>
@@ -14,13 +14,13 @@
 
     <div class="col-md-12" style="padding-top: 15px;">
       <div class="form-group">
-        <label for="txtfechaE" class="col-sm-2 control-label">Fecha del Comunicado:<spam style="color:red;">*</spam></label>
+        <label for="txtfechaE" class="col-sm-2 control-label">Fecha de la Actividad:<spam style="color:red;">*</spam></label>
         <div class="col-sm-2">
             <input type="date" class="form-control" id="txtfechaE" name="txtfechaE" placeholder="dd/mm/aaaa"
             maxlength="10" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="fillobject.fecha">
         </div>
 
-        <label for="txthoraE" class="col-sm-2 control-label">Hora del Comunicado:<spam style="color:red;">*</spam></label>
+        <label for="txthoraE" class="col-sm-2 control-label">Hora de la Actividad:<spam style="color:red;">*</spam></label>
         <div class="col-sm-2">
             <input type="time" class="form-control" id="txthoraE" name="txthoraE" placeholder="00:00:00"
             maxlength="8" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="fillobject.hora">
@@ -31,7 +31,7 @@
     <div class="col-md-12" style="padding-top: 15px;">
 
       <div class="form-group">
-          <label for="txtdesarrollo" class="col-sm-2 control-label">Desarrollo del Comunicado:*</label>
+          <label for="txtdesarrollo" class="col-sm-2 control-label">Desarrollo de la Actividad:*</label>
           <div class="col-sm-10">
             <ckeditor2 v-model="content2"></ckeditor2>
 

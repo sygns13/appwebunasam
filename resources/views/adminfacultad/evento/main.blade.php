@@ -1,7 +1,47 @@
-<div class="panel panel-primary" v-if="mostrarPalenIni">
+{{--         <div class="box box-success" style="border: 1px solid #00a65a;">
+          <div class="box-header with-border" style="border: 1px solid #00a65a;background-color: #00a65a; color: white;"> --}}
+
+            <div class="panel panel-primary" v-if="mostrarPalenIni && facultad_id ==0">
+              <div class="panel-heading" style="padding-bottom: 15px;" >
+            <h3 class="panel-title" id="tituloAgregar">Seleccione Facultad <a style="float: right; padding: all; color: black;" type="button" class="btn btn-default btn-sm" href="{{URL::to('home')}}"><i class="fa fa-reply-all" aria-hidden="true"></i> 
+                Volver</a>
+            </h3>
+          </div>
+      
+          <div class="panel-body">
+            <div class="col-md-12">
+      
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="cbufacultad_id" class="col-sm-2 control-label">Facultad:*</label>
+                  <div class="col-sm-10">
+                    <select class="form-control" id="cbufacultad_id" name="cbufacultad_id" v-model="facultad_id" @change="cambioFacultad">
+                      <option disabled value="0">Seleccione un Facultad</option>
+                      @foreach ($facultads as $dato)
+                        <option value="{{$dato->id}}">{{$dato->nombre}}</option> 
+                      @endforeach
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              </div>
+
+              @if($facultads == null || count($facultads) == 0)
+              <div class="col-md-12" style="padding-top: 15px;">
+                <span style="color:red"><b>Nota:</b> el Usuario tiene acceso al módulo pero no tiene ninguna facultad asignada, por favor comuníquese con el administrador del sistema</span>
+              </div>
+              @endif
+          </div>
+      
+
+      </div>
+
+
+<div class="panel panel-primary" v-if="mostrarPalenIni && facultad_id!=0">
   <div class="panel-heading" style="padding-bottom: 15px;">
-    <h3 class="panel-title">Gestión de Eventos del Portal Web Facultad <a style="float: right; padding: all; color: black;" type="button" class="btn btn-default btn-sm" href="{{URL::to('home')}}"><i class="fa fa-reply-all" aria-hidden="true"></i> 
-    Volver</a></h3>
+    <h3 class="panel-title">Gestión de Eventos de la @{{facultad}} <a style="float: right; padding: all; color: black;" type="button" class="btn btn-default btn-sm" href="#"  @click.prevent="irAtras()"><i class="fa fa-reply-all" aria-hidden="true"></i> 
+      Ir Atrás</a></h3>
     
   </div>
 
@@ -16,18 +56,18 @@
 
 
 
-<div class="box box-success" v-if="divNuevo">
+<div class="box box-success" v-if="divNuevo && facultad_id!=0">
   <div class="box-header with-border" style="border: 1px solid rgb(0, 166, 90); background-color: rgb(0, 166, 90); color: white;">
-    <h3 class="box-title" id="tituloAgregar">Nuevo Evento
+    <h3 class="box-title" id="tituloAgregar">Nuevo Registro de Evento
     </h3>
   </div>
   @include('adminfacultad.evento.formulario')  
 </div>
 
 
-<div class="box box-warning" v-if="divEdit">
+<div class="box box-warning" v-if="divEdit && facultad_id!=0">
   <div class="box-header with-border" style="border: 1px solid #f39c12; background-color: #f39c12; color: white;">
-    <h3 class="box-title" id="tituloAgregar">Editar Evento: @{{ fillobject.titulo }}
+    <h3 class="box-title" id="tituloAgregar">Editar Registro de Evento: @{{ fillobject.titulo }}
 
 
     </h3>
@@ -37,9 +77,9 @@
 
 </div>
 
-<div class="panel panel-primary" >
+<div class="panel panel-primary" v-if="facultad_id!=0">
   <div class="panel-heading" style="padding-bottom: 20px;">
-    <h3 class="panel-title">Listado de Eventos del Portal Web Facultad
+    <h3 class="panel-title">Listado de Eventos de la @{{facultad}}
 
       <div class="box-tools" style="float: right;">
         <div class="input-group input-group-sm" style="width: 300px;">
@@ -64,7 +104,7 @@
       <tbody><tr>
         <th style="border:1px solid #ddd; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; padding: 5px; width: 4%;">#</th>
         <th style="border:1px solid #ddd; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; padding: 5px; width: 15%;">Título del Evento</th>
-        <th style="border:1px solid #ddd; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; padding: 5px; width: 30%;">Desarrollo del Evento</th>
+        <th style="border:1px solid #ddd; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; padding: 5px; width: 30%;">Desarrollo</th>
         <th style="border:1px solid #ddd; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; padding: 5px; width: 10%;">Fecha y Hora</th>
         <th style="border:1px solid #ddd; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; padding: 5px; width: 20%;">Imagen Principal</th>
         <th style="border:1px solid #ddd; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; padding: 5px; width: 6%;">Estado</th>
@@ -79,7 +119,7 @@
         
           <template v-for="images, key2 in evento.imagenevento">
             <center v-if="images.posicion == 0">
-              <img v-bind:src="'{{ asset('/web/eventofec/')}}'+'/'+images.url" style="max-height: 200px;border: solid 1px black;" class="img-responsive" alt="Imagen del Contenido Informativo" id="imgInformacion">
+              <img v-bind:src="'{{ asset('/web/eventofacultad/')}}'+'/'+images.url" style="max-height: 200px;border: solid 1px black;" class="img-responsive" alt="Imagen del Contenido Informativo" id="imgInformacion">
               </center>
           </template>
           

@@ -1,4 +1,4 @@
-    <div class="modal fade bs-example-modal-lg" id="modalDetalles"  role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal fade bs-example-modal-lg" id="modalDetalles"  role="dialog" aria-labelledby="myLargeModalLabel" v-if="facultad_id!=0">
       <div class="modal-dialog modal-lg" role="document" id="modaltamanio">
         <div class="modal-content">
           <div class="modal-header">
@@ -65,7 +65,7 @@
                             <td style="border:1px solid #ddd;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 12px; padding: 5px;">@{{ imagen.posicion }}</td>
                             <td style="border:1px solid #ddd;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 12px; padding: 5px;">
                                 <center>
-                                  <img v-bind:src="'{{ asset('/web/eventofec/')}}'+'/'+imagen.url" style="max-height: 200px;border: solid 1px black;" class="img-responsive" alt="Imagen del Contenido Informativo" id="imgInformacion">
+                                  <img v-bind:src="'{{ asset('/web/eventofacultad/')}}'+'/'+imagen.url" style="max-height: 200px;border: solid 1px black;" class="img-responsive" alt="Imagen del Contenido Informativo" id="imgInformacion">
                                 </center>
                             </td>
                            <td style="border:1px solid #ddd; font-size: 11px; padding: 5px;">

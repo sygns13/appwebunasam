@@ -12,7 +12,7 @@ Vue.component('ckeditor1', {
       },
       height: {
         type: String,
-        default: '150px',
+        default: '450px',
       },
       toolbar: {
         type: Array,
@@ -81,7 +81,7 @@ Vue.component('ckeditor2', {
       },
       height: {
         type: String,
-        default: '150px',
+        default: '450px',
       },
       toolbar: {
         type: Array,
@@ -283,8 +283,8 @@ Vue.component('ckeditor4', {
  let app = new Vue({
     el: '#app',
     data:{
-        titulo:"Portal Web FEC",
-        subtitulo: "Gestión de Comunicados",
+        titulo:"Portal Web UNASAM",
+        subtitulo: "Gestión de Actividades",
         subtitulo2: "Principal",
 
         subtitle2:false,
@@ -309,7 +309,7 @@ Vue.component('ckeditor4', {
         divtitulo:true,
         classTitle:'fa fa-list-alt',
         classMenu0:'',
-        classMenu1:'active',
+        classMenu1:'',
         classMenu2:'',
         classMenu3:'',
         classMenu4:'',
@@ -318,7 +318,7 @@ Vue.component('ckeditor4', {
         classMenu7:'',
         classMenu8:'',
         classMenu9:'',
-        classMenu10:'',
+        classMenu10:'active',
         classMenu11:'',
         classMenu12:'',
 
@@ -482,7 +482,10 @@ Vue.component('ckeditor4', {
     methods: {
       getDatos: function (page) {
             var busca=this.buscar;
-            var url = '/intranet/comunicadosre?page='+page+'&busca='+busca;
+            var v1 = 0;
+            var v2 = 0;
+            var v3 = 0;
+            var url = '/intranet/comunicadosre?page='+page+'&busca='+busca+'&v1='+v1+'&v2='+v2+'&v3='+v3;
 
             axios.get(url).then(response=>{
 
@@ -562,6 +565,10 @@ Vue.component('ckeditor4', {
             this.desarrollo=CKEDITOR.instances['editor1'].getData();
             this.divloaderNuevo=true;
 
+            var v1 = 0;
+            var v2 = 0;
+            var v3 = 0;
+
             var data = new  FormData();
 
             data.append('fecha', this.fecha);
@@ -572,6 +579,11 @@ Vue.component('ckeditor4', {
             data.append('url', this.url);
             data.append('activo', this.activo);
             data.append('imagen', this.imagen);
+            data.append('v1', v1);
+            data.append('v2', v2);
+            data.append('v3', v3);
+
+            
 
 
             const config = { headers: { 'Content-Type': 'multipart/form-data' } };
@@ -599,7 +611,7 @@ Vue.component('ckeditor4', {
         borrar:function (dato) {
           swal.fire({
               title: '¿Estás seguro?',
-              text: "¿Desea eliminar el Comunicado seleccionado? -- Nota: Este proceso no se podrá revertir",
+              text: "¿Desea eliminar la Actividad seleccionado? -- Nota: Este proceso no se podrá revertir",
               type: 'info',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
@@ -696,6 +708,8 @@ Vue.component('ckeditor4', {
             this.fillobject.oldImg= this.oldImg;
             this.fillobject.desarrollo=CKEDITOR.instances['editor2'].getData();
 
+            var v1 = 0;
+
             var data = new  FormData();
 
             data.append('id', this.fillobject.id);
@@ -709,6 +723,7 @@ Vue.component('ckeditor4', {
 
             data.append('imagen', this.imagenE);
             data.append('oldimg', this.fillobject.oldImg);
+            data.append('v1', v1);
 
             data.append('_method', 'PUT');
 
@@ -739,7 +754,7 @@ Vue.component('ckeditor4', {
         baja:function (dato) {
           swal.fire({
               title: '¿Estás seguro?',
-              text: "Nota: Si se desactiva el Comunicado, No se mostrará en el Portal Web, hasta que sea activado nuevamente",
+              text: "Nota: Si se desactiva la Actividad, No se mostrará en el Portal Web, hasta que sea activado nuevamente",
               type: 'info',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
@@ -766,7 +781,7 @@ Vue.component('ckeditor4', {
       alta:function (dato) {
           swal.fire({
               title: '¿Estás seguro?',
-              text: "Nota: Si activa el Comunicado, se mostrará en el Portal Web",
+              text: "Nota: Si activa la Actividad, se mostrará en el Portal Web",
               type: 'info',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
@@ -875,6 +890,10 @@ Vue.component('ckeditor4', {
           this.descripcionImg=CKEDITOR.instances['editor3'].getData();
           this.divloaderNuevoImg=true;
 
+          var v1 = 0;
+          var v2 = 0;
+          var v3 = 0;
+
           var data = new  FormData();
 
           data.append('nombre', this.nombreImg);
@@ -883,6 +902,9 @@ Vue.component('ckeditor4', {
           data.append('url', this.url);
           data.append('imagen', this.imagenDetalle);
           data.append('comunicado_id', this.fillobject.id);
+          data.append('v1', v1);
+          data.append('v2', v2);
+          data.append('v3', v3);
 
 
           const config = { headers: { 'Content-Type': 'multipart/form-data' } };
@@ -1015,6 +1037,8 @@ Vue.component('ckeditor4', {
           this.fillobjectImg.oldImg= this.oldImgDetalle;
           this.fillobjectImg.descripcion=CKEDITOR.instances['editor4'].getData();
 
+          var v1 = 0;
+
           var data = new  FormData();
 
           data.append('id', this.fillobjectImg.id);
@@ -1025,6 +1049,7 @@ Vue.component('ckeditor4', {
 
           data.append('imagen', this.imagenEDetalle);
           data.append('oldimg', this.fillobjectImg.oldImg);
+          data.append('v1', v1);
 
           data.append('_method', 'PUT');
 

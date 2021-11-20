@@ -422,7 +422,7 @@ Vue.component('ckeditor4', {
 
     },
     created:function () {
-        this.getDatos(this.thispage);
+        //this.getDatos(this.thispage);
     },
     mounted: function () {
        $("#divtitulo").show('slow');
