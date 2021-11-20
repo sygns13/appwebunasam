@@ -1,7 +1,7 @@
 @extends('adminlte::layouts.app')
 
 @section('htmlheader_title')
-Gestión de Presentación del Portal Web Facultad
+Gestión de Presentación de las Facultades
 @endsection
 
 <style type="text/css">         

@@ -261,9 +261,8 @@
                 <ul class="treeview-menu">
                     <li><a href="{{URL::to('intranet/configlogo')}}"><i class='fa fa-paper-plane'></i> Logo Principal</a></li>
                     <li><a href="{{URL::to('intranet/banner')}}"><i class='fa fa-paper-plane'></i> Gestión de Banners</a></li>
-{{--                     <li><a href="{{URL::to('intranet/banner')}}"><i class='fa fa-paper-plane'></i> Gestión de Banners</a></li>
                     <li><a href="{{URL::to('intranet/presentacion')}}"><i class='fa fa-paper-plane'></i> Gestión de Presentación</a></li>
-                    <li><a href="{{URL::to('intranet/datosfec')}}"><i class='fa fa-paper-plane'></i> Gestión de Datos Facultad</a></li>
+                  {{-- <li><a href="{{URL::to('intranet/datosfec')}}"><i class='fa fa-paper-plane'></i> Gestión de Datos Facultad</a></li>
                     <li><a href="{{URL::to('intranet/noticias')}}"><i class='fa fa-paper-plane'></i> Gestión de Noticias</a></li>
                     <li><a href="{{URL::to('intranet/eventos')}}"><i class='fa fa-paper-plane'></i> Gestión de Eventos</a></li> 
                     <li><a href="{{URL::to('intranet/comunicados')}}"><i class='fa fa-paper-plane'></i> Gestión de Comunicados</a></li> 

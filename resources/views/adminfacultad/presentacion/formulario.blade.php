@@ -14,6 +14,16 @@
       </div>
 
       <div class="col-md-12" style="padding-top: 15px;">
+        <div class="form-group">
+          <label for="txtsubtitulo" class="col-sm-2 control-label">Subtítulo de la Presentación: (Opcional)</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="txtsubtitulo" name="txtsubtitulo" placeholder="Subtítulo"
+              maxlength="500" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="subtitulo">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12" style="padding-top: 15px;">
 
         <div class="form-group">
             <label for="txtpresentacion" class="col-sm-2 control-label">Descripción de la Presentación:*</label>
