@@ -1,7 +1,7 @@
 @extends('adminlte::layouts.app')
 
 @section('htmlheader_title')
-Gestión de Comunicados del Portal Web UNASAM
+Gestión de Comunicados de las Facultades
 @endsection
 
 <style type="text/css">         
@@ -23,7 +23,7 @@ Gestión de Comunicados del Portal Web UNASAM
 		@if(accesoUser([1,2,3]))
 
 		<template v-if="divprincipal" id="divprincipal">
-			@include('adminportal.comunicado.main')
+			@include('adminfacultad.comunicado.main')
 		</template>
 		@endif
 

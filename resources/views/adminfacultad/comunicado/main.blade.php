@@ -1,14 +1,55 @@
-<div class="panel panel-primary" v-if="mostrarPalenIni">
+{{--         <div class="box box-success" style="border: 1px solid #00a65a;">
+          <div class="box-header with-border" style="border: 1px solid #00a65a;background-color: #00a65a; color: white;"> --}}
+
+            <div class="panel panel-primary" v-if="mostrarPalenIni && facultad_id ==0">
+              <div class="panel-heading" style="padding-bottom: 15px;" >
+            <h3 class="panel-title" id="tituloAgregar">Seleccione Facultad <a style="float: right; padding: all; color: black;" type="button" class="btn btn-default btn-sm" href="{{URL::to('home')}}"><i class="fa fa-reply-all" aria-hidden="true"></i> 
+                Volver</a>
+            </h3>
+          </div>
+      
+          <div class="panel-body">
+            <div class="col-md-12">
+      
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="cbufacultad_id" class="col-sm-2 control-label">Facultad:*</label>
+                  <div class="col-sm-10">
+                    <select class="form-control" id="cbufacultad_id" name="cbufacultad_id" v-model="facultad_id" @change="cambioFacultad">
+                      <option disabled value="0">Seleccione un Facultad</option>
+                      @foreach ($facultads as $dato)
+                        <option value="{{$dato->id}}">{{$dato->nombre}}</option> 
+                      @endforeach
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              </div>
+
+              @if($facultads == null || count($facultads) == 0)
+              <div class="col-md-12" style="padding-top: 15px;">
+                <span style="color:red"><b>Nota:</b> el Usuario tiene acceso al módulo pero no tiene ninguna facultad asignada, por favor comuníquese con el administrador del sistema</span>
+              </div>
+              @endif
+          </div>
+      
+
+      </div>
+
+
+
+<div class="panel panel-primary" v-if="mostrarPalenIni && facultad_id!=0">
   <div class="panel-heading" style="padding-bottom: 15px;">
-    <h3 class="panel-title">Gestión de Actividades del Portal Web UNASAM <a style="float: right; padding: all; color: black;" type="button" class="btn btn-default btn-sm" href="{{URL::to('home')}}"><i class="fa fa-reply-all" aria-hidden="true"></i> 
-    Volver</a></h3>
+    <h3 class="panel-title">Gestión de Comunicados de la @{{facultad}} <a style="float: right; padding: all; color: black;" type="button" class="btn btn-default btn-sm" href="#"  @click.prevent="irAtras()"><i class="fa fa-reply-all" aria-hidden="true"></i> 
+      Ir Atrás</a></h3>
     
   </div>
 
   <div class="panel-body">
     <div class="col-md-12" style="padding-top: 15px;">
       <div class="form-group">
-        <button type="button" class="btn btn-primary btn-sm" id="btncrear" style="font-size: 14px;" @click.prevent="nuevo()"><i class="fa fa-plus-circle" aria-hidden="true" ></i> Nueva Actividad</button>
+        <button type="button" class="btn btn-primary btn-sm" id="btncrear" style="font-size: 14px;" @click.prevent="nuevo()"><i class="fa fa-plus-circle" aria-hidden="true" ></i> Nuevo Comunicado</button>
       </div>
     </div>
   </div>
@@ -16,30 +57,30 @@
 
 
 
-<div class="box box-success" v-if="divNuevo">
+<div class="box box-success" v-if="divNuevo && facultad_id!=0">
   <div class="box-header with-border" style="border: 1px solid rgb(0, 166, 90); background-color: rgb(0, 166, 90); color: white;">
-    <h3 class="box-title" id="tituloAgregar">Nueva Actividad
+    <h3 class="box-title" id="tituloAgregar">Nuevo Comunicado
     </h3>
   </div>
-  @include('adminportal.comunicado.formulario')  
+  @include('adminfacultad.comunicado.formulario')  
 </div>
 
 
-<div class="box box-warning" v-if="divEdit">
+<div class="box box-warning" v-if="divEdit && facultad_id!=0">
   <div class="box-header with-border" style="border: 1px solid #f39c12; background-color: #f39c12; color: white;">
-    <h3 class="box-title" id="tituloAgregar">Editar Actividad: @{{ fillobject.titulo }}
+    <h3 class="box-title" id="tituloAgregar">Editar Comunicado: @{{ fillobject.titulo }}
 
 
     </h3>
   </div>
 
-  @include('adminportal.comunicado.editar')  
+  @include('adminfacultad.comunicado.editar')  
 
 </div>
 
-<div class="panel panel-primary" >
+<div class="panel panel-primary" v-if="facultad_id!=0">
   <div class="panel-heading" style="padding-bottom: 20px;">
-    <h3 class="panel-title">Listado de Actividades del Portal Web Facultad
+    <h3 class="panel-title">Listado de Comunicados de la @{{facultad}}
 
       <div class="box-tools" style="float: right;">
         <div class="input-group input-group-sm" style="width: 300px;">
@@ -63,8 +104,8 @@
     <table class="table table-hover table-bordered" >
       <tbody><tr>
         <th style="border:1px solid #ddd; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; padding: 5px; width: 4%;">#</th>
-        <th style="border:1px solid #ddd; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; padding: 5px; width: 15%;">Título de la Actividad</th>
-        <th style="border:1px solid #ddd; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; padding: 5px; width: 30%;">Desarrollo de la Actividad</th>
+        <th style="border:1px solid #ddd; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; padding: 5px; width: 15%;">Título del Comunicado</th>
+        <th style="border:1px solid #ddd; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; padding: 5px; width: 30%;">Desarrollo del Comunicado</th>
         <th style="border:1px solid #ddd; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; padding: 5px; width: 10%;">Fecha y Hora</th>
         <th style="border:1px solid #ddd; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; padding: 5px; width: 20%;">Imagen Principal</th>
         <th style="border:1px solid #ddd; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; padding: 5px; width: 6%;">Estado</th>
@@ -79,7 +120,7 @@
         
           <template v-for="images, key2 in comunicado.imagencomunicado">
             <center v-if="images.posicion == 0">
-              <img v-bind:src="'{{ asset('/web/comunicadoUNASAM/')}}'+'/'+images.url" style="max-height: 200px;border: solid 1px black;" class="img-responsive" alt="Imagen del Contenido Informativo" id="imgInformacion">
+              <img v-bind:src="'{{ asset('/web/comunicadofacultad/')}}'+'/'+images.url" style="max-height: 200px;border: solid 1px black;" class="img-responsive" alt="Imagen del Contenido Informativo" id="imgInformacion">
               </center>
           </template>
           
@@ -91,13 +132,13 @@
        <td style="border:1px solid #ddd; font-size: 11px; padding: 5px;">
         <center>
 
-        <a href="#" class="btn bg-teal btn-sm" v-on:click.prevent="gestionarImages(comunicado)" data-placement="top" data-toggle="tooltip" title="Gestionar Imágenes de la Activiad"><i class="fa fa-file-text-o"></i></a>
-        <a href="#" v-if="comunicado.activo=='1'" class="btn bg-navy btn-sm" v-on:click.prevent="baja(comunicado)" data-placement="top" data-toggle="tooltip" title="Desactivar Activiad"><i class="fa fa-arrow-circle-down"></i></a>
-        <a href="#" v-if="comunicado.activo=='0'" class="btn btn-success btn-sm" v-on:click.prevent="alta(comunicado)" data-placement="top" data-toggle="tooltip" title="Activar Activiad"><i class="fa fa-check-circle"></i></a>
+        <a href="#" class="btn bg-teal btn-sm" v-on:click.prevent="gestionarImages(comunicado)" data-placement="top" data-toggle="tooltip" title="Gestionar Imágenes del Comunicado"><i class="fa fa-file-text-o"></i></a>
+        <a href="#" v-if="comunicado.activo=='1'" class="btn bg-navy btn-sm" v-on:click.prevent="baja(comunicado)" data-placement="top" data-toggle="tooltip" title="Desactivar Comunicado"><i class="fa fa-arrow-circle-down"></i></a>
+        <a href="#" v-if="comunicado.activo=='0'" class="btn btn-success btn-sm" v-on:click.prevent="alta(comunicado)" data-placement="top" data-toggle="tooltip" title="Activar Comunicado"><i class="fa fa-check-circle"></i></a>
 
 
-        <a href="#" class="btn btn-warning btn-sm" v-on:click.prevent="edit(comunicado)" data-placement="top" data-toggle="tooltip" title="Editar Activiad"><i class="fa fa-edit"></i></a>
-        <a href="#" class="btn btn-danger btn-sm" v-on:click.prevent="borrar(comunicado)" data-placement="top" data-toggle="tooltip" title="Borrar Activiad"><i class="fa fa-trash"></i></a>
+        <a href="#" class="btn btn-warning btn-sm" v-on:click.prevent="edit(comunicado)" data-placement="top" data-toggle="tooltip" title="Editar Comunicado"><i class="fa fa-edit"></i></a>
+        <a href="#" class="btn btn-danger btn-sm" v-on:click.prevent="borrar(comunicado)" data-placement="top" data-toggle="tooltip" title="Borrar Comunicado"><i class="fa fa-trash"></i></a>
       </center>
       </td>
     </tr>
@@ -142,4 +183,4 @@
 </div>
 </div>
 
-@include('adminportal.comunicado.detalleimagenes')  
+@include('adminfacultad.comunicado.detalleimagenes')  

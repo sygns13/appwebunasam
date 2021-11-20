@@ -283,8 +283,8 @@ Vue.component('ckeditor4', {
  let app = new Vue({
     el: '#app',
     data:{
-        titulo:"Portal Web UNASAM",
-        subtitulo: "Gestión de Actividades",
+        titulo:"Portal Web Facultades",
+        subtitulo: "Gestión de Comunicados",
         subtitulo2: "Principal",
 
         subtitle2:false,
@@ -309,7 +309,7 @@ Vue.component('ckeditor4', {
         divtitulo:true,
         classTitle:'fa fa-list-alt',
         classMenu0:'',
-        classMenu1:'',
+        classMenu1:'active',
         classMenu2:'',
         classMenu3:'',
         classMenu4:'',
@@ -318,7 +318,7 @@ Vue.component('ckeditor4', {
         classMenu7:'',
         classMenu8:'',
         classMenu9:'',
-        classMenu10:'active',
+        classMenu10:'',
         classMenu11:'',
         classMenu12:'',
 
@@ -412,6 +412,11 @@ Vue.component('ckeditor4', {
                         'oldImg':''},
 
 
+        //seccion facultades
+        nivel : 1,
+        facultad:'',
+        facultad_id: 0,
+        tipo_vista: 1,
 
     },
     created:function () {
@@ -482,8 +487,8 @@ Vue.component('ckeditor4', {
     methods: {
       getDatos: function (page) {
             var busca=this.buscar;
-            var v1 = 0;
-            var v2 = 0;
+            var v1 = this.nivel;
+            var v2 = this.facultad_id;
             var v3 = 0;
             var url = '/intranet/comunicadosre?page='+page+'&busca='+busca+'&v1='+v1+'&v2='+v2+'&v3='+v3;
 
@@ -565,8 +570,8 @@ Vue.component('ckeditor4', {
             this.desarrollo=CKEDITOR.instances['editor1'].getData();
             this.divloaderNuevo=true;
 
-            var v1 = 0;
-            var v2 = 0;
+            var v1 = this.nivel;
+            var v2 = this.facultad_id;
             var v3 = 0;
 
             var data = new  FormData();
@@ -611,7 +616,7 @@ Vue.component('ckeditor4', {
         borrar:function (dato) {
           swal.fire({
               title: '¿Estás seguro?',
-              text: "¿Desea eliminar la Actividad seleccionado? -- Nota: Este proceso no se podrá revertir",
+              text: "¿Desea eliminar el Comunicado seleccionado? -- Nota: Este proceso no se podrá revertir",
               type: 'info',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
@@ -708,7 +713,8 @@ Vue.component('ckeditor4', {
             this.fillobject.oldImg= this.oldImg;
             this.fillobject.desarrollo=CKEDITOR.instances['editor2'].getData();
 
-            var v1 = 0;
+            var v1 = this.nivel;
+            var v2 = this.facultad_id;
 
             var data = new  FormData();
 
@@ -754,7 +760,7 @@ Vue.component('ckeditor4', {
         baja:function (dato) {
           swal.fire({
               title: '¿Estás seguro?',
-              text: "Nota: Si se desactiva la Actividad, No se mostrará en el Portal Web, hasta que sea activado nuevamente",
+              text: "Nota: Si se desactiva el Comunicado, No se mostrará en el Portal Web, hasta que sea activado nuevamente",
               type: 'info',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
@@ -781,7 +787,7 @@ Vue.component('ckeditor4', {
       alta:function (dato) {
           swal.fire({
               title: '¿Estás seguro?',
-              text: "Nota: Si activa la Actividad, se mostrará en el Portal Web",
+              text: "Nota: Si activa el Comunicado, se mostrará en el Portal Web",
               type: 'info',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
@@ -890,8 +896,8 @@ Vue.component('ckeditor4', {
           this.descripcionImg=CKEDITOR.instances['editor3'].getData();
           this.divloaderNuevoImg=true;
 
-          var v1 = 0;
-          var v2 = 0;
+          var v1 = this.nivel;
+          var v2 = this.facultad_id;
           var v3 = 0;
 
           var data = new  FormData();
@@ -1037,7 +1043,8 @@ Vue.component('ckeditor4', {
           this.fillobjectImg.oldImg= this.oldImgDetalle;
           this.fillobjectImg.descripcion=CKEDITOR.instances['editor4'].getData();
 
-          var v1 = 0;
+          var v1 = this.nivel;
+          var v2 = this.facultad_id;
 
           var data = new  FormData();
 
@@ -1076,6 +1083,18 @@ Vue.component('ckeditor4', {
           }).catch(error=>{
               this.errors=error.response.data
           })
+        },
+
+        //Modificaciones Facultades
+      irAtras:function(){
+            this.facultad_id = 0;
+            this.facultad = '';
+            this.divNuevo = false;
+            this.divNuevoLogo = false;
+        },
+        cambioFacultad:function(){
+            this.facultad = $('#cbufacultad_id option:selected').html();
+            this.getDatos(this.thispage);
         },
 
 }
