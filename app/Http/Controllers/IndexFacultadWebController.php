@@ -15,7 +15,19 @@ use Storage;
 
 use App\Universidad;
 use App\Facultad;
+use App\Programaestudio;
+
+use App\Banner;
+use App\Presentacion;
+use App\Noticia;
+use App\Imagennoticia;
+use App\Evento;
+use App\Imagenevento;
+use App\Comunicado;
+use App\Imagencomunicado;
 use App\Redsocial;
+use App\Linkinteres;
+use App\Plataforma;
 
 use DateTime;
 
@@ -42,8 +54,99 @@ class IndexFacultadWebController extends Controller
 
                 $facultad = Facultad::find($id);
 
+                //hash id
+                $facultad->hash = base64_encode(gzdeflate('idhijofacultad-'.$id));
+                
                 $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 1)->where('facultad_id',$id)->orderBy('id')->get();
                 $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+
+                $banners=Banner::where('borrado','0')->where('activo','1')->where('nivel', 1)->where('facultad_id',$id)->orderBy('posision')->orderBy('id')->get();
+                $presentacion=Presentacion::where('borrado','0')->where('nivel', 1)->where('facultad_id',$id)->where('activo','1')->first();
+                $linkinteres=Linkinteres::where('borrado','0')->where('activo','1')->where('nivel', 1)->where('facultad_id',$id)->orderBy('posision')->get();
+
+
+                $noticias = Noticia::where('borrado','0')->where('nivel', 1)->where('facultad_id',$id)->where('activo','1')->orderBy('fecha','desc')->orderBy('hora','desc')->orderBy('id')->limit(2)->get();
+                $eventos = Evento::where('borrado','0')->where('nivel', 1)->where('facultad_id',$id)->where('activo','1')->orderBy('fecha','desc')->orderBy('hora','desc')->orderBy('id')->limit(4)->get();
+                $comunicados = Comunicado::where('borrado','0')->where('nivel', 1)->where('facultad_id',$id)->where('activo','1')->orderBy('fecha','desc')->orderBy('hora','desc')->orderBy('id')->limit(3)->get();
+
+                $escuelas = Programaestudio::where('borrado','0')->where('activo','1')->where('facultad_id', $id)->orderBy('nombre')->get();
+
+                foreach ($escuelas as $key => $dato2) {
+                    $dato2->hash = base64_encode(gzdeflate('idhijoescuela-'.$dato2->id));
+                }
+
+                foreach ($noticias as $key => $dato) {    
+                    $imagennoticia = Imagennoticia::where('activo','1')->where('borrado','0')->where('posicion','0')->where('noticia_id', $dato->id)->first();
+                    $dato->imagennoticia = $imagennoticia;
+        
+                    if($dato->fecha != null && strlen($dato->fecha) > 0){
+                        $date1  = new DateTime($dato->fecha);
+        
+                        $mes = $date1->format('m');
+                        $dia = $date1->format('d');
+                        $anio = $date1->format('Y');
+                        $nombreMes = strtoupper(nombremes(intval($mes)));
+                        $iniNombreMes = substr($nombreMes, 0, 3);
+        
+                        $dato->anio = $anio;
+                        $dato->mes = $mes;
+                        $dato->dia = $dia;
+                        $dato->nombreMes = $nombreMes;
+                        $dato->iniNombreMes = $iniNombreMes;
+                    }
+        
+                    //hash id
+                    $hash = base64_encode(gzdeflate('id-'.$dato->id));
+                    $dato->hash = $hash;
+                }
+        
+                foreach ($eventos as $key => $dato) {    
+                    $eventoimagen = Imagenevento::where('activo','1')->where('borrado','0')->where('posicion','0')->where('evento_id', $dato->id)->first();
+                    $dato->eventoimagen = $eventoimagen;
+        
+                    if($dato->fecha != null && strlen($dato->fecha) > 0){
+                        $date1  = new DateTime($dato->fecha);
+        
+                        $mes = $date1->format('m');
+                        $dia = $date1->format('d');
+                        $anio = $date1->format('Y');
+                        $nombreMes = strtoupper(nombremes(intval($mes)));
+                        $iniNombreMes = substr($nombreMes, 0, 3);
+        
+                        $dato->anio = $anio;
+                        $dato->mes = $mes;
+                        $dato->dia = $dia;
+                        $dato->nombreMes = $nombreMes;
+                        $dato->iniNombreMes = $iniNombreMes;
+                    }
+                    //hash id
+                    $hash = base64_encode(gzdeflate('id-'.$dato->id));
+                    $dato->hash = $hash;
+                }
+        
+                foreach ($comunicados as $key => $dato) {    
+                    $imagencomunicado = Imagencomunicado::where('activo','1')->where('borrado','0')->where('posicion','0')->where('comunicado_id', $dato->id)->first();
+                    $dato->imagencomunicado = $imagencomunicado;
+        
+                    if($dato->fecha != null && strlen($dato->fecha) > 0){
+                        $date1  = new DateTime($dato->fecha);
+        
+                        $mes = $date1->format('m');
+                        $dia = $date1->format('d');
+                        $year = $date1->format('Y');
+                        $nombreMes = strtoupper(nombremes(intval($mes)));
+                        $iniNombreMes = substr($nombreMes, 0, 3);
+        
+                        $dato->mes = $mes;
+                        $dato->dia = $dia;
+                        $dato->nombreMes = $nombreMes;
+                        $dato->iniNombreMes = $iniNombreMes;
+                        $dato->year = $year ;
+                    }
+                    //hash id
+                    $hash = base64_encode(gzdeflate('id-'.$dato->id));
+                    $dato->hash = $hash;
+                }
 
                 $menusActivos = new stdClass;
 
@@ -57,8 +160,10 @@ class IndexFacultadWebController extends Controller
                 $menusActivos->menu8 = "";
                 $menusActivos->menu9 = "";
 
+                $plataformas=Plataforma::where('borrado','0')->where('activo','1')->where('nivel', 0)->orderBy('id')->get();
 
-                return view('web/facultad/index',compact('facultad','redsocials','unasam','menusActivos'));
+
+                return view('web/facultad/index',compact('facultad','unasam','redsocials','menusActivos','banners','presentacion','linkinteres','noticias','eventos','comunicados','escuelas', 'plataformas'));
 
 
 

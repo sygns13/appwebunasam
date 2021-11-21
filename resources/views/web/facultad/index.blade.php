@@ -1,206 +1,407 @@
 <!DOCTYPE html>
-<html>
-	<head>
 
-		<!-- Basic -->
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">	
+@if($facultad != null && $facultad->tipo_vista != null)
+	@if($facultad->tipo_vista =='1')
+		<html lang="es">
+	@elseif($facultad->tipo_vista =='2')
+		<html lang="es">
+	@elseif($facultad->tipo_vista =='3')
+		<html lang="es" class="boxed">
+	@else
+	<html lang="es">
+	@endif
+@else
+	<html lang="es">
+@endif
 
-		<title>Portal de la {{$facultad->nombre}}</title>	
-
-		<meta name="keywords" content="facultad, {{$facultad->nombre}} ,universidad, Huaraz, Ancash, Perú, UNASAM, Universidad Nacional, universidad Huaraz, Santiago Antúnez, Santiago Antúnez de Mayolo, Antúnez de Mayolo" />
-		<meta name="description" content="{{$facultad->nombre}} de la Universidad Nacional Santiago Antunez de Mayolo ubicada en la ciudad de Huaraz Ancash-Perú">
-		<meta name="author" content="Ing. Cristian Chávez - Construyendo Soluciones Informáticas E.I.R.L.">
-
-		<!-- Favicon -->
-		<link rel="shortcut icon" href="{{ asset('/img/icon.png') }}" type="image/x-icon" />
-    <link rel="apple-touch-icon" href="{{ asset('/img/icon.png') }}">
-
-		<!-- Mobile Metas -->
-		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
-
-		<!-- Web Fonts  -->
-		<link id="googleFonts" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800%7CShadows+Into+Light&display=swap" rel="stylesheet" type="text/css">
-
-		<!-- Vendor CSS -->
-		<link rel="stylesheet" href="{{ asset('/webvendor/vendor/bootstrap/css/bootstrap.min.css') }}">
-		<link rel="stylesheet" href="{{ asset('/webvendor/vendor/fontawesome-free/css/all.min.css') }}">
-		<link rel="stylesheet" href="{{ asset('/webvendor/vendor/animate/animate.compat.css') }}">
-		<link rel="stylesheet" href="{{ asset('/webvendor/vendor/simple-line-icons/css/simple-line-icons.min.css') }}">
-		<link rel="stylesheet" href="{{ asset('/webvendor/vendor/owl.carousel/assets/owl.carousel.min.css') }}">
-		<link rel="stylesheet" href="{{ asset('/webvendor/vendor/owl.carousel/assets/owl.theme.default.min.css') }}">
-		<link rel="stylesheet" href="{{ asset('/webvendor/vendor/magnific-popup/magnific-popup.min.css') }}">
-
-		<!-- Theme CSS -->
-		<link rel="stylesheet" href="{{ asset('/webvendor/css/theme.css') }}">
-		<link rel="stylesheet" href="{{ asset('/webvendor/css/theme-elements.css') }}">
-		<link rel="stylesheet" href="{{ asset('/webvendor/css/theme-blog.css') }}">
-		<link rel="stylesheet" href="{{ asset('/webvendor/css/theme-shop.css') }}">
-
-		<!-- Demo CSS -->
-		<link rel="stylesheet" href="{{ asset('/webvendor/css/demos/demo-medical.css') }}">
-
-		<!-- Skin CSS -->
-		<link id="skinCSS" rel="stylesheet" href="{{ asset('/webvendor/css/skins/skin-medical.css') }}">
-
-		<!-- Theme Custom CSS -->
-		<link rel="stylesheet" href="{{ asset('/webvendor/css/custom.css') }}">
-
-		<!-- Head Libs -->
-		<script src="{{ asset('/webvendor/vendor/modernizr/modernizr.min.js') }}"></script>
-
-	</head>
+@include('web/facultad/partials/head')
 	<body>
 
 		<div class="body">
 
-			<header id="header" class="header-effect-shrink" data-plugin-options="{'stickyEnabled': true, 'stickyEffect': 'shrink', 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': false, 'stickyChangeLogo': true, 'stickyStartAt': 120, 'stickyHeaderContainerHeight': 70}">
-				<div class="header-body border-top-0">
-					<div class="header-top header-top-default header-top-borders border-bottom-0">
-						<div class="container h-100">
-							<div class="header-row h-100">
-								<div class="header-column justify-content-end">
-									<div class="header-row">
-										<nav class="header-nav-top">
-											<ul class="nav nav-pills">
-												<li class="nav-item nav-item-borders py-2 d-none d-sm-inline-flex">
-													<span class="ps-0"><i class="far fa-dot-circle text-4 text-color-primary" style="top: 1px;"></i>
-														@if($facultad != null && $facultad->direccion != null)
-															{{$facultad->direccion}}
-														@endif
-													</span>
-												</li>
-												<li class="nav-item nav-item-borders py-2">
-													@if($facultad != null && $facultad->telefono != null)
-														<a href="tel:{{$facultad->telefono}}"><i class="fab fa-whatsapp text-4 text-color-primary" style="top: 0;"></i> {{$facultad->telefono}}</a>
-													@endif
-												</li>
-												<li class="nav-item nav-item-borders py-2 pe-1 d-none d-md-inline-flex">
-													@if($facultad != null && $facultad->email != null)
-														<a href="mailto:{{$facultad->email}}"><i class="far fa-envelope text-4 text-color-primary" style="top: 1px;"></i> {{$facultad->email}}</a>
-													@endif
-													
-												</li>
-											</ul>
-										</nav>
+			@include('web/facultad/partials/header')
+
+			<div role="main" class="main">
+
+				@if($facultad != null && $facultad->tipo_vista != null)
+					@if($facultad->tipo_vista =='2')
+						<div class="container">
+					@endif
+				@endif
+
+				<div class="owl-carousel owl-carousel-light owl-carousel-light-init-fadeIn owl-theme manual dots-inside dots-vertical-center dots-align-right dots-orientation-portrait custom-dots-style-1 show-dots-hover show-dots-xs nav-style-1 nav-inside nav-inside-plus nav-dark nav-lg nav-font-size-lg show-nav-hover mb-0" data-plugin-options="{'autoplayTimeout': 7000}" data-dynamic-height="['500px','500px','500px','400px','350px']" style="height: 500px;">
+					<div class="owl-stage-outer">
+						<div class="owl-stage">
+
+							@foreach($banners as  $key => $dato)
+
+							<div class="owl-item position-relative overlay overlay-show overlay-op-3" style="background-image: url({{asset('/web/bannerfacultad/'.$dato->url) }}); background-size: cover; background-position: center;">
+								<div class="container position-relative z-index-3 h-100">
+									<div class="row align-items-center h-100">
+										<div class="col pb-4">
+			{{-- 								<h1 class="text-color-light font-weight-extra-bold text-13 line-height-2 mb-2 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="500" data-plugin-options="{'minWindowWidth': 0}">SPECIALISTS</h1> --}}
+											<h2 class="text-color-light font-weight-extra-bold text-4-5 line-height-2 mb-3 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="750" data-plugin-options="{'minWindowWidth': 0}">{{$dato->nombre}}</h2>
+{{-- 											<div class="d-inline-block">
+												<p class="text-color-light custom-border-bottom-1 font-weight-light text-4-5 mb-0 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1000" data-plugin-options="{'minWindowWidth': 0}">We are located in New York</p>
+											</div> --}}
+										</div>
 									</div>
 								</div>
 							</div>
+
+							@endforeach
+
+
 						</div>
 					</div>
-					<div class="header-container container">
-						<div class="header-row">
-							<div class="header-column">
-								<div class="header-row">
-									<div class="header-logo">
-										<a href="demo-medical.html">
-											<img alt="Porto" width="143" height="40" src="img/demos/medical/logo-medical.png">
-										</a>
+					<div class="owl-dots mb-5">
+						<button role="button" class="owl-dot active"><span></span></button>
+						<button role="button" class="owl-dot"><span></span></button>
+					</div>
+				</div>
+				
+				@if($unasam != null && $unasam->tipo_vista != null)
+				@if($unasam->tipo_vista =='2')
+					</div>
+				@endif
+			@endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			{{-- <section class="section bg-color-light-scale-2 border-0 m-0"> --}}
+			<section class="section bg-color-light border-0 m-0">
+
+				<div class="container">
+{{-- 					<div class="row">
+						<div class="col appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
+							<h2 class="font-weight-semibold mb-0">Presentación</h2>
+						</div>
+					</div><br> --}}
+
+					<div class="row mb-5 pb-3">
+						@if($presentacion != null)
+						<div class="col-md-6 col-lg-4 mb-5 mb-lg-0 appear-animation" data-appear-animation="fadeInUpShorter">
+
+							<div class="row">
+								<div class="col appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
+									<h2 class="font-weight-semibold mb-0">Presentación</h2>
+								</div>
+							</div><br>
+
+							<div>
+								@if($presentacion->titulo != null)
+									<h4 class="font-weight-normal line-height-1" style="color:#2d529f;"><b>{{$presentacion->titulo}}</b> </h4>
+								@endif
+
+								@if($presentacion->subtitulo != null)
+									<p class="lead" style="color:#212529">{{$presentacion->subtitulo}}</p>
+								@endif
+
+							
+								<p style="color:#212529">
+									@if($presentacion->descripcion != null)
+										<div style="height: 300px; overflow: hidden; color: #212529" id="idcuerpoPresentacion"> 
+											{!! $presentacion->descripcion !!}
+										</div>
+									@endif
+								</p>
+								<a class="btn btn-outline btn-quaternary custom-button text-uppercase mt-4 mb-4 mb-md-0 font-weight-bold" href="presentacion/{{$facultad->hash}}">Ingresar</a>
+							</div>
+						</div>
+						@endif
+		
+
+						<div class="col-sm-8 col-lg-8 mb-8 pb-2">
+							<div class="row">
+								<div class="col appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
+									<a href="noticias/{{$facultad->hash}}"><h2 class="font-weight-semibold mb-0"><center>Noticias</center></h2></a>
+								</div>
+							</div><br>
+							<div class="row">
+						@foreach($noticias as  $key => $dato)
+
+
+							<div class="col-md-6 col-lg-6 mb-6 mb-lg-0 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200"
+							style="background-color: #2d529f; border: 1px solid white; padding-bottom:10px; padding-top:10px;">
+								<a href="noticia/{{$dato->hash}}/{{$facultad->hash}}">
+									<h5 class="mb-4" style="color:white;">
+										@if($dato->titular != null)
+											{{$dato->titular}}
+										@endif
+									</h5>
+								</a>
+
+								<div class="card">
+									<a href="noticia/{{$dato->hash}}/{{$facultad->hash}}" class="text-decoration-none">
+										@if($dato->imagennoticia != null && $dato->imagennoticia->url != null)
+											<img class="card-img-top" src="{{ asset('/web/noticiafacultad/'.$dato->imagennoticia->url) }}" alt="Card Image" style="height: 200px;">
+										@else
+											<img class="card-img-top" src="{{ asset('/img/Login-Background.jpg') }}" alt="Card Image" style="height: 200px;">
+										@endif
+									</a>
+									<div class="card-body">
+										<h4 class="card-title mb-1 text-4 font-weight-bold">
+											<a href="noticia/{{$dato->hash}}/{{$facultad->hash}}">
+												@if($dato->dia != null)
+													{{$dato->dia}} de {{$dato->nombreMes}}, de {{$dato->anio}}
+												@endif
+											</a>
+										</h4>
+										<p class="card-text mb-2 pb-1">
+											<div style="height: 100px; overflow: hidden; color:white!important; " id="noticia-{{$dato->id}}"> 
+												@if($dato->desarrollo != null)
+													{!!$dato->desarrollo !!}
+												@endif
+											</div>
+										</p>
+										<a href="noticia/{{$dato->hash}}/{{$facultad->hash}}" class="read-more text-color-primary font-weight-semibold text-2">Leer Más <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
 									</div>
 								</div>
 							</div>
-							<div class="header-column justify-content-end">
-								<div class="header-row">
-									<div class="header-nav order-2 order-lg-1">
-										<div class="header-nav-main header-nav-main-square header-nav-main-effect-1 header-nav-main-sub-effect-1">
-											<nav class="collapse">
-												<ul class="nav nav-pills" id="mainNav">
-													<li class="dropdown-full-color dropdown-secondary">
-														<a class="nav-link active" href="demo-medical.html">
-															Home
-														</a>
-													</li>
-													<li class="dropdown-full-color dropdown-secondary">
-														<a class="nav-link" href="demo-medical-about-us.html">
-															About Us
-														</a>
-													</li>
-													<li class="dropdown dropdown-full-color dropdown-secondary">
-														<a class="nav-link dropdown-toggle" class="dropdown-toggle" href="demo-medical-departments.html">
-															Departments
-														</a>
-														<ul class="dropdown-menu">
-															<li><a class="dropdown-item" href="demo-medical-departments-detail.html">Cardiology</a></li>
-															<li><a class="dropdown-item" href="demo-medical-departments-detail.html">Gastroenterology</a></li>
-															<li><a class="dropdown-item" href="demo-medical-departments-detail.html">Pulmonology</a></li>
-															<li><a class="dropdown-item" href="demo-medical-departments-detail.html">Dental</a></li>
-															<li><a class="dropdown-item" href="demo-medical-departments-detail.html">Gynecology</a></li>
-															<li><a class="dropdown-item" href="demo-medical-departments-detail.html">Hepatology</a></li>
-														</ul>
-													</li>
-													<li class="dropdown-full-color dropdown-secondary">
-														<a class="nav-link" href="demo-medical-doctors.html">
-															Doctors
-														</a>
-													</li>
-													<li class="dropdown-full-color dropdown-secondary">
-														<a class="nav-link" href="demo-medical-resources.html">
-															Resources
-														</a>
-													</li>
-													<li class="dropdown-full-color dropdown-secondary">
-														<a class="nav-link" href="demo-medical-insurance.html">
-															Insurance
-														</a>
-													</li>
-													<li class="dropdown-full-color dropdown-secondary">
-														<a class="nav-link" href="demo-medical-contact.html">
-															Contact
-														</a>
-													</li>
-												</ul>
-											</nav>
+						@endforeach
+					</div>
+					</div>
+					</div>
+					
+				</div>
+			</section>
+
+
+
+
+
+
+
+
+
+
+			<section class="section bg-color-light-scale-2 border-0 m-0">
+				<div class="container" >
+					<div class="row">
+						<div class="col appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
+							<a href="eventos/{{$facultad->hash}}"><h2 class="font-weight-semibold mb-0">Eventos</h2></a>
+						</div>
+					</div>
+
+					<div class="row">
+					<div class="col-sm-8 col-lg-8 mb-8 pb-2">
+
+						<div class="row">
+						@foreach($eventos as  $key => $dato)
+							<div class="col-sm-6 col-lg-6 mb-6 pb-2">
+								<a href="evento/{{$dato->hash}}/{{$facultad->hash}}">
+									<article>
+										<div class="thumb-info thumb-info-no-borders thumb-info-bottom-info thumb-info-bottom-info-dark thumb-info-bottom-info-show-more thumb-info-no-zoom border-radius-0">
+											<div class="thumb-info-wrapper thumb-info-wrapper-opacity-6">
+												@if($dato->eventoimagen != null && $dato->eventoimagen->url != null)
+													<img src="{{ asset('/web/eventofacultad/'.$dato->eventoimagen->url) }}" class="img-fluid" alt=" @if($dato->titulo != null)
+													{{$dato->titulo}}
+													@endif" style="height: 200px;">
+												@else
+													<img src="{{ asset('/webvendor/img/blog/default/blog-46.jpg') }}" class="img-fluid" alt=" @if($dato->titulo != null)
+													{{$dato->titulo}}
+													@endif" style="height: 200px;">
+												@endif
+												
+												<div class="thumb-info-title bg-transparent p-4">
+													<div class="thumb-info-type bg-color-primary px-2 mb-1">Ver más</div>
+													<div class="thumb-info-inner mt-1">
+														<h2 class="text-color-light line-height-2 text-4 font-weight-bold mb-0">
+															@if($dato->titulo != null)
+																{{$dato->titulo}}
+															@endif
+														</h2>
+													</div>
+													<div class="thumb-info-show-more-content">
+														<p class="mb-0 text-1 line-height-9 mb-1 mt-2 text-light opacity-5">
+															<div style="height: 80px; overflow: hidden;"> 
+																@if($dato->desarrollo != null)
+																	{!!$dato->desarrollo !!}
+																@endif
+															</div>
+														</p>
+													</div>
+												</div>
+											</div>
 										</div>
-										<button class="btn header-btn-collapse-nav" data-bs-toggle="collapse" data-bs-target=".header-nav-main nav">
-											<i class="fas fa-bars"></i>
-										</button>
-									</div>
+									</article>
+								</a>
+							</div>
+						@endforeach
+						</div>
+
+						<center><a class="btn btn-outline btn-quaternary custom-button text-uppercase mt-4 mb-4 mb-md-0 font-weight-bold" href="eventos/{{$facultad->hash}}">Ver Todos los Eventos</a></center>
+					</div>
+
+
+					<div class="col-sm-4 col-lg-4 mb-4 pb-2">
+					
+					<a href="comunicados/{{$facultad->hash}}"><h3 class="font-weight-bold text-3 mt-4 mt-md-0">Ver Comunicados</h3></a>
+
+					<div class="owl-carousel owl-theme" data-plugin-options="{'items': 1, 'margin': 10, 'loop': true, 'nav': false, 'dots': false, 'autoplay': true, 'autoplayTimeout': 5000}">
+
+						@foreach($comunicados as  $key => $dato)
+							@if($key < 3)
+								<div>
+									<a href="comunicado/{{$dato->hash}}/{{$facultad->hash}}">
+										<article>
+											<div class="thumb-info thumb-info-no-borders thumb-info-bottom-info thumb-info-bottom-info-dark thumb-info-bottom-info-show-more thumb-info-no-zoom border-radius-0">
+												<div class="thumb-info-wrapper thumb-info-wrapper-opacity-6">
+													@if($dato->imagencomunicado != null && $dato->imagencomunicado->url != null)
+														<img src="{{ asset('/web/comunicadofacultad/'.$dato->imagencomunicado->url) }}" class="img-fluid" alt=" @if($dato->titulo != null)
+														{{$dato->titulo}}
+														@endif">
+													@else
+														<img src="{{ asset('/webvendor/img/blog/default/blog-46.jpg') }}" class="img-fluid" alt=" @if($dato->titulo != null)
+														{{$dato->titulo}}
+														@endif">
+													@endif	
+													<div class="thumb-info-title bg-transparent p-4">
+														<div class="thumb-info-type bg-color-primary px-2 mb-1">
+															@if($dato->nombreMes != null)
+																{{$dato->nombreMes}} {{$dato->dia}}, {{$dato->year}}
+															@endif
+														</div>
+														<div class="thumb-info-inner mt-1">
+															<h2 class="text-color-light line-height-2 text-4 font-weight-bold mb-0">
+																@if($dato->titulo != null)
+																	{{$dato->titulo}}
+																@endif
+															</h2>
+														</div>
+														<div class="thumb-info-show-more-content">
+															<p class="mb-0 text-1 line-height-9 mb-1 mt-2 text-light opacity-5">
+																<div style="max-height: 200px; overflow: hidden;"> 
+																	@if($dato->desarrollo != null)
+																		{!!$dato->desarrollo !!}
+																	@endif
+																</div>
+															</p>
+														</div>
+													</div>
+												</div>
+											</div>
+										</article>
+									</a>
 								</div>
+							@endif
+						@endforeach
+					</div>
+					</div>
+
+			</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+			<section class="section bg-color-light border-0 m-0">
+				<div class="container" >
+					<div class="row">
+						<div class="col appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
+							<h2 class="font-weight-semibold mb-0">Plataformas Web</h2>
+						</div>
+					</div>
+					<div class="row">
+
+						<div class="featured-boxes featured-boxes-style-4">
+							<div class="row">
+								@foreach($plataformas as  $key => $dato)
+									@if($key%2 == 0)	
+									<div class="col-lg-2" style="padding-left: 0px; padding-right:0px;">
+										<div class="featured-box featured-box-primary featured-box-effect-5">
+											<div class="box-content" style="padding-left: 5px; padding-right:5px;">
+												<a href="{{$dato->url}}" target="_blank"><i class="icon-featured far fa-file-alt"></i></a>
+												<a href="{{$dato->url}}" target="_blank"><h4 class="font-weight-normal text-5 mt-3"><strong class="font-weight-extra-bold">{{$dato->nombre}} </strong></h4></a>
+											</div>
+										</div>
+									</div>
+									@else
+									<div class="col-lg-2" style="padding-left: 0px; padding-right:0px;">
+										<div class="featured-box featured-box-secondary featured-box-effect-5">
+											<div class="box-content" style="padding-left: 5px; padding-right:5px;">
+												<a href="{{$dato->url}}" target="_blank"><i class="icon-featured far fa-file-alt"></i></a>
+												<a href="{{$dato->url}}" target="_blank"><h4 class="font-weight-normal text-5 mt-3"><strong class="font-weight-extra-bold">{{$dato->nombre}} </strong></h4></a>
+											</div>
+										</div>
+									</div>
+									@endif
+								@endforeach
 							</div>
 						</div>
 					</div>
 				</div>
-			</header>
+			</section>
 
-			<div role="main" class="main">
+			<hr style="margin:0px;"> 
+            <section class="section bg-color-light-scale-2 border-0 m-0">
 
-				{{$facultad->nombre}}
-				
+			<div class="container">
+				<div class="row">
+					<div class="col appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
+						<h2 class="font-weight-semibold mb-0">Enlaces de Interés</h2>
+					</div>
+				</div>
+				<div class="row py-4 my-5">
+					<div class="col py-3">
+						<div class="owl-carousel owl-theme mb-0" data-plugin-options="{'responsive': {'0': {'items': 1}, '476': {'items': 1}, '768': {'items': 5}, '992': {'items': 8}, '1200': {'items': 8}}, 'autoplay': true, 'autoplayTimeout': 2000, 'dots': false, 'margin': 10}">
+							@foreach($linkinteres as  $key => $dato)
+								<div >
+									<a  href="{{$dato->nombre}}" target="_blank"><img {{-- style="border: groove #8080807d 1px" --}} class="img-fluid opacity-10" src="{{ asset('/web/linkinteresfacultad/'.$dato->url) }}" alt=""></a>
+								</div>
+							@endforeach
+						</div>
+
+					</div>
+				</div>
 			</div>
+				
+        </section>
+
+
+
+
+
+
+
+
+		@include('web/facultad/partials/footer')
+
 
 			
 		</div>
+	</div>
 
-		<!-- Vendor -->
-		<script src="{{ asset('/webvendor/vendor/jquery/jquery.min.js') }}"></script>
-		<script src="{{ asset('/webvendor/vendor/jquery.appear/jquery.appear.min.js') }}"></script>
-		<script src="{{ asset('/webvendor/vendor/jquery.easing/jquery.easing.min.js') }}"></script>
-		<script src="{{ asset('/webvendor/vendor/jquery.cookie/jquery.cookie.min.js') }}"></script>
-		<script src="{{ asset('/webvendor/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-		<script src="{{ asset('/webvendor/vendor/jquery.validation/jquery.validate.min.js') }}"></script>
-		<script src="{{ asset('/webvendor/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js') }}"></script>
-		<script src="{{ asset('/webvendor/vendor/jquery.gmap/jquery.gmap.min.js') }}"></script>
-		<script src="{{ asset('/webvendor/vendor/lazysizes/lazysizes.min.js') }}"></script>
-		<script src="{{ asset('/webvendor/vendor/isotope/jquery.isotope.min.js') }}"></script>
-		<script src="{{ asset('/webvendor/vendor/owl.carousel/owl.carousel.min.js') }}"></script>
-		<script src="{{ asset('/webvendor/vendor/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
-		<script src="{{ asset('/webvendor/vendor/vide/jquery.vide.min.js') }}"></script>
-		<script src="{{ asset('/webvendor/vendor/vivus/vivus.min.js') }}"></script>
+	@include('web/facultad/partials/scripts')
 
-		<!-- Theme Base, Components and Settings -->
-		<script src="{{ asset('/webvendor/js/theme.js') }}"></script>
-
-		<!-- Current Page Vendor and Views -->
-		<script src="{{ asset('/webvendor/js/views/view.contact.js') }}"></script>
-
-		<!-- Demo -->
-		<script src="{{ asset('/webvendor/js/demos/demo-medical.js') }}"></script>
-
-		<!-- Theme Custom -->
-		<script src="{{ asset('/webvendor/js/custom.js') }}"></script>
-
-		<!-- Theme Initialization Files -->
-		<script src="{{ asset('/webvendor/js/theme.init.js') }}"></script>
+		<script>
+			$("#idcuerpoPresentacion p").css("color", "#212529");
+		/* 	$(document).ready(function () {
+				alert("hoa");
+			}); */
+		</script>
 
 	</body>
 </html>

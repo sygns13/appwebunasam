@@ -185,7 +185,7 @@ class IndexWebController extends Controller
         
 
 
-        return view('web/unasam/index',compact('banners','presentacion','unasam','noticias','eventos','actividades','plataformas','redsocials','linkinteres','menusActivos', 'FacultadesEscuelas','totalRegistros', 'FacultadesEscuelas','totalRegistros'));
+        return view('web/unasam/index',compact('banners','presentacion','unasam','noticias','eventos','actividades','plataformas','redsocials','linkinteres','menusActivos', 'FacultadesEscuelas','totalRegistros'));
     }
 
     public function historia(){

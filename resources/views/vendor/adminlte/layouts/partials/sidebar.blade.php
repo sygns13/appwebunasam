@@ -259,7 +259,7 @@
             <li class="treeview" v-bind:class="classMenu1">
                 <a href="#"><i class='fa fa-list-alt'></i> <span>Inicio Facultad</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
-                    <li><a href="{{URL::to('intranet/configlogo')}}"><i class='fa fa-paper-plane'></i> Logo Principal</a></li>
+                    <li><a href="{{URL::to('intranet/configlogo')}}"><i class='fa fa-paper-plane'></i> Configuraciones Principales</a></li>
                     <li><a href="{{URL::to('intranet/banner')}}"><i class='fa fa-paper-plane'></i> Gestión de Banners</a></li>
                     <li><a href="{{URL::to('intranet/presentacion')}}"><i class='fa fa-paper-plane'></i> Gestión de Presentación</a></li>
                     <li><a href="{{URL::to('intranet/datosfacultad')}}"><i class='fa fa-paper-plane'></i> Gestión de Datos Facultad</a></li>
