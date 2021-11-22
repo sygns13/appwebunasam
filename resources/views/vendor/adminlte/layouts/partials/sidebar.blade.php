@@ -162,7 +162,7 @@
 
             @if(accesoUser([3]))
 
-            <li class="treeview" v-bind:class="classMenu10">
+            <li class="treeview" v-bind:class="classMenu11">
                 <a href="#"><i class='fa fa-list-alt'></i> <span>Páginas Portal UNASAM</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
                     
@@ -280,7 +280,7 @@
 
             @if(accesoUser([3,4]))
 
-            <li class="treeview" v-bind:class="classMenu10">
+            <li class="treeview" v-bind:class="classMenu1">
                 <a href="#"><i class='fa fa-list-alt'></i> <span>Inicio Facultad</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
                     
@@ -395,6 +395,7 @@
                     <li><a href="{{URL::to('intranet/historia')}}"><i class='fa fa-paper-plane'></i> Gestión de Historia</a></li>
                     <li><a href="{{URL::to('intranet/misionvision')}}"><i class='fa fa-paper-plane'></i> Gestión de Misión / Visión</a></li>
                     <li><a href="{{URL::to('intranet/objetivos')}}"><i class='fa fa-paper-plane'></i> Gestión de Objetivos</a></li>
+                    <li><a href="{{URL::to('intranet/organigrama')}}"><i class='fa fa-paper-plane'></i> Gestión de Organigrama</a></li>
                   {{--   <li><a href="{{URL::to('intranet/politicas')}}"><i class='fa fa-paper-plane'></i> Gestión de Políticas de Calidad</a></li>
                     <li><a href="{{URL::to('intranet/objetivos')}}"><i class='fa fa-paper-plane'></i> Gestión de Objetivos</a></li>
                     <li><a href="{{URL::to('intranet/directorio')}}"><i class='fa fa-paper-plane'></i> Gestión de Directorio</a></li> 

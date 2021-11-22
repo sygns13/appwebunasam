@@ -149,6 +149,10 @@ class ProgramasEstudiosController extends Controller
             $newProgramaestudio->facultad_id=$facultad_id;
             $newProgramaestudio->user_id=Auth::user()->id;
             $newProgramaestudio->nivel='2';
+            $newProgramaestudio->logourl='';
+            $newProgramaestudio->tipo_vista='';
+            $newProgramaestudio->nombre_organigrama='';
+            $newProgramaestudio->url_organigrama='';
 
             $newProgramaestudio->save();
 

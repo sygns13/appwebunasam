@@ -77,6 +77,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('intranet/configportal', 'UniversidadController@index0');
     Route::get('intranet/organigramaportal', 'UniversidadController@index2');
+    Route::get('intranet/organigrama', 'FacultadController@index2');
     Route::get('intranet/bannerportal', 'BannerController@index0');
     Route::get('intranet/banner', 'BannerController@index1');
     Route::get('intranet/presentacionportal', 'PresentacionController@index0');
@@ -283,6 +284,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('intranet/datosfacre/configuracion','FacultadController@configuracion');
     Route::post('intranet/datosfacre/logo','FacultadController@logo');
+    Route::post('intranet/datosfacre/organigrama','FacultadController@organigrama');
 
     Route::post('usuario/borrarpermiso','UserController@borrarpermiso');
     Route::post('usuario/borrarrolmodulo','UserController@borrarrolmodulo');

@@ -107,6 +107,47 @@ class FacultadController extends Controller
 
     }
 
+    public function index2()
+    {
+        $permisos=Permiso::where('user_id',Auth::user()->id)->get();
+        $rolModulos=Rolmodulo::where('user_id',Auth::user()->id)->get();
+        $rolSubModulos=Rolsubmodulo::where('user_id',Auth::user()->id)->get();
+
+        $nivel = 0;
+        $modulo = 5;
+        $submodulo = 40;
+
+        if(accesoUser([1,2]) || (accesoUser([3,4]) && accesoModulo($permisos, $rolModulos, $rolSubModulos, $nivel, $modulo, $submodulo))){
+
+
+            $idtipouser=Auth::user()->tipouser_id;
+            $tipouser=Tipouser::find($idtipouser);
+            $facultads = [];
+
+            $modulo="organigramafacultad";
+
+            if(accesoUser([1,2])){
+                $facultads = Facultad::orderBy('nombre')->where('borrado','0')->get();
+            }
+            else{
+                foreach ($permisos as $key => $dato) {
+                    if($dato->nivel == $nivel){
+                        $facultad = Facultad::find($dato->facultad_id);
+                        array_push($facultads, $facultad);
+                    } 
+                }
+            }
+
+            return view('paginasfacultad.organigrama.index',compact('tipouser','modulo', 'permisos','rolModulos','rolSubModulos','facultads'));
+        }
+        else
+        {
+            return redirect('home');    
+        }
+
+    }
+
+
     public function index(Request $request)
     {
         $facultad_id=$request->v1;
@@ -463,6 +504,172 @@ class FacultadController extends Controller
         return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
 
 
+    }
+
+
+
+    public function organigrama(Request $request)
+    {
+        ini_set('memory_limit','256M');
+        ini_set('upload_max_filesize','20M');
+
+        
+        $nombre_organigrama=$request->nombre_organigrama;
+        $url_organigrama=$request->url_organigrama;
+
+        $archivo="";
+        $file = $request->archivo;
+        $segureFile=0;
+
+        $nivel=$request->v1;
+        $facultad_id=$request->v2;
+        $programaestudio_id=$request->v3;
+
+        $result='1';
+        $msj='';
+        $selector='';
+
+        $oldFile=$request->oldFile;
+
+        $validarOrganigrama = true;
+
+        $facultad = Facultad::find($facultad_id);
+
+        if($facultad != null && $facultad->url_organigrama != null && Strlen($facultad->url_organigrama) > 0){
+            $validarOrganigrama = false;
+        }
+
+
+
+        if($request->hasFile('archivo')){
+
+            $nombreArchivo=$request->nombrefile;
+
+            $aux2='organigrama_'.date('d-m-Y').'-'.date('H-i-s');
+            $input2  = array('archivo' => $file) ;
+            $reglas2 = array('archivo' => 'required|file:1,1024000');
+            $validatorF = Validator::make($input2, $reglas2);     
+
+            if ($validatorF->fails())
+            {
+                $segureFile=1;
+                $msj="El archivo adjunto ingresado tiene un tamaño superior a 100 MB, ingrese otro archivo o limpie el formulario";
+                $result='0';
+                $selector='archivo';
+            }
+            else
+            {
+                $nombre2=$file->getClientOriginalName();
+                $extension2=$file->getClientOriginalExtension();
+                $nuevoNombre2=$aux2.".".$extension2;
+                //$subir2=Storage::disk('infoFile')->put($nuevoNombre2, \File::get($file));
+
+                if($extension2=="pdf" || $extension2=="PDF")
+                {
+
+                    $subir2=false;
+                    if(intval($nivel) == 0){
+                        $subir2=Storage::disk('organigramaUNASAM')->put($nuevoNombre2, \File::get($file));
+                    //$subir2=Storage::disk('organigramaUNASAM')->put($nuevoNombre2, $imgR);
+                    }
+                    elseif(intval($nivel) == 1){
+                        $subir2=Storage::disk('organigramaFacultad')->put($nuevoNombre2, \File::get($file));
+                    //$subir2=Storage::disk('organigramaFacultad')->put($nuevoNombre2, $imgR);
+                    }
+                    elseif(intval($nivel) == 2){
+                        $subir2=Storage::disk('organigramaProgramaEstudio')->put($nuevoNombre2, \File::get($file));
+                    // $subir2=Storage::disk('organigramaProgramaEstudio')->put($nuevoNombre2, $imgR);
+                    }
+
+                if($subir2){
+                    $archivo=$nuevoNombre2;
+
+                    if($oldFile != null && Strlen($oldFile) > 0){
+                        if(intval($nivel) == 0){
+                            Storage::disk('organigramaUNASAM')->delete($oldFile);
+                        }
+                        elseif(intval($nivel) == 1){
+                            Storage::disk('organigramaFacultad')->delete($oldFile);
+                        }
+                        elseif(intval($nivel) == 2){
+                            Storage::disk('organigramaProgramaEstudio')->delete($oldFile);
+                        }
+                    }
+                }
+                else{
+                    $msj="Error al subir el archivo adjunto, intentelo nuevamente luego";
+                    $segureFile=1;
+                    $result='0';
+                    $selector='archivo';
+                }
+                }
+                else {
+                    $segureFile=1;
+                    $msj="El archivo adjunto ingresado tiene una extensión no válida, ingrese otro archivo o limpie el formulario";
+                    $result='0';
+                    $selector='archivo';
+                }
+            }
+
+        }
+        else{
+
+            if( $validarOrganigrama ){
+                $msj="Debe de adjuntar un archivo adjunto válido, ingrese un archivo";
+                $segureFile=1;
+                $result='0';
+                $selector='archivo';
+            }
+        }        
+
+        if($segureFile==1){
+
+            if(intval($nivel) == 0){
+                Storage::disk('organigramaUNASAM')->delete($archivo);
+            }
+            elseif(intval($nivel) == 1){
+                Storage::disk('organigramaFacultad')->delete($archivo);
+            }
+            elseif(intval($nivel) == 2){
+                Storage::disk('organigramaProgramaEstudio')->delete($archivo);
+            }
+        }
+        else{
+
+            
+
+            $input2  = array('nombre_organigrama' => $nombre_organigrama);
+            $reglas2 = array('nombre_organigrama' => 'required');
+
+            $validator2 = Validator::make($input2, $reglas2);
+
+
+            if ($validator2->fails())
+            {
+                $result='0';
+                $msj='Debe ingresar el Título del Organigrama';
+                $selector='txtnombre_organigrama';
+            }
+
+            else{
+
+
+                    $facultad = Facultad::find($facultad_id);
+                    $facultad->nombre_organigrama = $nombre_organigrama;
+
+                    if($archivo != null && Strlen($archivo) > 0){
+                        $facultad->url_organigrama = $archivo;
+                    }
+                    
+                    $facultad->user_id=Auth::user()->id;
+                    $facultad->save();
+
+
+                $msj='Datos Registrados con Éxito';
+            }
+        }
+
+        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
     }
 
     /**

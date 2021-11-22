@@ -200,6 +200,9 @@ desired effect
 @elseif($modulo=="objetivosfacultad")
 @include('paginasfacultad.objetivos.vue')
 
+@elseif($modulo=="organigramafacultad")
+@include('paginasfacultad.organigrama.vue')
+
 
 @endif
 
