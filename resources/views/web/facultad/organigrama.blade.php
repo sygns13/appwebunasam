@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+@if($facultad != null && $facultad->tipo_vista != null)
+	@if($facultad->tipo_vista =='1')
+		<html lang="es">
+	@elseif($facultad->tipo_vista =='2')
+		<html lang="es">
+	@elseif($facultad->tipo_vista =='3')
+		<html lang="es" class="boxed">
+	@else
+	<html lang="es">
+	@endif
+@else
+	<html lang="es">
+@endif
+
+@include('web/facultad/partials/head')
+	<body>
+
+		<div class="body">
+
+			@include('web/facultad/partials/header')
+
+			<div role="main" class="main">
+
+                <section class="page-header page-header-modern bg-color-light-scale-2 page-header-md" style="background: #2d529f!important;">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-12 align-self-center p-static order-2 text-center">
+								<h1 class="text-light font-weight-bold text-8">Organigrama</h1>
+								<span class="sub-title text-light">{{$facultad->nombre}}</span>
+							</div>
+						</div>
+					</div>
+				</section>
+
+
+                <div class="container py-2">
+					<div class="row">
+						<div class="col">
+                            <div class="row mb-3">
+                                <div class="col">
+
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <iframe  src="{{ asset('/web/organigramafacultad/'.$facultad->url_organigrama) }}" style="width:100%; height: 900px;" frameborder="0"></iframe>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+		@include('web/facultad/partials/footer')
+		</div>
+	</div>
+
+	@include('web/facultad/partials/scripts')
+
+	</body>
+</html>

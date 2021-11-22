@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 
-@if($unasam != null && $unasam->tipo_vista != null)
-	@if($unasam->tipo_vista =='1')
+@if($facultad != null && $facultad->tipo_vista != null)
+	@if($facultad->tipo_vista =='1')
 		<html lang="es">
-	@elseif($unasam->tipo_vista =='2')
+	@elseif($facultad->tipo_vista =='2')
 		<html lang="es">
-	@elseif($unasam->tipo_vista =='3')
+	@elseif($facultad->tipo_vista =='3')
 		<html lang="es" class="boxed">
 	@else
 	<html lang="es">
@@ -14,34 +14,26 @@
 	<html lang="es">
 @endif
 
+@include('web/facultad/partials/head')
+	<body>
 
-@include('web/unasam/partials/head')
-
-	<body data-plugin-page-transition>
 		<div class="body">
 
-			@include('web/unasam/partials/header')
+			@include('web/facultad/partials/header')
 
 			<div role="main" class="main">
 
-
-                <div class="container py-4">
-
-					<div class="row">
-						<div class="col">
-							<div class="blog-posts single-post">
-                                <article class="post post-large blog-single-post border-0 m-0 p-0">
-
-                                    <div class="post-content ms-0">
-										<h2 class="font-weight-semi-bold" style="color:#0088CC">
-                                            Objetivos Estratégicos UNASAM
-                                        </h2>
-                                    </div>
-                                </article>
-                            </div>
+                <section class="page-header page-header-modern bg-color-light-scale-2 page-header-md" style="background: #2d529f!important;">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-12 align-self-center p-static order-2 text-center">
+								<h1 class="text-light font-weight-bold text-8">Objetivos Institucionales</h1>
+								<span class="sub-title text-light">{{$facultad->nombre}}</span>
+							</div>
 						</div>
 					</div>
-				</div>
+				</section>
+
 
 
                 <div class="container">
@@ -52,7 +44,7 @@
                         @if($key%2 != 0)
                             <div class="row align-items-center pt-4 appear-animation" data-appear-animation="fadeInLeftShorter">
                                 <div class="col-md-4 mb-4 mb-md-0">
-                                    <img class="img-fluid scale-2 pe-5 pe-md-0 my-4" src="{{ asset('/web/objetivoUNASAM/'.$dato->url) }}" alt="{{$dato->titulo}}" />
+                                    <img class="img-fluid scale-2 pe-5 pe-md-0 my-4" src="{{ asset('/web/objetivofacultad/'.$dato->url) }}" alt="{{$dato->titulo}}" />
                                 </div>
                                 <div class="col-md-8 ps-md-5">
                                     @if($dato->titulo != null)
@@ -74,7 +66,7 @@
                                     @endif
                                 </div>
                                 <div class="col-md-4 px-5 px-md-3">
-                                    <img class="img-fluid scale-2 pe-5 pe-md-0 my-4" src="{{ asset('/web/objetivoUNASAM/'.$dato->url) }}" alt="{{$dato->titulo}}" />
+                                    <img class="img-fluid scale-2 pe-5 pe-md-0 my-4" src="{{ asset('/web/objetivofacultad/'.$dato->url) }}" alt="{{$dato->titulo}}" />
                                 </div>
                             </div>
                         @endif
@@ -85,12 +77,15 @@
                     @endforeach
                 </div>
 
-			
 
-			@include('web/unasam/partials/footer')
+
+
+
+		@include('web/facultad/partials/footer')
 		</div>
+	</div>
 
-		@include('web/unasam/partials/scripts')
+	@include('web/facultad/partials/scripts')
 
 	</body>
 </html>

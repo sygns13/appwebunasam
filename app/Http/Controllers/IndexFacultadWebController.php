@@ -31,6 +31,8 @@ use App\Plataforma;
 
 use App\Historia;
 use App\Imagenhistoria;
+use App\Misionvision;
+use App\Objetivo;
 
 use DateTime;
 
@@ -243,65 +245,239 @@ class IndexFacultadWebController extends Controller
     }
 
 
-    public function historia(){
+    public function historia($idhash){
 
-        $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
-        $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 0)->orderBy('id')->get();
 
-        $historia=Historia::where('borrado','0')->where('nivel', 0)->where('activo','1')->first();
+        $strdecoded = $idhash;
 
-        if ($historia != null && $historia->id != null) {    
-            $imagenhistoria = Imagenhistoria::where('activo','1')->where('borrado','0')->where('historia_id', $historia->id)->orderBy('posicion')->orderBy('id')->get();
-            $historia->imagenhistoria = $imagenhistoria;
-            }
-
-        
-        $facultades = Facultad::where('borrado','0')->where('activo','1')->orderBy('nombre')->get();
-        $totalRegistros = 0;
-
-        $FacultadesEscuelas = array();
-
-        foreach ($facultades as $key => $dato) {
-
-            $FacultadEscuela = new stdClass;
-
-            $FacultadEscuela->nombre = $dato->nombre;
-            $FacultadEscuela->nivel = 1;
-            $FacultadEscuela->hash = base64_encode(gzdeflate('idhijofacultad-'.$dato->id));
-
-            array_push($FacultadesEscuelas, $FacultadEscuela);
-
+        if($idhash != null && strlen($idhash) > 0){
             
-            $escuelas = Programaestudio::where('borrado','0')->where('activo','1')->where('facultad_id', $dato->id)->orderBy('nombre')->get();
-            $dato->escuelas = $escuelas;
+            try {
+                $strdecoded = gzinflate(base64_decode($idhash));
 
-            foreach ($escuelas as $key => $dato2) {
+                if(strlen($strdecoded) > 15){
+                    $id = explode('-', $strdecoded);
+                    $id = $id[1];
+                }
 
-                $FacultadEscuela = new stdClass;
 
-                $FacultadEscuela->nombre = $dato2->nombre;
-                $FacultadEscuela->nivel = 2;
-                $FacultadEscuela->hash = base64_encode(gzdeflate('idhijoescuela-'.$dato2->id));
+                    $historia=Historia::where('borrado','0')->where('nivel', 1)->where('facultad_id',$id)->where('activo','1')->first();
 
-                array_push($FacultadesEscuelas, $FacultadEscuela);
+                    if ($historia != null && $historia->id != null) {    
+                        $imagenhistoria = Imagenhistoria::where('activo','1')->where('borrado','0')->where('historia_id', $historia->id)->orderBy('posicion')->orderBy('id')->get();
+                        $historia->imagenhistoria = $imagenhistoria;
+                        }
+
+                    $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 1)->where('facultad_id',$id)->orderBy('id')->get();
+                    $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+
+                    
+                    $facultad = Facultad::find($id);
+
+                    //hash id
+                    $facultad->hash = base64_encode(gzdeflate('idhijofacultad-'.$id));
+
+                    $escuelas = Programaestudio::where('borrado','0')->where('activo','1')->where('facultad_id', $id)->orderBy('nombre')->get();
+
+                    foreach ($escuelas as $key => $dato2) {
+                        $dato2->hash = base64_encode(gzdeflate('idhijoescuela-'.$dato2->id));
+                    }
+
+                    $menusActivos = new stdClass;
+
+                    $menusActivos->menu1 = "";
+                    $menusActivos->menu2 = "active";
+                    $menusActivos->menu3 = "";
+                    $menusActivos->menu4 = "";
+                    $menusActivos->menu5 = "";
+                    $menusActivos->menu6 = "";
+                    $menusActivos->menu7 = "";
+                    $menusActivos->menu8 = "";
+                    $menusActivos->menu9 = "";
+
+                    
+                    return view('web/facultad/historia',compact('historia','redsocials','facultad','menusActivos', 'escuelas'));
+
+            } catch (Exception $e) {
+                return redirect('/');
             }
         }
+        else{
+            return redirect('/');
+        }
 
-        $totalRegistros = count($FacultadesEscuelas);
+        return redirect('/');
 
-        $menusActivos = new stdClass;
+    }
 
-        $menusActivos->menu1 = "active";
-        $menusActivos->menu2 = "";
-        $menusActivos->menu3 = "";
-        $menusActivos->menu4 = "";
-        $menusActivos->menu5 = "";
-        $menusActivos->menu6 = "";
-        $menusActivos->menu7 = "";
-        $menusActivos->menu8 = "";
-        $menusActivos->menu9 = "";
 
-        return view('web/unasam/historia',compact('unasam','redsocials','historia','menusActivos', 'FacultadesEscuelas','totalRegistros'));
+    public function misionvision($idhash){
+
+        $strdecoded = $idhash;
+
+        if($idhash != null && strlen($idhash) > 0){
+            
+            try {
+                $strdecoded = gzinflate(base64_decode($idhash));
+
+                if(strlen($strdecoded) > 15){
+                    $id = explode('-', $strdecoded);
+                    $id = $id[1];
+                }
+
+                $mision=Misionvision::where('borrado','0')->where('nivel', 1)->where('activo','1')->where('facultad_id',$id)->where('tipo', 1)->first();
+                $vision=Misionvision::where('borrado','0')->where('nivel', 1)->where('activo','1')->where('facultad_id',$id)->where('tipo', 2)->first();
+
+                $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 1)->where('facultad_id',$id)->orderBy('id')->get();
+                $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+
+                
+                $facultad = Facultad::find($id);
+
+                //hash id
+                $facultad->hash = base64_encode(gzdeflate('idhijofacultad-'.$id));
+
+                $escuelas = Programaestudio::where('borrado','0')->where('activo','1')->where('facultad_id', $id)->orderBy('nombre')->get();
+
+                foreach ($escuelas as $key => $dato2) {
+                    $dato2->hash = base64_encode(gzdeflate('idhijoescuela-'.$dato2->id));
+                }
+
+                $menusActivos = new stdClass;
+
+                $menusActivos->menu1 = "";
+                $menusActivos->menu2 = "active";
+                $menusActivos->menu3 = "";
+                $menusActivos->menu4 = "";
+                $menusActivos->menu5 = "";
+                $menusActivos->menu6 = "";
+                $menusActivos->menu7 = "";
+                $menusActivos->menu8 = "";
+                $menusActivos->menu9 = "";
+
+                return view('web/facultad/misionvision',compact('mision','vision','redsocials','facultad','menusActivos', 'escuelas'));
+
+            } catch (Exception $e) {
+                return redirect('/');
+            }
+        }
+        else{
+            return redirect('/');
+        }
+
+        return redirect('/');
+
+    }
+
+    public function objetivos($idhash){
+
+        $strdecoded = $idhash;
+
+        if($idhash != null && strlen($idhash) > 0){
+            
+            try {
+                $strdecoded = gzinflate(base64_decode($idhash));
+
+                if(strlen($strdecoded) > 15){
+                    $id = explode('-', $strdecoded);
+                    $id = $id[1];
+                }
+
+                $objetivos=Objetivo::where('borrado','0')->where('activo','1')->where('nivel', 1 )->where('facultad_id',$id)->orderBy('numero')->orderBy('id')->get();
+                $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 1)->where('facultad_id',$id)->orderBy('id')->get();
+                $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+
+                
+                $facultad = Facultad::find($id);
+
+                //hash id
+                $facultad->hash = base64_encode(gzdeflate('idhijofacultad-'.$id));
+
+                $escuelas = Programaestudio::where('borrado','0')->where('activo','1')->where('facultad_id', $id)->orderBy('nombre')->get();
+
+                foreach ($escuelas as $key => $dato2) {
+                    $dato2->hash = base64_encode(gzdeflate('idhijoescuela-'.$dato2->id));
+                }
+
+                $menusActivos = new stdClass;
+
+                $menusActivos->menu1 = "";
+                $menusActivos->menu2 = "active";
+                $menusActivos->menu3 = "";
+                $menusActivos->menu4 = "";
+                $menusActivos->menu5 = "";
+                $menusActivos->menu6 = "";
+                $menusActivos->menu7 = "";
+                $menusActivos->menu8 = "";
+                $menusActivos->menu9 = "";
+
+                return view('web/facultad/objetivos',compact('objetivos','redsocials','facultad','menusActivos', 'escuelas'));
+
+            } catch (Exception $e) {
+                return redirect('/');
+            }
+        }
+        else{
+            return redirect('/');
+        }
+
+        return redirect('/');
+
+    }
+
+
+    public function organigrama($idhash){
+
+        $strdecoded = $idhash;
+
+        if($idhash != null && strlen($idhash) > 0){
+            
+            try {
+                $strdecoded = gzinflate(base64_decode($idhash));
+
+                if(strlen($strdecoded) > 15){
+                    $id = explode('-', $strdecoded);
+                    $id = $id[1];
+                }
+
+                $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 1)->where('facultad_id',$id)->orderBy('id')->get();
+                $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+
+                
+                $facultad = Facultad::find($id);
+
+                //hash id
+                $facultad->hash = base64_encode(gzdeflate('idhijofacultad-'.$id));
+
+                $escuelas = Programaestudio::where('borrado','0')->where('activo','1')->where('facultad_id', $id)->orderBy('nombre')->get();
+
+                foreach ($escuelas as $key => $dato2) {
+                    $dato2->hash = base64_encode(gzdeflate('idhijoescuela-'.$dato2->id));
+                }
+
+                $menusActivos = new stdClass;
+
+                $menusActivos->menu1 = "";
+                $menusActivos->menu2 = "active";
+                $menusActivos->menu3 = "";
+                $menusActivos->menu4 = "";
+                $menusActivos->menu5 = "";
+                $menusActivos->menu6 = "";
+                $menusActivos->menu7 = "";
+                $menusActivos->menu8 = "";
+                $menusActivos->menu9 = "";
+
+                return view('web/facultad/organigrama',compact('redsocials','facultad','menusActivos', 'escuelas'));
+
+            } catch (Exception $e) {
+                return redirect('/');
+            }
+        }
+        else{
+            return redirect('/');
+        }
+
+        return redirect('/');
 
     }
 

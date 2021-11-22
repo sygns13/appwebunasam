@@ -52,6 +52,9 @@ Route::get('organigrama','IndexWebController@organigrama');
 Route::get('facultad/{var}','IndexFacultadWebController@index');
 Route::get('facultad/presentacion/{var}','IndexFacultadWebController@presentacion');
 Route::get('facultad/historia/{var}','IndexFacultadWebController@historia');
+Route::get('facultad/misionvision/{var}','IndexFacultadWebController@misionvision');
+Route::get('facultad/objetivos/{var}','IndexFacultadWebController@objetivos');
+Route::get('facultad/organigrama/{var}','IndexFacultadWebController@organigrama');
 
 
 
