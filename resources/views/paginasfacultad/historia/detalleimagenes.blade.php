@@ -1,9 +1,9 @@
-    <div class="modal fade bs-example-modal-lg" id="modalDetalles"  role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal fade bs-example-modal-lg" id="modalDetalles"  role="dialog" aria-labelledby="myLargeModalLabel" v-if="facultad_id!=0">
       <div class="modal-dialog modal-lg" role="document" id="modaltamanio">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="boxTituloModal" style="font-weight: bold;text-decoration: underline;">GESTION DE IMÁGENES DE LA HISTORIA DE LA UNASAM</h4>
+            <h4 class="modal-title" id="boxTituloModal" style="font-weight: bold;text-decoration: underline;">Gestion de Imágenes de la Historia de la @{{facultad}}</h4>
     
           </div> 
           <div class="modal-body">
@@ -33,7 +33,7 @@
                             </h3>
                           </div>
                        
-                        @include('adminfacultad.historia.detalleformularioimg')  
+                        @include('paginasfacultad.historia.detalleformularioimg')  
                       </div>
 
                       <div class="box box-warning" v-if="divEditImagen">
@@ -42,7 +42,7 @@
                           </h3>
                         </div>
                       
-                        @include('adminfacultad.historia.detalleeditarimg')  
+                        @include('paginasfacultad.historia.detalleeditarimg')  
                       
                       </div>
 
@@ -65,7 +65,7 @@
                             <td style="border:1px solid #ddd;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 12px; padding: 5px;">@{{ imagen.posicion }}</td>
                             <td style="border:1px solid #ddd;font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 12px; padding: 5px;">
                                 <center>
-                                  <img v-bind:src="'{{ asset('/web/historiaunasam/')}}'+'/'+imagen.url" style="max-height: 200px;border: solid 1px black;" class="img-responsive" alt="Imagen del Contenido Informativo" id="imgInformacion">
+                                  <img v-bind:src="'{{ asset('/web/historiafacultad/')}}'+'/'+imagen.url" style="max-height: 200px;border: solid 1px black;" class="img-responsive" alt="Imagen del Contenido Informativo" id="imgInformacion">
                                 </center>
                             </td>
                            <td style="border:1px solid #ddd; font-size: 11px; padding: 5px;">

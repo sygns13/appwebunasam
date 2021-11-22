@@ -189,10 +189,10 @@ desired effect
 {{-- //Paginas Portal Web Facultades--}}
 
 @elseif($modulo=="historiafacultad")
-@include('adminfacultad.historia.vue')
+@include('paginasfacultad.historia.vue')
 
 @elseif($modulo=="misionvisionfec")
-@include('adminfacultad.misionvision.vue')
+@include('paginasfacultad.misionvision.vue')
 
 
 @endif
