@@ -307,6 +307,22 @@ return [
             'visibility' => 'public',
          ],
 
+         'organigramaUNASAM' => [
+            'driver' => 'local',
+            'root' => public_path('web/organigramaunasam'),
+            'visibility' => 'public',
+         ],
+         'organigramaFacultad' => [
+            'driver' => 'local',
+            'root' => public_path('web/organigramafacultad'),
+            'visibility' => 'public',
+         ],
+         'organigramaProgramaEstudio' => [
+            'driver' => 'local',
+            'root' => public_path('web/organigramaprograma'),
+            'visibility' => 'public',
+         ],
+
 
         'local' => [
             'driver' => 'local',

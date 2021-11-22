@@ -148,6 +148,9 @@ desired effect
 @elseif($modulo=="informeportal")
 @include('paginasportal.informe.vue')
 
+@elseif($modulo=="organigramaportal")
+@include('paginasportal.organigrama.vue')
+
 {{-- //Paginas Gestionar Facultades y Programas de Estudios--}}
 
 @elseif($modulo=="facultad")
@@ -193,6 +196,9 @@ desired effect
 
 @elseif($modulo=="misionvisionfec")
 @include('paginasfacultad.misionvision.vue')
+
+@elseif($modulo=="objetivosfacultad")
+@include('paginasfacultad.objetivos.vue')
 
 
 @endif

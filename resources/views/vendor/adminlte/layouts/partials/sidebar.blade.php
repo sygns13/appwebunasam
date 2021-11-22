@@ -154,6 +154,7 @@
                     <li><a href="{{URL::to('intranet/himno')}}"><i class='fa fa-paper-plane'></i> Gestión del Himno Institucional</a></li>
                     <li><a href="{{URL::to('intranet/documentosnormativosportal')}}"><i class='fa fa-paper-plane'></i> Documentos Normativos</a></li>
                     <li><a href="{{URL::to('intranet/informesportal')}}"><i class='fa fa-paper-plane'></i> Informes y Publicaciones</a></li>
+                    <li><a href="{{URL::to('intranet/organigramaportal')}}"><i class='fa fa-paper-plane'></i> Organigrama</a></li>
                 </ul>
             </li>
             @endif
@@ -181,6 +182,7 @@
                             <li><a href="{{URL::to('intranet/himno')}}"><i class='fa fa-paper-plane'></i> Gestión del Himno Institucional</a></li>
                             <li><a href="{{URL::to('intranet/documentosnormativosportal')}}"><i class='fa fa-paper-plane'></i> Documentos Normativos</a></li>
                             <li><a href="{{URL::to('intranet/informesportal')}}"><i class='fa fa-paper-plane'></i> Informes y Publicaciones</a></li>
+                            <li><a href="{{URL::to('intranet/organigramaportal')}}"><i class='fa fa-paper-plane'></i> Organigrama</a></li>
 
                         @elseif($permiso->nivel == 0 && $permiso->roles == 0)
                             @foreach ($rolModulos as $rolModulo)
@@ -199,6 +201,7 @@
                                     <li><a href="{{URL::to('intranet/himno')}}"><i class='fa fa-paper-plane'></i> Gestión del Himno Institucional</a></li>
                                     <li><a href="{{URL::to('intranet/documentosnormativosportal')}}"><i class='fa fa-paper-plane'></i> Documentos Normativos</a></li>
                                     <li><a href="{{URL::to('intranet/informesportal')}}"><i class='fa fa-paper-plane'></i> Informes y Publicaciones</a></li>
+                                    <li><a href="{{URL::to('intranet/organigramaportal')}}"><i class='fa fa-paper-plane'></i> Organigrama</a></li>
                                 
                                 @elseif($rolModulo->modulo_id == 2 && $rolModulo->nivel == 0 && $rolModulo->rolessub == 0)
                                     @foreach ($rolSubModulos as $rolSubModulo)
@@ -230,6 +233,8 @@
                                             <li><a href="{{URL::to('intranet/documentosnormativosportal')}}"><i class='fa fa-paper-plane'></i> Documentos Normativos</a></li>
                                         @elseif($rolSubModulo->modulo_id == 2 && $rolSubModulo->nivel == 0 && $rolSubModulo->submodulo_id == 24)
                                             <li><a href="{{URL::to('intranet/informesportal')}}"><i class='fa fa-paper-plane'></i> Informes y Publicaciones</a></li>
+                                        @elseif($rolSubModulo->modulo_id == 2 && $rolSubModulo->nivel == 0 && $rolSubModulo->submodulo_id == 39)
+                                            <li><a href="{{URL::to('intranet/organigramaportal')}}"><i class='fa fa-paper-plane'></i> Organigrama</a></li>
                                         @endif
                                     @endforeach
                                 @endif
@@ -389,6 +394,7 @@
                 <ul class="treeview-menu">
                     <li><a href="{{URL::to('intranet/historia')}}"><i class='fa fa-paper-plane'></i> Gestión de Historia</a></li>
                     <li><a href="{{URL::to('intranet/misionvision')}}"><i class='fa fa-paper-plane'></i> Gestión de Misión / Visión</a></li>
+                    <li><a href="{{URL::to('intranet/objetivos')}}"><i class='fa fa-paper-plane'></i> Gestión de Objetivos</a></li>
                   {{--   <li><a href="{{URL::to('intranet/politicas')}}"><i class='fa fa-paper-plane'></i> Gestión de Políticas de Calidad</a></li>
                     <li><a href="{{URL::to('intranet/objetivos')}}"><i class='fa fa-paper-plane'></i> Gestión de Objetivos</a></li>
                     <li><a href="{{URL::to('intranet/directorio')}}"><i class='fa fa-paper-plane'></i> Gestión de Directorio</a></li> 

@@ -44,6 +44,7 @@ Route::get('actividad/{var}', 'PublicacionWebController@actividad');
 
 Route::get('documentos','PublicacionWebController@documentos');
 Route::get('informes','PublicacionWebController@informes');
+Route::get('organigrama','IndexWebController@organigrama');
 
 
 //Rutas Portal Web FACULTADES
@@ -75,6 +76,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('miperfil','UserController@index2');
 
     Route::get('intranet/configportal', 'UniversidadController@index0');
+    Route::get('intranet/organigramaportal', 'UniversidadController@index2');
     Route::get('intranet/bannerportal', 'BannerController@index0');
     Route::get('intranet/banner', 'BannerController@index1');
     Route::get('intranet/presentacionportal', 'PresentacionController@index0');
@@ -277,6 +279,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('intranet/datosportalre/configuracion','UniversidadController@configuracion');
     Route::post('intranet/datosportalre/logo','UniversidadController@logo');
+    Route::post('intranet/datosportalre/organigrama','UniversidadController@organigrama');
 
     Route::post('intranet/datosfacre/configuracion','FacultadController@configuracion');
     Route::post('intranet/datosfacre/logo','FacultadController@logo');

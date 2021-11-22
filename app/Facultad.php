@@ -17,6 +17,6 @@ class Facultad extends Model
                             'user_id',
                             'nivel',
                             'logourl',
-                        'tipo_vista' ];
+                        'tipo_vista','nombre_organigrama','url_organigrama'];
 	protected $guarded = ['id'];
 }

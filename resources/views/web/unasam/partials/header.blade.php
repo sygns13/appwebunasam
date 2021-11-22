@@ -154,6 +154,11 @@
                                                             Himno Institucional
                                                         </a>
                                                     </li>
+                                                    <li>
+                                                        <a class="dropdown-item" href="/organigrama">
+                                                            Organigrama Institucional
+                                                        </a>
+                                                    </li>
                                                     
                                                 </ul>
                                             </li>

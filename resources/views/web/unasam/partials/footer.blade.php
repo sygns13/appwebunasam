@@ -5,7 +5,7 @@
                 <h5 class="text-3 mb-3 opacity-7">Nosotros</h5>
                 <a href="/misionvision"><p class="pe-1 text-color-light" style="margin-bottom: 0px;">Misión y Visión</p></a>
                 <a href="/himno"><p class="pe-1 text-color-light" style="margin-bottom: 0px;">Himno Institucional</p></a>
-                <a href="https://www.unasam.edu.pe/img/file/organigrama.pdf"><p class="pe-1 text-color-light" style="margin-bottom: 0px;">Organigrama Institucional</p></a>
+                <a href="/organigrama"><p class="pe-1 text-color-light" style="margin-bottom: 0px;">Organigrama Institucional</p></a>
                 <a href="https://www.gob.pe/institucion/unasam/funcionarios"><p class="pe-1 text-color-light" style="margin-bottom: 0px;">Directorio Institucional</p></a>
                 <div class="alert alert-success d-none" id="newsletterSuccess">
                     <strong>Success!</strong> You've been added to our email list.

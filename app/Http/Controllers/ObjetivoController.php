@@ -22,6 +22,8 @@ use App\Permiso;
 use App\Rolmodulo;
 use App\Rolsubmodulo;
 
+use App\Facultad;
+
 class ObjetivoController extends Controller
 {
     /**
@@ -53,6 +55,45 @@ class ObjetivoController extends Controller
         {
             return redirect('home');    
         }
+    }
+
+    public function index1()
+    {
+        $permisos=Permiso::where('user_id',Auth::user()->id)->get();
+        $rolModulos=Rolmodulo::where('user_id',Auth::user()->id)->get();
+        $rolSubModulos=Rolsubmodulo::where('user_id',Auth::user()->id)->get();
+
+        $nivel = 1;
+        $modulo = 5;
+        $submodulo = 38;
+
+        if(accesoUser([1,2]) || (accesoUser([3,4]) && accesoModulo($permisos, $rolModulos, $rolSubModulos, $nivel, $modulo, $submodulo))){
+
+
+            $idtipouser=Auth::user()->tipouser_id;
+            $tipouser=Tipouser::find($idtipouser);
+
+            $modulo="objetivosfacultad";
+
+            if(accesoUser([1,2])){
+                $facultads = Facultad::orderBy('nombre')->where('borrado','0')->get();
+            }
+            else{
+                foreach ($permisos as $key => $dato) {
+                    if($dato->nivel == $nivel){
+                        $facultad = Facultad::find($dato->facultad_id);
+                        array_push($facultads, $facultad);
+                    } 
+                }
+            }
+
+            return view('paginasfacultad.objetivos.index',compact('tipouser','modulo', 'permisos','rolModulos','rolSubModulos','facultads'));
+        }
+        else
+        {
+            return redirect('home');    
+        }
+
     }
 
     public function index(Request $request)

@@ -928,6 +928,63 @@ class IndexWebController extends Controller
 
     }
 
+    public function organigrama(){
+
+        
+        $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 0)->orderBy('id')->get();
+
+        $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+
+        $facultades = Facultad::where('borrado','0')->where('activo','1')->orderBy('nombre')->get();
+        $totalRegistros = 0;
+
+        $FacultadesEscuelas = array();
+
+        foreach ($facultades as $key => $dato) {
+
+            $FacultadEscuela = new stdClass;
+
+            $FacultadEscuela->nombre = $dato->nombre;
+            $FacultadEscuela->nivel = 1;
+            $FacultadEscuela->hash = base64_encode(gzdeflate('idhijofacultad-'.$dato->id));
+
+            array_push($FacultadesEscuelas, $FacultadEscuela);
+
+            
+            $escuelas = Programaestudio::where('borrado','0')->where('activo','1')->where('facultad_id', $dato->id)->orderBy('nombre')->get();
+            $dato->escuelas = $escuelas;
+
+            foreach ($escuelas as $key => $dato2) {
+
+                $FacultadEscuela = new stdClass;
+
+                $FacultadEscuela->nombre = $dato2->nombre;
+                $FacultadEscuela->nivel = 2;
+                $FacultadEscuela->hash = base64_encode(gzdeflate('idhijoescuela-'.$dato2->id));
+
+                array_push($FacultadesEscuelas, $FacultadEscuela);
+            }
+        }
+
+        $totalRegistros = count($FacultadesEscuelas);
+
+        $menusActivos = new stdClass;
+
+        $menusActivos->menu1 = "active";
+        $menusActivos->menu2 = "";
+        $menusActivos->menu3 = "";
+        $menusActivos->menu4 = "";
+        $menusActivos->menu5 = "";
+        $menusActivos->menu6 = "";
+        $menusActivos->menu7 = "";
+        $menusActivos->menu8 = "";
+        $menusActivos->menu9 = "";
+
+        return view('web/unasam/organigrama',compact('redsocials','unasam','menusActivos', 'FacultadesEscuelas','totalRegistros'));
+
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *
