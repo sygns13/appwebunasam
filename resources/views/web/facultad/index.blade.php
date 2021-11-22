@@ -60,8 +60,8 @@
 					</div>
 				</div>
 				
-				@if($unasam != null && $unasam->tipo_vista != null)
-				@if($unasam->tipo_vista =='2')
+				@if($facultad != null && $facultad->tipo_vista != null)
+				@if($facultad->tipo_vista =='2')
 					</div>
 				@endif
 			@endif

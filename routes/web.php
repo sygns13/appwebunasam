@@ -49,6 +49,7 @@ Route::get('informes','PublicacionWebController@informes');
 //Rutas Portal Web FACULTADES
 
 Route::get('facultad/{var}','IndexFacultadWebController@index');
+Route::get('facultad/presentacion/{var}','IndexFacultadWebController@presentacion');
 
 Route::group(['middleware' => 'auth'], function () {
 

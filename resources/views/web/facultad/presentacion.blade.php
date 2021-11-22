@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 
-@if($unasam != null && $unasam->tipo_vista != null)
-	@if($unasam->tipo_vista =='1')
+@if($facultad != null && $facultad->tipo_vista != null)
+	@if($facultad->tipo_vista =='1')
 		<html lang="es">
-	@elseif($unasam->tipo_vista =='2')
+	@elseif($facultad->tipo_vista =='2')
 		<html lang="es">
-	@elseif($unasam->tipo_vista =='3')
+	@elseif($facultad->tipo_vista =='3')
 		<html lang="es" class="boxed">
 	@else
 	<html lang="es">
@@ -14,13 +14,12 @@
 	<html lang="es">
 @endif
 
+@include('web/facultad/partials/head')
+	<body>
 
-@include('web/unasam/partials/head')
-
-	<body data-plugin-page-transition>
 		<div class="body">
 
-			@include('web/unasam/partials/header')
+			@include('web/facultad/partials/header')
 
 			<div role="main" class="main">
 
@@ -46,7 +45,7 @@
 								</div>
 								@if($presentacion->tieneimagen != null && $presentacion->tieneimagen == 1 && $presentacion->url != null)
 								<div class="col-md-4">
-									<img src="{{ asset('/web/presentacionunasam/'.$presentacion->url)}}" alt class="img-fluid box-shadow-custom" /> 
+									<img src="{{ asset('/web/presentacionfacultad/'.$presentacion->url)}}" alt class="img-fluid box-shadow-custom" /> 
 								</div>
 								@endif
 							</div>
@@ -57,14 +56,11 @@
 
 
 
-
-
-
-
-			@include('web/unasam/partials/footer')
+		@include('web/facultad/partials/footer')
 		</div>
+	</div>
 
-		@include('web/unasam/partials/scripts')
+	@include('web/facultad/partials/scripts')
 
 	</body>
 </html>
