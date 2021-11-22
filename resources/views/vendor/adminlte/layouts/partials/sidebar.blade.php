@@ -259,7 +259,7 @@
             <li class="treeview" v-bind:class="classMenu1">
                 <a href="#"><i class='fa fa-list-alt'></i> <span>Inicio Facultad</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
-                    <li><a href="{{URL::to('intranet/configlogo')}}"><i class='fa fa-paper-plane'></i> Configuraciones Principales</a></li>
+                    <li><a href="{{URL::to('intranet/configfacultad')}}"><i class='fa fa-paper-plane'></i> Configuraciones Principales</a></li>
                     <li><a href="{{URL::to('intranet/banner')}}"><i class='fa fa-paper-plane'></i> Gestión de Banners</a></li>
                     <li><a href="{{URL::to('intranet/presentacion')}}"><i class='fa fa-paper-plane'></i> Gestión de Presentación</a></li>
                     <li><a href="{{URL::to('intranet/datosfacultad')}}"><i class='fa fa-paper-plane'></i> Gestión de Datos Facultad</a></li>
@@ -281,8 +281,15 @@
                     
                     @foreach ($permisos as $permiso)
                         @if($permiso->nivel == 1 && $permiso->roles == 1)
-                        <li><a href="{{URL::to('intranet/configlogo')}}"><i class='fa fa-paper-plane'></i> Logo Principal</a></li>
-                        <li><a href="{{URL::to('intranet/banner')}}"><i class='fa fa-paper-plane'></i> Gestión de Banners</a></li>
+                            <li><a href="{{URL::to('intranet/configfacultad')}}"><i class='fa fa-paper-plane'></i> Configuraciones Principales</a></li>
+                            <li><a href="{{URL::to('intranet/banner')}}"><i class='fa fa-paper-plane'></i> Gestión de Banners</a></li>
+                            <li><a href="{{URL::to('intranet/presentacion')}}"><i class='fa fa-paper-plane'></i> Gestión de Presentación</a></li>
+                            <li><a href="{{URL::to('intranet/datosfacultad')}}"><i class='fa fa-paper-plane'></i> Gestión de Datos Facultad</a></li>
+                            <li><a href="{{URL::to('intranet/noticias')}}"><i class='fa fa-paper-plane'></i> Gestión de Noticias</a></li>
+                            <li><a href="{{URL::to('intranet/eventos')}}"><i class='fa fa-paper-plane'></i> Gestión de Eventos</a></li> 
+                            <li><a href="{{URL::to('intranet/comunicados')}}"><i class='fa fa-paper-plane'></i> Gestión de Comunicados</a></li> 
+                            <li><a href="{{URL::to('intranet/redessolicales')}}"><i class='fa fa-paper-plane'></i> Gestión de Redes Sociales</a></li>
+                            <li><a href="{{URL::to('intranet/linkinteres')}}"><i class='fa fa-paper-plane'></i> Gestión de Links de Interés</a></li>
 
                         @php
                             break;
@@ -291,8 +298,15 @@
                         @elseif($permiso->nivel == 0 && $permiso->roles == 0)
                             @foreach ($rolModulos as $rolModulo)
                                 @if($rolModulo->modulo_id == 4 && $rolModulo->nivel == 1 && $rolModulo->rolessub == 1)
-                                    <li><a href="{{URL::to('intranet/configlogo')}}"><i class='fa fa-paper-plane'></i> Logo Principal</a></li>
+                                    <li><a href="{{URL::to('intranet/configfacultad')}}"><i class='fa fa-paper-plane'></i> Configuraciones Principales</a></li>
                                     <li><a href="{{URL::to('intranet/banner')}}"><i class='fa fa-paper-plane'></i> Gestión de Banners</a></li>
+                                    <li><a href="{{URL::to('intranet/presentacion')}}"><i class='fa fa-paper-plane'></i> Gestión de Presentación</a></li>
+                                    <li><a href="{{URL::to('intranet/datosfacultad')}}"><i class='fa fa-paper-plane'></i> Gestión de Datos Facultad</a></li>
+                                    <li><a href="{{URL::to('intranet/noticias')}}"><i class='fa fa-paper-plane'></i> Gestión de Noticias</a></li>
+                                    <li><a href="{{URL::to('intranet/eventos')}}"><i class='fa fa-paper-plane'></i> Gestión de Eventos</a></li> 
+                                    <li><a href="{{URL::to('intranet/comunicados')}}"><i class='fa fa-paper-plane'></i> Gestión de Comunicados</a></li> 
+                                    <li><a href="{{URL::to('intranet/redessolicales')}}"><i class='fa fa-paper-plane'></i> Gestión de Redes Sociales</a></li>
+                                    <li><a href="{{URL::to('intranet/linkinteres')}}"><i class='fa fa-paper-plane'></i> Gestión de Links de Interés</a></li>
 
                                     @php
                                         break 2;
@@ -303,10 +317,17 @@
                                 @php
                                     $submodulo27 = false;
                                     $submodulo28 = false;
+                                    $submodulo29 = false;
+                                    $submodulo30 = false;
+                                    $submodulo31 = false;
+                                    $submodulo32 = false;
+                                    $submodulo33 = false;
+                                    $submodulo34 = false;
+                                    $submodulo35 = false;
                                 @endphp
                                     @foreach ($rolSubModulos as $rolSubModulo)
                                         @if($rolSubModulo->modulo_id == 4 && $rolSubModulo->nivel == 1 && $rolSubModulo->submodulo_id == 27 && !$submodulo27)
-                                            <li><a href="{{URL::to('intranet/configlogo')}}"><i class='fa fa-paper-plane'></i> Logo Principal</a></li>
+                                            <li><a href="{{URL::to('intranet/configfacultad')}}"><i class='fa fa-paper-plane'></i> Logo Principal</a></li>
                                             @php
                                                 $submodulo27 = true;
                                             @endphp
@@ -314,6 +335,41 @@
                                             <li><a href="{{URL::to('intranet/banner')}}"><i class='fa fa-paper-plane'></i> Gestión de Banners</a></li>
                                             @php
                                                 $submodulo28 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 4 && $rolSubModulo->nivel == 1 && $rolSubModulo->submodulo_id == 29 && !$submodulo29)
+                                        <li><a href="{{URL::to('intranet/presentacion')}}"><i class='fa fa-paper-plane'></i> Gestión de Presentación</a></li>
+                                            @php
+                                                $submodulo29 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 4 && $rolSubModulo->nivel == 1 && $rolSubModulo->submodulo_id == 30 && !$submodulo30)
+                                            <li><a href="{{URL::to('intranet/datosfacultad')}}"><i class='fa fa-paper-plane'></i> Gestión de Datos Facultad</a></li>
+                                            @php
+                                                $submodulo30 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 4 && $rolSubModulo->nivel == 1 && $rolSubModulo->submodulo_id == 31 && !$submodulo31)
+                                            <li><a href="{{URL::to('intranet/noticias')}}"><i class='fa fa-paper-plane'></i> Gestión de Noticias</a></li>
+                                            @php
+                                                $submodulo31 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 4 && $rolSubModulo->nivel == 1 && $rolSubModulo->submodulo_id == 32 && !$submodulo32)
+                                            <li><a href="{{URL::to('intranet/eventos')}}"><i class='fa fa-paper-plane'></i> Gestión de Eventos</a></li>
+                                            @php
+                                                $submodulo32 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 4 && $rolSubModulo->nivel == 1 && $rolSubModulo->submodulo_id == 33 && !$submodulo33)
+                                            <li><a href="{{URL::to('intranet/comunicados')}}"><i class='fa fa-paper-plane'></i> Gestión de Comunicados</a></li>
+                                            @php
+                                                $submodulo33 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 4 && $rolSubModulo->nivel == 1 && $rolSubModulo->submodulo_id == 34 && !$submodulo34)
+                                            <li><a href="{{URL::to('intranet/redessolicales')}}"><i class='fa fa-paper-plane'></i> Gestión de Redes Sociales</a></li>
+                                            @php
+                                                $submodulo34 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 4 && $rolSubModulo->nivel == 1 && $rolSubModulo->submodulo_id == 35 && !$submodulo35)
+                                            <li><a href="{{URL::to('intranet/linkinteres')}}"><i class='fa fa-paper-plane'></i> Gestión de Links de Interés</a></li>
+                                            @php
+                                                $submodulo35 = true;
                                             @endphp
                                         @endif
                                     @endforeach

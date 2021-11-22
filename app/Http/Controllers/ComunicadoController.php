@@ -69,7 +69,7 @@ class ComunicadoController extends Controller
 
         $nivel = 1;
         $modulo = 4;
-        $submodulo = 32;
+        $submodulo = 33;
 
         if(accesoUser([1,2]) || (accesoUser([3,4]) && accesoModulo($permisos, $rolModulos, $rolSubModulos, $nivel, $modulo, $submodulo))){
 

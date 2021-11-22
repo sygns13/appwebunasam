@@ -116,7 +116,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('intranet/programasprogesionales', 'ProgramasEstudiosController@index1');
     
     
-    Route::get('intranet/configlogo', 'FacultadController@index0');
+    Route::get('intranet/configfacultad', 'FacultadController@index0');
 
     
     
