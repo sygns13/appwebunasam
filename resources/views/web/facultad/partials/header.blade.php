@@ -68,7 +68,7 @@
                                             </a>
                                         </li>
                                         <li class="dropdown dropdown-full-color dropdown-secondary">
-                                            <a class="nav-link dropdown-toggle" class="dropdown-toggle" href="#">
+                                            <a class="nav-link dropdown-toggle {{$menusActivos->menu2}}" class="dropdown-toggle" href="#">
                                                 La Facultad
                                             </a>
                                             <ul class="dropdown-menu">
@@ -80,7 +80,7 @@
                                             </ul>
                                         </li>
                                         <li class="dropdown dropdown-full-color dropdown-secondary">
-                                            <a class="nav-link dropdown-toggle" class="dropdown-toggle" href="#">
+                                            <a class="nav-link dropdown-toggle {{$menusActivos->menu3}}" class="dropdown-toggle" href="#">
                                                 Programas de Estudio
                                             </a>
                                             <ul class="dropdown-menu">
@@ -90,7 +90,7 @@
                                             </ul>
                                         </li>
                                         <li class="dropdown dropdown-full-color dropdown-secondary">
-                                            <a class="nav-link dropdown-toggle" class="dropdown-toggle" href="#">
+                                            <a class="nav-link dropdown-toggle {{$menusActivos->menu4}}" class="dropdown-toggle" href="#">
                                                 Autoridades
                                             </a>
                                             <ul class="dropdown-menu">
@@ -101,7 +101,7 @@
                                             </ul>
                                         </li>
                                         <li class="dropdown dropdown-full-color dropdown-secondary">
-                                            <a class="nav-link dropdown-toggle" class="dropdown-toggle" href="#">
+                                            <a class="nav-link dropdown-toggle" class="dropdown-toggle {{$menusActivos->menu5}}" href="#">
                                                 Eventos
                                             </a>
                                             <ul class="dropdown-menu">
@@ -111,7 +111,7 @@
                                             </ul>
                                         </li>
                                         <li class="dropdown dropdown-full-color dropdown-secondary">
-                                            <a class="nav-link dropdown-toggle" class="dropdown-toggle" href="#">
+                                            <a class="nav-link dropdown-toggle {{$menusActivos->menu6}}" class="dropdown-toggle" href="#">
                                                 Transparencia
                                             </a>
                                             <ul class="dropdown-menu">

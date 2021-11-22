@@ -23,14 +23,30 @@
 
 			<div role="main" class="main">
 
-                <section class="section bg-color-light border-0 m-0">
+                <section class="section bg-color-light border-0 m-0" style="padding-top:20px;">
 					<div class="container">
+
 						@if($presentacion != null)
+
+						<section class="page-header page-header-modern bg-color-light-scale-2 page-header-md" style="background: #2d529f!important;">
+							<div class="container">
+								<div class="row">
+									<div class="col-md-12 align-self-center p-static order-2 text-center">
+										@if($presentacion->titulo != null)
+										<h1 class="text-light font-weight-bold text-8">{{$presentacion->titulo}}</h1>
+										@endif
+									</div>
+								</div>
+							</div>
+						</section>
+
+						
+
 							<div class="row mt-5 mb-5 pt-3 pb-3">
 								<div class="col-md-8">
-									@if($presentacion->titulo != null)
+								{{-- 	@if($presentacion->titulo != null)
 									<h2 class="font-weight-semibold mb-0">{{$presentacion->titulo}}</h2>
-									@endif
+									@endif --}}
 
 									@if($presentacion->subtitulo != null)
 									<p class="lead font-weight-normal">{{$presentacion->subtitulo}}</p>
