@@ -63,7 +63,7 @@
                                 <nav class="collapse">
                                     <ul class="nav nav-pills" id="mainNav">
                                         <li class="dropdown-full-color dropdown-secondary">
-                                            <a class="nav-link {{$menusActivos->menu1}}" href="demo-medical.html">
+                                            <a class="nav-link {{$menusActivos->menu1}}" href="/facultad/{{$facultad->hash}}">
                                                 Inicio
                                             </a>
                                         </li>
@@ -72,11 +72,11 @@
                                                 La Facultad
                                             </a>
                                             <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="presentacion/{{$facultad->hash}}">Presentación</a></li>
-                                                <li><a class="dropdown-item" href="historia/{{$facultad->hash}}">Historia</a></li>
-                                                <li><a class="dropdown-item" href="misionvision/{{$facultad->hash}}">Misión y Visión</a></li>
-                                                <li><a class="dropdown-item" href="objetivos/{{$facultad->hash}}">Objetivos Institucionales</a></li>
-                                                <li><a class="dropdown-item" href="organigrama/{{$facultad->hash}}">Organigrama</a></li>
+                                                <li><a class="dropdown-item" href="/facultad/presentacion/{{$facultad->hash}}">Presentación</a></li>
+                                                <li><a class="dropdown-item" href="/facultad/historia/{{$facultad->hash}}">Historia</a></li>
+                                                <li><a class="dropdown-item" href="/facultad/misionvision/{{$facultad->hash}}">Misión y Visión</a></li>
+                                                <li><a class="dropdown-item" href="/facultad/objetivos/{{$facultad->hash}}">Objetivos Institucionales</a></li>
+                                                <li><a class="dropdown-item" href="/facultad/organigrama/{{$facultad->hash}}">Organigrama</a></li>
                                             </ul>
                                         </li>
                                         <li class="dropdown dropdown-full-color dropdown-secondary">
@@ -94,20 +94,20 @@
                                                 Autoridades
                                             </a>
                                             <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="decano/{{$facultad->hash}}">Decanatura</a></li>
-                                                <li><a class="dropdown-item" href="consejofacultad/{{$facultad->hash}}">Consejo de Facultad</a></li>
-                                                <li><a class="dropdown-item" href="directores/{{$facultad->hash}}">Directores de Escuela</a></li>
-                                                <li><a class="dropdown-item" href="jefesdepartamentos/{{$facultad->hash}}">Jefes de Departamentos Académicos</a></li>
+                                                <li><a class="dropdown-item" href="/facultad/decano/{{$facultad->hash}}">Decanatura</a></li>
+                                                <li><a class="dropdown-item" href="/facultad/consejofacultad/{{$facultad->hash}}">Consejo de Facultad</a></li>
+                                                <li><a class="dropdown-item" href="/facultad/directores/{{$facultad->hash}}">Directores de Escuela</a></li>
+                                                <li><a class="dropdown-item" href="/facultad/jefesdepartamentos/{{$facultad->hash}}">Jefes de Departamentos Académicos</a></li>
                                             </ul>
                                         </li>
                                         <li class="dropdown dropdown-full-color dropdown-secondary">
-                                            <a class="nav-link dropdown-toggle" class="dropdown-toggle {{$menusActivos->menu5}}" href="#">
+                                            <a class="nav-link dropdown-toggle {{$menusActivos->menu5}}" class="dropdown-toggle" href="#">
                                                 Eventos
                                             </a>
                                             <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="noticias/{{$facultad->hash}}">Noticias</a></li>
-                                                <li><a class="dropdown-item" href="eventos/{{$facultad->hash}}">Eventos</a></li>
-                                                <li><a class="dropdown-item" href="comunicados/{{$facultad->hash}}">Comunicados</a></li>
+                                                <li><a class="dropdown-item" href="/facultad/{{$facultad->hash}}/noticias">Noticias</a></li>
+                                                <li><a class="dropdown-item" href="/facultad/{{$facultad->hash}}/eventos">Eventos</a></li>
+                                                <li><a class="dropdown-item" href="/facultad/{{$facultad->hash}}/comunicados">Comunicados</a></li>
                                             </ul>
                                         </li>
                                         <li class="dropdown dropdown-full-color dropdown-secondary">
@@ -115,9 +115,9 @@
                                                 Transparencia
                                             </a>
                                             <ul class="dropdown-menu">
-                                                <li><a class="dropdown-item" href="servicios/{{$facultad->hash}}">Servicios</a></li>
-                                                <li><a class="dropdown-item" href="docentes/{{$facultad->hash}}">Plana Docente</a></li>
-                                                <li><a class="dropdown-item" href="documentos/{{$facultad->hash}}">Documentos Normativos</a></li>
+                                                <li><a class="dropdown-item" href="/facultad/servicios/{{$facultad->hash}}">Servicios</a></li>
+                                                <li><a class="dropdown-item" href="/facultad/docentes/{{$facultad->hash}}">Plana Docente</a></li>
+                                                <li><a class="dropdown-item" href="/facultad/documentos/{{$facultad->hash}}">Documentos Normativos</a></li>
                                                 
                                             </ul>
                                         </li>

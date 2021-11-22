@@ -50,6 +50,17 @@ Route::get('informes','PublicacionWebController@informes');
 
 Route::get('facultad/{var}','IndexFacultadWebController@index');
 Route::get('facultad/presentacion/{var}','IndexFacultadWebController@presentacion');
+Route::get('facultad/historia/{var}','IndexFacultadWebController@historia');
+
+
+
+Route::get('facultad/{var}/noticias','PublicacionWebController@noticiasFacultad');
+Route::get('facultad/{var}/eventos','PublicacionWebController@eventosFacultad');
+Route::get('facultad/{var}/comunicados','PublicacionWebController@comunicadosFacultad');
+
+Route::get('facultad/noticia/{var1}/{var2}', 'PublicacionWebController@noticiaFacultad');
+Route::get('facultad/evento/{var1}/{var2}', 'PublicacionWebController@eventoFacultad');
+Route::get('facultad/comunicado/{var1}/{var2}', 'PublicacionWebController@comunicadoFacultad');
 
 Route::group(['middleware' => 'auth'], function () {
 

@@ -128,7 +128,7 @@
 						<div class="col-sm-8 col-lg-8 mb-8 pb-2">
 							<div class="row">
 								<div class="col appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
-									<a href="noticias/{{$facultad->hash}}"><h2 class="font-weight-semibold mb-0"><center>Noticias</center></h2></a>
+									<a href="/facultad/{{$facultad->hash}}/noticias"><h2 class="font-weight-semibold mb-0"><center>Noticias</center></h2></a>
 								</div>
 							</div><br>
 							<div class="row">
@@ -137,7 +137,7 @@
 
 							<div class="col-md-6 col-lg-6 mb-6 mb-lg-0 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200"
 							style="background-color: #2d529f; border: 1px solid white; padding-bottom:10px; padding-top:10px;">
-								<a href="noticia/{{$dato->hash}}/{{$facultad->hash}}">
+								<a href="/facultad/noticia/{{$dato->hash}}/{{$facultad->hash}}">
 									<h5 class="mb-4" style="color:white;">
 										@if($dato->titular != null)
 											{{$dato->titular}}
@@ -146,7 +146,7 @@
 								</a>
 
 								<div class="card">
-									<a href="noticia/{{$dato->hash}}/{{$facultad->hash}}" class="text-decoration-none">
+									<a href="/facultad/noticia/{{$dato->hash}}/{{$facultad->hash}}" class="text-decoration-none">
 										@if($dato->imagennoticia != null && $dato->imagennoticia->url != null)
 											<img class="card-img-top" src="{{ asset('/web/noticiafacultad/'.$dato->imagennoticia->url) }}" alt="Card Image" style="height: 200px;">
 										@else
@@ -155,7 +155,7 @@
 									</a>
 									<div class="card-body">
 										<h4 class="card-title mb-1 text-4 font-weight-bold">
-											<a href="noticia/{{$dato->hash}}/{{$facultad->hash}}">
+											<a href="/facultad/noticia/{{$dato->hash}}/{{$facultad->hash}}">
 												@if($dato->dia != null)
 													{{$dato->dia}} de {{$dato->nombreMes}}, de {{$dato->anio}}
 												@endif
@@ -168,7 +168,7 @@
 												@endif
 											</div>
 										</p>
-										<a href="noticia/{{$dato->hash}}/{{$facultad->hash}}" class="read-more text-color-primary font-weight-semibold text-2">Leer Más <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
+										<a href="/facultad/noticia/{{$dato->hash}}/{{$facultad->hash}}" class="read-more text-color-primary font-weight-semibold text-2">Leer Más <i class="fas fa-angle-right position-relative top-1 ms-1"></i></a>
 									</div>
 								</div>
 							</div>
@@ -193,7 +193,7 @@
 				<div class="container" >
 					<div class="row">
 						<div class="col appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
-							<a href="eventos/{{$facultad->hash}}"><h2 class="font-weight-semibold mb-0">Eventos</h2></a>
+							<a href="/facultad/{{$facultad->hash}}/eventos"><h2 class="font-weight-semibold mb-0">Eventos</h2></a>
 						</div>
 					</div>
 
@@ -203,7 +203,7 @@
 						<div class="row">
 						@foreach($eventos as  $key => $dato)
 							<div class="col-sm-6 col-lg-6 mb-6 pb-2">
-								<a href="evento/{{$dato->hash}}/{{$facultad->hash}}">
+								<a href="/facultad/evento/{{$dato->hash}}/{{$facultad->hash}}">
 									<article>
 										<div class="thumb-info thumb-info-no-borders thumb-info-bottom-info thumb-info-bottom-info-dark thumb-info-bottom-info-show-more thumb-info-no-zoom border-radius-0">
 											<div class="thumb-info-wrapper thumb-info-wrapper-opacity-6">
@@ -244,20 +244,20 @@
 						@endforeach
 						</div>
 
-						<center><a class="btn btn-outline btn-quaternary custom-button text-uppercase mt-4 mb-4 mb-md-0 font-weight-bold" href="eventos/{{$facultad->hash}}">Ver Todos los Eventos</a></center>
+						<center><a class="btn btn-outline btn-quaternary custom-button text-uppercase mt-4 mb-4 mb-md-0 font-weight-bold" href="/facultad/{{$facultad->hash}}/eventos">Ver Todos los Eventos</a></center>
 					</div>
 
 
 					<div class="col-sm-4 col-lg-4 mb-4 pb-2">
 					
-					<a href="comunicados/{{$facultad->hash}}"><h3 class="font-weight-bold text-3 mt-4 mt-md-0">Ver Comunicados</h3></a>
+					<a href="/facultad/{{$facultad->hash}}/comunicados"><h3 class="font-weight-bold text-3 mt-4 mt-md-0">Ver Comunicados</h3></a>
 
 					<div class="owl-carousel owl-theme" data-plugin-options="{'items': 1, 'margin': 10, 'loop': true, 'nav': false, 'dots': false, 'autoplay': true, 'autoplayTimeout': 5000}">
 
 						@foreach($comunicados as  $key => $dato)
 							@if($key < 3)
 								<div>
-									<a href="comunicado/{{$dato->hash}}/{{$facultad->hash}}">
+									<a href="/facultad/comunicado/{{$dato->hash}}/{{$facultad->hash}}">
 										<article>
 											<div class="thumb-info thumb-info-no-borders thumb-info-bottom-info thumb-info-bottom-info-dark thumb-info-bottom-info-show-more thumb-info-no-zoom border-radius-0">
 												<div class="thumb-info-wrapper thumb-info-wrapper-opacity-6">

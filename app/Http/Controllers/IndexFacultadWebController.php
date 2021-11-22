@@ -29,6 +29,9 @@ use App\Redsocial;
 use App\Linkinteres;
 use App\Plataforma;
 
+use App\Historia;
+use App\Imagenhistoria;
+
 use DateTime;
 
 class IndexFacultadWebController extends Controller
@@ -236,6 +239,69 @@ class IndexFacultadWebController extends Controller
         }
 
         return redirect('/');
+
+    }
+
+
+    public function historia(){
+
+        $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+        $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 0)->orderBy('id')->get();
+
+        $historia=Historia::where('borrado','0')->where('nivel', 0)->where('activo','1')->first();
+
+        if ($historia != null && $historia->id != null) {    
+            $imagenhistoria = Imagenhistoria::where('activo','1')->where('borrado','0')->where('historia_id', $historia->id)->orderBy('posicion')->orderBy('id')->get();
+            $historia->imagenhistoria = $imagenhistoria;
+            }
+
+        
+        $facultades = Facultad::where('borrado','0')->where('activo','1')->orderBy('nombre')->get();
+        $totalRegistros = 0;
+
+        $FacultadesEscuelas = array();
+
+        foreach ($facultades as $key => $dato) {
+
+            $FacultadEscuela = new stdClass;
+
+            $FacultadEscuela->nombre = $dato->nombre;
+            $FacultadEscuela->nivel = 1;
+            $FacultadEscuela->hash = base64_encode(gzdeflate('idhijofacultad-'.$dato->id));
+
+            array_push($FacultadesEscuelas, $FacultadEscuela);
+
+            
+            $escuelas = Programaestudio::where('borrado','0')->where('activo','1')->where('facultad_id', $dato->id)->orderBy('nombre')->get();
+            $dato->escuelas = $escuelas;
+
+            foreach ($escuelas as $key => $dato2) {
+
+                $FacultadEscuela = new stdClass;
+
+                $FacultadEscuela->nombre = $dato2->nombre;
+                $FacultadEscuela->nivel = 2;
+                $FacultadEscuela->hash = base64_encode(gzdeflate('idhijoescuela-'.$dato2->id));
+
+                array_push($FacultadesEscuelas, $FacultadEscuela);
+            }
+        }
+
+        $totalRegistros = count($FacultadesEscuelas);
+
+        $menusActivos = new stdClass;
+
+        $menusActivos->menu1 = "active";
+        $menusActivos->menu2 = "";
+        $menusActivos->menu3 = "";
+        $menusActivos->menu4 = "";
+        $menusActivos->menu5 = "";
+        $menusActivos->menu6 = "";
+        $menusActivos->menu7 = "";
+        $menusActivos->menu8 = "";
+        $menusActivos->menu9 = "";
+
+        return view('web/unasam/historia',compact('unasam','redsocials','historia','menusActivos', 'FacultadesEscuelas','totalRegistros'));
 
     }
 
