@@ -203,6 +203,12 @@ desired effect
 @elseif($modulo=="organigramafacultad")
 @include('paginasfacultad.organigrama.vue')
 
+@elseif($modulo=="decano")
+@include('paginasfacultad.organo6.vue')
+
+@elseif($modulo=="consejofacultad")
+@include('paginasfacultad.organo7.vue')
+
 
 @endif
 

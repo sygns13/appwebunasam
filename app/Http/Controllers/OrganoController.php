@@ -23,6 +23,8 @@ use App\Permiso;
 use App\Rolmodulo;
 use App\Rolsubmodulo;
 
+use App\Facultad;
+
 class OrganoController extends Controller
 {
     /**
@@ -158,6 +160,90 @@ class OrganoController extends Controller
             return redirect('home');    
         }
     }
+
+    public function index06()
+    {
+
+        $permisos=Permiso::where('user_id',Auth::user()->id)->get();
+        $rolModulos=Rolmodulo::where('user_id',Auth::user()->id)->get();
+        $rolSubModulos=Rolsubmodulo::where('user_id',Auth::user()->id)->get();
+
+        $nivel = 0;
+        $modulo = 5;
+        $submodulo = 41;
+
+        if(accesoUser([1,2]) || (accesoUser([3,4]) && accesoModulo($permisos, $rolModulos, $rolSubModulos, $nivel, $modulo, $submodulo))){
+
+
+            $idtipouser=Auth::user()->tipouser_id;
+            $tipouser=Tipouser::find($idtipouser);
+            $facultads = [];
+
+            $modulo="decano";
+
+            if(accesoUser([1,2])){
+                $facultads = Facultad::orderBy('nombre')->where('borrado','0')->get();
+            }
+            else{
+                foreach ($permisos as $key => $dato) {
+                    if($dato->nivel == $nivel){
+                        $facultad = Facultad::find($dato->facultad_id);
+                        array_push($facultads, $facultad);
+                    } 
+                }
+            }
+
+            return view('paginasfacultad.organo6.index',compact('tipouser','modulo', 'permisos','rolModulos','rolSubModulos','facultads'));
+        }
+        else
+        {
+            return redirect('home');    
+        }
+
+    }
+
+    public function index07()
+    {
+
+        $permisos=Permiso::where('user_id',Auth::user()->id)->get();
+        $rolModulos=Rolmodulo::where('user_id',Auth::user()->id)->get();
+        $rolSubModulos=Rolsubmodulo::where('user_id',Auth::user()->id)->get();
+
+        $nivel = 0;
+        $modulo = 5;
+        $submodulo = 42;
+
+        if(accesoUser([1,2]) || (accesoUser([3,4]) && accesoModulo($permisos, $rolModulos, $rolSubModulos, $nivel, $modulo, $submodulo))){
+
+
+            $idtipouser=Auth::user()->tipouser_id;
+            $tipouser=Tipouser::find($idtipouser);
+            $facultads = [];
+
+            $modulo="consejofacultad";
+
+            if(accesoUser([1,2])){
+                $facultads = Facultad::orderBy('nombre')->where('borrado','0')->get();
+            }
+            else{
+                foreach ($permisos as $key => $dato) {
+                    if($dato->nivel == $nivel){
+                        $facultad = Facultad::find($dato->facultad_id);
+                        array_push($facultads, $facultad);
+                    } 
+                }
+            }
+
+            return view('paginasfacultad.organo7.index',compact('tipouser','modulo', 'permisos','rolModulos','rolSubModulos','facultads'));
+        }
+        else
+        {
+            return redirect('home');    
+        }
+
+    }
+
+
     public function index(Request $request)
     {
         //$buscar=$request->busca;
@@ -434,7 +520,7 @@ class OrganoController extends Controller
                     }
                     else
                     {
-                        $organo = new Contenido();
+                        $organo = new Organo();
                         $organo->titulo=$titulo;
                         $organo->subtitulo=$subtitulo;
                         $organo->descripcion=$descripcion;

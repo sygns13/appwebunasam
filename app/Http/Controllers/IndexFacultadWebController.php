@@ -33,6 +33,7 @@ use App\Historia;
 use App\Imagenhistoria;
 use App\Misionvision;
 use App\Objetivo;
+use App\Organo;
 
 use DateTime;
 
@@ -468,6 +469,123 @@ class IndexFacultadWebController extends Controller
                 $menusActivos->menu9 = "";
 
                 return view('web/facultad/organigrama',compact('redsocials','facultad','menusActivos', 'escuelas'));
+
+            } catch (Exception $e) {
+                return redirect('/');
+            }
+        }
+        else{
+            return redirect('/');
+        }
+
+        return redirect('/');
+
+    }
+
+    public function decano($idhash){
+
+        $strdecoded = $idhash;
+
+        if($idhash != null && strlen($idhash) > 0){
+            
+            try {
+                $strdecoded = gzinflate(base64_decode($idhash));
+
+                if(strlen($strdecoded) > 15){
+                    $id = explode('-', $strdecoded);
+                    $id = $id[1];
+                }
+
+                $organo = Organo::where('activo','1')->where('borrado','0')->where('nivel', 1)->where('tipo',6)->first();
+
+                $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 1)->where('facultad_id',$id)->orderBy('id')->get();
+                $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+
+                
+                $facultad = Facultad::find($id);
+
+                //hash id
+                $facultad->hash = base64_encode(gzdeflate('idhijofacultad-'.$id));
+
+                $escuelas = Programaestudio::where('borrado','0')->where('activo','1')->where('facultad_id', $id)->orderBy('nombre')->get();
+
+                foreach ($escuelas as $key => $dato2) {
+                    $dato2->hash = base64_encode(gzdeflate('idhijoescuela-'.$dato2->id));
+                }
+               
+
+                $menusActivos = new stdClass;
+
+                $menusActivos->menu1 = "";
+                $menusActivos->menu2 = "";
+                $menusActivos->menu3 = "";
+                $menusActivos->menu4 = "active";
+                $menusActivos->menu5 = "";
+                $menusActivos->menu6 = "";
+                $menusActivos->menu7 = "";
+                $menusActivos->menu8 = "";
+                $menusActivos->menu9 = "";
+
+                return view('web/facultad/decano',compact('organo','redsocials','facultad','menusActivos', 'escuelas'));
+
+            } catch (Exception $e) {
+                return redirect('/');
+            }
+        }
+        else{
+            return redirect('/');
+        }
+
+        return redirect('/');
+
+    }
+
+
+    public function consejofacultad($idhash){
+
+        $strdecoded = $idhash;
+
+        if($idhash != null && strlen($idhash) > 0){
+            
+            try {
+                $strdecoded = gzinflate(base64_decode($idhash));
+
+                if(strlen($strdecoded) > 15){
+                    $id = explode('-', $strdecoded);
+                    $id = $id[1];
+                }
+
+                $organo = Organo::where('activo','1')->where('borrado','0')->where('nivel', 1)->where('tipo',7)->first();
+
+                $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 1)->where('facultad_id',$id)->orderBy('id')->get();
+                $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+
+                
+                $facultad = Facultad::find($id);
+
+                //hash id
+                $facultad->hash = base64_encode(gzdeflate('idhijofacultad-'.$id));
+
+                $escuelas = Programaestudio::where('borrado','0')->where('activo','1')->where('facultad_id', $id)->orderBy('nombre')->get();
+
+                foreach ($escuelas as $key => $dato2) {
+                    $dato2->hash = base64_encode(gzdeflate('idhijoescuela-'.$dato2->id));
+                }
+               
+
+                $menusActivos = new stdClass;
+
+                $menusActivos->menu1 = "";
+                $menusActivos->menu2 = "";
+                $menusActivos->menu3 = "";
+                $menusActivos->menu4 = "active";
+                $menusActivos->menu5 = "";
+                $menusActivos->menu6 = "";
+                $menusActivos->menu7 = "";
+                $menusActivos->menu8 = "";
+                $menusActivos->menu9 = "";
+
+                return view('web/facultad/consejofacultad',compact('organo','redsocials','facultad','menusActivos', 'escuelas'));
 
             } catch (Exception $e) {
                 return redirect('/');

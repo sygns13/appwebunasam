@@ -55,6 +55,8 @@ Route::get('facultad/historia/{var}','IndexFacultadWebController@historia');
 Route::get('facultad/misionvision/{var}','IndexFacultadWebController@misionvision');
 Route::get('facultad/objetivos/{var}','IndexFacultadWebController@objetivos');
 Route::get('facultad/organigrama/{var}','IndexFacultadWebController@organigrama');
+Route::get('facultad/decano/{var}','IndexFacultadWebController@decano');
+Route::get('facultad/consejofacultad/{var}','IndexFacultadWebController@consejofacultad');
 
 
 
@@ -108,6 +110,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('intranet/vicerrectorinvestigacion', 'OrganoController@index03');
     Route::get('intranet/asambleauniversitaria', 'OrganoController@index04');
     Route::get('intranet/concejouniversitario', 'OrganoController@index05');
+    Route::get('intranet/decanatura', 'OrganoController@index06');
+    Route::get('intranet/consejofacultad', 'OrganoController@index07');
     Route::get('intranet/objetivosunasam', 'ObjetivoController@index0');
     Route::get('intranet/objetivos', 'ObjetivoController@index1');
     Route::get('intranet/estatuto', 'EstatutoController@index0');

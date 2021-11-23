@@ -396,6 +396,8 @@
                     <li><a href="{{URL::to('intranet/misionvision')}}"><i class='fa fa-paper-plane'></i> Gestión de Misión / Visión</a></li>
                     <li><a href="{{URL::to('intranet/objetivos')}}"><i class='fa fa-paper-plane'></i> Gestión de Objetivos</a></li>
                     <li><a href="{{URL::to('intranet/organigrama')}}"><i class='fa fa-paper-plane'></i> Gestión de Organigrama</a></li>
+                    <li><a href="{{URL::to('intranet/decanatura')}}"><i class='fa fa-paper-plane'></i> Gestión de Decanatura</a></li>
+                    <li><a href="{{URL::to('intranet/consejofacultad')}}"><i class='fa fa-paper-plane'></i> Consejo Facultad</a></li>
                   {{--   <li><a href="{{URL::to('intranet/politicas')}}"><i class='fa fa-paper-plane'></i> Gestión de Políticas de Calidad</a></li>
                     <li><a href="{{URL::to('intranet/objetivos')}}"><i class='fa fa-paper-plane'></i> Gestión de Objetivos</a></li>
                     <li><a href="{{URL::to('intranet/directorio')}}"><i class='fa fa-paper-plane'></i> Gestión de Directorio</a></li> 
