@@ -309,7 +309,10 @@ Vue.component('ckeditor2', {
             var v1 = this.nivel;
             var v2 = this.facultad_id;
             var v3 = 0;
-            var url = '/intranet/misionvisionre'+'?v1='+v1+'&v2='+v2+'&v3='+v3;;
+            var url = '/intranet/misionvisionre'+'?v1='+v1+'&v2='+v2+'&v3='+v3;
+
+            this.fillobjectM = { 'id':'', 'tipo':'1', 'descripcion':'' , 'tieneimagen':'0', 'url':'','oldImg':''};
+            this.fillobjectV = { 'id':'', 'tipo':'2', 'descripcion':'' , 'tieneimagen':'0', 'url':'','oldImg':''};
 
             axios.get(url).then(response=>{
 

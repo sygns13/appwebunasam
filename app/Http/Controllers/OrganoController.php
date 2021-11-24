@@ -24,6 +24,7 @@ use App\Rolmodulo;
 use App\Rolsubmodulo;
 
 use App\Facultad;
+use App\Programaestudio;
 
 class OrganoController extends Controller
 {
@@ -243,6 +244,90 @@ class OrganoController extends Controller
 
     }
 
+    public function index08()
+    {
+
+        $permisos=Permiso::where('user_id',Auth::user()->id)->get();
+        $rolModulos=Rolmodulo::where('user_id',Auth::user()->id)->get();
+        $rolSubModulos=Rolsubmodulo::where('user_id',Auth::user()->id)->get();
+
+        $nivel = 0;
+        $modulo = 5;
+        $submodulo = 43;
+
+        if(accesoUser([1,2]) || (accesoUser([3,4]) && accesoModulo($permisos, $rolModulos, $rolSubModulos, $nivel, $modulo, $submodulo))){
+
+
+            $idtipouser=Auth::user()->tipouser_id;
+            $tipouser=Tipouser::find($idtipouser);
+            $facultads = [];
+
+            $modulo="directores";
+
+            if(accesoUser([1,2])){
+                $facultads = Facultad::orderBy('nombre')->where('borrado','0')->get();
+            }
+            else{
+                foreach ($permisos as $key => $dato) {
+                    if($dato->nivel == $nivel){
+                        $facultad = Facultad::find($dato->facultad_id);
+                        array_push($facultads, $facultad);
+                    } 
+                }
+            }
+
+            $programaestudios = Programaestudio::orderBy('id')->where('borrado','0')->get();
+
+            return view('paginasfacultad.organo8.index',compact('tipouser','modulo', 'permisos','rolModulos','rolSubModulos','facultads','programaestudios'));
+        }
+        else
+        {
+            return redirect('home');    
+        }
+
+    }
+
+    public function index09()
+    {
+
+        $permisos=Permiso::where('user_id',Auth::user()->id)->get();
+        $rolModulos=Rolmodulo::where('user_id',Auth::user()->id)->get();
+        $rolSubModulos=Rolsubmodulo::where('user_id',Auth::user()->id)->get();
+
+        $nivel = 0;
+        $modulo = 5;
+        $submodulo = 43;
+
+        if(accesoUser([1,2]) || (accesoUser([3,4]) && accesoModulo($permisos, $rolModulos, $rolSubModulos, $nivel, $modulo, $submodulo))){
+
+
+            $idtipouser=Auth::user()->tipouser_id;
+            $tipouser=Tipouser::find($idtipouser);
+            $facultads = [];
+
+            $modulo="jefesdepartamentos";
+
+            if(accesoUser([1,2])){
+                $facultads = Facultad::orderBy('nombre')->where('borrado','0')->get();
+            }
+            else{
+                foreach ($permisos as $key => $dato) {
+                    if($dato->nivel == $nivel){
+                        $facultad = Facultad::find($dato->facultad_id);
+                        array_push($facultads, $facultad);
+                    } 
+                }
+            }
+
+            return view('paginasfacultad.organo9.index',compact('tipouser','modulo', 'permisos','rolModulos','rolSubModulos','facultads'));
+        }
+        else
+        {
+            return redirect('home');    
+        }
+
+    }
+
 
     public function index(Request $request)
     {
@@ -272,6 +357,41 @@ class OrganoController extends Controller
         }
 
         $organo = $queryZero->where('tipo',$tipo)->first();
+
+          return [
+            'organo'=>$organo
+            ];
+    }
+
+
+    public function index1(Request $request)
+    {
+        //$buscar=$request->busca;
+        $nivel=$request->v1;
+        $facultad_id=$request->v2;
+        $programaestudio_id=$request->v3;
+
+        $tipo = $request->tipo;
+
+        $queryZero=Organo::where('borrado','0');
+       /* ->where(function($query) use ($buscar){
+            $query->where('titulo','like','%'.$buscar.'%');
+            //$query->orWhere('users.name','like','%'.$buscar.'%');
+            })*/
+
+        if($facultad_id != null && intval($facultad_id) > 0){
+            $queryZero->where('facultad_id',$facultad_id);
+        }
+
+        if($programaestudio_id != null && intval($programaestudio_id) > 0){
+            $queryZero->where('programaestudio_id',$programaestudio_id);
+        }
+
+        if($nivel != null){
+            $queryZero->where('nivel',$nivel);
+        }
+
+        $organo = $queryZero->where('tipo',$tipo)->get();
 
           return [
             'organo'=>$organo
@@ -394,10 +514,16 @@ class OrganoController extends Controller
                 }
             }
             else{
-                $msj="Debe de adjuntar una imagen del válida";
-                $segureImg=1;
-                $result='0';
-                $selector='imagen';
+
+                if($oldImg != null && $oldImg != ""){
+                    $imagen=$oldImg;
+                }
+                else{
+                    $msj="Debe ingresar una imagen";
+                    $segureImg=1;
+                    $result='0';
+                    $selector='imagen';
+                }
             }
         }
 
@@ -450,7 +576,13 @@ class OrganoController extends Controller
                     $msj='Debe ingresar el nombre del Decano de Facultad';
                 }
                 elseif($tipo == '7'){
+                    $msj='Debe ingresar el nombre del Consejo de Facultad';
+                }
+                elseif($tipo == '8'){
                     $msj='Debe ingresar el nombre del Director de Escuela';
+                }
+                elseif($tipo == '9'){
+                    $msj='Debe ingresar el nombre del jefe de Departamento';
                 }
 
                 
@@ -544,7 +676,7 @@ class OrganoController extends Controller
                 else{
                     if(strlen($imagen)>0)
                     {
-                        if(intval($nivel) == 0){
+                        if(intval($nivel) == 0 && $oldImg != $imagen){
                             Storage::disk('organoUNASAM')->delete($oldImg);
                         }
                         elseif(intval($nivel) == 1){
@@ -602,7 +734,13 @@ class OrganoController extends Controller
                     $msj='Registro del Decano de Facultad actualizado con éxito';
                 }
                 elseif($tipo == '7'){
+                    $msj='Registro del Consejo de Facultad actualizado con éxito';
+                }
+                elseif($tipo == '8'){
                     $msj='Registro del Director de Escuela actualizado con éxito';
+                }
+                elseif($tipo == '9'){
+                    $msj='Registro del Jefe de Departamento Académico actualizado con éxito';
                 }
 
             }

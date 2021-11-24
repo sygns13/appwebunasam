@@ -5,7 +5,7 @@
 
       <div class="col-md-12" style="padding-top: 15px;">
         <div class="form-group">
-          <label for="txttitulo" class="col-sm-2 control-label">Nombre del Rector:*</label>
+          <label for="txttitulo" class="col-sm-2 control-label">Nombre del Director:*</label>
           <div class="col-sm-10">
             <input type="text" class="form-control" id="txttitulo" name="txttitulo" placeholder="Nombre"
               maxlength="500" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="tituloF">
@@ -15,7 +15,7 @@
 
       <div class="col-md-12" style="padding-top: 15px;">
         <div class="form-group">
-          <label for="txtsubtitulo" class="col-sm-2 control-label">Descripción corta del Rector</label>
+          <label for="txtsubtitulo" class="col-sm-2 control-label">Descripción corta del Director</label>
           <div class="col-sm-10">
             <input type="text" class="form-control" id="txtsubtitulo" name="txtsubtitulo" placeholder=""
               maxlength="500" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="subtitulo">
@@ -26,7 +26,7 @@
       <div class="col-md-12" style="padding-top: 15px;">
 
         <div class="form-group">
-            <label for="txtpresentacion" class="col-sm-2 control-label">Descripción del Rector:*</label>
+            <label for="txtpresentacion" class="col-sm-2 control-label">Descripción del Director:*</label>
             <div class="col-sm-10">
               <ckeditor1 v-model="content1"></ckeditor1>
 
@@ -49,7 +49,7 @@
   <div class="col-md-12" style="padding-top: 15px;" v-if="tieneimagen==1">
 
     <div class="form-group">
-      <label for="cbuarchivo" class="col-sm-2 control-label">Imagen del Rector</label>
+      <label for="cbuarchivo" class="col-sm-2 control-label">Imagen del Director</label>
 
       <div class="col-sm-10">
          <input name="archivo" type="file" id="archivo" class="archivo form-control" @change="getImage"  v-if="uploadReady"

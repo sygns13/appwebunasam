@@ -226,6 +226,8 @@ Vue.component('ckeditor1', {
             var tipo = 7;
             var url = '/intranet/organosre'+'?v1='+v1+'&v2='+v2+'&v3='+v3+'&tipo='+tipo;
 
+            this.fillobject = { 'id':'', 'titulo':'','subtitulo':'', 'descripcion':'' , 'tieneimagen':'0', 'url':'','oldImg':''};
+
             axios.get(url).then(response=>{
 
                 let organo= response.data.organo;

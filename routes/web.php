@@ -112,6 +112,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('intranet/concejouniversitario', 'OrganoController@index05');
     Route::get('intranet/decanatura', 'OrganoController@index06');
     Route::get('intranet/consejofacultad', 'OrganoController@index07');
+    Route::get('intranet/directores', 'OrganoController@index08');
+    Route::get('intranet/jefesdepartamento', 'OrganoController@index09');
+
     Route::get('intranet/objetivosunasam', 'ObjetivoController@index0');
     Route::get('intranet/objetivos', 'ObjetivoController@index1');
     Route::get('intranet/estatuto', 'EstatutoController@index0');
@@ -130,44 +133,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     
     
-    
-    
-    
-    
-    
-    
-        /*
-    Route::get('intranet/politicas', 'PoliticacalidadController@index1');
-    Route::get('intranet/directorio', 'DirectorioController@index1');
-    Route::get('intranet/gestioncalidad', 'GestioncalidadController@index1');
-    Route::get('intranet/revistas', 'RevistaController@index1');
-    Route::get('intranet/basedatos', 'AccesobasedatoController@index1');
-    Route::get('intranet/antiplagio', 'AntiplagioController@index1');
-    Route::get('intranet/galeria', 'GaleriaController@index1');
-    Route::get('intranet/estudiantesfec', 'EstudianteController@index1');
-    Route::get('intranet/docentesfec', 'DocentesfacultadController@index1');
-    Route::get('intranet/resoluciones', 'DocumentoController@index2');
-    Route::get('intranet/tupa', 'DocumentoController@index3');
-    Route::get('intranet/bannerprograma', 'BannerController@index2');
-    Route::get('intranet/presentacionprograma', 'PresentacionController@index2');
-    Route::get('intranet/organigramaprograma', 'OrganigramaController@index1');
-    Route::get('intranet/datosprograma', 'ProgramaestudioController@index1');
-    Route::get('intranet/estadisticosprograma', 'DatoestadisticoController@index1');
-    Route::get('intranet/historiaprograma', 'HistoriaController@index2');
-    Route::get('intranet/misionvisionprograma', 'MisionvisionController@index2');
-    Route::get('intranet/objetivosprograma', 'ObjetivoController@index2');
-    Route::get('intranet/perfilingresoprograma', 'PerfileController@index1');
-    Route::get('intranet/perfilegresoprograma', 'PerfileController@index2');
-    Route::get('intranet/competenciasprograma', 'CompetenciaController@index1');
-    Route::get('intranet/camposocupacionalesprograma', 'CampoocupacionalController@index1');
-    Route::get('intranet/planestudiosprograma', 'PlanestudioController@index1');
-    Route::get('intranet/gradosprograma', 'GradotituloController@index1');
-    Route::get('intranet/docentesprograma', 'DocenteController@index1');
-    Route::get('intranet/infraestructuraprograma', 'InfraestructuraController@index1');*/
-
-
-
-
 
     Route::resource('usuario','UserController');
     Route::resource('intranet/bannerre', 'BannerController');

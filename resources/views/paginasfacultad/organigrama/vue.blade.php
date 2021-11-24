@@ -150,6 +150,8 @@
 
             var url = '/intranet/datosfacre?v1='+this.facultad_id;
 
+            this.fillobject = { 'id':'', 'nombre_organigrama':'','url_organigrama':'', 'oldFile':''};
+
             axios.get(url).then(response=>{
 
                 let facultad= response.data.facultad;

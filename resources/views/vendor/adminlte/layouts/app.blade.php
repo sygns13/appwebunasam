@@ -209,6 +209,12 @@ desired effect
 @elseif($modulo=="consejofacultad")
 @include('paginasfacultad.organo7.vue')
 
+@elseif($modulo=="directores")
+@include('paginasfacultad.organo8.vue')
+
+@elseif($modulo=="jefesdepartamentos")
+@include('paginasfacultad.organo9.vue')
+
 
 @endif
 

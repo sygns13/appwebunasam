@@ -313,6 +313,17 @@ Vue.component('ckeditor2', {
             var v3 = 0;
             var url = '/intranet/objetivosre?page='+page+'&busca='+busca+'&v1='+v1+'&v2='+v2+'&v3='+v3;
 
+            this.fillobject = { 'id':'', 'numero':'', 'descripcion':'','titulo':'', 'url':'','activo':'','oldImg':''};
+            this.objetivos = [];
+            this.pagination = {
+                'total': 0,
+                'current_page': 0,
+                'per_page': 0,
+                'last_page': 0,
+                'from': 0,
+                'to': 0
+            };
+
             axios.get(url).then(response=>{
 
                 this.objetivos= response.data.objetivos.data;

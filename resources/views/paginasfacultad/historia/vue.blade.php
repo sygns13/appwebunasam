@@ -389,6 +389,8 @@ Vue.component('ckeditor4', {
             var v3 = 0;
             var url = '/intranet/historiare'+'?v1='+v1+'&v2='+v2+'&v3='+v3;
 
+            this.fillobject = { 'id':'', 'titulo':'', 'historia':'' , 'tieneimagen':'1'};
+
             axios.get(url).then(response=>{
 
                 let historia= response.data.historia;

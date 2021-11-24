@@ -142,10 +142,12 @@ Vue.component('ckeditor1', {
         content1:'',
 
         //seccion facultades
-        nivel : 1,
+        nivel : 2,
         facultad:'',
         facultad_id: 0,
         tipo_vista: 1,
+        programaestudio_id: 0,
+        programa:'',
 
 
     },
@@ -221,9 +223,9 @@ Vue.component('ckeditor1', {
         getDatos: function (page) {
             var busca=this.buscar;
             var v1 = this.nivel;
-            var v2 = this.facultad_id;
-            var v3 = 0;
-            var tipo = 6;
+            var v2 = 0;
+            var v3 = this.programaestudio_id;
+            var tipo = 8;
             var url = '/intranet/organosre'+'?v1='+v1+'&v2='+v2+'&v3='+v3+'&tipo='+tipo;
 
             this.fillobject = { 'id':'', 'titulo':'','subtitulo':'', 'descripcion':'' , 'tieneimagen':'0', 'url':'','oldImg':''};
@@ -253,7 +255,7 @@ Vue.component('ckeditor1', {
 
         let image=this.fillobject.url;
         if(this.fillobject.tieneimagen!= null && this.fillobject.tieneimagen == 1){
-            $("#imgInformacion").attr("src","{{ asset('/web/organofacultad/')}}"+"/"+image);
+            $("#imgInformacion").attr("src","{{ asset('/web/organoprograma/')}}"+"/"+image);
         }
         
         },
@@ -314,9 +316,9 @@ Vue.component('ckeditor1', {
             this.descripcion=CKEDITOR.instances['editor1'].getData();
 
             var v1 = this.nivel;
-            var v2 = this.facultad_id;
-            var v3 = 0;
-            var tipo = 6;
+            var v2 = 0;
+            var v3 = this.programaestudio_id;
+            var tipo = 8;
 
 
             var data = new  FormData();
@@ -362,13 +364,22 @@ Vue.component('ckeditor1', {
         //Modificaciones Facultades
       irAtras:function(){
             this.facultad_id = 0;
+            this.programaestudio_id = 0;
             this.facultad = '';
+            this.programa = '';
             this.divNuevo = false;
             this.divNuevoLogo = false;
         },
         cambioFacultad:function(){
             this.facultad = $('#cbufacultad_id option:selected').html();
+            //this.getDatos(this.thispage);
+            this.programaestudio_id = 0;
+            this.programa = '';
+        },
+        cambioEscuela:function(){
+            this.facultad = $('#cbufacultad_id option:selected').html();
             this.getDatos(this.thispage);
+            this.programa = $('#cbuprogramaestudio_id option:selected').html();
         },
     
 
