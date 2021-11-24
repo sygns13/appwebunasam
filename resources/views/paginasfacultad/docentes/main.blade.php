@@ -140,7 +140,7 @@
             <b>Partida de Nacimiento: </b> @{{ docente.documento }} <br>
           </template>
 
-          <template v-if="docente.telefono != null && docente.telefono.length > 0">
+          <template v-if="docente.especialidad != null && docente.especialidad.length > 0">
             <b>Especialidad: </b> @{{ docente.especialidad }}<br>
           </template>
 

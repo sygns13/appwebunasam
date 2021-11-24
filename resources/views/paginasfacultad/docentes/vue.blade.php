@@ -12,7 +12,7 @@ Vue.component('ckeditor1', {
       },
       height: {
         type: String,
-        default: '450px',
+        default: '150px',
       },
       toolbar: {
         type: Array,
@@ -81,7 +81,7 @@ Vue.component('ckeditor2', {
       },
       height: {
         type: String,
-        default: '450px',
+        default: '150px',
       },
       toolbar: {
         type: Array,
@@ -659,16 +659,16 @@ Vue.component('ckeditor8', {
         fecha : '',
         activo : 1,
         departamentoacademico_id : 0,
-        categoria : '',
-        regimen : '',
-        condicion : '',
+        condicion:'Nombrado',
+        categoria:'Auxiliar',
+        regimen:'Tiempo completo',
         experiencia : '',
         publicaciones : '',
         investigaciones : '',
         especialidad : '',
         telefono : '',
         email : '',
-        tipo_documento : 0,
+        tipo_documento : 1,
         documento : '',
         
         divloaderNuevo:false,
@@ -703,6 +703,8 @@ Vue.component('ckeditor8', {
         content6:'',
         content7:'',
         content8:'',
+
+        validated:'0',
 
 
         //seccion facultades
@@ -833,16 +835,16 @@ Vue.component('ckeditor8', {
           this.fecha = '';
           this.activo = 1;
           this.departamentoacademico_id = 0;
-          this.categoria = '';
-          this.regimen = '';
-          this.condicion = '';
+          this.condicion ='Nombrado';
+          this.categoria ='Auxiliar';
+          this.regimen ='Tiempo completo';
           this.experiencia = '';
           this.publicaciones = '';
           this.investigaciones = '';
           this.especialidad = '';
           this.telefono = '';
           this.email = '';
-          this.tipo_documento = 0;
+          this.tipo_documento = 1;
           this.documento = '';
 
             this.imagen=null;
@@ -866,6 +868,8 @@ Vue.component('ckeditor8', {
                 if(CKEDITOR.instances['editor4'] != undefined && CKEDITOR.instances['editor4'] != null){
                     CKEDITOR.instances['editor4'].setData("");
                 }
+
+                $("#cbudepartamentoacademico_id").focus();
             })
 
             this.divEdit=false;
@@ -1022,10 +1026,10 @@ Vue.component('ckeditor8', {
 
 
 
-            this.fillobject.oldImg=dato.url;
+            this.fillobject.oldImg=dato.urlimagen;
             this.fillobject.oldImg2=dato.url_director;
 
-            this.oldImg=dato.url;
+            this.oldImg=dato.urlimagen;
             this.oldFile=dato.urllink;
 
 
@@ -1112,7 +1116,7 @@ Vue.component('ckeditor8', {
 
             this.fillobject.oldImg= this.oldImg;
             this.fillobject.oldFile= this.oldFile;
-            
+
             this.fillobject.grados=CKEDITOR.instances['editor5'].getData();
             this.fillobject.experiencia=CKEDITOR.instances['editor6'].getData();
             this.fillobject.publicaciones=CKEDITOR.instances['editor7'].getData();
@@ -1144,8 +1148,8 @@ Vue.component('ckeditor8', {
             data.append('email', this.fillobject.email);
             data.append('tipo_documento', this.fillobject.tipo_documento);
             data.append('documento', this.fillobject.documento);
-            data.append('imagen', this.fillobject.imagen);
-            data.append('archivo', this.fillobject.archivo);
+            
+            
 
             data.append('imagen', this.imagenE);
             data.append('oldimg', this.fillobject.oldImg);

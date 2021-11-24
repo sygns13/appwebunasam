@@ -357,6 +357,40 @@ return [
          ],
 
 
+         'docenteUNASAM' => [
+            'driver' => 'local',
+            'root' => public_path('web/docenteunasam'),
+            'visibility' => 'public',
+         ],
+         'docenteFacultad' => [
+            'driver' => 'local',
+            'root' => public_path('web/docentefacultad'),
+            'visibility' => 'public',
+         ],
+         'docenteProgramaEstudio' => [
+            'driver' => 'local',
+            'root' => public_path('web/docenteprograma'),
+            'visibility' => 'public',
+         ],
+
+
+         'docdocenteUNASAM' => [
+            'driver' => 'local',
+            'root' => public_path('web/docdocenteunasam'),
+            'visibility' => 'public',
+         ],
+         'docdocenteFacultad' => [
+            'driver' => 'local',
+            'root' => public_path('web/docdocentefacultad'),
+            'visibility' => 'public',
+         ],
+         'docdocenteProgramaEstudio' => [
+            'driver' => 'local',
+            'root' => public_path('web/docdocenteprograma'),
+            'visibility' => 'public',
+         ],
+
+
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),

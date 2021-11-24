@@ -106,7 +106,7 @@
         <div class="form-group">
           <label for="cburegimenE" class="col-sm-2 control-label">Régimen de Dedicación:<spam style="color:red;">*</spam></label>
           <div class="col-sm-4">
-              <select class="form-control" id="cburegimenE" name="cburegimenE" v-model="fillobjectregimen">
+              <select class="form-control" id="cburegimenE" name="cburegimenE" v-model="fillobject.regimen">
                 <option value="Tiempo completo">Tiempo completo</option>
                 <option value="Tiempo parcial">Tiempo parcial</option>
                 <option value="Dedicación exclusiva">Dedicación exclusiva</option>
@@ -114,8 +114,8 @@
             </div>
         <label for="txtfechaE" class="col-sm-2 control-label">Fecha de Ingreso a la Universidad:<spam style="color:red;">*</spam></label>
             <div class="col-sm-2">
-                <input type="date" class="form-control" id="txtfechaE" name="txtfechaE" placeholder="fillobject.dd/mm/aaaa"
-                maxlength="10" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="fecha">
+                <input type="date" class="form-control" id="txtfechaE" name="txtfechaE" placeholder="dd/mm/aaaa"
+                maxlength="10" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="fillobject.fecha">
             </div>
         </div>
       </div>
