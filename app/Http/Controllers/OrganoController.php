@@ -287,47 +287,6 @@ class OrganoController extends Controller
 
     }
 
-    public function index09()
-    {
-
-        $permisos=Permiso::where('user_id',Auth::user()->id)->get();
-        $rolModulos=Rolmodulo::where('user_id',Auth::user()->id)->get();
-        $rolSubModulos=Rolsubmodulo::where('user_id',Auth::user()->id)->get();
-
-        $nivel = 0;
-        $modulo = 5;
-        $submodulo = 43;
-
-        if(accesoUser([1,2]) || (accesoUser([3,4]) && accesoModulo($permisos, $rolModulos, $rolSubModulos, $nivel, $modulo, $submodulo))){
-
-
-            $idtipouser=Auth::user()->tipouser_id;
-            $tipouser=Tipouser::find($idtipouser);
-            $facultads = [];
-
-            $modulo="jefesdepartamentos";
-
-            if(accesoUser([1,2])){
-                $facultads = Facultad::orderBy('nombre')->where('borrado','0')->get();
-            }
-            else{
-                foreach ($permisos as $key => $dato) {
-                    if($dato->nivel == $nivel){
-                        $facultad = Facultad::find($dato->facultad_id);
-                        array_push($facultads, $facultad);
-                    } 
-                }
-            }
-
-            return view('paginasfacultad.organo9.index',compact('tipouser','modulo', 'permisos','rolModulos','rolSubModulos','facultads'));
-        }
-        else
-        {
-            return redirect('home');    
-        }
-
-    }
-
 
     public function index(Request $request)
     {

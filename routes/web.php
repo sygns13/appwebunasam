@@ -113,7 +113,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('intranet/decanatura', 'OrganoController@index06');
     Route::get('intranet/consejofacultad', 'OrganoController@index07');
     Route::get('intranet/directores', 'OrganoController@index08');
-    Route::get('intranet/jefesdepartamento', 'OrganoController@index09');
+    Route::get('intranet/departamentoacademico', 'DepartamentoacademicoController@index1');
 
     Route::get('intranet/objetivosunasam', 'ObjetivoController@index0');
     Route::get('intranet/objetivos', 'ObjetivoController@index1');
@@ -189,6 +189,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('intranet/imageneventosre', 'ImageneventoController');
     Route::resource('intranet/imagencomunicadosre', 'ImagencomunicadoController');
     Route::resource('intranet/imagenhistoriare', 'ImagenhistoriaController');
+    Route::resource('intranet/departamentosre', 'DepartamentoacademicoController');
 
     Route::get('usuario/altabaja/{id}/{var}','UserController@altabaja');
     Route::get('usuario/verpersona/{dni}','UserController@verpersona');
@@ -239,6 +240,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('intranet/gradosprogramare/altabaja/{id}/{var}', 'GradotituloController@altabaja');
     Route::get('intranet/docentesprogramare/altabaja/{id}/{var}', 'DocenteController@altabaja');
     Route::get('intranet/infraestructuraprogramare/altabaja/{id}/{var}', 'InfraestructuraController@altabaja');
+    Route::get('intranet/departamentosre/altabaja/{id}/{var}', 'DepartamentoacademicoController@altabaja');
 
 
     Route::delete('intranet/licenciamientore/deleteimg/{id}', 'LicenciamientoController@deleteImg');

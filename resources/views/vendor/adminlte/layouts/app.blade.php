@@ -212,8 +212,8 @@ desired effect
 @elseif($modulo=="directores")
 @include('paginasfacultad.organo8.vue')
 
-@elseif($modulo=="jefesdepartamentos")
-@include('paginasfacultad.organo9.vue')
+@elseif($modulo=="departamentoacademico")
+@include('paginasfacultad.departamentoacademico.vue')
 
 
 @endif

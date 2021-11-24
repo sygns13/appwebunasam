@@ -324,6 +324,39 @@ return [
          ],
 
 
+         'departamentoUNASAM' => [
+            'driver' => 'local',
+            'root' => public_path('web/departamentounasam'),
+            'visibility' => 'public',
+         ],
+         'departamentoFacultad' => [
+            'driver' => 'local',
+            'root' => public_path('web/departamentofacultad'),
+            'visibility' => 'public',
+         ],
+         'departamentoProgramaEstudio' => [
+            'driver' => 'local',
+            'root' => public_path('web/departamentoprograma'),
+            'visibility' => 'public',
+         ],
+
+         'jefedeparUNASAM' => [
+            'driver' => 'local',
+            'root' => public_path('web/jefedeparunasam'),
+            'visibility' => 'public',
+         ],
+         'jefedeparFacultad' => [
+            'driver' => 'local',
+            'root' => public_path('web/jefedeparfacultad'),
+            'visibility' => 'public',
+         ],
+         'jefedeparProgramaEstudio' => [
+            'driver' => 'local',
+            'root' => public_path('web/jefedeparprograma'),
+            'visibility' => 'public',
+         ],
+
+
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
