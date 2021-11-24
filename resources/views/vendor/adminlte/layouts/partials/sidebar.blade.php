@@ -400,6 +400,8 @@
                     <li><a href="{{URL::to('intranet/consejofacultad')}}"><i class='fa fa-paper-plane'></i> Consejo Facultad</a></li>
                     <li><a href="{{URL::to('intranet/directores')}}"><i class='fa fa-paper-plane'></i> Directores de Escuela</a></li> 
                     <li><a href="{{URL::to('intranet/departamentoacademico')}}"><i class='fa fa-paper-plane'></i> Departamentos Académicos</a></li> 
+                    <li><a href="{{URL::to('intranet/documentosnormativos')}}"><i class='fa fa-paper-plane'></i> Documentos Normativos</a></li>
+                    <li><a href="{{URL::to('intranet/docentesfacultad')}}"><i class='fa fa-paper-plane'></i> Gestión de Docentes</a></li> 
                   {{--   <li><a href="{{URL::to('intranet/politicas')}}"><i class='fa fa-paper-plane'></i> Gestión de Políticas de Calidad</a></li>
                     <li><a href="{{URL::to('intranet/objetivos')}}"><i class='fa fa-paper-plane'></i> Gestión de Objetivos</a></li>
                     <li><a href="{{URL::to('intranet/directorio')}}"><i class='fa fa-paper-plane'></i> Gestión de Directorio</a></li> 

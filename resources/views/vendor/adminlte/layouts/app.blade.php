@@ -215,6 +215,12 @@ desired effect
 @elseif($modulo=="departamentoacademico")
 @include('paginasfacultad.departamentoacademico.vue')
 
+@elseif($modulo=="documentofacultad")
+@include('paginasfacultad.documento.vue')
+
+@elseif($modulo=="docentesfacultad")
+@include('paginasfacultad.docentes.vue')
+
 
 @endif
 

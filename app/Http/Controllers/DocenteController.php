@@ -40,71 +40,45 @@ class DocenteController extends Controller
 
     public function index1()
     {
-        if(accesoUser([1,2])){
+        $permisos=Permiso::where('user_id',Auth::user()->id)->get();
+        $rolModulos=Rolmodulo::where('user_id',Auth::user()->id)->get();
+        $rolSubModulos=Rolsubmodulo::where('user_id',Auth::user()->id)->get();
+
+        $nivel = 1;
+        $modulo = 4;
+        $submodulo = 46;
+
+        if(accesoUser([1,2]) || (accesoUser([3,4]) && accesoModulo($permisos, $rolModulos, $rolSubModulos, $nivel, $modulo, $submodulo))){
 
 
             $idtipouser=Auth::user()->tipouser_id;
             $tipouser=Tipouser::find($idtipouser);
 
-            $departamentoacademicos = DB::table('departamentoacademicos')
-            ->join('facultads', 'facultads.id', '=', 'departamentoacademicos.facultad_id')
-            ->where('departamentoacademicos.borrado','0')
-  
-            ->orderBy('facultads.nombre')
-            ->orderBy('departamentoacademicos.nombre')
-            ->select('departamentoacademicos.id','departamentoacademicos.nombre','departamentoacademicos.activo','departamentoacademicos.borrado','departamentoacademicos.facultad_id','facultads.nombre as facultad')
+            $modulo="docentesfacultad";
+
+            if(accesoUser([1,2])){
+                $facultads = Facultad::orderBy('nombre')->where('borrado','0')->get();
+            }
+            else{
+                foreach ($permisos as $key => $dato) {
+                    if($dato->nivel == $nivel){
+                        $facultad = Facultad::find($dato->facultad_id);
+                        array_push($facultads, $facultad);
+                    } 
+                }
+            }
+
+            $departamentos=Departamentoacademico::where('borrado','0')->where('activo','1')
+            ->orderBy('facultad_id','desc')
+            ->orderBy('nombre','desc')
+            ->orderBy('id')
             ->get();
 
-            $semestres=Semestre::where('activo','1')->where('borrado','0')->orderBy('fechafin','desc')->get();
-            $facultads=Facultad::where('activo','1')->where('borrado','0')->get();
-
-            $semestresel="0";
-            $contse=0;
-            $semestreNombre="";
-            foreach ($semestres as $key => $dato) {
-                $contse++;
-                if($dato->estado="1"){
-                    $semestresel=$dato->id;
-                    $semestreNombre=$dato->nombre;
-                    break;
-                }
-            }
-
-            $submodulo=Submodulo::find(12);
-            $activoModulo = 0; //Estado Cerrado sin Importar la Programacion
-
-            if($submodulo->estado == '1'){
-                $activoModulo = 1; //Estado Abierto sin Importar la Programacion
-            }
-            elseif($submodulo->estado == '2'){
-
-                $h=Date('Y-m-d');
-                $hoy = new DateTime($h);
-
-                $fechaini = new DateTime($submodulo->fechaini);
-                $fechafin = new DateTime($submodulo->fechafin);
-
-                if($fechaini >$hoy){
-                    $activoModulo = 2; //Estado Programado: La fecha de programacion aun no inicia
-                }
-                elseif($hoy >=$fechaini && $hoy<=$fechafin){
-                    $activoModulo = 3; //Estado Programado: La fecha de programacion esta vigente
-                }
-                elseif($hoy>$fechafin){
-                    $activoModulo = 4; //Estado Programado: La fecha de programacion ya finalizo
-                }
-            }
-
-            $permisoModulos=Permisomodulo::where('user_id',Auth::user()->id)->get();
-            $permisoSubModulos=Permisossubmodulo::where('user_id',Auth::user()->id)->get();
-
-
-            $modulo="docentes";
-            return view('docentes.index',compact('tipouser','modulo','departamentoacademicos','semestres','facultads','semestresel','contse','semestreNombre','submodulo','activoModulo','permisoModulos','permisoSubModulos'));
+            return view('paginasfacultad.docentes.index',compact('tipouser','modulo', 'permisos','rolModulos','rolSubModulos','facultads','departamentos'));
         }
         else
         {
-            return redirect('home');           
+            return redirect('home');    
         }
     }
 

@@ -114,6 +114,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('intranet/consejofacultad', 'OrganoController@index07');
     Route::get('intranet/directores', 'OrganoController@index08');
     Route::get('intranet/departamentoacademico', 'DepartamentoacademicoController@index1');
+    Route::get('intranet/docentesfacultad','DocenteController@index1');
 
     Route::get('intranet/objetivosunasam', 'ObjetivoController@index0');
     Route::get('intranet/objetivos', 'ObjetivoController@index1');
@@ -167,7 +168,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('intranet/antiplagiore', 'AntiplagioController');
     Route::resource('intranet/galeriare', 'GaleriaController');
     Route::resource('intranet/estudiantesfecre', 'EstudianteController');
-    Route::resource('intranet/docentesfecre', 'DocentesfacultadController');
+    Route::resource('intranet/docentesfacre', 'DocentesfacultadController');
     Route::resource('intranet/bannerprogramare', 'BannerController');
     Route::resource('intranet/presentacionprogramare', 'PresentacionController');
     Route::resource('intranet/organigramaprogramare', 'OrganigramaController');
@@ -223,7 +224,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('intranet/antiplagiore/altabaja/{id}/{var}', 'AntiplagioController@altabaja');
     Route::get('intranet/galeriare/altabaja/{id}/{var}', 'GaleriaController@altabaja');
     Route::get('intranet/estudiantesfecre/altabaja/{id}/{var}', 'EstudianteController@altabaja');
-    Route::get('intranet/docentesfecre/altabaja/{id}/{var}', 'DocentesfacultadController@altabaja');
+    Route::get('intranet/docentesfacre/altabaja/{id}/{var}', 'DocentesfacultadController@altabaja');
     Route::get('intranet/bannerprogramare/altabaja/{id}/{var}', 'BannerController@altabaja');
     Route::get('intranet/presentacionprogramare/altabaja/{id}/{var}', 'PresentacionController@altabaja');
     Route::get('intranet/organigramaprogramare/altabaja/{id}/{var}', 'OrganigramaController@altabaja');

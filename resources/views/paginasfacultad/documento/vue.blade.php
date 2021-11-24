@@ -12,7 +12,7 @@ Vue.component('ckeditor1', {
       },
       height: {
         type: String,
-        default: '450px',
+        default: '200px',
       },
       toolbar: {
         type: Array,
@@ -81,146 +81,7 @@ Vue.component('ckeditor2', {
       },
       height: {
         type: String,
-        default: '450px',
-      },
-      toolbar: {
-        type: Array,
-        default: () => [
-          [ 'Styles', 'Format', 'Font', 'FontSize' ],
-          ['Link'],
-          ['Bold','Italic','Underline','Strike'],
-          ['NumberedList','BulletedList'],
-          ['Cut','Copy','Paste'],
-          ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-          [ 'TextColor', 'BGColor' ],
-          ['Undo','Redo']
-        ]
-      },
-      language: {
-        type: String,
-        default: 'es'
-      },
-      extraplugins: {
-        type: String,
-        default: ''
-      }
-        },
-        beforeUpdate () {
-      const ckeditorId = this.id
-      if (this.value !== CKEDITOR.instances[ckeditorId].getData()) {
-        CKEDITOR.instances[ckeditorId].setData(this.value)
-      }
-        },
-        mounted () {
-      const ckeditorId = this.id
-      //console.log(this.value)
-      const ckeditorConfig = {
-        toolbar: this.toolbar,
-        language: this.language,
-        height: this.height,
-        extraPlugins: this.extraplugins
-      }
-      CKEDITOR.replace(ckeditorId, ckeditorConfig)
-      CKEDITOR.instances[ckeditorId].setData(this.value)
-      /*CKEDITOR.instances[ckeditorId].on('change', () => {
-        let ckeditorData = CKEDITOR.instances[ckeditorId].getData()
-        if (ckeditorData !== this.value) {
-          this.$emit('input', ckeditorData)
-        }
-      })*/
-        },
-        destroyed () {
-      const ckeditorId = this.id
-      if (CKEDITOR.instances[ckeditorId]) {
-        CKEDITOR.instances[ckeditorId].destroy()
-      }
-        }
-  
-});
-
-Vue.component('ckeditor3', {
-  template: `<div class="ckeditor"><textarea :id="id" :value="value"></textarea></div>`,
-  props: {
-      value: {
-        type: String
-      },
-      id: {
-        type: String,
-        default: 'editor3'
-      },
-      height: {
-        type: String,
-        default: '150px',
-      },
-      toolbar: {
-        type: Array,
-        default: () => [
-          [ 'Styles', 'Format', 'Font', 'FontSize' ],
-          ['Link'],
-          ['Bold','Italic','Underline','Strike'],
-          ['NumberedList','BulletedList'],
-          ['Cut','Copy','Paste'],
-          ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-          [ 'TextColor', 'BGColor' ],
-          ['Undo','Redo']
-        ]
-      },
-      language: {
-        type: String,
-        default: 'es'
-      },
-      extraplugins: {
-        type: String,
-        default: ''
-      }
-        },
-        beforeUpdate () {
-      const ckeditorId = this.id
-      if (this.value !== CKEDITOR.instances[ckeditorId].getData()) {
-        CKEDITOR.instances[ckeditorId].setData(this.value)
-      }
-        },
-        mounted () {
-      const ckeditorId = this.id
-      //console.log(this.value)
-      const ckeditorConfig = {
-        toolbar: this.toolbar,
-        language: this.language,
-        height: this.height,
-        extraPlugins: this.extraplugins
-      }
-      CKEDITOR.replace(ckeditorId, ckeditorConfig)
-      CKEDITOR.instances[ckeditorId].setData(this.value)
-      /*CKEDITOR.instances[ckeditorId].on('change', () => {
-        let ckeditorData = CKEDITOR.instances[ckeditorId].getData()
-        if (ckeditorData !== this.value) {
-          this.$emit('input', ckeditorData)
-        }
-      })*/
-        },
-        destroyed () {
-      const ckeditorId = this.id
-      if (CKEDITOR.instances[ckeditorId]) {
-        CKEDITOR.instances[ckeditorId].destroy()
-      }
-        }
-  
-});
-
-
-Vue.component('ckeditor4', {
-  template: `<div class="ckeditor"><textarea :id="id" :value="value"></textarea></div>`,
-  props: {
-      value: {
-        type: String
-      },
-      id: {
-        type: String,
-        default: 'editor4'
-      },
-      height: {
-        type: String,
-        default: '150px',
+        default: '200px',
       },
       toolbar: {
         type: Array,
@@ -282,14 +143,14 @@ Vue.component('ckeditor4', {
  let app = new Vue({
     el: '#app',
     data:{
-        titulo:"Portal Web Facultades",
-        subtitulo: "Gestión de Departamentos Académicos",
+        titulo:"Páginas Facultades",
+        subtitulo: "Gestión de Documentos Normativos",
         subtitulo2: "Principal",
 
         subtitle2:false,
         subtitulo2:"",
 
-        tipouserPerfil:'{{ $tipouser->nombre }}',
+        tipouserPerfil:'{{ $tipouser->tituloO }}',
         userPerfil:'{{ Auth::user()->name }}',
         mailPerfil:'{{ Auth::user()->email }}',
 
@@ -322,25 +183,10 @@ Vue.component('ckeditor4', {
         classMenu12:'',
 
 
-        departamentos: [],
+        documentos: [],
         errors:[],
 
-        fillobject:{ 'id':'', 
-                    'nombre':'', 
-                    'descripcion':'', 
-                    'direccion':'', 
-                    'telefono':'', 
-                    'email':'', 
-                    'tieneimagen':0, 
-                    'url':'',
-                    'director':'',
-                    'descripcion_director':'',
-                    'descripcion_corta_director':'',
-                    'tieneimagen_director': 0,
-                    'url_director':'',
-                    'activo':'',
-                    'facultad_id':0,
-                    'oldImg':'', 'oldImg2':''},
+        fillobject:{ 'id':'', 'nombre':'','url':'','numero':'', 'fecha':'', 'descripcion':'','activo':'', 'oldFile':''},
 
         pagination: {
             'total': 0,
@@ -357,19 +203,13 @@ Vue.component('ckeditor4', {
         divEdit:false,
 
         nombre : '',
-        descripcion : '',
-        direccion : '',
-        telefono : '',
-        email : '',
-        tieneimagen : 1,
         url : '',
-        director : '',
-        descripcion_director : '',
-        descripcion_corta_director : '',
-        tieneimagen_director : 1,
-        url_director : '',
+        numero : '',
+        fecha : '',
+        descripcion : '',
         activo : 1,
-        
+
+
         divloaderNuevo:false,
         divloaderEdit:false,
 
@@ -379,27 +219,29 @@ Vue.component('ckeditor4', {
         divprincipal:false,
 
         imagen : null,
+        archivo : null,
+        nombrefile : '',
         uploadReady: true,
 
-        imagen2 : null,
-        uploadReady2: true,
-
         imagenE : null,
+        archivoE : null,
         uploadReadyE: false,
 
-        imagen2E : null,
-        uploadReady2E: false,
-
         oldImg:'',
-        oldImg2:'',
+        oldFile:'',
         image:'',
-        image2:'',
+        file:'',
 
         content1:'',
         content2:'',
-        content3:'',
-        content4:'',
 
+        nameAdjunto:'',
+        urlAdjunto:'',
+        iflink:false,
+        nameAdjuntoE:'',
+
+
+        tipo:1,
 
         //seccion facultades
         nivel : 1,
@@ -408,16 +250,16 @@ Vue.component('ckeditor4', {
         tipo_vista: 1,
 
 
-
     },
     created:function () {
         //this.getDatos(this.thispage);
+
+        
     },
     mounted: function () {
-       $("#divtitulo").show('slow');
+        $("#divtitulo").show('slow');
         this.divloader0=false;
         this.divprincipal=true;
-        //console.log("aqui");
     },
     computed:{
         isActived: function(){
@@ -476,21 +318,23 @@ Vue.component('ckeditor4', {
   },
 
     methods: {
-      getDatos: function (page) {
+
+
+        getDatos: function (page) {
             var busca=this.buscar;
             var v1 = this.nivel;
             var v2 = this.facultad_id;
             var v3 = 0;
-            var url = '/intranet/departamentosre?page='+page+'&busca='+busca+'&v1='+v1+'&v2='+v2+'&v3='+v3;
+            var url = '/intranet/documentore?page='+page+'&busca='+busca+'&v1='+v1+'&v2='+v2+'&v3='+v3+'&tipo='+this.tipo;
 
             axios.get(url).then(response=>{
 
-                this.departamentos= response.data.departamentos.data;
+                this.documentos= response.data.documentos.data;
                 this.pagination= response.data.pagination;
 
                 //this.mostrarPalenIni=true;
 
-                if(this.departamentos.length==0 && this.thispage!='1'){
+                if(this.documentos.length==0 && this.thispage!='1'){
                     var a = parseInt(this.thispage) ;
                     a--;
                     this.thispage=a.toString();
@@ -519,94 +363,66 @@ Vue.component('ckeditor4', {
             this.cancelForm();
         },
         cancelForm: function () {
-          this.nombre = '';
-          this.descripcion = '';
-          this.direccion = '';
-          this.telefono = '';
-          this.email = '';
-          this.tieneimagen = 1;
-          this.url = '';
-          this.director = '';
-          this.descripcion_director = '';
-          this.descripcion_corta_director = '';
-          this.tieneimagen_director = 1;
-          this.url_director = '';
-          this.activo = 1;
 
-            this.imagen=null;
-            this.imagen2=null;
+            this.nombre = '';
+            this.url = '';
+            this.numero = '';
+            this.fecha = '';
+            this.descripcion = '';
+            this.activo = 1;
+
+            this.tipo = 1;
+
+            this.archivo=null;
             this.uploadReady = false
-            this.uploadReady2 = false
             this.$nextTick(() => {
-                this.uploadReady = true;
-                this.uploadReady2 = true;
+            this.uploadReady = true;
                 $('#txtnombre').focus();
                 if(CKEDITOR.instances['editor1'] != undefined && CKEDITOR.instances['editor1'] != null){
                     CKEDITOR.instances['editor1'].setData("");
-                }
-                if(CKEDITOR.instances['editor2'] != undefined && CKEDITOR.instances['editor2'] != null){
-                    CKEDITOR.instances['editor2'].setData("");
                 }
             })
 
             this.divEdit=false;
         },
-        getImage(event){
+
+        getArchivo(event){
             //Asignamos la imagen a  nuestra data
 
             if (!event.target.files.length)
             {
-                this.imagen=null;
+              this.archivo=null;
             }
             else{
-            this.imagen = event.target.files[0];
-            }
-        },
-
-        getImage2(event){
-            //Asignamos la imagen a  nuestra data
-
-            if (!event.target.files.length)
-            {
-                this.imagen2=null;
-            }
-            else{
-            this.imagen2 = event.target.files[0];
+            this.archivo = event.target.files[0];
             }
         },
 
         create:function () {
-            var url='/intranet/departamentosre';
+            var url='/intranet/documentore';
 
             $("#btnGuardar").attr('disabled', true);
             $("#btnCancel").attr('disabled', true);
             $("#btnClose").attr('disabled', true);
 
             this.descripcion=CKEDITOR.instances['editor1'].getData();
-            this.descripcion_director=CKEDITOR.instances['editor2'].getData();
             this.divloaderNuevo=true;
 
             var v1 = this.nivel;
             var v2 = this.facultad_id;
             var v3 = 0;
 
+
             var data = new  FormData();
 
             data.append('nombre', this.nombre);
-            data.append('descripcion', this.descripcion);
-            data.append('direccion', this.direccion);
-            data.append('telefono', this.telefono);
-            data.append('email', this.email);
-            data.append('tieneimagen', this.tieneimagen);
             data.append('url', this.url);
-            data.append('director', this.director);
-            data.append('descripcion_director', this.descripcion_director);
-            data.append('descripcion_corta_director', this.descripcion_corta_director);
-            data.append('tieneimagen_director', this.tieneimagen_director);
-            data.append('url_director', this.url_director);
+            data.append('numero', this.numero);
+            data.append('fecha', this.fecha);
+            data.append('descripcion', this.descripcion);
+            data.append('tipo', this.tipo);
             data.append('activo', this.activo);
-            data.append('imagen', this.imagen);
-            data.append('imagen2', this.imagen2);
+            data.append('archivo', this.archivo);
             data.append('v1', v1);
             data.append('v2', v2);
             data.append('v3', v3);
@@ -637,7 +453,7 @@ Vue.component('ckeditor4', {
         borrar:function (dato) {
           swal.fire({
               title: '¿Estás seguro?',
-              text: "¿Desea eliminar el Departamento Académico seleccionado? -- Nota: Este proceso no se podrá revertir",
+              text: "¿Desea eliminar el Documento seleccionado? -- Nota: Este proceso no se podrá revertir",
               type: 'info',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
@@ -647,7 +463,7 @@ Vue.component('ckeditor4', {
 
 
             if (result.value) {
-                var url = '/intranet/departamentosre/'+dato.id;
+                var url = '/intranet/documentore/'+dato.id;
                 axios.delete(url).then(response=>{//eliminamos
 
                     if(response.data.result=='1'){
@@ -665,45 +481,29 @@ Vue.component('ckeditor4', {
         edit:function (dato) {
 
         this.uploadReadyE=false;
-        this.uploadReady2E=false;
-
+        
+            
             this.fillobject.id=dato.id;
             this.fillobject.nombre=dato.nombre;
-            this.fillobject.descripcion=dato.descripcion;
-            this.fillobject.direccion=dato.direccion;
-            this.fillobject.telefono=dato.telefono;
-            this.fillobject.email=dato.email;
-            this.fillobject.tieneimagen=dato.tieneimagen;
             this.fillobject.url=dato.url;
-            this.fillobject.director=dato.director;
-            this.fillobject.descripcion_director=dato.descripcion_director;
-            this.fillobject.descripcion_corta_director=dato.descripcion_corta_director;
-            this.fillobject.tieneimagen_director=dato.tieneimagen_director;
-            this.fillobject.url_director=dato.url_director;
+            this.fillobject.numero=dato.numero;
+            this.fillobject.fecha=dato.fecha;
+            this.fillobject.descripcion=dato.descripcion;
             this.fillobject.activo=dato.activo;
 
-
-            this.fillobject.oldImg=dato.url;
-            this.fillobject.oldImg2=dato.url_director;
-            this.fillobject.facultad_id=dato.facultad_id;
-
-            this.oldImg=dato.url;
-            this.oldImg2=dato.url_director;
-
+            this.oldFile=dato.url;
+           
 
             this.divNuevo=false;
             this.divEdit=true;
             this.divloaderEdit=false;
 
             this.$nextTick(() => {
-                CKEDITOR.instances['editor3'].setData(dato.descripcion);
-                CKEDITOR.instances['editor4'].setData(dato.descripcion_director);
-                this.imagenE=null;
-                this.uploadReadyE=true;
-                this.imagen2E=null;
-                this.uploadReady2E=true;
-                $("#txtnombreE").focus();
-            });
+            this.archivoE=null;
+            this.uploadReadyE=true;
+            CKEDITOR.instances['editor2'].setData(dato.descripcion);
+            $('#txtnombreE').focus();
+        });
 
         },
         cerrarFormE: function(){
@@ -711,59 +511,35 @@ Vue.component('ckeditor4', {
             this.divEdit=false;
 
             this.$nextTick(function () {
-                this.fillobject={ 'id':'', 
-                                'nombre':'', 
-                                'descripcion':'', 
-                                'direccion':'', 
-                                'telefono':'', 
-                                'email':'', 
-                                'tieneimagen':0, 
-                                'url':'',
-                                'director':'',
-                                'descripcion_director':'',
-                                'descripcion_corta_director':'',
-                                'tieneimagen_director': 0,
-                                'url_director':'',
-                                'activo':'',
-                                'facultad_id':0,
-                                'oldImg':'', 'oldImg2':''};
+                this.fillobject = { 'id':'', 'nombre':'','url':'','numero':'', 'fecha':'', 'descripcion':'','activo':'', 'oldFile':''};
     
             })
 
         },
 
-        getImageE(event){
-            if (!event.target.files.length)
-            {
-                this.imagenE=null;
-            }
-            else{
-            this.imagenE = event.target.files[0];
-            }
-        },
+        getArchivoE(event){
+                //Asignamos la imagen a  nuestra data
 
-        getImage2E(event){
-            if (!event.target.files.length)
-            {
-                this.imagen2E=null;
-            }
-            else{
-            this.imagen2E = event.target.files[0];
-            }
-        },
+                if (!event.target.files.length)
+                {
+                  this.archivoE=null;
+                }
+                else{
+                this.archivoE = event.target.files[0];
+                }
+            },
 
         update: function (id) {
 
-            var url="/intranet/departamentosre/"+id;
+            var url="/intranet/documentore/"+id;
             $("#btnSaveE").attr('disabled', true);
             $("#btnCloseE").attr('disabled', true);
             this.divloaderEdit=true;
 
             this.fillobject.oldImg= this.oldImg;
-            this.fillobject.oldImg2= this.oldImg2;
-            this.fillobject.descripcion=CKEDITOR.instances['editor3'].getData();
-            this.fillobject.descripcion_director=CKEDITOR.instances['editor4'].getData();
+            this.fillobject.oldFile= this.oldFile;
 
+            this.fillobject.descripcion=CKEDITOR.instances['editor2'].getData();
             var v1 = this.nivel;
             var v2 = this.facultad_id;
 
@@ -771,23 +547,16 @@ Vue.component('ckeditor4', {
 
             data.append('id', this.fillobject.id);
             data.append('nombre', this.fillobject.nombre);
-            data.append('descripcion', this.fillobject.descripcion);
-            data.append('direccion', this.fillobject.direccion);
-            data.append('telefono', this.fillobject.telefono);
-            data.append('email', this.fillobject.email);
-            data.append('tieneimagen', this.fillobject.tieneimagen);
             data.append('url', this.fillobject.url);
-            data.append('director', this.fillobject.director);
-            data.append('descripcion_director', this.fillobject.descripcion_director);
-            data.append('descripcion_corta_director', this.fillobject.descripcion_corta_director);
-            data.append('tieneimagen_director', this.fillobject.tieneimagen_director);
-            data.append('url_director', this.fillobject.url_director);
+            data.append('numero', this.fillobject.numero);
+            data.append('fecha', this.fillobject.fecha);
+            data.append('descripcion', this.fillobject.descripcion);
             data.append('activo', this.fillobject.activo);
+            data.append('tipo', this.tipo);
 
-            data.append('imagen', this.imagenE);
-            data.append('imagen2', this.imagen2E);
-            data.append('oldimg', this.fillobject.oldImg);
-            data.append('oldimg2', this.fillobject.oldImg2);
+            data.append('archivo', this.archivoE);
+            data.append('oldfile', this.fillobject.oldFile);
+
             data.append('v1', v1);
 
             data.append('_method', 'PUT');
@@ -819,7 +588,7 @@ Vue.component('ckeditor4', {
         baja:function (dato) {
           swal.fire({
               title: '¿Estás seguro?',
-              text: "Nota: Si se desactiva el Departamento Académico, No se mostrará en el Portal Web, hasta que sea activada nuevamente",
+              text: "Nota: Si se desactiva el Documento, No se mostrará en el Portal Web UNASAM, hasta que sea activado nuevamente",
               type: 'info',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
@@ -828,7 +597,7 @@ Vue.component('ckeditor4', {
           }).then((result) => {
 
             if (result.value) {
-                var url = '/intranet/departamentosre/altabaja/'+dato.id+'/0';
+                var url = '/intranet/documentore/altabaja/'+dato.id+'/0';
                 axios.get(url).then(response=>{//eliminamos
 
                     if(response.data.result=='1'){
@@ -846,7 +615,7 @@ Vue.component('ckeditor4', {
       alta:function (dato) {
           swal.fire({
               title: '¿Estás seguro?',
-              text: "Nota: Si activa el Departamento Académico, se mostrará en el Portal Web",
+              text: "Nota: Si activa el Documento, se mostrará en el Portal Web UNASAM en el número de su posición",
               type: 'info',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
@@ -855,7 +624,7 @@ Vue.component('ckeditor4', {
           }).then((result) => {
 
             if (result.value) {
-                var url = '/intranet/departamentosre/altabaja/'+dato.id+'/1';
+                var url = '/intranet/documentore/altabaja/'+dato.id+'/1';
                 axios.get(url).then(response=>{//eliminamos
 
                 if(response.data.result=='1'){
@@ -870,10 +639,7 @@ Vue.component('ckeditor4', {
         }).catch(swal.noop);
       },
 
-
-      
-
-            //Modificaciones Facultades
+      //Modificaciones Facultades
       irAtras:function(){
             this.facultad_id = 0;
             this.facultad = '';
@@ -884,6 +650,7 @@ Vue.component('ckeditor4', {
             this.facultad = $('#cbufacultad_id option:selected').html();
             this.getDatos(this.thispage);
         },
+    
 
 }
 });
