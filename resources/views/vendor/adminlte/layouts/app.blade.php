@@ -221,6 +221,9 @@ desired effect
 @elseif($modulo=="docentesfacultad")
 @include('paginasfacultad.docentes.vue')
 
+@elseif($modulo=="serviciosfacultad")
+@include('paginasfacultad.servicios.vue')
+
 
 @endif
 

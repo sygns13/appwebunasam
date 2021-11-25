@@ -180,7 +180,7 @@ class LinkinteresController extends Controller
 
         if ($request->hasFile('imagen')) { 
 
-            $aux='linkinteres_fec-'.date('d-m-Y').'-'.date('H-i-s');
+            $aux='linkinteres-'.date('d-m-Y').'-'.date('H-i-s');
             $input  = array('imagen' => $img) ;
             $reglas = array('imagen' => 'required||mimes:png,jpg,jpeg,gif,jpe,PNG,JPG,JPEG,GIF,JPE');
             $validator = Validator::make($input, $reglas);
@@ -363,7 +363,7 @@ class LinkinteresController extends Controller
 
         if ($request->hasFile('imagen')) { 
 
-            $aux='linkinteres_fec'.date('d-m-Y').'-'.date('H-i-s');
+            $aux='linkinteres'.date('d-m-Y').'-'.date('H-i-s');
             $input  = array('image' => $img) ;
             $reglas = array('image' => 'required|mimes:png,jpg,jpeg,gif,jpe,PNG,JPG,JPEG,GIF,JPE');
             $validator = Validator::make($input, $reglas);

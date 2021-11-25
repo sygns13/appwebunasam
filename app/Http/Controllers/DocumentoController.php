@@ -88,7 +88,7 @@ class DocumentoController extends Controller
         $rolSubModulos=Rolsubmodulo::where('user_id',Auth::user()->id)->get();
 
         $nivel = 1;
-        $modulo = 4;
+        $modulo = 5;
         $submodulo = 45;
 
         if(accesoUser([1,2]) || (accesoUser([3,4]) && accesoModulo($permisos, $rolModulos, $rolSubModulos, $nivel, $modulo, $submodulo))){

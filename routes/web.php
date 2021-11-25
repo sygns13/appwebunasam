@@ -121,6 +121,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('intranet/estatuto', 'EstatutoController@index0');
     Route::get('intranet/licenciamiento', 'LicenciamientoController@index01');
     Route::get('intranet/acreditacion', 'LicenciamientoController@index02');
+    Route::get('intranet/servicios', 'LicenciamientoController@index03');
     Route::get('intranet/himno', 'ContenidoController@index01');
     Route::get('intranet/documentosnormativosportal', 'DocumentoController@index01');
     Route::get('intranet/informesportal', 'DocumentoController@index02');

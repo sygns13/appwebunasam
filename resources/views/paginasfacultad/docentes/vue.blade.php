@@ -567,8 +567,8 @@ Vue.component('ckeditor8', {
  let app = new Vue({
     el: '#app',
     data:{
-        titulo:"Portal Web Facultades",
-        subtitulo: "Gestión de Departamentos Académicos",
+        titulo:"Páginas Web Facultades",
+        subtitulo: "Gestión de Docentes",
         subtitulo2: "Principal",
 
         subtitle2:false,

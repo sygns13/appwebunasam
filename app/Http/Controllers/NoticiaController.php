@@ -193,7 +193,7 @@ class NoticiaController extends Controller
 
         if ($request->hasFile('imagen')) { 
 
-            $aux='noticia_fec-'.date('d-m-Y').'-'.date('H-i-s');
+            $aux='noticia-'.date('d-m-Y').'-'.date('H-i-s');
             $input  = array('imagen' => $img) ;
             $reglas = array('imagen' => 'required||mimes:png,jpg,jpeg,gif,jpe,PNG,JPG,JPEG,GIF,JPE');
             $validator = Validator::make($input, $reglas);
@@ -419,7 +419,7 @@ class NoticiaController extends Controller
 
         if ($request->hasFile('imagen')) { 
 
-            $aux='noticia_fec-'.date('d-m-Y').'-'.date('H-i-s');
+            $aux='noticia-'.date('d-m-Y').'-'.date('H-i-s');
             $input  = array('imagen' => $img) ;
             $reglas = array('imagen' => 'required||mimes:png,jpg,jpeg,gif,jpe,PNG,JPG,JPEG,GIF,JPE');
             $validator = Validator::make($input, $reglas);

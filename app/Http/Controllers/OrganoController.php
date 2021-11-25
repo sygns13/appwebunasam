@@ -169,7 +169,7 @@ class OrganoController extends Controller
         $rolModulos=Rolmodulo::where('user_id',Auth::user()->id)->get();
         $rolSubModulos=Rolsubmodulo::where('user_id',Auth::user()->id)->get();
 
-        $nivel = 0;
+        $nivel = 1;
         $modulo = 5;
         $submodulo = 41;
 
@@ -210,7 +210,7 @@ class OrganoController extends Controller
         $rolModulos=Rolmodulo::where('user_id',Auth::user()->id)->get();
         $rolSubModulos=Rolsubmodulo::where('user_id',Auth::user()->id)->get();
 
-        $nivel = 0;
+        $nivel = 1;
         $modulo = 5;
         $submodulo = 42;
 
@@ -251,7 +251,7 @@ class OrganoController extends Controller
         $rolModulos=Rolmodulo::where('user_id',Auth::user()->id)->get();
         $rolSubModulos=Rolsubmodulo::where('user_id',Auth::user()->id)->get();
 
-        $nivel = 0;
+        $nivel = 1;
         $modulo = 5;
         $submodulo = 43;
 

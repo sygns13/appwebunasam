@@ -402,19 +402,7 @@
                     <li><a href="{{URL::to('intranet/departamentoacademico')}}"><i class='fa fa-paper-plane'></i> Departamentos Académicos</a></li> 
                     <li><a href="{{URL::to('intranet/documentosnormativos')}}"><i class='fa fa-paper-plane'></i> Documentos Normativos</a></li>
                     <li><a href="{{URL::to('intranet/docentesfacultad')}}"><i class='fa fa-paper-plane'></i> Gestión de Docentes</a></li> 
-                  {{--   <li><a href="{{URL::to('intranet/politicas')}}"><i class='fa fa-paper-plane'></i> Gestión de Políticas de Calidad</a></li>
-                    <li><a href="{{URL::to('intranet/objetivos')}}"><i class='fa fa-paper-plane'></i> Gestión de Objetivos</a></li>
-                    <li><a href="{{URL::to('intranet/directorio')}}"><i class='fa fa-paper-plane'></i> Gestión de Directorio</a></li> 
-                    <li><a href="{{URL::to('intranet/documentosnormativos')}}"><i class='fa fa-paper-plane'></i> Documentos Normativos</a></li> 
-                    <li><a href="{{URL::to('intranet/gestioncalidad')}}"><i class='fa fa-paper-plane'></i> Gestión de Calidad</a></li> 
-                    <li><a href="{{URL::to('intranet/revistas')}}"><i class='fa fa-paper-plane'></i> Gestión de Revistas</a></li> 
-                    <li><a href="{{URL::to('intranet/basedatos')}}"><i class='fa fa-paper-plane'></i> Gestión de Base de Datos</a></li> 
-                    <li><a href="{{URL::to('intranet/antiplagio')}}"><i class='fa fa-paper-plane'></i> Gestión de Antiplagio</a></li> 
-                    <li><a href="{{URL::to('intranet/galeria')}}"><i class='fa fa-paper-plane'></i> Gestión de Galería</a></li> 
-                    <li><a href="{{URL::to('intranet/estudiantesfec')}}"><i class='fa fa-paper-plane'></i> Gestión de Estudiantes FEC</a></li> 
-                    <li><a href="{{URL::to('intranet/docentesfec')}}"><i class='fa fa-paper-plane'></i> Gestión de Docentes FEC</a></li> 
-                    <li><a href="{{URL::to('intranet/resoluciones')}}"><i class='fa fa-paper-plane'></i> Resoluciones y Actas</a></li> 
-                    <li><a href="{{URL::to('intranet/tupa')}}"><i class='fa fa-paper-plane'></i> Gestión del TUPA</a></li>  --}}
+                    <li><a href="{{URL::to('intranet/servicios')}}"><i class='fa fa-paper-plane'></i> Servicios de la Facultad</a></li> 
                 </ul>
             </li>
             @endif

@@ -43,7 +43,7 @@ class DocenteController extends Controller
         $rolSubModulos=Rolsubmodulo::where('user_id',Auth::user()->id)->get();
 
         $nivel = 1;
-        $modulo = 4;
+        $modulo = 5;
         $submodulo = 46;
 
         if(accesoUser([1,2]) || (accesoUser([3,4]) && accesoModulo($permisos, $rolModulos, $rolSubModulos, $nivel, $modulo, $submodulo))){
@@ -1245,9 +1245,9 @@ class DocenteController extends Controller
         $msj='';
         $selector='';
 
-        $banner = Docente::findOrFail($id);
-        $banner->activo=$estado;
-        $banner->save();
+        $docente = Docente::findOrFail($id);
+        $docente->activo=$estado;
+        $docente->save();
 
         if(strval($estado)=="0"){
             $msj='El Docente fue Desactivado exitosamente';

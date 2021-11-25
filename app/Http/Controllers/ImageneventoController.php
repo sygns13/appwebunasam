@@ -79,7 +79,7 @@ class ImageneventoController extends Controller
 
         if ($request->hasFile('imagen')) { 
 
-            $aux='evento_fec-'.date('d-m-Y').'-'.date('H-i-s');
+            $aux='evento-'.date('d-m-Y').'-'.date('H-i-s');
             $input  = array('imagen' => $img) ;
             $reglas = array('imagen' => 'required||mimes:png,jpg,jpeg,gif,jpe,PNG,JPG,JPEG,GIF,JPE');
             $validator = Validator::make($input, $reglas);
@@ -261,7 +261,7 @@ class ImageneventoController extends Controller
 
         if ($request->hasFile('imagen')) { 
 
-            $aux='evento_fec'.date('d-m-Y').'-'.date('H-i-s');
+            $aux='evento'.date('d-m-Y').'-'.date('H-i-s');
             $input  = array('image' => $img) ;
             $reglas = array('image' => 'required|mimes:png,jpg,jpeg,gif,jpe,PNG,JPG,JPEG,GIF,JPE');
             $validator = Validator::make($input, $reglas);

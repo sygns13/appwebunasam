@@ -176,7 +176,7 @@ class PresentacionController extends Controller
         if(intval($tieneimagen) == 1){
             if ($request->hasFile('imagen')) { 
 
-                $aux='presentacion_fec-'.date('d-m-Y').'-'.date('H-i-s');
+                $aux='presentacion-'.date('d-m-Y').'-'.date('H-i-s');
                 $input  = array('imagen' => $img) ;
                 $reglas = array('imagen' => 'required||mimes:png,jpg,jpeg,gif,jpe,PNG,JPG,JPEG,GIF,JPE');
                 $validator = Validator::make($input, $reglas);
