@@ -371,7 +371,7 @@ Vue.component('ckeditor2', {
             this.activo = 1;
             this.tieneimagen = 1;
             this.tienearchivo = 1;
-            this.tipo = 1;
+            this.tipo = 3;
 
             this.imagen=null;
             this.archivo=null;

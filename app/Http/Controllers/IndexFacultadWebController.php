@@ -37,6 +37,7 @@ use App\Objetivo;
 use App\Organo;
 
 use App\Licenciamiento;
+use App\Docente;
 
 
 
@@ -877,6 +878,136 @@ class IndexFacultadWebController extends Controller
         return redirect('/');
 
     }
+
+
+
+    public function servicios($idhash){
+
+        $strdecoded = $idhash;
+
+        if($idhash != null && strlen($idhash) > 0){
+            
+            try {
+                $strdecoded = gzinflate(base64_decode($idhash));
+
+                if(strlen($strdecoded) > 15){
+                    $id = explode('-', $strdecoded);
+                    $id = $id[1];
+                }
+
+                $servicios=Licenciamiento::where('borrado','0')->where('activo','1')->where('nivel', 1)->where('tipo', 3 )->where('facultad_id',$id)->orderBy('id','desc')->get();
+
+                
+
+                $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 1)->where('facultad_id',$id)->orderBy('id')->get();
+                $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+
+                
+                $facultad = Facultad::find($id);
+
+                //hash id
+                $facultad->hash = base64_encode(gzdeflate('idhijofacultad-'.$id));
+
+                $escuelas = Programaestudio::where('borrado','0')->where('activo','1')->where('facultad_id', $id)->orderBy('nombre')->get();
+
+                foreach ($escuelas as $key => $dato2) {
+                    $dato2->hash = base64_encode(gzdeflate('idhijoescuela-'.$dato2->id));                   
+                }
+               
+
+                $menusActivos = new stdClass;
+
+                $menusActivos->menu1 = "";
+                $menusActivos->menu2 = "";
+                $menusActivos->menu3 = "";
+                $menusActivos->menu4 = "";
+                $menusActivos->menu5 = "";
+                $menusActivos->menu6 = "active";
+                $menusActivos->menu7 = "";
+                $menusActivos->menu8 = "";
+                $menusActivos->menu9 = "";
+
+                
+
+                return view('web/facultad/servicios',compact('redsocials','facultad','menusActivos', 'escuelas','servicios'));
+
+            } catch (Exception $e) {
+                return redirect('/');
+            }
+        }
+        else{
+            return redirect('/');
+        }
+
+        return redirect('/');
+
+    }
+
+
+    public function docentes($idhash){
+
+        $strdecoded = $idhash;
+
+        if($idhash != null && strlen($idhash) > 0){
+            
+            try {
+                $strdecoded = gzinflate(base64_decode($idhash));
+
+                if(strlen($strdecoded) > 15){
+                    $id = explode('-', $strdecoded);
+                    $id = $id[1];
+                }
+
+                $docentes=Docente::where('borrado','0')->where('activo','1')->where('nivel', 1)->where('facultad_id',$id)->orderBy('departamentoacademico_id')->orderBy('nombre')->orderBy('id')->get();
+
+                $departamentos = Departamentoacademico::where('borrado','0')->where('activo','1')->where('facultad_id',$id)->orderBy('id')->get();
+
+                
+
+                $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 1)->where('facultad_id',$id)->orderBy('id')->get();
+                $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+
+                
+                $facultad = Facultad::find($id);
+
+                //hash id
+                $facultad->hash = base64_encode(gzdeflate('idhijofacultad-'.$id));
+
+                $escuelas = Programaestudio::where('borrado','0')->where('activo','1')->where('facultad_id', $id)->orderBy('nombre')->get();
+
+                foreach ($escuelas as $key => $dato2) {
+                    $dato2->hash = base64_encode(gzdeflate('idhijoescuela-'.$dato2->id));                   
+                }
+               
+
+                $menusActivos = new stdClass;
+
+                $menusActivos->menu1 = "";
+                $menusActivos->menu2 = "";
+                $menusActivos->menu3 = "";
+                $menusActivos->menu4 = "";
+                $menusActivos->menu5 = "";
+                $menusActivos->menu6 = "active";
+                $menusActivos->menu7 = "";
+                $menusActivos->menu8 = "";
+                $menusActivos->menu9 = "";
+
+                
+
+                return view('web/facultad/docentes',compact('redsocials','facultad','menusActivos', 'escuelas','docentes','departamentos'));
+
+            } catch (Exception $e) {
+                return redirect('/');
+            }
+        }
+        else{
+            return redirect('/');
+        }
+
+        return redirect('/');
+
+    }
+
 
     /**
      * Show the form for creating a new resource.

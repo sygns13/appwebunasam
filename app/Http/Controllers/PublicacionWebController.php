@@ -1240,6 +1240,67 @@ class PublicacionWebController extends Controller
         return view('web/unasam/documentos',compact('documentos','redsocials','unasam','menusActivos', 'FacultadesEscuelas','totalRegistros'));
     }
 
+
+    public function documentosFacultad($idhash)
+    {
+
+        $strdecoded = $idhash;
+
+        if($idhash != null && strlen($idhash) > 0){
+            
+            try {
+                $strdecoded = gzinflate(base64_decode($idhash));
+
+                if(strlen($strdecoded) > 15){
+                    $id = explode('-', $strdecoded);
+                    $id = $id[1];
+                }
+
+                $documentos = Documento::where('borrado','0')->where('nivel', 1)->where('activo','1')->where('tipo', 1)->where('facultad_id',$id)->orderBy('numero')->orderBy('id')->get();
+
+                $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 1)->where('facultad_id',$id)->orderBy('id')->get();
+                $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+
+                
+                $facultad = Facultad::find($id);
+
+                //hash id
+                $facultad->hash = base64_encode(gzdeflate('idhijofacultad-'.$id));
+
+                $escuelas = Programaestudio::where('borrado','0')->where('activo','1')->where('facultad_id', $id)->orderBy('nombre')->get();
+
+                foreach ($escuelas as $key => $dato2) {
+                    $dato2->hash = base64_encode(gzdeflate('idhijoescuela-'.$dato2->id));                   
+                }
+
+                $menusActivos = new stdClass;
+
+                $menusActivos->menu1 = "";
+                $menusActivos->menu2 = "";
+                $menusActivos->menu3 = "";
+                $menusActivos->menu4 = "";
+                $menusActivos->menu5 = "active";
+                $menusActivos->menu6 = "";
+                $menusActivos->menu7 = "";
+                $menusActivos->menu8 = "";
+                $menusActivos->menu9 = "";
+
+                
+
+                return view('web/facultad/documentos',compact('redsocials','facultad','menusActivos', 'escuelas','documentos'));
+
+            } catch (Exception $e) {
+                return redirect('/');
+            }
+        }
+        else{
+            return redirect('/');
+        }
+
+        return redirect('/');
+    }
+
+
     public function informes()
     {
         $informes = Documento::where('borrado','0')->where('nivel', 0)->where('activo','1')->where('tipo', 2)->orderBy('numero')->orderBy('id')->get();

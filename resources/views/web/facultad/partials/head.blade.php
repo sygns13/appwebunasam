@@ -46,6 +46,9 @@
 
     <link rel="stylesheet" href="{{ asset('/webvendor/css/demos/demo-resume.css') }}">
 
+{{--     <link rel="stylesheet" href="{{ asset('/webvendor/css/demos/demo-cleaning-services.css') }}">
+    <link id="skinCSS" rel="stylesheet" href="{{ asset('/webvendor/css/skins/skin-cleaning-services.css') }}"> --}}
+
     <!-- Head Libs -->
     <script src="{{ asset('/webvendor/vendor/modernizr/modernizr.min.js') }}"></script>
 
