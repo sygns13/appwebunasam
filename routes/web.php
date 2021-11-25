@@ -57,6 +57,11 @@ Route::get('facultad/objetivos/{var}','IndexFacultadWebController@objetivos');
 Route::get('facultad/organigrama/{var}','IndexFacultadWebController@organigrama');
 Route::get('facultad/decano/{var}','IndexFacultadWebController@decano');
 Route::get('facultad/consejofacultad/{var}','IndexFacultadWebController@consejofacultad');
+Route::get('facultad/directores/{var}','IndexFacultadWebController@directores');
+Route::get('facultad/director/{var1}/{var2}', 'IndexFacultadWebController@director');
+Route::get('facultad/jefesdepartamentos/{var}','IndexFacultadWebController@jefesdepartamentos');
+Route::get('facultad/jefedepartamento/{var1}/{var2}', 'IndexFacultadWebController@jefedepartamento');
+Route::get('facultad/servicios/{var}','IndexFacultadWebController@servicios');
 
 
 

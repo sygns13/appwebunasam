@@ -27,8 +27,8 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-md-12 align-self-center p-static order-2 text-center">
-								<h1 class="text-light font-weight-bold text-8">Decano</h1>
-								<span class="sub-title text-light">{{$facultad->nombre}}</span>
+								<h1 class="text-light font-weight-bold text-8">Jefe de Departamento Académico</h1>
+								<span class="sub-title text-light">{{$facultad->nombre}} - {{$jefeDepartamento->nombre}}</span>
 							</div>
 						</div>
 					</div>
@@ -40,24 +40,24 @@
 						<div class="col-md-7 order-2">
 							<div class="overflow-hidden">
 								<h2 class="text-color-dark font-weight-bold text-12 mb-2 pt-0 mt-0 appear-animation" data-appear-animation="maskUp" data-appear-animation-delay="300">
-                                    @if($organo != null && $organo->titulo != null)
-                                    {{$organo->titulo}}
+                                    @if($jefeDepartamento != null && $jefeDepartamento->director != null)
+                                    {{$jefeDepartamento->director}} 
                                     @endif
                                 </h2>
 							</div>
                             
 							<div class="overflow-hidden mb-3">
 								<p class="font-weight-bold text-primary text-uppercase mb-0 appear-animation" data-appear-animation="maskUp" data-appear-animation-delay="500">
-									@if($organo != null && $organo->subtitulo != null)
-                                    {{$organo->subtitulo}}
+									@if($jefeDepartamento != null && $jefeDepartamento->descripcion_corta_director != null)
+                                    {{$jefeDepartamento->descripcion_corta_director}} 
                                     @endif
 								</p>
 							</div>
 							{{-- <p class="lead appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="700">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam <a href="#">vehicula</a> sit amet enim ac sagittis. Curabitur eget leo varius, elementum mauris eget, egestas quam. Donec ante risus, dapibus sed lectus non, lacinia vestibulum nisi. Morbi vitae augue quam. Nullam ac laoreet libero.</p>
 							<p class="pb-3 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="800">Consectetur adipiscing elit. Aliquam iaculis sit amet enim ac sagittis. Curabitur eget leo varius, elementum mauris eget, egestas quam.</p> --}}
                             <div class="lead appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="700">
-                                @if($organo != null && $organo->descripcion != null)
-                                    {!! $organo->descripcion !!}
+                                @if($jefeDepartamento != null && $jefeDepartamento->descripcion_director != null)
+                                    {!! $jefeDepartamento->descripcion_director !!}
                                 @endif
                             </div>
 
@@ -78,13 +78,12 @@
 							</div>
 						</div>
 						<div class="col-md-5 order-md-2 mb-4 mb-lg-0 appear-animation" data-appear-animation="fadeInRightShorter">
-                            @if($organo != null && $organo->tieneimagen == 1 && $organo->url != null)
-							    <img src="{{ asset('/web/organofacultad/'.$organo->url) }}" class="img-fluid mb-2" alt="">
+                            @if($jefeDepartamento->tieneimagen_director != null && $jefeDepartamento->tieneimagen_director == 1 && $jefeDepartamento->url_director != null)
+							    <img src="{{ asset('/web/jefedeparfacultad/'.$jefeDepartamento->url_director) }}" class="img-fluid mb-2" alt="">
                             @endif
 						</div>
 					</div>
 				</div>
-
 
 
 

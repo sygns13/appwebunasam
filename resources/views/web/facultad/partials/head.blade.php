@@ -44,6 +44,8 @@
     <!-- Theme Custom CSS -->
     <link rel="stylesheet" href="{{ asset('/webvendor/css/custom.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('/webvendor/css/demos/demo-resume.css') }}">
+
     <!-- Head Libs -->
     <script src="{{ asset('/webvendor/vendor/modernizr/modernizr.min.js') }}"></script>
 
