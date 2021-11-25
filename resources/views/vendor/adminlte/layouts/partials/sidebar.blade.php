@@ -409,6 +409,132 @@
 
 
 
+            @if(accesoUser([3,4]))
+
+            <li class="treeview" v-bind:class="classMenu1">
+                <a href="#"><i class='fa fa-list-alt'></i> <span>Inicio Facultad</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <ul class="treeview-menu">
+                    
+                    @foreach ($permisos as $permiso)
+                        @if($permiso->nivel == 1 && $permiso->roles == 1)
+                            <li><a href="{{URL::to('intranet/historia')}}"><i class='fa fa-paper-plane'></i> Gestión de Historia</a></li>
+                            <li><a href="{{URL::to('intranet/misionvision')}}"><i class='fa fa-paper-plane'></i> Gestión de Misión / Visión</a></li>
+                            <li><a href="{{URL::to('intranet/objetivos')}}"><i class='fa fa-paper-plane'></i> Gestión de Objetivos</a></li>
+                            <li><a href="{{URL::to('intranet/organigrama')}}"><i class='fa fa-paper-plane'></i> Gestión de Organigrama</a></li>
+                            <li><a href="{{URL::to('intranet/decanatura')}}"><i class='fa fa-paper-plane'></i> Gestión de Decanatura</a></li>
+                            <li><a href="{{URL::to('intranet/consejofacultad')}}"><i class='fa fa-paper-plane'></i> Consejo Facultad</a></li>
+                            <li><a href="{{URL::to('intranet/directores')}}"><i class='fa fa-paper-plane'></i> Directores de Escuela</a></li> 
+                            <li><a href="{{URL::to('intranet/departamentoacademico')}}"><i class='fa fa-paper-plane'></i> Departamentos Académicos</a></li> 
+                            <li><a href="{{URL::to('intranet/documentosnormativos')}}"><i class='fa fa-paper-plane'></i> Documentos Normativos</a></li>
+                            <li><a href="{{URL::to('intranet/docentesfacultad')}}"><i class='fa fa-paper-plane'></i> Gestión de Docentes</a></li> 
+                            <li><a href="{{URL::to('intranet/servicios')}}"><i class='fa fa-paper-plane'></i> Servicios de la Facultad</a></li> 
+
+                        @php
+                            break;
+                        @endphp
+
+                        @elseif($permiso->nivel == 0 && $permiso->roles == 0)
+                            @foreach ($rolModulos as $rolModulo)
+                                @if($rolModulo->modulo_id == 5 && $rolModulo->nivel == 1 && $rolModulo->rolessub == 1)
+                                    <li><a href="{{URL::to('intranet/historia')}}"><i class='fa fa-paper-plane'></i> Gestión de Historia</a></li>
+                                    <li><a href="{{URL::to('intranet/misionvision')}}"><i class='fa fa-paper-plane'></i> Gestión de Misión / Visión</a></li>
+                                    <li><a href="{{URL::to('intranet/objetivos')}}"><i class='fa fa-paper-plane'></i> Gestión de Objetivos</a></li>
+                                    <li><a href="{{URL::to('intranet/organigrama')}}"><i class='fa fa-paper-plane'></i> Gestión de Organigrama</a></li>
+                                    <li><a href="{{URL::to('intranet/decanatura')}}"><i class='fa fa-paper-plane'></i> Gestión de Decanatura</a></li>
+                                    <li><a href="{{URL::to('intranet/consejofacultad')}}"><i class='fa fa-paper-plane'></i> Consejo Facultad</a></li>
+                                    <li><a href="{{URL::to('intranet/directores')}}"><i class='fa fa-paper-plane'></i> Directores de Escuela</a></li> 
+                                    <li><a href="{{URL::to('intranet/departamentoacademico')}}"><i class='fa fa-paper-plane'></i> Departamentos Académicos</a></li> 
+                                    <li><a href="{{URL::to('intranet/documentosnormativos')}}"><i class='fa fa-paper-plane'></i> Documentos Normativos</a></li>
+                                    <li><a href="{{URL::to('intranet/docentesfacultad')}}"><i class='fa fa-paper-plane'></i> Gestión de Docentes</a></li> 
+                                    <li><a href="{{URL::to('intranet/servicios')}}"><i class='fa fa-paper-plane'></i> Servicios de la Facultad</a></li> 
+
+                                    @php
+                                        break 2;
+                                    @endphp
+                                
+                                @elseif($rolModulo->modulo_id == 5 && $rolModulo->nivel == 1 && $rolModulo->rolessub == 0)
+
+                                @php
+                                    $submodulo36 = false;
+                                    $submodulo37 = false;
+                                    $submodulo38 = false;
+                                    $submodulo40 = false;
+                                    $submodulo41 = false;
+                                    $submodulo42 = false;
+                                    $submodulo43 = false;
+                                    $submodulo44 = false;
+                                    $submodulo45 = false;
+                                    $submodulo46 = false;
+                                    $submodulo47 = false;
+                                @endphp
+                                    @foreach ($rolSubModulos as $rolSubModulo)
+                                        @if($rolSubModulo->modulo_id == 5 && $rolSubModulo->nivel == 1 && $rolSubModulo->submodulo_id == 36 && !$submodulo36)
+                                            <li><a href="{{URL::to('intranet/historia')}}"><i class='fa fa-paper-plane'></i> Gestión de Historia</a></li>
+                                            @php
+                                                $submodulo36 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 5 && $rolSubModulo->nivel == 1 && $rolSubModulo->submodulo_id == 37 && !$submodulo37)
+                                            <li><a href="{{URL::to('intranet/misionvision')}}"><i class='fa fa-paper-plane'></i> Gestión de Misión / Visión</a></li>
+                                            @php
+                                                $submodulo37 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 5 && $rolSubModulo->nivel == 1 && $rolSubModulo->submodulo_id == 38 && !$submodulo38)
+                                            <li><a href="{{URL::to('intranet/objetivos')}}"><i class='fa fa-paper-plane'></i> Gestión de Objetivos</a></li>
+                                            @php
+                                                $submodulo38 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 5 && $rolSubModulo->nivel == 1 && $rolSubModulo->submodulo_id == 40 && !$submodulo40)
+                                            <li><a href="{{URL::to('intranet/organigrama')}}"><i class='fa fa-paper-plane'></i> Gestión de Organigrama</a></li>
+                                            @php
+                                                $submodulo40 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 5 && $rolSubModulo->nivel == 1 && $rolSubModulo->submodulo_id == 41 && !$submodulo41)
+                                            <li><a href="{{URL::to('intranet/decanatura')}}"><i class='fa fa-paper-plane'></i> Gestión de Decanatura</a></li>
+                                            @php
+                                                $submodulo41 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 5 && $rolSubModulo->nivel == 1 && $rolSubModulo->submodulo_id == 42 && !$submodulo42)
+                                            <li><a href="{{URL::to('intranet/consejofacultad')}}"><i class='fa fa-paper-plane'></i> Consejo Facultad</a></li>
+                                            @php
+                                                $submodulo42 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 5 && $rolSubModulo->nivel == 1 && $rolSubModulo->submodulo_id == 43 && !$submodulo43)
+                                            <li><a href="{{URL::to('intranet/directores')}}"><i class='fa fa-paper-plane'></i> Directores de Escuela</a></li> 
+                                            @php
+                                                $submodulo43 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 5 && $rolSubModulo->nivel == 1 && $rolSubModulo->submodulo_id == 44 && !$submodulo44)
+                                            <li><a href="{{URL::to('intranet/departamentoacademico')}}"><i class='fa fa-paper-plane'></i> Departamentos Académicos</a></li>
+                                            @php
+                                                $submodulo44 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 5 && $rolSubModulo->nivel == 1 && $rolSubModulo->submodulo_id == 45 && !$submodulo45)
+                                            <li><a href="{{URL::to('intranet/documentosnormativos')}}"><i class='fa fa-paper-plane'></i> Documentos Normativos</a></li>
+                                            @php
+                                                $submodulo45 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 5 && $rolSubModulo->nivel == 1 && $rolSubModulo->submodulo_id == 46 && !$submodulo46)
+                                            <li><a href="{{URL::to('intranet/docentesfacultad')}}"><i class='fa fa-paper-plane'></i> Gestión de Docentes</a></li> 
+                                            @php
+                                                $submodulo46 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 5 && $rolSubModulo->nivel == 1 && $rolSubModulo->submodulo_id == 47 && !$submodulo47)
+                                            <li><a href="{{URL::to('intranet/servicios')}}"><i class='fa fa-paper-plane'></i> Servicios de la Facultad</a></li> 
+                                            @php
+                                                $submodulo47 = true;
+                                            @endphp
+                                        @endif
+                                    @endforeach
+                                @endif
+                            @endforeach
+                        @endif
+                    @endforeach
+                </ul>
+            </li>
+            @endif
+
+
+
             @if(accesoUser([1]))
             <li class="header">Gestión de Programas de Estudios</li>
             @endif
