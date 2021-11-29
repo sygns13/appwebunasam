@@ -224,6 +224,8 @@ Vue.component('ckeditor1', {
             var v3 = this.programa_id;
             var url = '/intranet/presentacionre'+'?v1='+v1+'&v2='+v2+'&v3='+v3;;
 
+            this.fillobject = { 'id':'', 'titulo':'','subtitulo':'', 'descripcion':'' , 'tieneimagen':'0', 'url':'','oldImg':''};
+
             axios.get(url).then(response=>{
 
                 let presentacion= response.data.presentacion;

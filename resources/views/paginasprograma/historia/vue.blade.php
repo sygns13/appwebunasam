@@ -213,7 +213,7 @@ Vue.component('ckeditor4', {
  let app = new Vue({
     el: '#app',
     data:{
-        titulo:"Páginas Facultades",
+        titulo:"Páginas Programas de Estudios",
         subtitulo: "Gestión de la Historia",
         subtitulo2: "Principal",
 
@@ -240,10 +240,10 @@ Vue.component('ckeditor4', {
         classTitle:'fa fa-list-alt',
         classMenu0:'',
         classMenu1:'',
-        classMenu2:'active',
+        classMenu2:'',
         classMenu3:'',
         classMenu4:'',
-        classMenu5:'',
+        classMenu5:'active',
         classMenu6:'',
         classMenu7:'',
         classMenu8:'',
@@ -305,11 +305,10 @@ Vue.component('ckeditor4', {
                         'oldImg':''},
 
         
-        //seccion facultades
-        nivel : 1,
-        facultad:'',
-        facultad_id: 0,
-        tipo_vista: 1,
+        //seccion programas
+        nivel : 2,
+        programa:'',
+        programa_id: 0,
 
 
     },
@@ -385,8 +384,8 @@ Vue.component('ckeditor4', {
         getDatos: function (page) {
             var busca=this.buscar;
             var v1 = this.nivel;
-            var v2 = this.facultad_id;
-            var v3 = 0;
+            var v2 = 0;
+            var v3 = this.programa_id;
             var url = '/intranet/historiare'+'?v1='+v1+'&v2='+v2+'&v3='+v3;
 
             this.fillobject = { 'id':'', 'titulo':'', 'historia':'' , 'tieneimagen':'1'};
@@ -457,8 +456,8 @@ Vue.component('ckeditor4', {
             this.divloaderNuevo=true;
 
             var v1 = this.nivel;
-            var v2 = this.facultad_id;
-            var v3 = 0;
+            var v2 = 0;
+            var v3 = this.programa_id;
 
             this.historia=CKEDITOR.instances['editor1'].getData();
 
@@ -567,8 +566,8 @@ Vue.component('ckeditor4', {
           var data = new  FormData();
 
           var v1 = this.nivel;
-          var v2 = this.facultad_id;
-          var v3 = 0;
+          var v2 = 0;
+          var v3 = this.programa_id;
 
 
           data.append('nombre', this.nombreImg);
@@ -707,7 +706,8 @@ Vue.component('ckeditor4', {
           var data = new  FormData();
 
           var v1 = this.nivel;
-          var v2 = this.facultad_id;
+          var v2 = 0;
+          var v3 = this.programa_id;
 
           data.append('id', this.fillobjectImg.id);
           data.append('nombre', this.fillobjectImg.nombre);
@@ -746,15 +746,15 @@ Vue.component('ckeditor4', {
           })
           },
 
-          //Modificaciones Facultades
-      irAtras:function(){
-            this.facultad_id = 0;
-            this.facultad = '';
+         //Modificaciones Programas
+     irAtras:function(){
+            this.programa_id = 0;
+            this.programa = '';
             this.divNuevo = false;
             this.divNuevoLogo = false;
         },
-        cambioFacultad:function(){
-            this.facultad = $('#cbufacultad_id option:selected').html();
+        cambioPrograma:function(){
+            this.programa = $('#cbuprograma_id option:selected').html();
             this.getDatos(this.thispage);
         },
 

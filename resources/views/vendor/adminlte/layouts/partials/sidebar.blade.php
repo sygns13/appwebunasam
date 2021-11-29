@@ -535,7 +535,7 @@
 
 
 
-            @if(accesoUser([1]))
+            @if(accesoUser([1,2,3,4,5]))
             <li class="header">Gestión de Programas de Estudios</li>
             @endif
 
@@ -563,8 +563,22 @@
 
             @if(accesoUser([1]))
             <li class="treeview" v-bind:class="classMenu4">
-                <a href="#"><i class='fa fa-list-alt'></i> <span>Portal Programa de Estudio</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <a href="#"><i class='fa fa-list-alt'></i> <span>Gestión de Ind. SINEACE</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
+                    <li><a href="{{URL::to('intranet/bannerprograma')}}"><i class='fa fa-paper-plane'></i> Resumen de Programa</a></li>
+                    <li><a href="{{URL::to('intranet/misionvisionprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Misión / Visión</a></li>
+                    <li><a href="{{URL::to('intranet/bannerprograma')}}"><i class='fa fa-paper-plane'></i> Perfil de Ingreso</a></li>
+                    <li><a href="{{URL::to('intranet/bannerprograma')}}"><i class='fa fa-paper-plane'></i> Perfil de Egreso</a></li>
+                    <li><a href="{{URL::to('intranet/bannerprograma')}}"><i class='fa fa-paper-plane'></i> Competencias Específicas</a></li>
+                    <li><a href="{{URL::to('intranet/bannerprograma')}}"><i class='fa fa-paper-plane'></i> Competencias Generales</a></li>
+                    <li><a href="{{URL::to('intranet/bannerprograma')}}"><i class='fa fa-paper-plane'></i> Objetivos Educacionales</a></li>
+                    <li><a href="{{URL::to('intranet/bannerprograma')}}"><i class='fa fa-paper-plane'></i> Malla Curricular</a></li>
+                    <li><a href="{{URL::to('intranet/bannerprograma')}}"><i class='fa fa-paper-plane'></i> Campo Laboral</a></li>
+                    <li><a href="{{URL::to('intranet/bannerprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Matriculados</a></li>
+                    <li><a href="{{URL::to('intranet/bannerprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Egresados</a></li>
+                    <li><a href="{{URL::to('intranet/bannerprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Graduados</a></li>
+                    <li><a href="{{URL::to('intranet/bannerprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Titulados</a></li>
+                    <li><a href="{{URL::to('intranet/docentesprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Docentes</a></li> 
 {{--                     <li><a href="{{URL::to('intranet/historiaprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Historia</a></li>
                     <li><a href="{{URL::to('intranet/misionvisionprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Misión / Visión</a></li>
                     <li><a href="{{URL::to('intranet/objetivosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Objetivos</a></li>
@@ -576,6 +590,18 @@
                     <li><a href="{{URL::to('intranet/gradosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Grados y Títulos</a></li> 
                     <li><a href="{{URL::to('intranet/docentesprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Docentes</a></li> 
                     <li><a href="{{URL::to('intranet/infraestructuraprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Infraestructura</a></li>  --}}
+                </ul>
+            </li>
+            @endif
+
+
+            @if(accesoUser([1]))
+            <li class="treeview" v-bind:class="classMenu5">
+                <a href="#"><i class='fa fa-list-alt'></i> <span>Portal Programa de Estudio</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <ul class="treeview-menu">
+                    <li><a href="{{URL::to('intranet/historiaprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Historia</a></li>
+                    <li><a href="{{URL::to('intranet/organigramaprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Organigrama</a></li>
+                    <li><a href="{{URL::to('intranet/documentosnormativosprograma')}}"><i class='fa fa-paper-plane'></i> Documentos Normativos</a></li>
                 </ul>
             </li>
             @endif

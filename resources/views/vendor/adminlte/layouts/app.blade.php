@@ -160,7 +160,7 @@ desired effect
 @include('escuela.vue')
 
 
-{{-- //Paginas Portales Facultades--}}
+{{-- //Main Portales Facultades--}}
 
 @elseif($modulo=="configuracionfacultad")
 @include('adminfacultad.configuracion.vue')
@@ -225,7 +225,7 @@ desired effect
 @include('paginasfacultad.servicios.vue')
 
 
-{{-- //Paginas Portales Programas Estudios--}}
+{{-- //Main Portales Programas Estudios--}}
 
 @elseif($modulo=="configuracionprograma")
 @include('adminprograma.configuracion.vue')
@@ -253,6 +253,18 @@ desired effect
 
 @elseif($modulo=="linkinteresprograma")
 @include('adminprograma.linkinteres.vue')
+
+
+{{-- //Paginas Portal Web Programas de Estudios --}}
+
+@elseif($modulo=="historiaprograma")
+@include('paginasprograma.historia.vue')
+
+@elseif($modulo=="organigramaprograma")
+@include('paginasprograma.organigrama.vue')
+
+@elseif($modulo=="documentoprograma")
+@include('paginasprograma.documento.vue')
 
 
 @endif
