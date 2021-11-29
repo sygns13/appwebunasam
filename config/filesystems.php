@@ -406,6 +406,22 @@ return [
             'visibility' => 'public',
          ],
 
+         'indicadorsineaceUNASAM' => [
+            'driver' => 'local',
+            'root' => public_path('web/indicadorsineaceunasam'),
+            'visibility' => 'public',
+         ],
+         'indicadorsineaceFacultad' => [
+            'driver' => 'local',
+            'root' => public_path('web/indicadorsineacefacultad'),
+            'visibility' => 'public',
+         ],
+         'indicadorsineaceProgramaEstudio' => [
+            'driver' => 'local',
+            'root' => public_path('web/indicadorsineaceprograma'),
+            'visibility' => 'public',
+         ],
+
 
         'local' => [
             'driver' => 'local',

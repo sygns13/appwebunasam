@@ -567,7 +567,7 @@
                 <ul class="treeview-menu">
                     <li><a href="{{URL::to('intranet/resumenprograma')}}"><i class='fa fa-paper-plane'></i> Resumen de Programa</a></li>
                     <li><a href="{{URL::to('intranet/misionvisionprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Misión / Visión</a></li>
-                    <li><a href="{{URL::to('intranet/bannerprograma')}}"><i class='fa fa-paper-plane'></i> Perfil de Ingreso</a></li>
+                    <li><a href="{{URL::to('intranet/perfilingresoprograma')}}"><i class='fa fa-paper-plane'></i> Perfil de Ingreso</a></li>
                     <li><a href="{{URL::to('intranet/bannerprograma')}}"><i class='fa fa-paper-plane'></i> Perfil de Egreso</a></li>
                     <li><a href="{{URL::to('intranet/bannerprograma')}}"><i class='fa fa-paper-plane'></i> Competencias Específicas</a></li>
                     <li><a href="{{URL::to('intranet/bannerprograma')}}"><i class='fa fa-paper-plane'></i> Competencias Generales</a></li>

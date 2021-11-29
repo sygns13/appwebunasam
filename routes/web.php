@@ -168,6 +168,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('intranet/programasprogesionales', 'ProgramasEstudiosController@index1');
     
     Route::get('intranet/resumenprograma', 'ResumenController@index2');
+    Route::get('intranet/perfilingresoprograma', 'IndicadorsineaceController@index01');
       
     
 
@@ -194,6 +195,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('intranet/docuemntoestatutore', 'DocumentoestatutoController');
     Route::resource('intranet/contenidosre', 'ContenidoController');
     Route::resource('intranet/licenciamientore', 'LicenciamientoController');
+    Route::resource('intranet/indicadorsineacere', 'IndicadorsineaceController');
     Route::resource('intranet/documentore', 'DocumentoController');
     
     Route::resource('intranet/facultadesre', 'FacultadesController');
@@ -255,6 +257,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('intranet/objetivosre/altabaja/{id}/{var}', 'ObjetivoController@altabaja');
     Route::get('intranet/estatutore/altabaja/{id}/{var}', 'EstatutoController@altabaja');
     Route::get('intranet/licenciamientore/altabaja/{id}/{var}', 'LicenciamientoController@altabaja');
+    Route::get('intranet/indicadorsineacere/altabaja/{id}/{var}', 'IndicadorsineaceController@altabaja');
     Route::get('intranet/documentore/altabaja/{id}/{var}', 'DocumentoController@altabaja');
 
     Route::get('intranet/facultadesre/altabaja/{id}/{var}', 'FacultadesController@altabaja');
@@ -290,6 +293,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::delete('intranet/licenciamientore/deleteimg/{id}', 'LicenciamientoController@deleteImg');
     Route::delete('intranet/licenciamientore/deletefile/{id}', 'LicenciamientoController@deleteFile');
+
+    Route::delete('intranet/indicadorsineacere/deleteimg/{id}', 'IndicadorsineaceController@deleteImg');
+    Route::delete('intranet/indicadorsineacere/deletefile/{id}', 'IndicadorsineaceController@deleteFile');
 
 
     Route::post('usuario/miperfil','UserController@miperfil');
