@@ -390,6 +390,22 @@ return [
             'visibility' => 'public',
          ],
 
+         'resumenUNASAM' => [
+            'driver' => 'local',
+            'root' => public_path('web/resumenunasam'),
+            'visibility' => 'public',
+         ],
+         'resumenFacultad' => [
+            'driver' => 'local',
+            'root' => public_path('web/resumenfacultad'),
+            'visibility' => 'public',
+         ],
+         'resumenProgramaEstudio' => [
+            'driver' => 'local',
+            'root' => public_path('web/resumenprograma'),
+            'visibility' => 'public',
+         ],
+
 
         'local' => [
             'driver' => 'local',

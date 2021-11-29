@@ -132,10 +132,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('intranet/historiaportal', 'HistoriaController@index0');
     Route::get('intranet/historia', 'HistoriaController@index1');
     Route::get('intranet/historiaprograma', 'HistoriaController@index2');
-
+    
     Route::get('intranet/misionvisionportal', 'MisionvisionController@index0');
     Route::get('intranet/misionvision', 'MisionvisionController@index1');
-
+    Route::get('intranet/misionvisionprograma', 'MisionvisionController@index2');
+    
     Route::get('intranet/rector', 'OrganoController@index01');
     Route::get('intranet/vicerrectoracademico', 'OrganoController@index02');
     Route::get('intranet/vicerrectorinvestigacion', 'OrganoController@index03');
@@ -145,17 +146,18 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('intranet/consejofacultad', 'OrganoController@index07');
     Route::get('intranet/directores', 'OrganoController@index08');
     Route::get('intranet/departamentoacademico', 'DepartamentoacademicoController@index1');
-
+    
     Route::get('intranet/docentesfacultad','DocenteController@index1');
-
+    
     Route::get('intranet/objetivosunasam', 'ObjetivoController@index0');
     Route::get('intranet/objetivos', 'ObjetivoController@index1');
-
+    Route::get('intranet/objetivosprograma', 'ObjetivoController@index2');
+    
     Route::get('intranet/estatuto', 'EstatutoController@index0');
     Route::get('intranet/licenciamiento', 'LicenciamientoController@index01');
     Route::get('intranet/acreditacion', 'LicenciamientoController@index02');
     Route::get('intranet/servicios', 'LicenciamientoController@index03');
-
+    
     Route::get('intranet/himno', 'ContenidoController@index01');
     Route::get('intranet/documentosnormativosportal', 'DocumentoController@index01');
     Route::get('intranet/informesportal', 'DocumentoController@index02');
@@ -165,6 +167,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('intranet/facultades', 'FacultadesController@index1');
     Route::get('intranet/programasprogesionales', 'ProgramasEstudiosController@index1');
     
+    Route::get('intranet/resumenprograma', 'ResumenController@index2');
       
     
 
@@ -192,10 +195,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('intranet/contenidosre', 'ContenidoController');
     Route::resource('intranet/licenciamientore', 'LicenciamientoController');
     Route::resource('intranet/documentore', 'DocumentoController');
-
+    
     Route::resource('intranet/facultadesre', 'FacultadesController');
     Route::resource('intranet/programasprogesionalesre', 'ProgramasEstudiosController');
-
+    
     Route::resource('intranet/politicasre', 'PoliticacalidadController');
     Route::resource('intranet/directoriore', 'DirectorioController');
     Route::resource('intranet/gestioncalidadre', 'GestioncalidadController');
@@ -220,14 +223,18 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('intranet/gradosprogramare', 'GradotituloController');
     Route::resource('intranet/docentesprogramare', 'DocenteController');
     Route::resource('intranet/infraestructuraprogramare', 'InfraestructuraController');
-
+    
     Route::resource('intranet/imagennoticiasre', 'ImagennoticiaController');
     Route::resource('intranet/imageneventosre', 'ImageneventoController');
     Route::resource('intranet/imagencomunicadosre', 'ImagencomunicadoController');
     Route::resource('intranet/imagenhistoriare', 'ImagenhistoriaController');
     Route::resource('intranet/departamentosre', 'DepartamentoacademicoController');
-
+    
     Route::resource('usuario','UserController');
+    
+    Route::resource('intranet/resumenre', 'ResumenController');
+    Route::resource('intranet/imagenresumenre', 'ImagenresumenController');
+
 
     Route::get('usuario/altabaja/{id}/{var}','UserController@altabaja');
     Route::get('usuario/verpersona/{dni}','UserController@verpersona');

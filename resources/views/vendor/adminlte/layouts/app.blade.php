@@ -255,6 +255,17 @@ desired effect
 @include('adminprograma.linkinteres.vue')
 
 
+{{-- //Paginas SINEACE Portal Web Programas de Estudios --}}
+
+@elseif($modulo=="resumenprograma")
+@include('paginassineace.resumen.vue')
+
+@elseif($modulo=="misionvisionprograma")
+@include('paginassineace.misionvision.vue')
+
+@elseif($modulo=="objetivosprograma")
+@include('paginassineace.objetivos.vue')
+
 {{-- //Paginas Portal Web Programas de Estudios --}}
 
 @elseif($modulo=="historiaprograma")

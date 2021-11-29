@@ -3,13 +3,23 @@
 
  
 
+    <div class="col-md-12" style="padding-top: 15px;">
+
+      <div class="form-group">
+          <label for="txtnumeroE" class="col-sm-2 control-label">Número del Objetivo:*</label>
+          <div class="col-sm-4">
+            <input type="number" v-model.number="fillobject.numero"  class="form-control" id="txtnumeroE" name="txtnumeroE" placeholder="N°" onKeyUp="if(this.value.length>4){this.value='9999';}else if(this.value<0){this.value='0';}" placeholder="N°">
+          </div>
+      </div>
+    </div>
+
 
     <div class="col-md-12" style="padding-top: 15px;">
       <div class="form-group">
-        <label for="txtnombreE" class="col-sm-2 control-label">URL del Link de Interés:*</label>
+        <label for="txttituloE" class="col-sm-2 control-label">Nombre del Objetivo:*</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="txtnombreE" name="txtnombreE" placeholder="URL"
-            maxlength="500" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="fillobject.nombre">
+          <input type="text" class="form-control" id="txttituloE" name="txttituloE" placeholder="Nombre del Objetivo"
+            maxlength="500" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="fillobject.titulo">
         </div>
       </div>
     </div>
@@ -18,9 +28,10 @@
     <div class="col-md-12" style="padding-top: 15px;">
 
       <div class="form-group">
-          <label for="txtposisionE" class="col-sm-2 control-label">Orden de Publicación:*</label>
-          <div class="col-sm-4">
-            <input type="number" v-model.number="fillobject.posision"  class="form-control" id="txtposisionE" name="txtposisionE" placeholder="N°" onKeyUp="if(this.value.length>4){this.value='9999';}else if(this.value<0){this.value='0';}" placeholder="N°">
+          <label for="descripcionE" class="col-sm-2 control-label">Descripción:</label>
+          <div class="col-sm-10">
+            <ckeditor2 v-model="content2"></ckeditor2>
+
           </div>
       </div>
     </div>
@@ -35,7 +46,7 @@
                       <div class="col-sm-10" v-if="uploadReadyE">
                          <input  name="archivoE" type="file" id="archivoE" class="archivo form-control" @change="getImageE"
               accept=".png, .jpg, .jpeg, .gif, .jpe, .PNG, .JPG, .JPEG, .GIF, .JPE"/>
-              <span style="color:red">Ingrese una Imagen o un archivo adjunto solo si va a editar la Imagen del Link</span>
+              <span style="color:red">Ingrese una Imagen o un archivo adjunto solo si va a editar la Imagen del Objetivo</span>
     
             </div>
           

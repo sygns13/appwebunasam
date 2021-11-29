@@ -5,7 +5,7 @@
 
       <div class="col-md-12" style="padding-top: 15px;">
         <div class="form-group">
-          <label for="txttitulo" class="col-sm-2 control-label">Título de la Presentación:*</label>
+          <label for="txttitulo" class="col-sm-2 control-label">Título del Resumen:*</label>
           <div class="col-sm-10">
             <input type="text" class="form-control" id="txttitulo" name="txttitulo" placeholder="Título"
               maxlength="500" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="tituloF">
@@ -14,52 +14,15 @@
       </div>
 
       <div class="col-md-12" style="padding-top: 15px;">
-        <div class="form-group">
-          <label for="txtsubtitulo" class="col-sm-2 control-label">Subtítulo de la Presentación: (Opcional)</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="txtsubtitulo" name="txtsubtitulo" placeholder="Subtítulo"
-              maxlength="500" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="subtitulo">
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-12" style="padding-top: 15px;">
 
         <div class="form-group">
-            <label for="txtpresentacion" class="col-sm-2 control-label">Descripción de la Presentación:*</label>
+            <label for="txtresumen" class="col-sm-2 control-label">Contenido del Resumen:*</label>
             <div class="col-sm-10">
               <ckeditor1 v-model="content1"></ckeditor1>
 
             </div>
         </div>
       </div>
-
-      <div class="col-md-12" style="padding-top: 15px;">
-        <div class="form-group">
-          <label for="cbutieneimagen" class="col-sm-2 control-label">Presentación ¿Incluye imagen?:*</label>
-          <div class="col-sm-4">
-            <select class="form-control" id="cbutieneimagen" name="cbutieneimagen" v-model="tieneimagen">
-              <option value="1">Si</option>
-              <option value="0">No</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-  <div class="col-md-12" style="padding-top: 15px;" v-if="tieneimagen==1">
-
-    <div class="form-group">
-      <label for="cbuarchivo" class="col-sm-2 control-label">Imagen de la Presentación</label>
-
-      <div class="col-sm-10">
-         <input name="archivo" type="file" id="archivo" class="archivo form-control" @change="getImage"  v-if="uploadReady"
-accept=".png, .jpg, .jpeg, .gif, .jpe, .PNG, .JPG, .JPEG, .GIF, .JPE"/>
-<span style="color:red">Ingrese una Imagen o un archivo adjunto solo si va a editar la Imagen de la Presentación</span>
-
-       </div>
-    </div>
-
-</div>
 
 
   </div>

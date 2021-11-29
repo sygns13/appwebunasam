@@ -569,7 +569,7 @@ Vue.component('ckeditor2', {
         baja:function (dato) {
           swal.fire({
               title: '¿Estás seguro?',
-              text: "Nota: Si se desactiva el Objetivo, No se mostrará en el Portal Web UNASAM, hasta que sea activado nuevamente",
+              text: "Nota: Si se desactiva el Objetivo, No se mostrará en el Portal Web Facultad, hasta que sea activado nuevamente",
               type: 'info',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
@@ -596,7 +596,7 @@ Vue.component('ckeditor2', {
       alta:function (dato) {
           swal.fire({
               title: '¿Estás seguro?',
-              text: "Nota: Si activa el Objetivo, se mostrará en el Portal Web UNASAM en el número de su posición",
+              text: "Nota: Si activa el Objetivo, se mostrará en el Portal Web Facultad en el número de su posición",
               type: 'info',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',

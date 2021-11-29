@@ -54,7 +54,7 @@
       <div class="col-sm-10">
          <input name="archivo" type="file" id="archivo" class="archivo form-control" @change="getImage"  v-if="uploadReady"
 accept=".png, .jpg, .jpeg, .gif, .jpe, .PNG, .JPG, .JPEG, .GIF, .JPE"/>
-<span style="color:red">Ingrese una Imagen o un archivo adjunto solo si va a editar la Imagen del Banner</span>
+<span style="color:red">Ingrese una Imagen o un archivo adjunto solo si va a editar la Imagen de la Presentación</span>
 
        </div>
     </div>

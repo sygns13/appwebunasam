@@ -1,15 +1,156 @@
 <script type="text/javascript">
+
+Vue.component('ckeditor1', {
+  template: `<div class="ckeditor"><textarea :id="id" :value="value"></textarea></div>`,
+  props: {
+      value: {
+        type: String
+      },
+      id: {
+        type: String,
+        default: 'editor1'
+      },
+      height: {
+        type: String,
+        default: '300px',
+      },
+      toolbar: {
+        type: Array,
+        default: () => [
+          [ 'Styles', 'Format', 'Font', 'FontSize' ],
+          ['Link'],
+          ['Bold','Italic','Underline','Strike'],
+          ['NumberedList','BulletedList'],
+          ['Cut','Copy','Paste'],
+          ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+          [ 'TextColor', 'BGColor' ],
+          ['Undo','Redo']
+        ]
+      },
+      language: {
+        type: String,
+        default: 'es'
+      },
+      extraplugins: {
+        type: String,
+        default: ''
+      }
+        },
+        beforeUpdate () {
+      const ckeditorId = this.id
+      if (this.value !== CKEDITOR.instances[ckeditorId].getData()) {
+        CKEDITOR.instances[ckeditorId].setData(this.value)
+      }
+        },
+        mounted () {
+      const ckeditorId = this.id
+      //console.log(this.value)
+      const ckeditorConfig = {
+        toolbar: this.toolbar,
+        language: this.language,
+        height: this.height,
+        extraPlugins: this.extraplugins
+      }
+      CKEDITOR.replace(ckeditorId, ckeditorConfig)
+      CKEDITOR.instances[ckeditorId].setData(this.value)
+      /*CKEDITOR.instances[ckeditorId].on('change', () => {
+        let ckeditorData = CKEDITOR.instances[ckeditorId].getData()
+        if (ckeditorData !== this.value) {
+          this.$emit('input', ckeditorData)
+        }
+      })*/
+        },
+        destroyed () {
+      const ckeditorId = this.id
+      if (CKEDITOR.instances[ckeditorId]) {
+        CKEDITOR.instances[ckeditorId].destroy()
+      }
+        }
+  
+});
+
+Vue.component('ckeditor2', {
+  template: `<div class="ckeditor"><textarea :id="id" :value="value"></textarea></div>`,
+  props: {
+      value: {
+        type: String
+      },
+      id: {
+        type: String,
+        default: 'editor2'
+      },
+      height: {
+        type: String,
+        default: '300px',
+      },
+      toolbar: {
+        type: Array,
+        default: () => [
+          [ 'Styles', 'Format', 'Font', 'FontSize' ],
+          ['Link'],
+          ['Bold','Italic','Underline','Strike'],
+          ['NumberedList','BulletedList'],
+          ['Cut','Copy','Paste'],
+          ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+          [ 'TextColor', 'BGColor' ],
+          ['Undo','Redo']
+        ]
+      },
+      language: {
+        type: String,
+        default: 'es'
+      },
+      extraplugins: {
+        type: String,
+        default: ''
+      }
+        },
+        beforeUpdate () {
+      const ckeditorId = this.id
+      if (this.value !== CKEDITOR.instances[ckeditorId].getData()) {
+        CKEDITOR.instances[ckeditorId].setData(this.value)
+      }
+        },
+        mounted () {
+      const ckeditorId = this.id
+      //console.log(this.value)
+      const ckeditorConfig = {
+        toolbar: this.toolbar,
+        language: this.language,
+        height: this.height,
+        extraPlugins: this.extraplugins
+      }
+      CKEDITOR.replace(ckeditorId, ckeditorConfig)
+      CKEDITOR.instances[ckeditorId].setData(this.value)
+      /*CKEDITOR.instances[ckeditorId].on('change', () => {
+        let ckeditorData = CKEDITOR.instances[ckeditorId].getData()
+        if (ckeditorData !== this.value) {
+          this.$emit('input', ckeditorData)
+        }
+      })*/
+        },
+        destroyed () {
+      const ckeditorId = this.id
+      if (CKEDITOR.instances[ckeditorId]) {
+        CKEDITOR.instances[ckeditorId].destroy()
+      }
+        }
+  
+});
+
+
+
  let app = new Vue({
     el: '#app',
     data:{
-        titulo:"Portal Web UNASAM",
-        subtitulo: "Gestión de Plataformas",
+      titulo:"Indicadores SINEACE Programas de Estudios",
+        subtitulo: "Gestión de Objetivos Educacionales",
         subtitulo2: "Principal",
 
         subtitle2:false,
         subtitulo2:"",
 
-        tipouserPerfil:'{{ $tipouser->nombre }}',
+        tipouserPerfil:'{{ $tipouser->tituloO }}',
         userPerfil:'{{ Auth::user()->name }}',
         mailPerfil:'{{ Auth::user()->email }}',
 
@@ -31,21 +172,21 @@
         classMenu1:'',
         classMenu2:'',
         classMenu3:'',
-        classMenu4:'',
+        classMenu4:'active',
         classMenu5:'',
         classMenu6:'',
         classMenu7:'',
         classMenu8:'',
         classMenu9:'',
-        classMenu10:'active',
+        classMenu10:'',
         classMenu11:'',
         classMenu12:'',
 
 
-        plataformas: [],
+        objetivos: [],
         errors:[],
 
-        fillobject:{ 'id':'', 'nombre':'', 'url':'','activo':''},
+        fillobject:{ 'id':'', 'numero':'', 'descripcion':'','titulo':'', 'url':'','activo':'','oldImg':''},
 
         pagination: {
             'total': 0,
@@ -61,7 +202,9 @@
         divNuevo:false,
         divEdit:false,
 
-        nombre : '',
+        numero : '',
+        tituloO : '',
+        descripcion : '',
         url : '',
         activo : 1,
 
@@ -83,10 +226,18 @@
         oldImg:'',
         image:'',
 
+        content1:'',
+        content2:'',
+
+        //seccion programas
+        nivel : 2,
+        programa:'',
+        programa_id: 0,
+
 
     },
     created:function () {
-        this.getDatos(this.thispage);
+        //this.getDatos(this.thispage);
 
         
     },
@@ -156,19 +307,30 @@
 
         getDatos: function (page) {
             var busca=this.buscar;
-            var v1 = 0;
+            var v1 = this.nivel;
             var v2 = 0;
-            var v3 = 0;
-            var url = '/intranet/plataformare?page='+page+'&busca='+busca+'&v1='+v1+'&v2='+v2+'&v3='+v3;
+            var v3 = this.programa_id;
+            var url = '/intranet/objetivosre?page='+page+'&busca='+busca+'&v1='+v1+'&v2='+v2+'&v3='+v3;
+
+            this.fillobject = { 'id':'', 'numero':'', 'descripcion':'','titulo':'', 'url':'','activo':'','oldImg':''};
+            this.objetivos = [];
+            this.pagination = {
+                'total': 0,
+                'current_page': 0,
+                'per_page': 0,
+                'last_page': 0,
+                'from': 0,
+                'to': 0
+            };
 
             axios.get(url).then(response=>{
 
-                this.plataformas= response.data.plataformas.data;
+                this.objetivos= response.data.objetivos.data;
                 this.pagination= response.data.pagination;
 
                 //this.mostrarPalenIni=true;
 
-                if(this.plataformas.length==0 && this.thispage!='1'){
+                if(this.objetivos.length==0 && this.thispage!='1'){
                     var a = parseInt(this.thispage) ;
                     a--;
                     this.thispage=a.toString();
@@ -197,19 +359,21 @@
             this.cancelForm();
         },
         cancelForm: function () {
-            this.nombre = '';
+            this.numero = '';
+            this.tituloO = '';
             this.url = '';
             this.activo = 1;
 
-            $('#txtnombre').focus();
-
-            /* this.imagen=null;
+            this.imagen=null;
             this.uploadReady = false
             this.$nextTick(() => {
             this.uploadReady = true;
-                $('#txtnombre').focus();
+                $('#txtnumero').focus();
+                if(CKEDITOR.instances['editor1'] != undefined && CKEDITOR.instances['editor1'] != null){
+                    CKEDITOR.instances['editor1'].setData("");
+                }
             })
- */
+
             this.divEdit=false;
         },
         getImage(event){
@@ -225,24 +389,28 @@
         },
 
         create:function () {
-            var url='/intranet/plataformare';
+            var url='/intranet/objetivosre';
 
             $("#btnGuardar").attr('disabled', true);
             $("#btnCancel").attr('disabled', true);
             $("#btnClose").attr('disabled', true);
 
+            this.descripcion=CKEDITOR.instances['editor1'].getData();
             this.divloaderNuevo=true;
 
-            var v1 = 0;
+            var v1 = this.nivel;
             var v2 = 0;
-            var v3 = 0;
+            var v3 = this.programa_id;
 
 
             var data = new  FormData();
 
-            data.append('nombre', this.nombre);
+            data.append('numero', this.numero);
+            data.append('titulo', this.tituloO);
+            data.append('descripcion', this.descripcion);
             data.append('url', this.url);
             data.append('activo', this.activo);
+            data.append('imagen', this.imagen);
             data.append('v1', v1);
             data.append('v2', v2);
             data.append('v3', v3);
@@ -273,7 +441,7 @@
         borrar:function (dato) {
           swal.fire({
               title: '¿Estás seguro?',
-              text: "¿Desea eliminar el registro seleccionado? -- Nota: Este proceso no se podrá revertir",
+              text: "¿Desea eliminar el Objetivo seleccionado? -- Nota: Este proceso no se podrá revertir",
               type: 'info',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
@@ -283,7 +451,7 @@
 
 
             if (result.value) {
-                var url = '/intranet/plataformare/'+dato.id;
+                var url = '/intranet/objetivosre/'+dato.id;
                 axios.delete(url).then(response=>{//eliminamos
 
                     if(response.data.result=='1'){
@@ -300,23 +468,29 @@
         },
         edit:function (dato) {
 
-        /* this.uploadReadyE=false;
-        this.$nextTick(() => {
-            this.imagenE=null;
-            this.uploadReadyE=true;
-        }); */
+        this.uploadReadyE=false;
+        
             
             this.fillobject.id=dato.id;
-            this.fillobject.nombre=dato.nombre;
+            this.fillobject.numero=dato.numero;
+            this.fillobject.titulo=dato.titulo;
+            this.fillobject.descripcion=dato.descripcion;
             this.fillobject.url=dato.url;
             this.fillobject.activo=dato.activo;
+
+            this.oldImg=dato.url;
+           
 
             this.divNuevo=false;
             this.divEdit=true;
             this.divloaderEdit=false;
-            this.$nextTick(function () {
-                $('#txtnombreE').focus();
-            })
+
+            this.$nextTick(() => {
+            this.imagenE=null;
+            this.uploadReadyE=true;
+            CKEDITOR.instances['editor2'].setData(dato.descripcion);
+            $('#txtnumeroE').focus();
+        });
 
         },
         cerrarFormE: function(){
@@ -324,7 +498,7 @@
             this.divEdit=false;
 
             this.$nextTick(function () {
-                this.fillobject={ 'id':'','nombre':'', 'url':'','activo':''};
+                this.fillobject={ 'id':'', 'numero':'', 'descripcion':'','titulo':'', 'url':'','activo':'','oldImg':''};
     
             })
 
@@ -342,21 +516,28 @@
 
         update: function (id) {
 
-            var url="/intranet/plataformare/"+id;
+            var url="/intranet/objetivosre/"+id;
             $("#btnSaveE").attr('disabled', true);
             $("#btnCloseE").attr('disabled', true);
             this.divloaderEdit=true;
 
             this.fillobject.oldImg= this.oldImg;
-            var v1 = 0;
+            this.fillobject.descripcion=CKEDITOR.instances['editor2'].getData();
+            var v1 = this.nivel;
+            var v2 = 0;
+            var v3 = this.programa_id;
 
             var data = new  FormData();
 
             data.append('id', this.fillobject.id);
-            data.append('nombre', this.fillobject.nombre);
+            data.append('numero', this.fillobject.numero);
+            data.append('titulo', this.fillobject.titulo);
+            data.append('descripcion', this.fillobject.descripcion);
             data.append('url', this.fillobject.url);
             data.append('activo', this.fillobject.activo);
 
+            data.append('imagen', this.imagenE);
+            data.append('oldimg', this.fillobject.oldImg);
             data.append('v1', v1);
 
             data.append('_method', 'PUT');
@@ -388,7 +569,7 @@
         baja:function (dato) {
           swal.fire({
               title: '¿Estás seguro?',
-              text: "Nota: Si se desactiva la Plataforma, No se mostrará en el Portal Web UNASAM, hasta que sea activado nuevamente",
+              text: "Nota: Si se desactiva el Objetivo, No se mostrará en el Portal Web del Programa de Estudio, hasta que sea activado nuevamente",
               type: 'info',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
@@ -397,7 +578,7 @@
           }).then((result) => {
 
             if (result.value) {
-                var url = '/intranet/plataformare/altabaja/'+dato.id+'/0';
+                var url = '/intranet/objetivosre/altabaja/'+dato.id+'/0';
                 axios.get(url).then(response=>{//eliminamos
 
                     if(response.data.result=='1'){
@@ -415,7 +596,7 @@
       alta:function (dato) {
           swal.fire({
               title: '¿Estás seguro?',
-              text: "Nota: Si activa la Plataforma, se mostrará en el Portal Web UNASAM en el número de su posición",
+              text: "Nota: Si activa el Objetivo, se mostrará en el Portal Web del Programa de Estudio en el número de su posición",
               type: 'info',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
@@ -424,7 +605,7 @@
           }).then((result) => {
 
             if (result.value) {
-                var url = '/intranet/plataformare/altabaja/'+dato.id+'/1';
+                var url = '/intranet/objetivosre/altabaja/'+dato.id+'/1';
                 axios.get(url).then(response=>{//eliminamos
 
                 if(response.data.result=='1'){
@@ -438,6 +619,18 @@
             }
         }).catch(swal.noop);
       },
+
+      //Modificaciones Programas
+     irAtras:function(){
+            this.programa_id = 0;
+            this.programa = '';
+            this.divNuevo = false;
+            this.divNuevoLogo = false;
+        },
+        cambioPrograma:function(){
+            this.programa = $('#cbuprograma_id option:selected').html();
+            this.getDatos(this.thispage);
+        },
     
 
 }
