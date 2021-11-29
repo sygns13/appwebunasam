@@ -272,6 +272,9 @@ desired effect
 @elseif($modulo=="competenciaespecificaprograma")
 @include('paginassineace.competenciaespecifica.vue')
 
+@elseif($modulo=="competenciageneralprograma")
+@include('paginassineace.competenciageneral.vue')
+
 @elseif($modulo=="objetivosprograma")
 @include('paginassineace.objetivos.vue')
 
