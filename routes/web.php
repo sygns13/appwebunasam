@@ -174,9 +174,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('intranet/competenciasgeneralesprograma', 'IndicadorsineaceController@index04');
     Route::get('intranet/campolaboralprograma', 'IndicadorsineaceController@index05');
     Route::get('intranet/planestudiosprograma', 'IndicadorsineaceController@index06');
+
+    Route::get('intranet/matriculadosprograma', 'NumerosalumnoController@index01');
       
     
 
+    
     Route::resource('intranet/datosportalre', 'UniversidadController');
     Route::resource('intranet/datosfacre', 'FacultadController');
     Route::resource('intranet/datosprogramare', 'ProgramaestudioController');
@@ -241,6 +244,8 @@ Route::group(['middleware' => 'auth'], function () {
     
     Route::resource('intranet/resumenre', 'ResumenController');
     Route::resource('intranet/imagenresumenre', 'ImagenresumenController');
+
+    Route::resource('intranet/numeroalumnore', 'NumerosalumnoController');
 
 
     Route::get('usuario/altabaja/{id}/{var}','UserController@altabaja');

@@ -284,6 +284,18 @@ desired effect
 @elseif($modulo=="campolaboralprograma")
 @include('paginassineace.campolaboral.vue')
 
+@elseif($modulo=="nummatriculadosprograma")
+@include('paginassineace.nummatriculados.vue')
+
+@elseif($modulo=="numegresadosprograma")
+@include('paginassineace.numegresados.vue')
+
+@elseif($modulo=="numgraduadosprograma")
+@include('paginassineace.numgraduados.vue')
+
+@elseif($modulo=="numtituladosprograma")
+@include('paginassineace.numtitulados.vue')
+
 {{-- //Paginas Portal Web Programas de Estudios --}}
 
 @elseif($modulo=="historiaprograma")

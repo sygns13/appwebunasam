@@ -574,7 +574,7 @@
                     <li><a href="{{URL::to('intranet/objetivosprograma')}}"><i class='fa fa-paper-plane'></i> Objetivos Educacionales</a></li>
                     <li><a href="{{URL::to('intranet/planestudiosprograma')}}"><i class='fa fa-paper-plane'></i> Planes de Estudios</a></li>
                     <li><a href="{{URL::to('intranet/campolaboralprograma')}}"><i class='fa fa-paper-plane'></i> Campo Laboral</a></li>
-                    <li><a href="{{URL::to('intranet/bannerprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Matriculados</a></li>
+                    <li><a href="{{URL::to('intranet/matriculadosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Matriculados</a></li>
                     <li><a href="{{URL::to('intranet/bannerprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Egresados</a></li>
                     <li><a href="{{URL::to('intranet/bannerprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Graduados</a></li>
                     <li><a href="{{URL::to('intranet/bannerprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Titulados</a></li>
