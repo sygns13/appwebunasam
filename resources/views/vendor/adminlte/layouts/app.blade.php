@@ -278,6 +278,9 @@ desired effect
 @elseif($modulo=="objetivosprograma")
 @include('paginassineace.objetivos.vue')
 
+@elseif($modulo=="planesestudiosprograma")
+@include('paginassineace.planesestudios.vue')
+
 @elseif($modulo=="campolaboralprograma")
 @include('paginassineace.campolaboral.vue')
 

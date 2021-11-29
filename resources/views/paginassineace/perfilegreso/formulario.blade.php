@@ -30,7 +30,7 @@
   <div class="col-md-12" style="padding-top: 15px;">
 
     <div class="form-group">
-      <label for="cbuestado" class="col-sm-2 control-label">Imagen del Servicio ( Opcional Recomendado 500 x 500 px)</label>
+      <label for="cbuestado" class="col-sm-2 control-label">Imagen ( Opcional Recomendado 500 x 500 px)</label>
 
       <div class="col-sm-10">
          <input name="archivo" type="file" id="archivo" class="archivo form-control" @change="getImage"  v-if="uploadReady"
