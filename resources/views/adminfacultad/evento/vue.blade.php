@@ -670,6 +670,7 @@ Vue.component('ckeditor4', {
                 CKEDITOR.instances['editor2'].setData(dato.desarrollo);
                 this.imagenE=null;
                 this.uploadReadyE=true;
+                $("#txttitularE").focus();
             });
 
         },

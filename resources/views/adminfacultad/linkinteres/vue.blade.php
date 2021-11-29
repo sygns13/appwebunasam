@@ -324,7 +324,7 @@
 
             this.uploadReadyE=false;
         this.$nextTick(() => {
-            $('#txtnombre').focus();
+            $('#txtnombreE').focus();
             this.imagenE=null;
             this.uploadReadyE=true;
         });

@@ -411,8 +411,8 @@
 
             @if(accesoUser([3,4]))
 
-            <li class="treeview" v-bind:class="classMenu1">
-                <a href="#"><i class='fa fa-list-alt'></i> <span>Inicio Facultad</span> <i class="fa fa-angle-left pull-right"></i></a>
+            <li class="treeview" v-bind:class="classMenu2">
+                <a href="#"><i class='fa fa-list-alt'></i> <span>Portal Facultad</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
                     
                     @foreach ($permisos as $permiso)
@@ -543,6 +543,15 @@
             <li class="treeview" v-bind:class="classMenu3">
                 <a href="#"><i class='fa fa-list-alt'></i> <span>Inicio Programa de Estudio</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
+                    <li><a href="{{URL::to('intranet/configprograma')}}"><i class='fa fa-paper-plane'></i> Configuraciones Principales</a></li>
+                    <li><a href="{{URL::to('intranet/bannerprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Banners</a></li>
+                    <li><a href="{{URL::to('intranet/presentacionprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Presentación</a></li>
+                    <li><a href="{{URL::to('intranet/datosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Datos Facultad</a></li>
+                    <li><a href="{{URL::to('intranet/noticiasprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Noticias</a></li>
+                    <li><a href="{{URL::to('intranet/eventosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Eventos</a></li> 
+                    <li><a href="{{URL::to('intranet/comunicadosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Comunicados</a></li> 
+                    <li><a href="{{URL::to('intranet/redessolicalesprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Redes Sociales</a></li>
+                    <li><a href="{{URL::to('intranet/linkinteresprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Links de Interés</a></li>
 {{--                     <li><a href="{{URL::to('intranet/bannerprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Banners</a></li>
                     <li><a href="{{URL::to('intranet/presentacionprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Presentación</a></li>
                     <li><a href="{{URL::to('intranet/organigramaprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Organigrama</a></li>

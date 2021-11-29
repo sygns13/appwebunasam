@@ -88,25 +88,44 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('miperfil','UserController@index2');
 
     Route::get('intranet/configportal', 'UniversidadController@index0');
-    Route::get('intranet/organigramaportal', 'UniversidadController@index2');
-    Route::get('intranet/organigrama', 'FacultadController@index2');
+    Route::get('intranet/configfacultad', 'FacultadController@index0');
+    Route::get('intranet/configprograma', 'ProgramaestudioController@index0');
+
     Route::get('intranet/bannerportal', 'BannerController@index0');
     Route::get('intranet/banner', 'BannerController@index1');
+    Route::get('intranet/bannerprograma', 'BannerController@index2');
+
     Route::get('intranet/presentacionportal', 'PresentacionController@index0');
     Route::get('intranet/presentacion', 'PresentacionController@index1');
+    Route::get('intranet/presentacionprograma', 'PresentacionController@index2');
+    
     Route::get('intranet/datosportal', 'UniversidadController@index1');
     Route::get('intranet/datosfacultad', 'FacultadController@index1');
+    Route::get('intranet/datosprograma', 'ProgramaestudioController@index1');
+    
     Route::get('intranet/noticiasportal', 'NoticiaController@index0');
     Route::get('intranet/noticias', 'NoticiaController@index1');
+    Route::get('intranet/noticiasprograma', 'NoticiaController@index2');
+
     Route::get('intranet/eventosportal', 'EventoController@index0');
     Route::get('intranet/eventos', 'EventoController@index1');
+    Route::get('intranet/eventosprograma', 'EventoController@index2');
+
     Route::get('intranet/calendarioportal', 'ComunicadoController@index0');
     Route::get('intranet/comunicados', 'ComunicadoController@index1');
-    Route::get('intranet/plataformaportal', 'PlataformaController@index0');
+    Route::get('intranet/comunicadosprograma', 'ComunicadoController@index2');
+
     Route::get('intranet/redessolicalesportal', 'RedsocialController@index0');
     Route::get('intranet/redessolicales', 'RedsocialController@index1');
+    Route::get('intranet/redessolicalesprograma', 'RedsocialController@index2');
+
     Route::get('intranet/linkinteresportal', 'LinkinteresController@index0');
     Route::get('intranet/linkinteres', 'LinkinteresController@index1');
+    Route::get('intranet/linkinteresprograma', 'LinkinteresController@index2');
+
+    Route::get('intranet/organigramaportal', 'UniversidadController@index2');
+    Route::get('intranet/organigrama', 'FacultadController@index2');
+    Route::get('intranet/plataformaportal', 'PlataformaController@index0');
     
     Route::get('intranet/historiaportal', 'HistoriaController@index0');
     Route::get('intranet/historia', 'HistoriaController@index1');
@@ -138,16 +157,21 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('intranet/programasprogesionales', 'ProgramasEstudiosController@index1');
     
     
-    Route::get('intranet/configfacultad', 'FacultadController@index0');
+    
 
     
     
 
     Route::resource('usuario','UserController');
-    Route::resource('intranet/bannerre', 'BannerController');
-    Route::resource('intranet/presentacionre', 'PresentacionController');
+
     Route::resource('intranet/datosportalre', 'UniversidadController');
     Route::resource('intranet/datosfacre', 'FacultadController');
+    Route::resource('intranet/datosprogramare', 'ProgramaestudioController');
+
+    Route::resource('intranet/bannerre', 'BannerController');
+    Route::resource('intranet/presentacionre', 'PresentacionController');
+    
+
     Route::resource('intranet/noticiasre', 'NoticiaController');
     Route::resource('intranet/eventosre', 'EventoController');
     Route::resource('intranet/comunicadosre', 'ComunicadoController');
@@ -180,7 +204,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('intranet/bannerprogramare', 'BannerController');
     Route::resource('intranet/presentacionprogramare', 'PresentacionController');
     Route::resource('intranet/organigramaprogramare', 'OrganigramaController');
-    Route::resource('intranet/datosprogramare', 'ProgramaestudioController');
     Route::resource('intranet/estadisticosprogramare', 'DatoestadisticoController');
     Route::resource('intranet/historiaprogramare', 'HistoriaController');
     Route::resource('intranet/misionvisionprogramare', 'MisionvisionController');
@@ -268,6 +291,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('intranet/datosfacre/configuracion','FacultadController@configuracion');
     Route::post('intranet/datosfacre/logo','FacultadController@logo');
     Route::post('intranet/datosfacre/organigrama','FacultadController@organigrama');
+
+    Route::post('intranet/datosprogramare/configuracion','ProgramaestudioController@configuracion');
+    Route::post('intranet/datosprogramare/logo','ProgramaestudioController@logo');
+    Route::post('intranet/datosprogramare/organigrama','ProgramaestudioController@organigrama');
 
     Route::post('usuario/borrarpermiso','UserController@borrarpermiso');
     Route::post('usuario/borrarrolmodulo','UserController@borrarrolmodulo');

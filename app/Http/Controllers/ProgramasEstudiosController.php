@@ -150,7 +150,7 @@ class ProgramasEstudiosController extends Controller
             $newProgramaestudio->user_id=Auth::user()->id;
             $newProgramaestudio->nivel='2';
             $newProgramaestudio->logourl='';
-            $newProgramaestudio->tipo_vista='';
+            $newProgramaestudio->tipo_vista='1';
             $newProgramaestudio->nombre_organigrama='';
             $newProgramaestudio->url_organigrama='';
 

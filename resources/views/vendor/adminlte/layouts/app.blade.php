@@ -225,6 +225,36 @@ desired effect
 @include('paginasfacultad.servicios.vue')
 
 
+{{-- //Paginas Portales Programas Estudios--}}
+
+@elseif($modulo=="configuracionprograma")
+@include('adminprograma.configuracion.vue')
+
+@elseif($modulo=="bannerprograma")
+@include('adminprograma.banner.vue')
+
+@elseif($modulo=="presentacionprograma")
+@include('adminprograma.presentacion.vue')
+
+@elseif($modulo=="datosprograma")
+@include('adminprograma.datosprograma.vue')
+
+@elseif($modulo=="noticiaprograma")
+@include('adminprograma.noticia.vue')
+
+@elseif($modulo=="eventoprograma")
+@include('adminprograma.evento.vue')
+
+@elseif($modulo=="comunicadoprograma")
+@include('adminprograma.comunicado.vue')
+
+@elseif($modulo=="redsocialprograma")
+@include('adminprograma.redsocial.vue')
+
+@elseif($modulo=="linkinteresprograma")
+@include('adminprograma.linkinteres.vue')
+
+
 @endif
 
 <script type="text/javascript">
