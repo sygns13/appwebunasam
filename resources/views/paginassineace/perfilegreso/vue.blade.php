@@ -144,7 +144,7 @@ Vue.component('ckeditor2', {
     el: '#app',
     data:{
         titulo:"Indicadores SINEACE Programas de Estudios",
-        subtitulo: "Gestión del Perfil de Ingreso",
+        subtitulo: "Gestión del Perfil de Egreso",
         subtitulo2: "Principal",
 
         subtitle2:false,
@@ -240,7 +240,7 @@ Vue.component('ckeditor2', {
         nameAdjuntoE:'',
 
 
-        tipo:1, //perfil de ingreso
+        tipo:2, //perfil de egreso
 
         //seccion programas
         nivel : 2,
@@ -370,7 +370,7 @@ Vue.component('ckeditor2', {
             this.activo = 1;
             this.tieneimagen = 1;
             this.tienearchivo = 1;
-            this.tipo = 1;
+            this.tipo = 2;
 
             this.imagen=null;
             this.archivo=null;

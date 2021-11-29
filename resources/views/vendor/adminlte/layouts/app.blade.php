@@ -266,6 +266,9 @@ desired effect
 @elseif($modulo=="perfilingresoprograma")
 @include('paginassineace.perfilingreso.vue')
 
+@elseif($modulo=="perfilegresoprograma")
+@include('paginassineace.perfilegreso.vue')
+
 @elseif($modulo=="objetivosprograma")
 @include('paginassineace.objetivos.vue')
 
