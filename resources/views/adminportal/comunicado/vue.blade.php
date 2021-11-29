@@ -666,6 +666,7 @@ Vue.component('ckeditor4', {
                 CKEDITOR.instances['editor2'].setData(dato.desarrollo);
                 this.imagenE=null;
                 this.uploadReadyE=true;
+                $("#txttitularE").focus();
             });
 
         },
@@ -1007,6 +1008,7 @@ Vue.component('ckeditor4', {
                 CKEDITOR.instances['editor4'].setData(dato.descripcion);
                 this.imagenEDetalle=null;
                 this.uploadReadyEDetalle=true;
+                $("#txtnombreImgE").focus();
             });
 
         },

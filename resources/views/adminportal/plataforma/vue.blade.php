@@ -314,6 +314,9 @@
             this.divNuevo=false;
             this.divEdit=true;
             this.divloaderEdit=false;
+            this.$nextTick(function () {
+                $('#txtnombreE').focus();
+            })
 
         },
         cerrarFormE: function(){

@@ -268,6 +268,7 @@ methods: {
        this.$nextTick(function () {
        $("#cbsfacultadE").val( this.fillEscuela.facultad_id).trigger('change');
        $('.select2').css("width","100%");
+       $("#txtescE").focus();
     });
 
        $("#boxTitulo").text('Prrograma de Estudio: '+escuela.nombre);

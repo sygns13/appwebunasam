@@ -496,7 +496,7 @@ Vue.component('ckeditor2', {
             this.archivoE=null;
             this.uploadReadyE=true;
             CKEDITOR.instances['editor2'].setData(dato.descripcion);
-            $('#txttituloE').focus();
+            $('#txtnombreE').focus();
         });
 
         },

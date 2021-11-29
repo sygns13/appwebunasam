@@ -188,6 +188,7 @@
             this.id = this.fillobject.id;
             this.nombre_organigrama = this.fillobject.nombre_organigrama;
             this.url_organigrama = this.fillobject.url_organigrama;
+            $("#txtnombre_organigrama").focus();
         },
 
         create:function () {

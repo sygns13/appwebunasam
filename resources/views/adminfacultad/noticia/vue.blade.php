@@ -1015,6 +1015,7 @@ Vue.component('ckeditor4', {
                   CKEDITOR.instances['editor4'].setData(dato.descripcion);
                   this.imagenEDetalle=null;
                   this.uploadReadyEDetalle=true;
+                  $("#txtnombreImgE").focus();
               });
 
           },
