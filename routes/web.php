@@ -148,6 +148,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('intranet/departamentoacademico', 'DepartamentoacademicoController@index1');
     
     Route::get('intranet/docentesfacultad','DocenteController@index1');
+    Route::get('intranet/docentesprograma','DocenteController@index2');
     
     Route::get('intranet/objetivosunasam', 'ObjetivoController@index0');
     Route::get('intranet/objetivos', 'ObjetivoController@index1');

@@ -296,6 +296,9 @@ desired effect
 @elseif($modulo=="numtituladosprograma")
 @include('paginassineace.numtitulados.vue')
 
+@elseif($modulo=="docentesprograma")
+@include('paginassineace.docentes.vue')
+
 {{-- //Paginas Portal Web Programas de Estudios --}}
 
 @elseif($modulo=="historiaprograma")

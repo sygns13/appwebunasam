@@ -27,6 +27,7 @@ use App\Rolsubmodulo;
 
 use App\Facultad;
 use App\Departamentoacademico;
+use App\Programaestudio;
 
 class DocenteController extends Controller
 {
@@ -73,6 +74,45 @@ class DocenteController extends Controller
             ->get();
 
             return view('paginasfacultad.docentes.index',compact('tipouser','modulo', 'permisos','rolModulos','rolSubModulos','facultads','departamentos'));
+        }
+        else
+        {
+            return redirect('home');    
+        }
+    }
+
+    public function index2()
+    {
+        $permisos=Permiso::where('user_id',Auth::user()->id)->get();
+        $rolModulos=Rolmodulo::where('user_id',Auth::user()->id)->get();
+        $rolSubModulos=Rolsubmodulo::where('user_id',Auth::user()->id)->get();
+
+        $nivel = 2;
+        $modulo = 7;
+        $submodulo = 70;
+
+        if(accesoUser([1,2]) || (accesoUser([3,4,5]) && accesoModulo($permisos, $rolModulos, $rolSubModulos, $nivel, $modulo, $submodulo))){
+
+
+            $idtipouser=Auth::user()->tipouser_id;
+            $tipouser=Tipouser::find($idtipouser);
+            $programas = [];
+
+            $modulo="docentesprograma";
+
+            if(accesoUser([1,2])){
+                $programas = Programaestudio::orderBy('nombre')->where('borrado','0')->get();
+            }
+            else{
+                foreach ($permisos as $key => $dato) {
+                    if($dato->nivel == $nivel){
+                        $programa = Programaestudio::find($dato->programa_id);
+                        array_push($programas, $programa);
+                    } 
+                }
+            }
+
+            return view('paginassineace.docentes.index',compact('tipouser','modulo', 'permisos','rolModulos','rolSubModulos','programas'));
         }
         else
         {
@@ -432,7 +472,7 @@ class DocenteController extends Controller
             $validator8 = Validator::make($input8, $reglas8);
             $validator9 = Validator::make($input9, $reglas9);
 
-            if ($validator1->fails() || intval($departamentoacademico_id) == 0)
+            if (($validator1->fails() || intval($departamentoacademico_id) == 0) && $nivel==1)
             {
                 $result='0';
                 $msj='Debe seleccionar el Departamento Académico del Docente';
@@ -966,7 +1006,7 @@ class DocenteController extends Controller
             $validator8 = Validator::make($input8, $reglas8);
             $validator9 = Validator::make($input9, $reglas9);
 
-            if ($validator1->fails() || intval($departamentoacademico_id) == 0)
+            if (($validator1->fails() || intval($departamentoacademico_id) == 0) && $nivel==1)
             {
                 $result='0';
                 $msj='Debe seleccionar el Departamento Académico del Docente';
