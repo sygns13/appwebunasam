@@ -575,9 +575,9 @@
                     <li><a href="{{URL::to('intranet/planestudiosprograma')}}"><i class='fa fa-paper-plane'></i> Planes de Estudios</a></li>
                     <li><a href="{{URL::to('intranet/campolaboralprograma')}}"><i class='fa fa-paper-plane'></i> Campo Laboral</a></li>
                     <li><a href="{{URL::to('intranet/matriculadosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Matriculados</a></li>
-                    <li><a href="{{URL::to('intranet/bannerprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Egresados</a></li>
-                    <li><a href="{{URL::to('intranet/bannerprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Graduados</a></li>
-                    <li><a href="{{URL::to('intranet/bannerprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Titulados</a></li>
+                    <li><a href="{{URL::to('intranet/egresadosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Egresados</a></li>
+                    <li><a href="{{URL::to('intranet/graduadosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Graduados</a></li>
+                    <li><a href="{{URL::to('intranet/tituladosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Titulados</a></li>
                     <li><a href="{{URL::to('intranet/docentesprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Docentes</a></li> 
 {{--                     <li><a href="{{URL::to('intranet/historiaprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Historia</a></li>
                     <li><a href="{{URL::to('intranet/misionvisionprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Misión / Visión</a></li>

@@ -5,7 +5,7 @@
     el: '#app',
     data:{
         titulo:"Indicadores SINEACE Programas de Estudios",
-        subtitulo: "Gestión del Número de Matriculados",
+        subtitulo: "Gestión del Número de Egresados",
         subtitulo2: "Principal",
 
         subtitle2:false,
@@ -77,7 +77,7 @@
 
 
 
-        tipo:1, //numero de matriculados
+        tipo:2, //numero de egresados
 
         //seccion programas
         nivel : 2,

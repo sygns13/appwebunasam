@@ -150,7 +150,7 @@ Vue.component('ckeditor2', {
         subtitle2:false,
         subtitulo2:"",
 
-        tipouserPerfil:'{{ $tipouser->tituloO }}',
+        tipouserPerfil:'{{ $tipouser->nombre }}',
         userPerfil:'{{ Auth::user()->name }}',
         mailPerfil:'{{ Auth::user()->email }}',
 

@@ -176,6 +176,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('intranet/planestudiosprograma', 'IndicadorsineaceController@index06');
 
     Route::get('intranet/matriculadosprograma', 'NumerosalumnoController@index01');
+    Route::get('intranet/egresadosprograma', 'NumerosalumnoController@index02');
+    Route::get('intranet/graduadosprograma', 'NumerosalumnoController@index03');
+    Route::get('intranet/tituladosprograma', 'NumerosalumnoController@index04');
       
     
 
