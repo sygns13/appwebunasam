@@ -539,7 +539,7 @@
             <li class="header">Gestión de Programas de Estudios</li>
             @endif
 
-            @if(accesoUser([1]))
+            @if(accesoUser([1,2]))
             <li class="treeview" v-bind:class="classMenu3">
                 <a href="#"><i class='fa fa-list-alt'></i> <span>Inicio Programa de Estudio</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
@@ -552,16 +552,123 @@
                     <li><a href="{{URL::to('intranet/comunicadosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Comunicados</a></li> 
                     <li><a href="{{URL::to('intranet/redessolicalesprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Redes Sociales</a></li>
                     <li><a href="{{URL::to('intranet/linkinteresprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Links de Interés</a></li>
-{{--                     <li><a href="{{URL::to('intranet/bannerprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Banners</a></li>
-                    <li><a href="{{URL::to('intranet/presentacionprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Presentación</a></li>
-                    <li><a href="{{URL::to('intranet/organigramaprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Organigrama</a></li>
-                    <li><a href="{{URL::to('intranet/datosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Datos de Contacto</a></li>
-                    <li><a href="{{URL::to('intranet/estadisticosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Datos Estadísticos</a></li> --}}
                 </ul>
             </li>
             @endif
 
-            @if(accesoUser([1]))
+
+
+
+            @if(accesoUser([3,4,5]))
+
+            <li class="treeview" v-bind:class="classMenu3">
+                <a href="#"><i class='fa fa-list-alt'></i> <span>Inicio Programa de Estudio</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <ul class="treeview-menu">
+                    
+                    @foreach ($permisos as $permiso)
+                        @if($permiso->nivel == 2 && $permiso->roles == 1)
+                            <li><a href="{{URL::to('intranet/configprograma')}}"><i class='fa fa-paper-plane'></i> Configuraciones Principales</a></li>
+                            <li><a href="{{URL::to('intranet/bannerprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Banners</a></li>
+                            <li><a href="{{URL::to('intranet/presentacionprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Presentación</a></li>
+                            <li><a href="{{URL::to('intranet/datosprograma')}}"><i class='fa fa-paper-plane'></i>Datos Programa de Estudio</a></li>
+                            <li><a href="{{URL::to('intranet/noticiasprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Noticias</a></li>
+                            <li><a href="{{URL::to('intranet/eventosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Eventos</a></li> 
+                            <li><a href="{{URL::to('intranet/comunicadosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Comunicados</a></li> 
+                            <li><a href="{{URL::to('intranet/redessolicalesprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Redes Sociales</a></li>
+                            <li><a href="{{URL::to('intranet/linkinteresprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Links de Interés</a></li>
+
+                        @php
+                            break;
+                        @endphp
+
+                        @elseif($permiso->nivel == 2 && $permiso->roles == 0)
+                            @foreach ($rolModulos as $rolModulo)
+                                @if($rolModulo->modulo_id == 6 && $rolModulo->nivel == 2 && $rolModulo->rolessub == 1)
+                                    <li><a href="{{URL::to('intranet/configprograma')}}"><i class='fa fa-paper-plane'></i> Configuraciones Principales</a></li>
+                                    <li><a href="{{URL::to('intranet/bannerprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Banners</a></li>
+                                    <li><a href="{{URL::to('intranet/presentacionprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Presentación</a></li>
+                                    <li><a href="{{URL::to('intranet/datosprograma')}}"><i class='fa fa-paper-plane'></i>Datos Programa de Estudio</a></li>
+                                    <li><a href="{{URL::to('intranet/noticiasprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Noticias</a></li>
+                                    <li><a href="{{URL::to('intranet/eventosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Eventos</a></li> 
+                                    <li><a href="{{URL::to('intranet/comunicadosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Comunicados</a></li> 
+                                    <li><a href="{{URL::to('intranet/redessolicalesprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Redes Sociales</a></li>
+                                    <li><a href="{{URL::to('intranet/linkinteresprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Links de Interés</a></li>
+
+                                    @php
+                                        break 2;
+                                    @endphp
+                                
+                                @elseif($rolModulo->modulo_id == 6 && $rolModulo->nivel == 2 && $rolModulo->rolessub == 0)
+
+                                @php
+                                    $submodulo48 = false;
+                                    $submodulo49 = false;
+                                    $submodulo50 = false;
+                                    $submodulo51 = false;
+                                    $submodulo52 = false;
+                                    $submodulo53 = false;
+                                    $submodulo54 = false;
+                                    $submodulo55 = false;
+                                    $submodulo56 = false;
+
+                                @endphp
+                                    @foreach ($rolSubModulos as $rolSubModulo)
+                                        @if($rolSubModulo->modulo_id == 6 && $rolSubModulo->nivel == 2 && $rolSubModulo->submodulo_id == 48 && !$submodulo48)
+                                            <li><a href="{{URL::to('intranet/configprograma')}}"><i class='fa fa-paper-plane'></i> Configuraciones Principales</a></li>
+                                            @php
+                                                $submodulo48 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 6 && $rolSubModulo->nivel == 2 && $rolSubModulo->submodulo_id == 49 && !$submodulo49)
+                                            <li><a href="{{URL::to('intranet/bannerprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Banners</a></li>
+                                            @php
+                                                $submodulo49 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 6 && $rolSubModulo->nivel == 2 && $rolSubModulo->submodulo_id == 50 && !$submodulo50)
+                                            <li><a href="{{URL::to('intranet/presentacionprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Presentación</a></li>
+                                            @php
+                                                $submodulo50 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 6 && $rolSubModulo->nivel == 2 && $rolSubModulo->submodulo_id == 51 && !$submodulo51)
+                                            <li><a href="{{URL::to('intranet/datosprograma')}}"><i class='fa fa-paper-plane'></i>Datos Programa de Estudio</a></li>
+                                            @php
+                                                $submodulo51 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 6 && $rolSubModulo->nivel == 2 && $rolSubModulo->submodulo_id == 52 && !$submodulo52)
+                                            <li><a href="{{URL::to('intranet/noticiasprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Noticias</a></li>
+                                            @php
+                                                $submodulo52 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 6 && $rolSubModulo->nivel == 2 && $rolSubModulo->submodulo_id == 53 && !$submodulo53)
+                                            <li><a href="{{URL::to('intranet/eventosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Eventos</a></li>
+                                            @php
+                                                $submodulo53 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 6 && $rolSubModulo->nivel == 2 && $rolSubModulo->submodulo_id == 54 && !$submodulo54)   
+                                            <li><a href="{{URL::to('intranet/comunicadosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Comunicados</a></li>
+                                            @php
+                                                $submodulo54 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 6 && $rolSubModulo->nivel == 2 && $rolSubModulo->submodulo_id == 55 && !$submodulo55)
+                                            <li><a href="{{URL::to('intranet/redessolicalesprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Redes Sociales</a></li>
+                                            @php
+                                                $submodulo55 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 6 && $rolSubModulo->nivel == 2 && $rolSubModulo->submodulo_id == 56 && !$submodulo56)
+                                            <li><a href="{{URL::to('intranet/linkinteresprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Links de Interés</a></li>
+                                            @php
+                                                $submodulo56 = true;
+                                            @endphp
+                                        @endif
+                                    @endforeach
+                                @endif
+                            @endforeach
+                        @endif
+                    @endforeach
+                </ul>
+            </li>
+            @endif
+
+            @if(accesoUser([1,2]))
             <li class="treeview" v-bind:class="classMenu4">
                 <a href="#"><i class='fa fa-list-alt'></i> <span>Gestión de Ind. SINEACE</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
@@ -579,29 +686,231 @@
                     <li><a href="{{URL::to('intranet/graduadosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Graduados</a></li>
                     <li><a href="{{URL::to('intranet/tituladosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Titulados</a></li>
                     <li><a href="{{URL::to('intranet/docentesprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Docentes</a></li> 
-{{--                     <li><a href="{{URL::to('intranet/historiaprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Historia</a></li>
-                    <li><a href="{{URL::to('intranet/misionvisionprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Misión / Visión</a></li>
-                    <li><a href="{{URL::to('intranet/objetivosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Objetivos</a></li>
-                    <li><a href="{{URL::to('intranet/perfilingresoprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Perfiles de Ingreso</a></li> 
-                    <li><a href="{{URL::to('intranet/perfilegresoprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Perfiles de Egreso</a></li> 
-                    <li><a href="{{URL::to('intranet/competenciasprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Competencias</a></li> 
-                    <li><a href="{{URL::to('intranet/camposocupacionalesprograma')}}"><i class='fa fa-paper-plane'></i> Campos Ocupacionales</a></li> 
-                    <li><a href="{{URL::to('intranet/planestudiosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Planes de Estudios</a></li> 
-                    <li><a href="{{URL::to('intranet/gradosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Grados y Títulos</a></li> 
-                    <li><a href="{{URL::to('intranet/docentesprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Docentes</a></li> 
-                    <li><a href="{{URL::to('intranet/infraestructuraprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Infraestructura</a></li>  --}}
+                </ul>
+            </li>
+            @endif
+
+            @if(accesoUser([3,4,5]))
+
+            <li class="treeview" v-bind:class="classMenu4">
+                <a href="#"><i class='fa fa-list-alt'></i> <span>Gestión de Ind. SINEACE</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <ul class="treeview-menu">
+                    
+                    @foreach ($permisos as $permiso)
+                        @if($permiso->nivel == 2 && $permiso->roles == 1)
+                            <li><a href="{{URL::to('intranet/resumenprograma')}}"><i class='fa fa-paper-plane'></i> Resumen de Programa</a></li>
+                            <li><a href="{{URL::to('intranet/misionvisionprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Misión / Visión</a></li>
+                            <li><a href="{{URL::to('intranet/perfilingresoprograma')}}"><i class='fa fa-paper-plane'></i> Perfil de Ingreso</a></li>
+                            <li><a href="{{URL::to('intranet/perfilegresoprograma')}}"><i class='fa fa-paper-plane'></i> Perfil de Egreso</a></li>
+                            <li><a href="{{URL::to('intranet/competenciasespecificasprograma')}}"><i class='fa fa-paper-plane'></i> Competencias Específicas</a></li>
+                            <li><a href="{{URL::to('intranet/competenciasgeneralesprograma')}}"><i class='fa fa-paper-plane'></i> Competencias Generales</a></li>
+                            <li><a href="{{URL::to('intranet/objetivosprograma')}}"><i class='fa fa-paper-plane'></i> Objetivos Educacionales</a></li>
+                            <li><a href="{{URL::to('intranet/planestudiosprograma')}}"><i class='fa fa-paper-plane'></i> Planes de Estudios</a></li>
+                            <li><a href="{{URL::to('intranet/campolaboralprograma')}}"><i class='fa fa-paper-plane'></i> Campo Laboral</a></li>
+                            <li><a href="{{URL::to('intranet/matriculadosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Matriculados</a></li>
+                            <li><a href="{{URL::to('intranet/egresadosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Egresados</a></li>
+                            <li><a href="{{URL::to('intranet/graduadosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Graduados</a></li>
+                            <li><a href="{{URL::to('intranet/tituladosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Titulados</a></li>
+                            <li><a href="{{URL::to('intranet/docentesprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Docentes</a></li>
+
+                        @php
+                            break;
+                        @endphp
+
+                        @elseif($permiso->nivel == 2 && $permiso->roles == 0)
+                            @foreach ($rolModulos as $rolModulo)
+                                @if($rolModulo->modulo_id == 7 && $rolModulo->nivel == 2 && $rolModulo->rolessub == 1)
+                                    <li><a href="{{URL::to('intranet/resumenprograma')}}"><i class='fa fa-paper-plane'></i> Resumen de Programa</a></li>
+                                    <li><a href="{{URL::to('intranet/misionvisionprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Misión / Visión</a></li>
+                                    <li><a href="{{URL::to('intranet/perfilingresoprograma')}}"><i class='fa fa-paper-plane'></i> Perfil de Ingreso</a></li>
+                                    <li><a href="{{URL::to('intranet/perfilegresoprograma')}}"><i class='fa fa-paper-plane'></i> Perfil de Egreso</a></li>
+                                    <li><a href="{{URL::to('intranet/competenciasespecificasprograma')}}"><i class='fa fa-paper-plane'></i> Competencias Específicas</a></li>
+                                    <li><a href="{{URL::to('intranet/competenciasgeneralesprograma')}}"><i class='fa fa-paper-plane'></i> Competencias Generales</a></li>
+                                    <li><a href="{{URL::to('intranet/objetivosprograma')}}"><i class='fa fa-paper-plane'></i> Objetivos Educacionales</a></li>
+                                    <li><a href="{{URL::to('intranet/planestudiosprograma')}}"><i class='fa fa-paper-plane'></i> Planes de Estudios</a></li>
+                                    <li><a href="{{URL::to('intranet/campolaboralprograma')}}"><i class='fa fa-paper-plane'></i> Campo Laboral</a></li>
+                                    <li><a href="{{URL::to('intranet/matriculadosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Matriculados</a></li>
+                                    <li><a href="{{URL::to('intranet/egresadosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Egresados</a></li>
+                                    <li><a href="{{URL::to('intranet/graduadosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Graduados</a></li>
+                                    <li><a href="{{URL::to('intranet/tituladosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Titulados</a></li>
+                                    <li><a href="{{URL::to('intranet/docentesprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Docentes</a></li>
+
+                                    @php
+                                        break 2;
+                                    @endphp
+                                
+                                @elseif($rolModulo->modulo_id == 7 && $rolModulo->nivel == 2 && $rolModulo->rolessub == 0)
+
+                                @php
+                                    
+                                    $submodulo57 = false;
+                                    $submodulo58 = false;
+                                    $submodulo59 = false;
+                                    $submodulo60 = false;
+                                    $submodulo61 = false;
+                                    $submodulo62 = false;
+                                    $submodulo63 = false;
+                                    $submodulo64 = false;
+                                    $submodulo65 = false;
+                                    $submodulo66 = false;
+                                    $submodulo67 = false;
+                                    $submodulo68 = false;
+                                    $submodulo69 = false;
+                                    $submodulo70 = false;
+
+                                @endphp
+                                    @foreach ($rolSubModulos as $rolSubModulo)
+                                        @if($rolSubModulo->modulo_id == 7 && $rolSubModulo->nivel == 2 && $rolSubModulo->submodulo_id == 57 && !$submodulo57)
+                                            <li><a href="{{URL::to('intranet/resumenprograma')}}"><i class='fa fa-paper-plane'></i> Resumen de Programa</a></li>
+                                            @php
+                                                $submodulo57 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 7 && $rolSubModulo->nivel == 2 && $rolSubModulo->submodulo_id == 58 && !$submodulo58)
+                                            <li><a href="{{URL::to('intranet/misionvisionprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Misión / Visión</a></li>
+                                            @php
+                                                $submodulo58 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 7 && $rolSubModulo->nivel == 2 && $rolSubModulo->submodulo_id == 59 && !$submodulo59)
+                                            <li><a href="{{URL::to('intranet/perfilingresoprograma')}}"><i class='fa fa-paper-plane'></i> Perfil de Ingreso</a></li>
+                                            @php
+                                                $submodulo59 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 7 && $rolSubModulo->nivel == 2 && $rolSubModulo->submodulo_id == 60 && !$submodulo60)
+                                            <li><a href="{{URL::to('intranet/perfilegresoprograma')}}"><i class='fa fa-paper-plane'></i> Perfil de Egreso</a></li>
+                                            @php
+                                                $submodulo60 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 7 && $rolSubModulo->nivel == 2 && $rolSubModulo->submodulo_id == 61 && !$submodulo61)
+                                            <li><a href="{{URL::to('intranet/competenciasespecificasprograma')}}"><i class='fa fa-paper-plane'></i> Competencias Específicas</a></li>
+                                            @php
+                                                $submodulo61 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 7 && $rolSubModulo->nivel == 2 && $rolSubModulo->submodulo_id == 62 && !$submodulo62)
+                                            <li><a href="{{URL::to('intranet/competenciasgeneralesprograma')}}"><i class='fa fa-paper-plane'></i> Competencias Generales</a></li>
+                                            @php
+                                                $submodulo62 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 7 && $rolSubModulo->nivel == 2 && $rolSubModulo->submodulo_id == 63 && !$submodulo63)
+                                            <li><a href="{{URL::to('intranet/objetivosprograma')}}"><i class='fa fa-paper-plane'></i> Objetivos Educacionales</a></li>
+                                            @php
+                                                $submodulo63 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 7 && $rolSubModulo->nivel == 2 && $rolSubModulo->submodulo_id == 64 && !$submodulo64)
+                                            <li><a href="{{URL::to('intranet/planestudiosprograma')}}"><i class='fa fa-paper-plane'></i> Planes de Estudios</a></li>
+                                            @php
+                                                $submodulo64 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 7 && $rolSubModulo->nivel == 2 && $rolSubModulo->submodulo_id == 65 && !$submodulo65)
+                                            <li><a href="{{URL::to('intranet/campolaboralprograma')}}"><i class='fa fa-paper-plane'></i> Campo Laboral</a></li>
+                                            @php
+                                                $submodulo65 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 7 && $rolSubModulo->nivel == 2 && $rolSubModulo->submodulo_id == 66 && !$submodulo66)
+                                            <li><a href="{{URL::to('intranet/matriculadosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Matriculados</a></li>
+                                            @php
+                                                $submodulo66 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 7 && $rolSubModulo->nivel == 2 && $rolSubModulo->submodulo_id == 67 && !$submodulo67)
+                                            <li><a href="{{URL::to('intranet/egresadosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Egresados</a></li>
+                                            @php
+                                                $submodulo67 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 7 && $rolSubModulo->nivel == 2 && $rolSubModulo->submodulo_id == 68 && !$submodulo68)
+                                            <li><a href="{{URL::to('intranet/graduadosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Graduados</a></li>
+                                            @php
+                                                $submodulo68 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 7 && $rolSubModulo->nivel == 2 && $rolSubModulo->submodulo_id == 69 && !$submodulo69)
+                                            <li><a href="{{URL::to('intranet/tituladosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Titulados</a></li>
+                                            @php
+                                                $submodulo69 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 7 && $rolSubModulo->nivel == 2 && $rolSubModulo->submodulo_id == 70 && !$submodulo70)
+                                            <li><a href="{{URL::to('intranet/docentesprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Docentes</a></li>
+                                            @php
+                                                $submodulo70 = true;
+                                            @endphp
+                                        @endif
+                                    @endforeach
+                                @endif
+                            @endforeach
+                        @endif
+                    @endforeach
                 </ul>
             </li>
             @endif
 
 
-            @if(accesoUser([1]))
+            @if(accesoUser([1,2]))
             <li class="treeview" v-bind:class="classMenu5">
                 <a href="#"><i class='fa fa-list-alt'></i> <span>Portal Programa de Estudio</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
                     <li><a href="{{URL::to('intranet/historiaprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Historia</a></li>
                     <li><a href="{{URL::to('intranet/organigramaprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Organigrama</a></li>
                     <li><a href="{{URL::to('intranet/documentosnormativosprograma')}}"><i class='fa fa-paper-plane'></i> Documentos Normativos</a></li>
+                </ul>
+            </li>
+            @endif
+
+
+            @if(accesoUser([3,4,5]))
+
+            <li class="treeview" v-bind:class="classMenu4">
+                <a href="#"><i class='fa fa-list-alt'></i> <span>Gestión de Ind. SINEACE</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <ul class="treeview-menu">
+                    
+                    @foreach ($permisos as $permiso)
+                            @if($permiso->nivel == 2 && $permiso->roles == 1)
+                                <li><a href="{{URL::to('intranet/historiaprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Historia</a></li>
+                                <li><a href="{{URL::to('intranet/organigramaprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Organigrama</a></li>
+                                <li><a href="{{URL::to('intranet/documentosnormativosprograma')}}"><i class='fa fa-paper-plane'></i> Documentos Normativos</a></li>
+
+                        @php
+                            break;
+                        @endphp
+
+                        @elseif($permiso->nivel == 2 && $permiso->roles == 0)
+                            @foreach ($rolModulos as $rolModulo)
+                                @if($rolModulo->modulo_id == 9 && $rolModulo->nivel == 2 && $rolModulo->rolessub == 1)
+                                    <li><a href="{{URL::to('intranet/historiaprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Historia</a></li>
+                                    <li><a href="{{URL::to('intranet/organigramaprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Organigrama</a></li>
+                                    <li><a href="{{URL::to('intranet/documentosnormativosprograma')}}"><i class='fa fa-paper-plane'></i> Documentos Normativos</a></li>
+
+                                    @php
+                                        break 2;
+                                    @endphp
+                                
+                                @elseif($rolModulo->modulo_id == 9 && $rolModulo->nivel == 2 && $rolModulo->rolessub == 0)
+
+                                @php
+                                    
+                                    $submodulo71 = false;
+                                    $submodulo72 = false;
+                                    $submodulo73 = false;
+
+                                @endphp
+                                    @foreach ($rolSubModulos as $rolSubModulo)
+                                        @if($rolSubModulo->modulo_id == 9 && $rolSubModulo->nivel == 2 && $rolSubModulo->submodulo_id == 71 && !$submodulo71)
+                                            <li><a href="{{URL::to('intranet/historiaprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Historia</a></li>
+                                            @php
+                                                $submodulo71 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 9 && $rolSubModulo->nivel == 2 && $rolSubModulo->submodulo_id == 72 && !$submodulo72)
+                                            <li><a href="{{URL::to('intranet/organigramaprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Organigrama</a></li>
+                                            @php
+                                                $submodulo72 = true;
+                                            @endphp
+                                        @elseif($rolSubModulo->modulo_id == 9 && $rolSubModulo->nivel == 2 && $rolSubModulo->submodulo_id == 73 && !$submodulo73)
+                                            <li><a href="{{URL::to('intranet/documentosnormativosprograma')}}"><i class='fa fa-paper-plane'></i> Documentos Normativos</a></li>
+                                            @php
+                                                $submodulo73 = true;
+                                            @endphp
+                                        @endif
+                                    @endforeach
+                                @endif
+                            @endforeach
+                        @endif
+                    @endforeach
                 </ul>
             </li>
             @endif
