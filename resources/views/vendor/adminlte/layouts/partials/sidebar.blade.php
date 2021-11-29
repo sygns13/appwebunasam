@@ -569,7 +569,7 @@
                     <li><a href="{{URL::to('intranet/misionvisionprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Misión / Visión</a></li>
                     <li><a href="{{URL::to('intranet/perfilingresoprograma')}}"><i class='fa fa-paper-plane'></i> Perfil de Ingreso</a></li>
                     <li><a href="{{URL::to('intranet/perfilegresoprograma')}}"><i class='fa fa-paper-plane'></i> Perfil de Egreso</a></li>
-                    <li><a href="{{URL::to('intranet/bannerprograma')}}"><i class='fa fa-paper-plane'></i> Competencias Específicas</a></li>
+                    <li><a href="{{URL::to('intranet/competenciasespecificasprograma')}}"><i class='fa fa-paper-plane'></i> Competencias Específicas</a></li>
                     <li><a href="{{URL::to('intranet/bannerprograma')}}"><i class='fa fa-paper-plane'></i> Competencias Generales</a></li>
                     <li><a href="{{URL::to('intranet/objetivosprograma')}}"><i class='fa fa-paper-plane'></i> Objetivos Educacionales</a></li>
                     <li><a href="{{URL::to('intranet/bannerprograma')}}"><i class='fa fa-paper-plane'></i> Malla Curricular</a></li>

@@ -170,6 +170,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('intranet/resumenprograma', 'ResumenController@index2');
     Route::get('intranet/perfilingresoprograma', 'IndicadorsineaceController@index01');
     Route::get('intranet/perfilegresoprograma', 'IndicadorsineaceController@index02');
+    Route::get('intranet/competenciasespecificasprograma', 'IndicadorsineaceController@index03');
       
     
 
