@@ -292,7 +292,7 @@
 
 
 
-														<a href="/programaestudio/evento/{{$dato->hash}}/{{$escuela->hash}}" class="d-block btn btn-primary custom-button-testimonial-right text-center text-uppercase text-decoration-none border-0 p-0 font-weight-semibold p-absolute">Leer más</a>
+														<a href="/programadeestudio/evento/{{$dato->hash}}/{{$escuela->hash}}" class="d-block btn btn-primary custom-button-testimonial-right text-center text-uppercase text-decoration-none border-0 p-0 font-weight-semibold p-absolute">Leer más</a>
 													</div>
 													<blockquote class="px-0 pb-5">
 														<h4 class="text-color-secondary font-weight-bold text-start">
@@ -308,7 +308,7 @@
 																@endif
 															</div>
 															
-															<a href="/programaestudio/evento/{{$dato->hash}}/{{$escuela->hash}}" class="font-weight-bold text-uppercase text-decoration-none d-block d-sm-none mt-3">Leer más</a></p>
+															<a href="/programadeestudio/evento/{{$dato->hash}}/{{$escuela->hash}}" class="font-weight-bold text-uppercase text-decoration-none d-block d-sm-none mt-3">Leer más</a></p>
 													</blockquote>
 													<div class="testimonial-arrow-down"></div>
 													{{-- <div class="testimonial-author d-flex flex-row justify-content-start align-items-center">
@@ -343,7 +343,7 @@
 									@foreach($comunicados as  $key => $dato)
 										@if($key < 3)
 											<div>
-												<a href="/programa/comunicado/{{$dato->hash}}/{{$escuela->hash}}">
+												<a href="/programadeestudio/comunicado/{{$dato->hash}}/{{$escuela->hash}}">
 													<article>
 														<div class="thumb-info thumb-info-no-borders thumb-info-bottom-info thumb-info-bottom-info-dark thumb-info-bottom-info-show-more thumb-info-no-zoom border-radius-0">
 															<div class="thumb-info-wrapper thumb-info-wrapper-opacity-6" style="height: 350px;">
@@ -431,7 +431,7 @@
 										<article>
 											<div class="card border-0 border-radius-0 box-shadow-1 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="500">
 												<div class="card-body p-4 z-index-1">
-													<a href="demo-business-consulting-2-blog-post.html">
+													<a href="/programadeestudio/noticia/{{$dato->hash}}/{{$escuela->hash}}">
 
 														@if($dato->imagennoticia != null && $dato->imagennoticia->url != null)
 															<img class="card-img-top border-radius-0" src="{{ asset('/web/noticiaprograma/'.$dato->imagennoticia->url) }}" alt="Card Image" style="height: 200px; width:100%;">
@@ -449,7 +449,7 @@
 														 {{-- <span class="opacity-3 d-inline-block px-2">|</span> 3 Comments <span class="opacity-3 d-inline-block px-2">|</span> John Doe</p> --}}
 													<div class="card-body p-0">
 														<h4 class="card-title mb-3 text-5 font-weight-bold">
-															<a class="text-color-secondary" href="demo-business-consulting-2-blog-post.html">
+															<a class="text-color-secondary" href="/programadeestudio/noticia/{{$dato->hash}}/{{$escuela->hash}}">
 																@if($dato->titular != null)
 																	{{$dato->titular}}
 																@endif
@@ -462,7 +462,7 @@
 																@endif
 															</p>
 														</div>
-														<a href="demo-business-consulting-2-blog-post.html" class="font-weight-bold text-uppercase text-decoration-none d-block mt-3">Ver más</a>
+														<a href="/programadeestudio/noticia/{{$dato->hash}}/{{$escuela->hash}}" class="font-weight-bold text-uppercase text-decoration-none d-block mt-3">Ver más</a>
 													</div>
 												</div>
 											</div>

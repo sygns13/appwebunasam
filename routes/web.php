@@ -80,11 +80,16 @@ Route::get('facultad/comunicado/{var1}/{var2}', 'PublicacionWebController@comuni
 
 Route::get('programadeestudio/{var}','IndexProgramaWebController@index');
 Route::get('programadeestudio/presentacion/{var}','IndexProgramaWebController@presentacion');
+Route::get('programadeestudio/resumen/{var}','IndexProgramaWebController@resumen');
 
 
 Route::get('programadeestudio/{var}/noticias','PublicacionWebController@noticiasPrograma');
 Route::get('programadeestudio/{var}/eventos','PublicacionWebController@eventosPrograma');
 Route::get('programadeestudio/{var}/comunicados','PublicacionWebController@comunicadosPrograma');
+
+Route::get('programadeestudio/noticia/{var1}/{var2}', 'PublicacionWebController@noticiaPrograma');
+Route::get('programadeestudio/evento/{var1}/{var2}', 'PublicacionWebController@eventoPrograma');
+Route::get('programadeestudio/comunicado/{var1}/{var2}', 'PublicacionWebController@comunicadoPrograma');
 
 
 Route::group(['middleware' => 'auth'], function () {

@@ -41,6 +41,7 @@ use App\Docente;
 
 use App\Resumen;
 use App\Indicadorsineace;
+use App\Imagenresumen;
 
 
 
@@ -75,7 +76,7 @@ class IndexProgramaWebController extends Controller
 
                 //hash id
                 $escuela->hash = base64_encode(gzdeflate('idhijoescuela-'.$id));
-                $facultad->hash = base64_encode(gzdeflate('idhijofacultad-'.$id));
+                $facultad->hash = base64_encode(gzdeflate('idhijofacultad-'.$escuela->facultad_id));
                 
                 $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 2)->where('programaestudio_id',$id)->orderBy('id')->get();
                 $banners=Banner::where('borrado','0')->where('activo','1')->where('nivel', 2)->where('programaestudio_id',$id)->orderBy('posision')->orderBy('id')->get();
@@ -223,7 +224,7 @@ class IndexProgramaWebController extends Controller
 
                 //hash id
                 $escuela->hash = base64_encode(gzdeflate('idhijoescuela-'.$id));
-                $facultad->hash = base64_encode(gzdeflate('idhijofacultad-'.$id));
+                $facultad->hash = base64_encode(gzdeflate('idhijofacultad-'.$escuela->facultad_id));
                 
                 $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 2)->where('programaestudio_id',$id)->orderBy('id')->get();
                 $linkinteres=Linkinteres::where('borrado','0')->where('activo','1')->where('nivel', 2)->where('programaestudio_id',$id)->orderBy('posision')->get();
@@ -249,6 +250,80 @@ class IndexProgramaWebController extends Controller
 
 
                 return view('web/programa/presentacion',compact('presentacion','escuela','unasam','facultad','redsocials','menusActivos','linkinteres','planesestudios'));
+
+            } catch (Exception $e) {
+                return redirect('/');
+            }
+        }
+        else{
+            return redirect('/');
+        }
+
+        return redirect('/');
+
+    }
+
+
+    public function resumen($idhash){
+
+
+        $strdecoded = $idhash;
+
+        if($idhash != null && strlen($idhash) > 0){
+
+            $id = "";
+            
+            try {
+                $strdecoded = gzinflate(base64_decode($idhash));
+
+                if(strlen($strdecoded) > 14){
+                    $id = explode('-', $strdecoded);
+                    $id = $id[1];
+                }
+
+                
+                
+
+                $resumen=Resumen::where('borrado','0')->where('nivel', 2)->where('programaestudio_id',$id)->where('activo','1')->first();
+
+                $historia=Historia::where('borrado','0')->where('nivel', 0)->where('activo','1')->first();
+
+                if ($resumen != null && $resumen->id != null) {    
+                    $imagenresumen = Imagenresumen::where('activo','1')->where('borrado','0')->where('resumen_id', $resumen->id)->orderBy('posicion')->orderBy('id')->get();
+                    $resumen->imagenresumen = $imagenresumen;
+                    }
+
+                $escuela = Programaestudio::find($id);
+                $facultad = Facultad::find($escuela->facultad_id);
+                $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+
+                //hash id
+                $escuela->hash = base64_encode(gzdeflate('idhijoescuela-'.$id));
+                $facultad->hash = base64_encode(gzdeflate('idhijofacultad-'.$escuela->facultad_id));
+                
+                $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 2)->where('programaestudio_id',$id)->orderBy('id')->get();
+                $planesestudios=Indicadorsineace::where('borrado','0')->where('activo','1')->where('nivel', 2)->where('tipo', 6)->where('programaestudio_id',$id)->orderBy('id','desc')->get();
+
+                foreach ($planesestudios as $key => $value) {
+                    $planesestudios[$key]->hash = base64_encode(gzdeflate('idplanestudio-'.$value->id));
+                }
+
+
+
+                $menusActivos = new stdClass;
+
+                $menusActivos->menu1 = "";
+                $menusActivos->menu2 = "active";
+                $menusActivos->menu3 = "";
+                $menusActivos->menu4 = "";
+                $menusActivos->menu5 = "";
+                $menusActivos->menu6 = "";
+                $menusActivos->menu7 = "";
+                $menusActivos->menu8 = "";
+                $menusActivos->menu9 = "";
+
+
+                return view('web/programa/resumen',compact('resumen','escuela','unasam','facultad','redsocials','menusActivos','planesestudios'));
 
             } catch (Exception $e) {
                 return redirect('/');

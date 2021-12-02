@@ -79,7 +79,7 @@
                             </li>
                             <li class="dropdown-secondary">
                                 <a class="nav-link text-color-light font-weight-bold letter-spacing-05 text-color-hover-primary" href="/programadeestudio/documentos/{{$escuela->hash}}">
-                                    Documentos Normativos
+                                    Documentos
                                 </a>
                             </li>
                             {{-- <li class="dropdown-secondary">
