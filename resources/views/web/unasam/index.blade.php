@@ -43,7 +43,7 @@
 							}
 							@endphp
 
-							@if($key == 0)
+							@if($key%2 == 0)
 
 							<div class="owl-item position-relative">
 								<div class="background-image-wrapper position-absolute top-0 left-0 right-0 bottom-0" data-appear-animation="kenBurnsToRight" data-appear-animation-duration="30s" data-plugin-options="{'minWindowWidth': 0}" data-carousel-onchange-show style="background-image: url({{ asset('/web/bannerunasam/'.$dato->url) }}); background-size: cover; background-position: center;"></div>

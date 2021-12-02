@@ -85,7 +85,7 @@
                                             </a>
                                             <ul class="dropdown-menu">
                                                 @foreach ($escuelas as  $key => $dato)
-                                                <li><a class="dropdown-item" href="/escuela/{{$dato->hash}}">{{$dato->nombre}}</a></li>
+                                                <li><a class="dropdown-item" href="/programadeestudio/{{$dato->hash}}">{{$dato->nombre}}</a></li>
                                                 @endforeach
                                             </ul>
                                         </li>

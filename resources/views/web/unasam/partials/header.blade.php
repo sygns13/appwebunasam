@@ -254,7 +254,7 @@
                                                                                         <div style="white-space: break-spaces;"><b>{{$dato->nombre}}</b></div>
                                                                                         </a>
                                                                                     @elseif($dato->nivel == 2)
-                                                                                        <a class="dropdown-item" href="/escuela/{{$dato->hash}}">
+                                                                                        <a class="dropdown-item" href="/programadeestudio/{{$dato->hash}}">
                                                                                         <div style="white-space: break-spaces;">{{$dato->nombre}}</div>
                                                                                         </a>
                                                                                     @endif
@@ -274,7 +274,7 @@
                                                                                         <div style="white-space: break-spaces;"><b>{{$dato->nombre}}</b></div>
                                                                                         </a>
                                                                                     @elseif($dato->nivel == 2)
-                                                                                        <a class="dropdown-item" href="/escuela/{{$dato->hash}}">
+                                                                                        <a class="dropdown-item" href="/programadeestudio/{{$dato->hash}}">
                                                                                         <div style="white-space: break-spaces;">{{$dato->nombre}}</div>
                                                                                         </a>
                                                                                     @endif
@@ -294,7 +294,7 @@
                                                                                         <div style="white-space: break-spaces;"><b>{{$dato->nombre}}</b></div>
                                                                                         </a>
                                                                                     @elseif($dato->nivel == 2)
-                                                                                        <a class="dropdown-item" href="/escuela/{{$dato->hash}}">
+                                                                                        <a class="dropdown-item" href="/programadeestudio/{{$dato->hash}}">
                                                                                         <div style="white-space: break-spaces;">{{$dato->nombre}}</div>
                                                                                         </a>
                                                                                     @endif
@@ -314,7 +314,7 @@
                                                                                         <div style="white-space: break-spaces;"><b>{{$dato->nombre}}</b></div>
                                                                                         </a>
                                                                                     @elseif($dato->nivel == 2)
-                                                                                        <a class="dropdown-item" href="/escuela/{{$dato->hash}}">
+                                                                                        <a class="dropdown-item" href="/programadeestudio/{{$dato->hash}}">
                                                                                         <div style="white-space: break-spaces;">{{$dato->nombre}}</div>
                                                                                         </a>
                                                                                     @endif

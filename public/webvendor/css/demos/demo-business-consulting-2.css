@@ -250,7 +250,10 @@ html[dir="rtl"] .slider-container .line-pre-title {
 				font-size: 0.8em !important;
 		}
 		.header-container .header-nav .nav li:hover > a {
-				background: #fff !important;
+				background: #0a38df40!important;
+			/* 	background: #b9e4b473!important; */
+				/* background: #e4b4bb73!important; */
+				/* background: #e2314b73!important; */
 		}
 		.header-container .header-nav .nav li:hover > a:before {
 				border-bottom: 0 !important;
