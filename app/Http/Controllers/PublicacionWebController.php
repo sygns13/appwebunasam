@@ -24,6 +24,7 @@ use App\Comunicado;
 use App\Imagencomunicado;
 
 use App\Documento;
+use App\Indicadorsineace;
 
 use App\Facultad;
 use App\Programaestudio;
@@ -138,6 +139,9 @@ class PublicacionWebController extends Controller
         $strdecoded = $request->$idhash;
 
         if($idhash != null && strlen($idhash) > 0){
+
+            $id = "";
+            
             
             try {
                 $strdecoded = gzinflate(base64_decode($idhash));
@@ -216,6 +220,117 @@ class PublicacionWebController extends Controller
                 
 
                 return view('web/facultad/noticias',compact('noticias','redsocials','facultad','menusActivos','pagination','offset', 'escuelas'));
+
+
+            } catch (Exception $e) {
+                return redirect('/');
+            }
+        }
+        else{
+            return redirect('/');
+        }
+
+        return redirect('/');
+
+    }
+
+
+
+
+
+
+    public function noticiasPrograma(Request $request, $idhash){
+
+
+        $strdecoded = $idhash;
+
+        if($idhash != null && strlen($idhash) > 0){
+
+            $id = "";
+            
+            try {
+                $strdecoded = gzinflate(base64_decode($idhash));
+
+                if(strlen($strdecoded) > 14){
+                    $id = explode('-', $strdecoded);
+                    $id = $id[1];
+                }
+
+                
+
+
+                $noticias = Noticia::where('borrado','0')->where('nivel', 2)->where('programaestudio_id',$id)->where('activo','1')->paginate(10);
+
+                foreach ($noticias as $key => $dato) {    
+                    $imagennoticias = Imagennoticia::where('activo','1')->where('borrado','0')->where('noticia_id', $dato->id)->orderBy('posicion')->get();
+                    $dato->imagennoticias = $imagennoticias;
+
+                    if($dato->fecha != null && strlen($dato->fecha) > 0){
+                        $date1  = new DateTime($dato->fecha);
+
+                        $mes = $date1->format('m');
+                        $dia = $date1->format('d');
+                        $anio = $date1->format('Y');
+                        $nombreMes = strtoupper(nombremes(intval($mes)));
+                        $iniNombreMes = substr($nombreMes, 0, 3);
+
+                        $dato->anio = $anio;
+                        $dato->mes = $mes;
+                        $dato->dia = $dia;
+                        $dato->nombreMes = $nombreMes;
+                        $dato->iniNombreMes = $iniNombreMes;
+                    }
+
+                    //hash id
+                    $hash = base64_encode(gzdeflate('id-'.$dato->id));
+                    $dato->hash = $hash;
+                }
+
+                $pagination = new stdClass;
+
+                $pagination->total = $noticias->total();
+                $pagination->current_page = $noticias->currentPage();
+                $pagination->per_page = $noticias->perPage();
+                $pagination->last_page = $noticias->lastPage();
+                $pagination->from = $noticias->firstItem();
+                $pagination->to = $noticias->lastItem();
+
+                $offset = 9; // Modificar aqui para variaf el offset de la paginación
+
+                $escuela = Programaestudio::find($id);
+                $facultad = Facultad::find($escuela->facultad_id);
+                $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+
+                //hash id
+                $escuela->hash = base64_encode(gzdeflate('idhijoescuela-'.$id));
+                $facultad->hash = base64_encode(gzdeflate('idhijofacultad-'.$id));
+                
+                $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 2)->where('programaestudio_id',$id)->orderBy('id')->get();
+                $planesestudios=Indicadorsineace::where('borrado','0')->where('activo','1')->where('nivel', 2)->where('tipo', 6)->where('programaestudio_id',$id)->orderBy('id','desc')->get();
+
+                foreach ($planesestudios as $key => $value) {
+                    $planesestudios[$key]->hash = base64_encode(gzdeflate('idplanestudio-'.$value->id));
+                }
+
+
+                
+
+
+                $menusActivos = new stdClass;
+
+                $menusActivos->menu1 = "";
+                $menusActivos->menu2 = "";
+                $menusActivos->menu3 = "";
+                $menusActivos->menu4 = "";
+                $menusActivos->menu5 = "";
+                $menusActivos->menu6 = "";
+                $menusActivos->menu7 = "active";
+                $menusActivos->menu8 = "";
+                $menusActivos->menu9 = "";
+
+                
+
+                return view('web/programa/noticias',compact('noticias','escuela','unasam','facultad','redsocials','menusActivos','planesestudios','pagination','offset'));
 
 
             } catch (Exception $e) {
@@ -331,6 +446,9 @@ class PublicacionWebController extends Controller
         $strdecoded = $request->$idhash;
 
         if($idhash != null && strlen($idhash) > 0){
+
+            $id = "";
+            
             
             try {
                 $strdecoded = gzinflate(base64_decode($idhash));
@@ -406,6 +524,104 @@ class PublicacionWebController extends Controller
                 $menusActivos->menu9 = "";
 
                 return view('web/facultad/eventos',compact('eventos','redsocials','facultad','menusActivos','pagination','offset', 'escuelas'));
+                
+            } catch (Exception $e) {
+                return redirect('/');
+            }
+        }
+        else{
+            return redirect('/');
+        }
+
+        return redirect('/');
+
+    }
+
+    public function eventosPrograma(Request $request, $idhash){
+
+
+        $strdecoded = $idhash;
+
+        if($idhash != null && strlen($idhash) > 0){
+
+            $id = "";
+            
+            try {
+                $strdecoded = gzinflate(base64_decode($idhash));
+
+                if(strlen($strdecoded) > 14){
+                    $id = explode('-', $strdecoded);
+                    $id = $id[1];
+                }
+                $eventos = Evento::where('borrado','0')->where('nivel', 2)->where('programaestudio_id',$id)->where('activo','1')->orderBy('fecha','desc')->orderBy('hora','desc')->paginate(10);
+
+                foreach ($eventos as $key => $dato) {    
+                    $imageneventos = Imagenevento::where('activo','1')->where('borrado','0')->where('evento_id', $dato->id)->orderBy('posicion')->get();
+                    $dato->imageneventos = $imageneventos;
+
+                    if($dato->fecha != null && strlen($dato->fecha) > 0){
+                        $date1  = new DateTime($dato->fecha);
+
+                        $mes = $date1->format('m');
+                        $dia = $date1->format('d');
+                        $anio = $date1->format('Y');
+                        $nombreMes = strtoupper(nombremes(intval($mes)));
+                        $iniNombreMes = substr($nombreMes, 0, 3);
+
+                        $dato->anio = $anio;
+                        $dato->mes = $mes;
+                        $dato->dia = $dia;
+                        $dato->nombreMes = $nombreMes;
+                        $dato->iniNombreMes = $iniNombreMes;
+                    }
+
+                    //hash id
+                    $hash = base64_encode(gzdeflate('id-'.$dato->id));
+                    $dato->hash = $hash;
+                }
+
+                $pagination = new stdClass;
+
+                $pagination->total = $eventos->total();
+                $pagination->current_page = $eventos->currentPage();
+                $pagination->per_page = $eventos->perPage();
+                $pagination->last_page = $eventos->lastPage();
+                $pagination->from = $eventos->firstItem();
+                $pagination->to = $eventos->lastItem();
+
+                $offset = 9; // Modificar aqui para variaf el offset de la paginación
+
+                $escuela = Programaestudio::find($id);
+                $facultad = Facultad::find($escuela->facultad_id);
+                $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+
+                //hash id
+                $escuela->hash = base64_encode(gzdeflate('idhijoescuela-'.$id));
+                $facultad->hash = base64_encode(gzdeflate('idhijofacultad-'.$id));
+                
+                $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 2)->where('programaestudio_id',$id)->orderBy('id')->get();
+                $planesestudios=Indicadorsineace::where('borrado','0')->where('activo','1')->where('nivel', 2)->where('tipo', 6)->where('programaestudio_id',$id)->orderBy('id','desc')->get();
+
+                foreach ($planesestudios as $key => $value) {
+                    $planesestudios[$key]->hash = base64_encode(gzdeflate('idplanestudio-'.$value->id));
+                }
+
+
+                
+
+                $menusActivos = new stdClass;
+
+                $menusActivos->menu1 = "";
+                $menusActivos->menu2 = "";
+                $menusActivos->menu3 = "";
+                $menusActivos->menu4 = "";
+                $menusActivos->menu5 = "";
+                $menusActivos->menu6 = "";
+                $menusActivos->menu7 = "active";
+                $menusActivos->menu8 = "";
+                $menusActivos->menu9 = "";
+
+                return view('web/programa/eventos',compact('eventos','escuela','unasam','facultad','redsocials','menusActivos','planesestudios','pagination','offset'));
                 
             } catch (Exception $e) {
                 return redirect('/');
@@ -515,14 +731,16 @@ class PublicacionWebController extends Controller
     public function comunicadosFacultad(Request $request, $idhash){
 
 
-        $strdecoded = $request->$idhash;
+        $strdecoded = $idhash;
 
         if($idhash != null && strlen($idhash) > 0){
+
+            $id = "";
             
             try {
                 $strdecoded = gzinflate(base64_decode($idhash));
 
-                if(strlen($strdecoded) > 15){
+                if(strlen($strdecoded) > 14){
                     $id = explode('-', $strdecoded);
                     $id = $id[1];
                 }
@@ -606,11 +824,120 @@ class PublicacionWebController extends Controller
 
     }
 
+
+    public function comunicadosPrograma(Request $request, $idhash){
+
+
+        $strdecoded = $request->$idhash;
+
+        $strdecoded = $idhash;
+
+        if($idhash != null && strlen($idhash) > 0){
+
+            $id = "";
+            
+            try {
+                $strdecoded = gzinflate(base64_decode($idhash));
+
+                if(strlen($strdecoded) > 14){
+                    $id = explode('-', $strdecoded);
+                    $id = $id[1];
+                }
+                
+
+                $comunicados = Comunicado::where('borrado','0')->where('nivel', 2)->where('programaestudio_id',$id)->where('activo','1')->orderBy('fecha','desc')->orderBy('hora','desc')->paginate(10);
+
+                foreach ($comunicados as $key => $dato) {    
+                    $imagencomunicados = Imagencomunicado::where('activo','1')->where('borrado','0')->where('comunicado_id', $dato->id)->orderBy('posicion')->get();
+                    $dato->imagencomunicados = $imagencomunicados;
+
+                    if($dato->fecha != null && strlen($dato->fecha) > 0){
+                        $date1  = new DateTime($dato->fecha);
+
+                        $mes = $date1->format('m');
+                        $dia = $date1->format('d');
+                        $anio = $date1->format('Y');
+                        $nombreMes = strtoupper(nombremes(intval($mes)));
+                        $iniNombreMes = substr($nombreMes, 0, 3);
+
+                        $dato->anio = $anio;
+                        $dato->mes = $mes;
+                        $dato->dia = $dia;
+                        $dato->nombreMes = $nombreMes;
+                        $dato->iniNombreMes = $iniNombreMes;
+                    }
+
+                    //hash id
+                    $hash = base64_encode(gzdeflate('id-'.$dato->id));
+                    $dato->hash = $hash;
+                }
+
+                $pagination = new stdClass;
+
+                $pagination->total = $comunicados->total();
+                $pagination->current_page = $comunicados->currentPage();
+                $pagination->per_page = $comunicados->perPage();
+                $pagination->last_page = $comunicados->lastPage();
+                $pagination->from = $comunicados->firstItem();
+                $pagination->to = $comunicados->lastItem();
+
+                $offset = 9; // Modificar aqui para variaf el offset de la paginación
+
+                
+
+                $escuela = Programaestudio::find($id);
+                $facultad = Facultad::find($escuela->facultad_id);
+                $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+
+                //hash id
+                $escuela->hash = base64_encode(gzdeflate('idhijoescuela-'.$id));
+                $facultad->hash = base64_encode(gzdeflate('idhijofacultad-'.$id));
+                
+                $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 2)->where('programaestudio_id',$id)->orderBy('id')->get();
+                $planesestudios=Indicadorsineace::where('borrado','0')->where('activo','1')->where('nivel', 2)->where('tipo', 6)->where('programaestudio_id',$id)->orderBy('id','desc')->get();
+
+                foreach ($planesestudios as $key => $value) {
+                    $planesestudios[$key]->hash = base64_encode(gzdeflate('idplanestudio-'.$value->id));
+                }
+
+
+
+                
+
+                $menusActivos = new stdClass;
+
+                $menusActivos->menu1 = "";
+                $menusActivos->menu2 = "";
+                $menusActivos->menu3 = "";
+                $menusActivos->menu4 = "";
+                $menusActivos->menu5 = "";
+                $menusActivos->menu6 = "";
+                $menusActivos->menu7 = "active";
+                $menusActivos->menu8 = "";
+                $menusActivos->menu9 = "";
+
+                return view('web/programa/comunicados',compact('comunicados','escuela','unasam','facultad','redsocials','menusActivos','planesestudios','pagination','offset'));
+
+            } catch (Exception $e) {
+                return redirect('/');
+            }
+        }
+        else{
+            return redirect('/');
+        }
+
+        return redirect('/');
+
+    }
+
     public function noticia($idhash){
 
         $strdecoded = $idhash;
 
         if($idhash != null && strlen($idhash) > 0){
+
+            $id = "";
+            
             
             try {
                 $strdecoded = gzinflate(base64_decode($idhash));
@@ -806,6 +1133,9 @@ class PublicacionWebController extends Controller
         $strdecoded = $idhash;
 
         if($idhash != null && strlen($idhash) > 0){
+
+            $id = "";
+            
             
             try {
                 $strdecoded = gzinflate(base64_decode($idhash));
@@ -908,6 +1238,9 @@ class PublicacionWebController extends Controller
         $strdecoded = $idhash;
 
         if($idhash != null && strlen($idhash) > 0 && $idhashFacultad != null && strlen($idhashFacultad) > 0){
+
+            $id = "";
+            $idFacultad = "";
             
             try {
                 $strdecoded = gzinflate(base64_decode($idhash));
@@ -996,6 +1329,9 @@ class PublicacionWebController extends Controller
         $strdecoded = $idhash;
 
         if($idhash != null && strlen($idhash) > 0){
+
+            $id = "";
+            
             
             try {
                 $strdecoded = gzinflate(base64_decode($idhash));
@@ -1098,6 +1434,9 @@ class PublicacionWebController extends Controller
         $strdecoded = $idhash;
 
         if($idhash != null && strlen($idhash) > 0 && $idhashFacultad != null && strlen($idhashFacultad) > 0){
+
+            $id = "";
+            $idFacultad = "";
             
             try {
                 $strdecoded = gzinflate(base64_decode($idhash));
@@ -1247,6 +1586,9 @@ class PublicacionWebController extends Controller
         $strdecoded = $idhash;
 
         if($idhash != null && strlen($idhash) > 0){
+
+            $id = "";
+            
             
             try {
                 $strdecoded = gzinflate(base64_decode($idhash));

@@ -155,9 +155,9 @@
                                             <ul class="dropdown-menu">
                                                 <li><a class="dropdown-item" href="/programadeestudio/documentos/{{$escuela->hash}}">Documentos Normativos</a></li>
                                                 <li><a class="dropdown-item" href="/programadeestudio/docentes/{{$escuela->hash}}">Personal Docente</a></li>
-                                                <li><a class="dropdown-item" href="/programadeestudio/noticias/{{$escuela->hash}}">Noticias</a></li>
-                                                <li><a class="dropdown-item" href="/programadeestudio/eventos/{{$escuela->hash}}">Eventos</a></li>
-                                                <li><a class="dropdown-item" href="/programadeestudio/comunicados/{{$escuela->hash}}">Comunicados</a></li>
+                                                <li><a class="dropdown-item" href="/programadeestudio/{{$escuela->hash}}/noticias">Noticias</a></li>
+                                                <li><a class="dropdown-item" href="/programadeestudio/{{$escuela->hash}}/eventos">Eventos</a></li>
+                                                <li><a class="dropdown-item" href="/programadeestudio/{{$escuela->hash}}/comunicados">Comunicados</a></li>
                                                 
                                             </ul>
                                         </li>

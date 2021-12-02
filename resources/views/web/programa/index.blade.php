@@ -228,7 +228,7 @@
 									</div>
 								</div> --}}
 
-								<a href="demo-business-consulting-2-services.html" class="btn btn-primary custom-btn text-center text-uppercase text-decoration-none border-0 py-0 px-5 font-weight-semibold mt-4 appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="600">LEER MÁS</a>
+								<a href="/programadeestudio/presentacion/{{$escuela->hash}}" class="btn btn-primary custom-btn text-center text-uppercase text-decoration-none border-0 py-0 px-5 font-weight-semibold mt-4 appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="600">LEER MÁS</a>
 							</div>	
 						</div>
 					</div>
@@ -270,8 +270,8 @@
 				<section class="real-word-stories bg-color-quaternary overflow-hidden p-relative pb-4">
 					<div class="container py-xl-5">
 						<div class="row justify-content-between  pt-5 py-xl-5 mt-3">
-							<div class="col-xl-6 mb-5 pb-5 mb-xl-0 pb-xl-0">
-								<p class="text-uppercase font-weight-semibold mb-1 text-color-primary appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="300"><span class="line-pre-title bg-color-primary"></span>EVENTOS DEL PROGRAMA DE ESTUDIO</p>
+							<div class="col-xl-6 mb-5 pb-5 mb-xl-0 pb-xl-0"><a href="/programadeestudio/{{$facultad->hash}}/eventos">
+								<p class="text-uppercase font-weight-semibold mb-1 text-color-primary appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="300"><span class="line-pre-title bg-color-primary"></span>EVENTOS DEL PROGRAMA DE ESTUDIO</p></a>
 								<div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="100">
 									<div class="owl-carousel owl-theme m-0" data-plugin-options="{'items': 1, 'autoplay': false, 'animateOut': 'fadeOut', 'autoHeight': true}">
 										@foreach($eventos as  $key => $dato)
@@ -322,7 +322,8 @@
 								</div>
 							</div>
 							<div class="col-xl-5 mb-5 mb-xl-0">
-								<p class="text-uppercase font-weight-semibold mb-1 text-color-primary appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="300"><span class="line-pre-title bg-color-primary"></span>Comunicados</p>
+								<a href="/programadeestudio/{{$escuela->hash}}/comunicados">
+								<p class="text-uppercase font-weight-semibold mb-1 text-color-primary appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="300"><span class="line-pre-title bg-color-primary"></span>Comunicados</p></a>
 								{{-- <h2 class="text-color-secondary font-weight-bold text-capitalize mb-4 custom-letter-spacing-2 custom-text-1 appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="400">Sucessful Cases</h2>
 								<p class="font-weight-semibold mb-4 appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="500">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras a elit sit amet leo accumsan volutpat.</p>
 								<p class="mb-4 pb-2 appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="600">Cras a elit sit amet leo accumsan volutpat. Suspendisse hendrerit vehicula leo, vel efficitur felis ultrices non. Integer aliquet ullamcorper dolor, quis sollicitudin.</p>
@@ -415,8 +416,8 @@
 				<section class="our-blog">
 					<div class="container">
 						<div class="row mt-3 pt-5">
-							<div class="col">
-								<p class="text-uppercase font-weight-semibold mb-1 text-color-primary appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="100"><span class="line-pre-title bg-color-primary"></span>Nuestras Noticias</p>
+							<div class="col"><a href="/programadeestudio/{{$facultad->hash}}/noticias">
+								<p class="text-uppercase font-weight-semibold mb-1 text-color-primary appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="100"><span class="line-pre-title bg-color-primary"></span>Nuestras Noticias</p></a>
 								<h2 class="text-color-secondary font-weight-bold text-capitalize mb-4 custom-letter-spacing-2 custom-text-1 appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="200">Novedades</h2>
 							</div>
 						</div>

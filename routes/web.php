@@ -79,6 +79,12 @@ Route::get('facultad/comunicado/{var1}/{var2}', 'PublicacionWebController@comuni
 //Rutas Portal Web PROGRAMAS PROFESIONALES
 
 Route::get('programadeestudio/{var}','IndexProgramaWebController@index');
+Route::get('programadeestudio/presentacion/{var}','IndexProgramaWebController@presentacion');
+
+
+Route::get('programadeestudio/{var}/noticias','PublicacionWebController@noticiasPrograma');
+Route::get('programadeestudio/{var}/eventos','PublicacionWebController@eventosPrograma');
+Route::get('programadeestudio/{var}/comunicados','PublicacionWebController@comunicadosPrograma');
 
 
 Route::group(['middleware' => 'auth'], function () {

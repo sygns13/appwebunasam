@@ -55,6 +55,8 @@ class IndexFacultadWebController extends Controller
         $strdecoded = $idhash;
 
         if($idhash != null && strlen($idhash) > 0){
+
+            $id = "";
             
             try {
                 $strdecoded = gzinflate(base64_decode($idhash));
@@ -199,6 +201,7 @@ class IndexFacultadWebController extends Controller
         $strdecoded = $idhash;
 
         if($idhash != null && strlen($idhash) > 0){
+            $id = "";
             
             try {
                 $strdecoded = gzinflate(base64_decode($idhash));
@@ -258,6 +261,8 @@ class IndexFacultadWebController extends Controller
         $strdecoded = $idhash;
 
         if($idhash != null && strlen($idhash) > 0){
+
+            $id = "";
             
             try {
                 $strdecoded = gzinflate(base64_decode($idhash));
@@ -323,6 +328,8 @@ class IndexFacultadWebController extends Controller
         $strdecoded = $idhash;
 
         if($idhash != null && strlen($idhash) > 0){
+
+            $id = "";
             
             try {
                 $strdecoded = gzinflate(base64_decode($idhash));
@@ -381,6 +388,8 @@ class IndexFacultadWebController extends Controller
         $strdecoded = $idhash;
 
         if($idhash != null && strlen($idhash) > 0){
+
+            $id = "";
             
             try {
                 $strdecoded = gzinflate(base64_decode($idhash));
@@ -438,6 +447,8 @@ class IndexFacultadWebController extends Controller
         $strdecoded = $idhash;
 
         if($idhash != null && strlen($idhash) > 0){
+
+            $id = "";
             
             try {
                 $strdecoded = gzinflate(base64_decode($idhash));
@@ -493,6 +504,8 @@ class IndexFacultadWebController extends Controller
         $strdecoded = $idhash;
 
         if($idhash != null && strlen($idhash) > 0){
+
+            $id = "";
             
             try {
                 $strdecoded = gzinflate(base64_decode($idhash));
@@ -552,6 +565,8 @@ class IndexFacultadWebController extends Controller
         $strdecoded = $idhash;
 
         if($idhash != null && strlen($idhash) > 0){
+
+            $id = "";
             
             try {
                 $strdecoded = gzinflate(base64_decode($idhash));
@@ -611,6 +626,8 @@ class IndexFacultadWebController extends Controller
         $strdecoded = $idhash;
 
         if($idhash != null && strlen($idhash) > 0){
+
+            $id = "";
             
             try {
                 $strdecoded = gzinflate(base64_decode($idhash));
@@ -673,6 +690,9 @@ class IndexFacultadWebController extends Controller
         $strdecoded = $idhash;
 
         if($idhash != null && strlen($idhash) > 0 && $idhashFacultad != null && strlen($idhashFacultad) > 0){
+
+            $id = "";
+            $idFacultad = "";
             
             try {
                 $strdecoded = gzinflate(base64_decode($idhash));
@@ -747,6 +767,9 @@ class IndexFacultadWebController extends Controller
         $strdecoded = $idhash;
 
         if($idhash != null && strlen($idhash) > 0){
+
+            $id = "";
+            
             
             try {
                 $strdecoded = gzinflate(base64_decode($idhash));
@@ -810,6 +833,9 @@ class IndexFacultadWebController extends Controller
         $strdecoded = $idhash;
 
         if($idhash != null && strlen($idhash) > 0 && $idhashFacultad != null && strlen($idhashFacultad) > 0){
+
+            $id = "";
+            $idFacultad = "";
             
             try {
                 $strdecoded = gzinflate(base64_decode($idhash));
@@ -886,6 +912,9 @@ class IndexFacultadWebController extends Controller
         $strdecoded = $idhash;
 
         if($idhash != null && strlen($idhash) > 0){
+
+            $id = "";
+            
             
             try {
                 $strdecoded = gzinflate(base64_decode($idhash));
@@ -949,6 +978,9 @@ class IndexFacultadWebController extends Controller
         $strdecoded = $idhash;
 
         if($idhash != null && strlen($idhash) > 0){
+
+            $id = "";
+            
             
             try {
                 $strdecoded = gzinflate(base64_decode($idhash));
