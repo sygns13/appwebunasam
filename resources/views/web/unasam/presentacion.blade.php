@@ -46,9 +46,19 @@
 								</div>
 								@if($presentacion->tieneimagen != null && $presentacion->tieneimagen == 1 && $presentacion->url != null)
 								<div class="col-md-4">
-									<img src="{{ asset('/web/presentacionunasam/'.$presentacion->url)}}" alt class="img-fluid box-shadow-custom" /> 
+									{{-- <img src="{{ asset('/web/presentacionunasam/'.$presentacion->url)}}" alt class="img-fluid box-shadow-custom" />  --}}
+									<a class="img-thumbnail d-block lightbox" href="{{ asset('/web/presentacionunasam/'.$presentacion->url)}}" data-plugin-options="{'type':'image'}">
+										<img class="img-fluid" src="{{ asset('/web/presentacionunasam/'.$presentacion->url)}}" width="500" height="400" alt="Project Image">
+									</a>
 								</div>
 								@endif
+
+								{{-- <div class="col-lg-3">
+									<h5 class="text-uppercase mt-4">Default with Border</h5>
+									<a class="img-thumbnail d-block lightbox" href="{{ asset('/web/presentacionunasam/'.$presentacion->url)}}" data-plugin-options="{'type':'image'}">
+										<img class="img-fluid" src="{{ asset('/web/presentacionunasam/'.$presentacion->url)}}" alt="Project Image">
+									</a>
+								</div> --}}
 							</div>
 						@endif
 					</div>

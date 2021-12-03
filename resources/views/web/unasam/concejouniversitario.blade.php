@@ -53,7 +53,11 @@
 
                                     @if($organo != null && $organo->tieneimagen == 1 && $organo->url != null)
                                     <div class="post-image ms-0">
-                                            <img src="{{ asset('/web/organounasam/'.$organo->url) }}" class="img-fluid img-thumbnail img-thumbnail-no-borders rounded-0" alt="" />
+                                            {{-- <img src="{{ asset('/web/organounasam/'.$organo->url) }}" class="img-fluid img-thumbnail img-thumbnail-no-borders rounded-0" alt="" /> --}}
+
+                                            <a class="img-thumbnail d-block lightbox" href="{{ asset('/web/organounasam/'.$organo->url) }}"  data-plugin-options="{'type':'image'}">
+                                                <img class="img-fluid" src="{{ asset('/web/organounasam/'.$organo->url) }}" alt="Project Image" style="width: 100%; height: 500px;">
+                                            </a>
                                     </div>
                             @endif
                                 </article>

@@ -220,7 +220,11 @@
 								</div>
 								@if($presentacion->tieneimagen != null && $presentacion->tieneimagen == 1 && $presentacion->url != null)
 								<div class="col-md-4">
-									<img src="{{ asset('/web/presentacionunasam/'.$presentacion->url)}}" alt class="img-fluid box-shadow-custom" /> 
+									{{-- <img src="{{ asset('/web/presentacionunasam/'.$presentacion->url)}}" alt class="img-fluid box-shadow-custom" style="width:100%; height:300px;"/>  --}}
+
+									<a class="img-thumbnail d-block lightbox" href="{{ asset('/web/presentacionunasam/'.$presentacion->url) }}"  data-plugin-options="{'type':'image'}">
+                                        <img class="img-fluid" src="{{ asset('/web/presentacionunasam/'.$presentacion->url) }}" alt="Actividad" style="width: 100%; max-height: 320px;;">
+                                    </a>
 								</div>
 								@endif
 							</div>
@@ -247,9 +251,9 @@
 										<div class="col">
 											<a href="noticia/{{$dato->hash}}" class="text-decoration-none">
 												@if($dato->imagennoticia != null && $dato->imagennoticia->url != null)
-												<img src="{{ asset('/web/noticiaunasam/'.$dato->imagennoticia->url) }}" class="img-fluid hover-effect-2 mb-3" alt="" />
+												<img src="{{ asset('/web/noticiaunasam/'.$dato->imagennoticia->url) }}" class="img-fluid img-thumbnail d-block hover-effect-2 mb-3" alt="" style="width:100%; height:250px;"/>
 												@else
-												<img src="{{ asset('/img/Login-Background.jpg') }}" class="img-fluid hover-effect-2 mb-3" alt="" />
+												<img src="{{ asset('/img/Login-Background.jpg') }}" class="img-fluid img-thumbnail d-block hover-effect-2 mb-3" alt="" style="width:100%; height:250px;"/>
 												@endif
 											</a>
 										</div>
@@ -319,11 +323,11 @@
 													@if($dato->eventoimagen != null && $dato->eventoimagen->url != null)
 														<img src="{{ asset('/web/eventounasam/'.$dato->eventoimagen->url) }}" class="img-fluid" alt=" @if($dato->titulo != null)
 														{{$dato->titulo}}
-														@endif">
+														@endif" style="width:100%; height:300px;">
 													@else
 														<img src="{{ asset('/webvendor/img/blog/default/blog-46.jpg') }}" class="img-fluid" alt=" @if($dato->titulo != null)
 														{{$dato->titulo}}
-														@endif">
+														@endif" style="width:100%; height:300px;">
 													@endif
 													
 													<div class="thumb-info-title bg-transparent p-4">
@@ -476,11 +480,11 @@
 															@if($dato->imagenactividad != null && $dato->imagenactividad->url != null)
 																<img src="{{ asset('/web/comunicadoUNASAM/'.$dato->imagenactividad->url) }}" class="img-fluid" alt=" @if($dato->titulo != null)
 																{{$dato->titulo}}
-																@endif">
+																@endif" style="width:100%; height:350px;">
 															@else
 																<img src="{{ asset('/webvendor/img/blog/default/blog-46.jpg') }}" class="img-fluid" alt=" @if($dato->titulo != null)
 																{{$dato->titulo}}
-																@endif">
+																@endif" style="width:100%; height:350px;">
 															@endif	
 															<div class="thumb-info-title bg-transparent p-4">
 																<div class="thumb-info-type bg-color-primary px-2 mb-1">
@@ -579,10 +583,13 @@
 				</div>
 				<div class="row py-4 my-5">
 					<div class="col py-3">
-						<div class="owl-carousel owl-theme mb-0" data-plugin-options="{'responsive': {'0': {'items': 1}, '476': {'items': 1}, '768': {'items': 5}, '992': {'items': 8}, '1200': {'items': 8}}, 'autoplay': true, 'autoplayTimeout': 2000, 'dots': false, 'margin': 10}">
+						<div class="owl-carousel owl-theme mb-0" data-plugin-options="{'responsive': {'0': {'items': 2}, '476': {'items': 2}, '768': {'items': 5}, '992': {'items': 7}, '1200': {'items': 7}}, 'autoplay': true, 'autoplayTimeout': 2000, 'dots': false, 'margin': 10}">
 							@foreach($linkinteres as  $key => $dato)
 								<div >
-									<a  href="{{$dato->nombre}}" target="_blank"><img {{-- style="border: groove #8080807d 1px" --}} class="img-fluid opacity-10" src="{{ asset('/web/linkinteresunasam/'.$dato->url) }}" alt=""></a>
+									<a  href="{{$dato->nombre}}" target="_blank">
+										<img {{-- style="border: groove #8080807d 1px" --}} class="img-fluid opacity-10  img-thumbnail d-block" src="{{ asset('/web/linkinteresunasam/'.$dato->url) }}" 
+										alt="" style="width:150px; height:90px;">
+									</a>
 								</div>
 							@endforeach
 						</div>

@@ -51,10 +51,14 @@
                     @if($key >= 0)
                         @if($key%2 != 0)
                             <div class="row align-items-center pt-4 appear-animation" data-appear-animation="fadeInLeftShorter">
-                                <div class="col-md-4 mb-4 mb-md-0">
-                                    <img class="img-fluid scale-2 pe-5 pe-md-0 my-4" src="{{ asset('/web/objetivoUNASAM/'.$dato->url) }}" alt="{{$dato->titulo}}" />
+                                <div class="col-md-5 mb-4 mb-md-0">
+                                    {{-- <img class="img-fluid scale-2 pe-5 pe-md-0 my-4" src="{{ asset('/web/objetivoUNASAM/'.$dato->url) }}" alt="{{$dato->titulo}}" /> --}}
+
+                                    <a class="lightbox" href="{{ asset('/web/objetivoUNASAM/'.$dato->url) }}" data-plugin-options="{'type':'image'}">
+                                        <img class="img-fluid" src="{{ asset('/web/objetivoUNASAM/'.$dato->url) }}" alt="Objetivo" style="width: 100%; height: 280px;">
+                                    </a>
                                 </div>
-                                <div class="col-md-8 ps-md-5">
+                                <div class="col-md-7 ps-md-5">
                                     @if($dato->titulo != null)
                                         <h2 class="font-weight-normal text-6 mb-3"><strong class="font-weight-extra-bold">{{$dato->titulo}}</strong></h2>
                                     @endif
@@ -65,7 +69,7 @@
                             </div>
                         @else
                             <div class="row align-items-center py-5 appear-animation" data-appear-animation="fadeInRightShorter">
-                                <div class="col-md-8 pe-md-5 mb-5 mb-md-0">
+                                <div class="col-md-7 pe-md-5 mb-5 mb-md-0">
                                     @if($dato->titulo != null)
                                         <h2 class="font-weight-normal text-6 mb-3"><strong class="font-weight-extra-bold">{{$dato->titulo}}</strong></h2>
                                     @endif
@@ -73,8 +77,12 @@
                                         <p class="text-4">{!! $dato->descripcion !!}</p>
                                     @endif
                                 </div>
-                                <div class="col-md-4 px-5 px-md-3">
-                                    <img class="img-fluid scale-2 pe-5 pe-md-0 my-4" src="{{ asset('/web/objetivoUNASAM/'.$dato->url) }}" alt="{{$dato->titulo}}" />
+                                <div class="col-md-5 px-5 px-md-3">
+                                    {{-- <img class="img-fluid scale-2 pe-5 pe-md-0 my-4" src="{{ asset('/web/objetivoUNASAM/'.$dato->url) }}" alt="{{$dato->titulo}}" /> --}}
+
+                                    <a class="lightbox" href="{{ asset('/web/objetivoUNASAM/'.$dato->url) }}" data-plugin-options="{'type':'image'}">
+                                        <img class="img-fluid" src="{{ asset('/web/objetivoUNASAM/'.$dato->url) }}" alt="Objetivo" style="width: 100%; height: 280px;">
+                                    </a>
                                 </div>
                             </div>
                         @endif

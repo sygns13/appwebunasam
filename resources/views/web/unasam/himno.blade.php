@@ -29,12 +29,12 @@
 
 					<div class="row py-4 mb-2">
 						<div class="col-md-7 order-2">
-							<div class="overflow-hidden">
+							<div class="overflow-hidden"><center>
 								<h2 class="text-color-dark font-weight-bold text-12 mb-2 pt-0 mt-0 appear-animation" data-appear-animation="maskUp" data-appear-animation-delay="300">
                                     @if($himno != null && $himno->titulo != null)
                                     {{$himno->titulo}}
                                     @endif
-                                </h2>
+                                </h2></center>
 							</div>
 {{-- 							<div class="overflow-hidden mb-3">
 								<p class="font-weight-bold text-primary text-uppercase mb-0 appear-animation" data-appear-animation="maskUp" data-appear-animation-delay="500">Rector</p>
@@ -71,7 +71,11 @@
                             @endif
 
                             @if($himno != null && $himno->tieneimagen == 1 && $himno->url != null)
-							    <img src="{{ asset('/web/contenidounasam/'.$himno->url) }}" class="img-fluid mb-2" alt="">
+							    {{-- <img src="{{ asset('/web/contenidounasam/'.$himno->url) }}" class="img-fluid mb-2" alt=""> --}}
+
+								<a class="img-thumbnail d-block lightbox" href="{{ asset('/web/contenidounasam/'.$himno->url) }}"  data-plugin-options="{'type':'image'}">
+                                    <img class="img-fluid" src="{{ asset('/web/contenidounasam/'.$himno->url) }}" alt="Visión" style="width: 100%; height: 460px;">
+                                </a>
                             @endif
 
                         </center>

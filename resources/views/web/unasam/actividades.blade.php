@@ -24,7 +24,7 @@
 
 			<div role="main" class="main">
 
-                <section class="page-header page-header-modern bg-color-light-scale-2 page-header-md">
+                {{-- <section class="page-header page-header-modern bg-color-light-scale-2 page-header-md">
 					<div class="container">
 						<div class="row">
 							<div class="col-md-12 align-self-center p-static order-2 text-center">
@@ -33,7 +33,20 @@
 							</div>
 						</div>
 					</div>
-				</section>
+				</section> --}}
+
+                <br><br>
+
+            <section class="page-header page-header-modern bg-color-light-scale-2 page-header-md" style="background: #2d529f!important;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 align-self-center p-static order-2 text-center">
+                            <h1 class="text-light font-weight-bold text-8">Calendario de Actividades</h1>
+                            <span class="sub-title text-light">Actividades Programadas</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
                 @php
                 $offset = 9;

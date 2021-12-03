@@ -24,6 +24,19 @@
 
 			<div role="main" class="main">
 
+                <br><br>
+
+            <section class="page-header page-header-modern bg-color-light-scale-2 page-header-md" style="background: #2d529f!important;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 align-self-center p-static order-2 text-center">
+                            <h1 class="text-light font-weight-bold text-8">Publicaciones de Licenciamiento</h1>
+                            <span class="sub-title text-light">UNASAM</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
 
                 @foreach($licenciamientos as  $key => $dato)
 
@@ -56,7 +69,10 @@
 
                                         @if($dato != null && $dato->tieneimagen != null &&  $dato->tieneimagen == '1' && $dato->url != null)
                                         <div class="col-md-6 px-7 px-md-5">
-                                            <img src="{{ asset('/web/licenciamientoUNASAM/'.$dato->url) }}" class="img-fluid float-start me-4 mt-2" alt="" />
+                                            {{-- <img src="{{ asset('/web/licenciamientoUNASAM/'.$dato->url) }}" class="img-fluid float-start me-4 mt-2" alt="" /> --}}
+                                            <a class="img-thumbnail d-block lightbox float-start me-4 mt-2" href="{{ asset('/web/licenciamientoUNASAM/'.$dato->url) }}" data-plugin-options="{'type':'image'}">
+                                                <img class="img-fluid" src="{{ asset('/web/licenciamientoUNASAM/'.$dato->url) }}" alt="Objetivo" style="width: 100%; height: 290px;">
+                                            </a>
                                         </div>
                                         @endif
 
