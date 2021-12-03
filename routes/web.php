@@ -86,6 +86,15 @@ Route::get('programadeestudio/historia/{var}','IndexProgramaWebController@histor
 Route::get('programadeestudio/misionvision/{var}','IndexProgramaWebController@misionvision');
 Route::get('programadeestudio/objetivos/{var}','IndexProgramaWebController@objetivos');
 Route::get('programadeestudio/organigrama/{var}','IndexProgramaWebController@organigrama');
+Route::get('programadeestudio/competenciasespecificas/{var}','IndexProgramaWebController@competenciasespecificas');
+Route::get('programadeestudio/competenciasgenerales/{var}','IndexProgramaWebController@competenciasgenerales');
+Route::get('programadeestudio/planesestudio/{var}','IndexProgramaWebController@planesestudio');
+Route::get('programadeestudio/perfilingreso/{var}','IndexProgramaWebController@perfilingreso');
+Route::get('programadeestudio/perfilegreso/{var}','IndexProgramaWebController@perfilegreso');
+Route::get('programadeestudio/matriculados/{var}','IndexProgramaWebController@matriculados');
+Route::get('programadeestudio/egresados/{var}','IndexProgramaWebController@egresados');
+Route::get('programadeestudio/graduados/{var}','IndexProgramaWebController@graduados');
+Route::get('programadeestudio/titulados/{var}','IndexProgramaWebController@titulados');
 
 
 Route::get('programadeestudio/{var}/noticias','PublicacionWebController@noticiasPrograma');

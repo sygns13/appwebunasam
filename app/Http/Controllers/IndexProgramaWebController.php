@@ -42,6 +42,7 @@ use App\Docente;
 use App\Resumen;
 use App\Indicadorsineace;
 use App\Imagenresumen;
+use App\Numerosalumno;
 
 
 
@@ -649,6 +650,588 @@ class IndexProgramaWebController extends Controller
 
 
                 return view('web/programa/organigrama',compact('escuela','unasam','facultad','redsocials','menusActivos','planesestudios'));
+
+            } catch (Exception $e) {
+                return redirect('/');
+            }
+        }
+        else{
+            return redirect('/');
+        }
+
+        return redirect('/');
+
+    }
+
+    public function competenciasespecificas($idhash){
+
+
+        $strdecoded = $idhash;
+
+        if($idhash != null && strlen($idhash) > 0){
+
+            $id = "";
+            
+            try {
+                $strdecoded = gzinflate(base64_decode($idhash));
+
+                if(strlen($strdecoded) > 14){
+                    $id = explode('-', $strdecoded);
+                    $id = $id[1];
+                }
+
+
+                $competenciasespecificas=Indicadorsineace::where('borrado','0')->where('activo','1')->where('nivel', 2 )->where('tipo', 3)->where('programaestudio_id',$id)->orderBy('id','desc')->get();
+
+                $escuela = Programaestudio::find($id);
+                $facultad = Facultad::find($escuela->facultad_id);
+                $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+
+                //hash id
+                $escuela->hash = base64_encode(gzdeflate('idhijoescuela-'.$id));
+                $facultad->hash = base64_encode(gzdeflate('idhijofacultad-'.$escuela->facultad_id));
+                
+                $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 2)->where('programaestudio_id',$id)->orderBy('id')->get();
+                $planesestudios=Indicadorsineace::where('borrado','0')->where('activo','1')->where('nivel', 2)->where('tipo', 6)->where('programaestudio_id',$id)->orderBy('id','desc')->get();
+
+                foreach ($planesestudios as $key => $value) {
+                    $planesestudios[$key]->hash = base64_encode(gzdeflate('idplanestudio-'.$value->id));
+                }
+
+
+
+                $menusActivos = new stdClass;
+
+                $menusActivos->menu1 = "";
+                $menusActivos->menu2 = "";
+                $menusActivos->menu3 = "active";
+                $menusActivos->menu4 = "";
+                $menusActivos->menu5 = "";
+                $menusActivos->menu6 = "";
+                $menusActivos->menu7 = "";
+                $menusActivos->menu8 = "";
+                $menusActivos->menu9 = "";
+
+
+                return view('web/programa/competenciasespecificas',compact('competenciasespecificas','escuela','unasam','facultad','redsocials','menusActivos','planesestudios'));
+
+            } catch (Exception $e) {
+                return redirect('/');
+            }
+        }
+        else{
+            return redirect('/');
+        }
+
+        return redirect('/');
+
+    }
+
+
+   
+    public function competenciasgenerales($idhash){
+
+
+        $strdecoded = $idhash;
+
+        if($idhash != null && strlen($idhash) > 0){
+
+            $id = "";
+            
+            try {
+                $strdecoded = gzinflate(base64_decode($idhash));
+
+                if(strlen($strdecoded) > 14){
+                    $id = explode('-', $strdecoded);
+                    $id = $id[1];
+                }
+
+
+                $competenciasgenerales=Indicadorsineace::where('borrado','0')->where('activo','1')->where('nivel', 2 )->where('tipo', 4)->where('programaestudio_id',$id)->orderBy('id','desc')->get();
+
+                $escuela = Programaestudio::find($id);
+                $facultad = Facultad::find($escuela->facultad_id);
+                $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+
+                //hash id
+                $escuela->hash = base64_encode(gzdeflate('idhijoescuela-'.$id));
+                $facultad->hash = base64_encode(gzdeflate('idhijofacultad-'.$escuela->facultad_id));
+                
+                $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 2)->where('programaestudio_id',$id)->orderBy('id')->get();
+                $planesestudios=Indicadorsineace::where('borrado','0')->where('activo','1')->where('nivel', 2)->where('tipo', 6)->where('programaestudio_id',$id)->orderBy('id','desc')->get();
+
+                foreach ($planesestudios as $key => $value) {
+                    $planesestudios[$key]->hash = base64_encode(gzdeflate('idplanestudio-'.$value->id));
+                }
+
+
+
+                $menusActivos = new stdClass;
+
+                $menusActivos->menu1 = "";
+                $menusActivos->menu2 = "";
+                $menusActivos->menu3 = "active";
+                $menusActivos->menu4 = "";
+                $menusActivos->menu5 = "";
+                $menusActivos->menu6 = "";
+                $menusActivos->menu7 = "";
+                $menusActivos->menu8 = "";
+                $menusActivos->menu9 = "";
+
+
+                return view('web/programa/competenciasgenerales',compact('competenciasgenerales','escuela','unasam','facultad','redsocials','menusActivos','planesestudios'));
+
+            } catch (Exception $e) {
+                return redirect('/');
+            }
+        }
+        else{
+            return redirect('/');
+        }
+
+        return redirect('/');
+
+    }
+
+    public function planesestudio($idhashPlanEstudio){
+
+
+        $strdecoded = $idhashPlanEstudio;
+
+        if($idhashPlanEstudio != null && strlen($idhashPlanEstudio) > 0){
+
+            $idPlan = "";
+            
+            try {
+                $strdecoded = gzinflate(base64_decode($idhashPlanEstudio));
+
+                if(strlen($strdecoded) > 14){
+                    $idPlan = explode('-', $strdecoded);
+                    $idPlan = $idPlan[1];
+                }
+
+
+                $planestudio = Indicadorsineace::find($idPlan);
+
+                $escuela = Programaestudio::find($planestudio->programaestudio_id);
+                $facultad = Facultad::find($escuela->facultad_id);
+                $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+
+                //hash id
+                $escuela->hash = base64_encode(gzdeflate('idhijoescuela-'.$escuela->id));
+                $facultad->hash = base64_encode(gzdeflate('idhijofacultad-'.$escuela->facultad_id));
+                
+                $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 2)->where('programaestudio_id',$escuela->id)->orderBy('id')->get();
+                $planesestudios=Indicadorsineace::where('borrado','0')->where('activo','1')->where('nivel', 2)->where('tipo', 6)->where('programaestudio_id',$escuela->id)->orderBy('id','desc')->get();
+
+                foreach ($planesestudios as $key => $value) {
+                    $planesestudios[$key]->hash = base64_encode(gzdeflate('idplanestudio-'.$value->id));
+                }
+
+
+
+                $menusActivos = new stdClass;
+
+                $menusActivos->menu1 = "";
+                $menusActivos->menu2 = "";
+                $menusActivos->menu3 = "";
+                $menusActivos->menu4 = "active";
+                $menusActivos->menu5 = "";
+                $menusActivos->menu6 = "";
+                $menusActivos->menu7 = "";
+                $menusActivos->menu8 = "";
+                $menusActivos->menu9 = "";
+
+
+                return view('web/programa/planestudio',compact('planestudio','escuela','unasam','facultad','redsocials','menusActivos','planesestudios'));
+
+            } catch (Exception $e) {
+                return redirect('/');
+            }
+        }
+        else{
+            return redirect('/');
+        }
+
+        return redirect('/');
+
+    }
+
+
+    public function perfilingreso($idhash){
+
+
+        $strdecoded = $idhash;
+
+        if($idhash != null && strlen($idhash) > 0){
+
+            $id = "";
+            
+            try {
+                $strdecoded = gzinflate(base64_decode($idhash));
+
+                if(strlen($strdecoded) > 14){
+                    $id = explode('-', $strdecoded);
+                    $id = $id[1];
+                }
+
+
+                $perfilingreso=Indicadorsineace::where('borrado','0')->where('activo','1')->where('nivel', 2 )->where('tipo', 1)->where('programaestudio_id',$id)->orderBy('id','desc')->get();
+
+                $escuela = Programaestudio::find($id);
+                $facultad = Facultad::find($escuela->facultad_id);
+                $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+
+                //hash id
+                $escuela->hash = base64_encode(gzdeflate('idhijoescuela-'.$id));
+                $facultad->hash = base64_encode(gzdeflate('idhijofacultad-'.$escuela->facultad_id));
+                
+                $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 2)->where('programaestudio_id',$id)->orderBy('id')->get();
+                $planesestudios=Indicadorsineace::where('borrado','0')->where('activo','1')->where('nivel', 2)->where('tipo', 6)->where('programaestudio_id',$id)->orderBy('id','desc')->get();
+
+                foreach ($planesestudios as $key => $value) {
+                    $planesestudios[$key]->hash = base64_encode(gzdeflate('idplanestudio-'.$value->id));
+                }
+
+
+
+                $menusActivos = new stdClass;
+
+                $menusActivos->menu1 = "";
+                $menusActivos->menu2 = "";
+                $menusActivos->menu3 = "";
+                $menusActivos->menu4 = "";
+                $menusActivos->menu5 = "active";
+                $menusActivos->menu6 = "";
+                $menusActivos->menu7 = "";
+                $menusActivos->menu8 = "";
+                $menusActivos->menu9 = "";
+
+
+                return view('web/programa/perfilingreso',compact('perfilingreso','escuela','unasam','facultad','redsocials','menusActivos','planesestudios'));
+
+            } catch (Exception $e) {
+                return redirect('/');
+            }
+        }
+        else{
+            return redirect('/');
+        }
+
+        return redirect('/');
+
+    }
+
+
+
+    public function perfilegreso($idhash){
+
+
+        $strdecoded = $idhash;
+
+        if($idhash != null && strlen($idhash) > 0){
+
+            $id = "";
+            
+            try {
+                $strdecoded = gzinflate(base64_decode($idhash));
+
+                if(strlen($strdecoded) > 14){
+                    $id = explode('-', $strdecoded);
+                    $id = $id[1];
+                }
+
+
+                $perfilegreso=Indicadorsineace::where('borrado','0')->where('activo','1')->where('nivel', 2 )->where('tipo', 2)->where('programaestudio_id',$id)->orderBy('id','desc')->get();
+
+                $escuela = Programaestudio::find($id);
+                $facultad = Facultad::find($escuela->facultad_id);
+                $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+
+                //hash id
+                $escuela->hash = base64_encode(gzdeflate('idhijoescuela-'.$id));
+                $facultad->hash = base64_encode(gzdeflate('idhijofacultad-'.$escuela->facultad_id));
+                
+                $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 2)->where('programaestudio_id',$id)->orderBy('id')->get();
+                $planesestudios=Indicadorsineace::where('borrado','0')->where('activo','1')->where('nivel', 2)->where('tipo', 6)->where('programaestudio_id',$id)->orderBy('id','desc')->get();
+
+                foreach ($planesestudios as $key => $value) {
+                    $planesestudios[$key]->hash = base64_encode(gzdeflate('idplanestudio-'.$value->id));
+                }
+
+
+
+                $menusActivos = new stdClass;
+
+                $menusActivos->menu1 = "";
+                $menusActivos->menu2 = "";
+                $menusActivos->menu3 = "";
+                $menusActivos->menu4 = "";
+                $menusActivos->menu5 = "active";
+                $menusActivos->menu6 = "";
+                $menusActivos->menu7 = "";
+                $menusActivos->menu8 = "";
+                $menusActivos->menu9 = "";
+
+
+                return view('web/programa/perfilegreso',compact('perfilegreso','escuela','unasam','facultad','redsocials','menusActivos','planesestudios'));
+
+            } catch (Exception $e) {
+                return redirect('/');
+            }
+        }
+        else{
+            return redirect('/');
+        }
+
+        return redirect('/');
+
+    }
+
+
+    public function matriculados($idhash){
+
+
+        $strdecoded = $idhash;
+
+        if($idhash != null && strlen($idhash) > 0){
+
+            $id = "";
+            
+            try {
+                $strdecoded = gzinflate(base64_decode($idhash));
+
+                if(strlen($strdecoded) > 14){
+                    $id = explode('-', $strdecoded);
+                    $id = $id[1];
+                }
+
+
+                $matriculados=Numerosalumno::where('borrado','0')->where('activo','1')->where('tipo', 1)->where('programaestudio_id',$id)->orderBy('anio','desc')->limit(12)->get();
+
+                $escuela = Programaestudio::find($id);
+                $facultad = Facultad::find($escuela->facultad_id);
+                $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+
+                //hash id
+                $escuela->hash = base64_encode(gzdeflate('idhijoescuela-'.$id));
+                $facultad->hash = base64_encode(gzdeflate('idhijofacultad-'.$escuela->facultad_id));
+                
+                $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 2)->where('programaestudio_id',$id)->orderBy('id')->get();
+                $planesestudios=Indicadorsineace::where('borrado','0')->where('activo','1')->where('nivel', 2)->where('tipo', 6)->where('programaestudio_id',$id)->orderBy('id','desc')->get();
+
+                foreach ($planesestudios as $key => $value) {
+                    $planesestudios[$key]->hash = base64_encode(gzdeflate('idplanestudio-'.$value->id));
+                }
+
+
+
+                $menusActivos = new stdClass;
+
+                $menusActivos->menu1 = "";
+                $menusActivos->menu2 = "";
+                $menusActivos->menu3 = "";
+                $menusActivos->menu4 = "";
+                $menusActivos->menu5 = "";
+                $menusActivos->menu6 = "active";
+                $menusActivos->menu7 = "";
+                $menusActivos->menu8 = "";
+                $menusActivos->menu9 = "";
+
+
+                return view('web/programa/matriculados',compact('matriculados','escuela','unasam','facultad','redsocials','menusActivos','planesestudios'));
+
+            } catch (Exception $e) {
+                return redirect('/');
+            }
+        }
+        else{
+            return redirect('/');
+        }
+
+        return redirect('/');
+
+    }
+
+    public function egresados($idhash){
+
+
+        $strdecoded = $idhash;
+
+        if($idhash != null && strlen($idhash) > 0){
+
+            $id = "";
+            
+            try {
+                $strdecoded = gzinflate(base64_decode($idhash));
+
+                if(strlen($strdecoded) > 14){
+                    $id = explode('-', $strdecoded);
+                    $id = $id[1];
+                }
+
+
+                $egresados=Numerosalumno::where('borrado','0')->where('activo','1')->where('tipo', 2)->where('programaestudio_id',$id)->orderBy('anio','desc')->limit(12)->get();
+
+                $escuela = Programaestudio::find($id);
+                $facultad = Facultad::find($escuela->facultad_id);
+                $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+
+                //hash id
+                $escuela->hash = base64_encode(gzdeflate('idhijoescuela-'.$id));
+                $facultad->hash = base64_encode(gzdeflate('idhijofacultad-'.$escuela->facultad_id));
+                
+                $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 2)->where('programaestudio_id',$id)->orderBy('id')->get();
+                $planesestudios=Indicadorsineace::where('borrado','0')->where('activo','1')->where('nivel', 2)->where('tipo', 6)->where('programaestudio_id',$id)->orderBy('id','desc')->get();
+
+                foreach ($planesestudios as $key => $value) {
+                    $planesestudios[$key]->hash = base64_encode(gzdeflate('idplanestudio-'.$value->id));
+                }
+
+
+
+                $menusActivos = new stdClass;
+
+                $menusActivos->menu1 = "";
+                $menusActivos->menu2 = "";
+                $menusActivos->menu3 = "";
+                $menusActivos->menu4 = "";
+                $menusActivos->menu5 = "";
+                $menusActivos->menu6 = "active";
+                $menusActivos->menu7 = "";
+                $menusActivos->menu8 = "";
+                $menusActivos->menu9 = "";
+
+
+                return view('web/programa/egresados',compact('egresados','escuela','unasam','facultad','redsocials','menusActivos','planesestudios'));
+
+            } catch (Exception $e) {
+                return redirect('/');
+            }
+        }
+        else{
+            return redirect('/');
+        }
+
+        return redirect('/');
+
+    }
+
+    public function graduados($idhash){
+
+
+        $strdecoded = $idhash;
+
+        if($idhash != null && strlen($idhash) > 0){
+
+            $id = "";
+            
+            try {
+                $strdecoded = gzinflate(base64_decode($idhash));
+
+                if(strlen($strdecoded) > 14){
+                    $id = explode('-', $strdecoded);
+                    $id = $id[1];
+                }
+
+
+                $graduados=Numerosalumno::where('borrado','0')->where('activo','1')->where('tipo', 3)->where('programaestudio_id',$id)->orderBy('anio','desc')->limit(12)->get();
+
+                $escuela = Programaestudio::find($id);
+                $facultad = Facultad::find($escuela->facultad_id);
+                $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+
+                //hash id
+                $escuela->hash = base64_encode(gzdeflate('idhijoescuela-'.$id));
+                $facultad->hash = base64_encode(gzdeflate('idhijofacultad-'.$escuela->facultad_id));
+                
+                $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 2)->where('programaestudio_id',$id)->orderBy('id')->get();
+                $planesestudios=Indicadorsineace::where('borrado','0')->where('activo','1')->where('nivel', 2)->where('tipo', 6)->where('programaestudio_id',$id)->orderBy('id','desc')->get();
+
+                foreach ($planesestudios as $key => $value) {
+                    $planesestudios[$key]->hash = base64_encode(gzdeflate('idplanestudio-'.$value->id));
+                }
+
+
+
+                $menusActivos = new stdClass;
+
+                $menusActivos->menu1 = "";
+                $menusActivos->menu2 = "";
+                $menusActivos->menu3 = "";
+                $menusActivos->menu4 = "";
+                $menusActivos->menu5 = "";
+                $menusActivos->menu6 = "active";
+                $menusActivos->menu7 = "";
+                $menusActivos->menu8 = "";
+                $menusActivos->menu9 = "";
+
+
+                return view('web/programa/graduados',compact('graduados','escuela','unasam','facultad','redsocials','menusActivos','planesestudios'));
+
+            } catch (Exception $e) {
+                return redirect('/');
+            }
+        }
+        else{
+            return redirect('/');
+        }
+
+        return redirect('/');
+
+    }
+
+    public function titulados($idhash){
+
+
+        $strdecoded = $idhash;
+
+        if($idhash != null && strlen($idhash) > 0){
+
+            $id = "";
+            
+            try {
+                $strdecoded = gzinflate(base64_decode($idhash));
+
+                if(strlen($strdecoded) > 14){
+                    $id = explode('-', $strdecoded);
+                    $id = $id[1];
+                }
+
+
+                $titulados=Numerosalumno::where('borrado','0')->where('activo','1')->where('tipo', 4)->where('programaestudio_id',$id)->orderBy('anio','desc')->limit(12)->get();
+
+                $escuela = Programaestudio::find($id);
+                $facultad = Facultad::find($escuela->facultad_id);
+                $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+
+                //hash id
+                $escuela->hash = base64_encode(gzdeflate('idhijoescuela-'.$id));
+                $facultad->hash = base64_encode(gzdeflate('idhijofacultad-'.$escuela->facultad_id));
+                
+                $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 2)->where('programaestudio_id',$id)->orderBy('id')->get();
+                $planesestudios=Indicadorsineace::where('borrado','0')->where('activo','1')->where('nivel', 2)->where('tipo', 6)->where('programaestudio_id',$id)->orderBy('id','desc')->get();
+
+                foreach ($planesestudios as $key => $value) {
+                    $planesestudios[$key]->hash = base64_encode(gzdeflate('idplanestudio-'.$value->id));
+                }
+
+
+
+                $menusActivos = new stdClass;
+
+                $menusActivos->menu1 = "";
+                $menusActivos->menu2 = "";
+                $menusActivos->menu3 = "";
+                $menusActivos->menu4 = "";
+                $menusActivos->menu5 = "";
+                $menusActivos->menu6 = "active";
+                $menusActivos->menu7 = "";
+                $menusActivos->menu8 = "";
+                $menusActivos->menu9 = "";
+
+
+                return view('web/programa/titulados',compact('titulados','escuela','unasam','facultad','redsocials','menusActivos','planesestudios'));
 
             } catch (Exception $e) {
                 return redirect('/');
