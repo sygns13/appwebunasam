@@ -96,6 +96,9 @@ Route::get('programadeestudio/egresados/{var}','IndexProgramaWebController@egres
 Route::get('programadeestudio/graduados/{var}','IndexProgramaWebController@graduados');
 Route::get('programadeestudio/titulados/{var}','IndexProgramaWebController@titulados');
 
+Route::get('programadeestudio/documentos/{var}','PublicacionWebController@documentosPrograma');
+Route::get('programadeestudio/docentes/{var}','IndexProgramaWebController@docentes');
+
 
 Route::get('programadeestudio/{var}/noticias','PublicacionWebController@noticiasPrograma');
 Route::get('programadeestudio/{var}/eventos','PublicacionWebController@eventosPrograma');
