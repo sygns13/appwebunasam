@@ -81,6 +81,11 @@ Route::get('facultad/comunicado/{var1}/{var2}', 'PublicacionWebController@comuni
 Route::get('programadeestudio/{var}','IndexProgramaWebController@index');
 Route::get('programadeestudio/presentacion/{var}','IndexProgramaWebController@presentacion');
 Route::get('programadeestudio/resumen/{var}','IndexProgramaWebController@resumen');
+Route::get('programadeestudio/campolaboral/{var}','IndexProgramaWebController@campolaboral');
+Route::get('programadeestudio/historia/{var}','IndexProgramaWebController@historia');
+Route::get('programadeestudio/misionvision/{var}','IndexProgramaWebController@misionvision');
+Route::get('programadeestudio/objetivos/{var}','IndexProgramaWebController@objetivos');
+Route::get('programadeestudio/organigrama/{var}','IndexProgramaWebController@organigrama');
 
 
 Route::get('programadeestudio/{var}/noticias','PublicacionWebController@noticiasPrograma');
