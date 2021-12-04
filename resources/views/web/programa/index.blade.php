@@ -281,13 +281,21 @@
 														
 
 														@if($dato->eventoimagen != null && $dato->eventoimagen->url != null)
-															<img src="{{ asset('/web/eventoprograma/'.$dato->eventoimagen->url) }}" alt=" @if($dato->titulo != null)
+															{{-- <img src="{{ asset('/web/eventoprograma/'.$dato->eventoimagen->url) }}" alt=" @if($dato->titulo != null)
 															{{$dato->titulo}}
-															@endif" style="height: 150px; width:150px;">
+															@endif" style="height: 150px; width:150px;"> --}}
+
+															<a class="img-thumbnail d-block lightbox" href="{{ asset('/web/eventoprograma/'.$dato->eventoimagen->url) }}"  data-plugin-options="{'type':'image'}">
+																<img class="img-fluid" src="{{ asset('/web/eventoprograma/'.$dato->eventoimagen->url) }}" alt="Evento" style="height: 130px; width:150px;">
+															</a>
 														@else
-															<img src="{{ asset('/webvendor/img/blog/default/blog-46.jpg') }}" alt=" @if($dato->titulo != null)
+															{{-- <img src="{{ asset('/webvendor/img/blog/default/blog-46.jpg') }}" alt=" @if($dato->titulo != null)
 															{{$dato->titulo}}
-															@endif" style="height: 150px; width:150px;">
+															@endif" style="height: 150px; width:150px;"> --}}
+
+															<a class="img-thumbnail d-block lightbox" href="{{ asset('/webvendor/img/blog/default/blog-46.jpg') }}"  data-plugin-options="{'type':'image'}">
+																<img class="img-fluid" src="{{ asset('/webvendor/img/blog/default/blog-46.jpg') }}" alt="Evento" style="height: 130px; width:150px;">
+															</a>
 														@endif
 
 
@@ -434,9 +442,9 @@
 													<a href="/programadeestudio/noticia/{{$dato->hash}}/{{$escuela->hash}}">
 
 														@if($dato->imagennoticia != null && $dato->imagennoticia->url != null)
-															<img class="card-img-top border-radius-0" src="{{ asset('/web/noticiaprograma/'.$dato->imagennoticia->url) }}" alt="Card Image" style="height: 200px; width:100%;">
+															<img class="card-img-top border-radius-0 img-thumbnail d-block" src="{{ asset('/web/noticiaprograma/'.$dato->imagennoticia->url) }}" alt="Card Image" style="height: 200px; width:100%;">
 														@else
-															<img class="card-img-top border-radius-0" src="{{ asset('/img/Login-Background.jpg') }}" alt="Card Image" style="height: 200px; width:100%;">
+															<img class="card-img-top border-radius-0 img-thumbnail d-block" src="{{ asset('/img/Login-Background.jpg') }}" alt="Card Image" style="height: 200px; width:100%;">
 														@endif
 
 													</a>

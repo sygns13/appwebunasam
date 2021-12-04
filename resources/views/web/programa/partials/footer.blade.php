@@ -1,6 +1,6 @@
 <footer id="footer" class="m-0 border-0 bg-color-secondary overflow-hidden">
     <div class="container">
-        <div class="row py-5 custom-row-footer">
+        <div class="row py-5 custom-row-footer" style="padding-top: 70px!important;">
             <div class="col-12 col-sm-12 col-lg-3 d-flex align-items-center flex-column footer-column custom-footer-column-logo">
                 <img height="50" src="{{ asset('/img/unasam.png') }}" alt="Logo UNASAM">
                 <p class="d-block m-0 text-color-light">Programa Profesional: {{$escuela->nombre}}</p>

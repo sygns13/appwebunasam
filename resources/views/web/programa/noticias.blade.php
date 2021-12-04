@@ -112,9 +112,9 @@
                                         <div class="post-image">
                                             <a href="/programadeestudio/noticia/{{$dato->hash}}/{{$escuela->hash}}">
                                                 @if($dato->imagennoticias != null && $dato->imagennoticias->count() >0 && $dato->imagennoticias[0]->url != null)
-												    <img src="{{ asset('/web/noticiaprograma/'.$dato->imagennoticias[0]->url) }}" class="img-fluid img-thumbnail img-thumbnail-no-borders rounded-0" alt="" id="imgNoticia-{{$dato->id}}" />
+												    <img src="{{ asset('/web/noticiaprograma/'.$dato->imagennoticias[0]->url) }}" class="img-fluid img-thumbnail  rounded-0" alt="" id="imgNoticia-{{$dato->id}}" />
 												@else
-												    <img src="{{ asset('/img/Login-Background.jpg') }}" class="img-fluid img-thumbnail img-thumbnail-no-borders rounded-0" alt="" id="imgNoticia-{{$dato->id}}" />
+												    <img src="{{ asset('/img/Login-Background.jpg') }}" class="img-fluid img-thumbnail  rounded-0" alt="" id="imgNoticia-{{$dato->id}}" />
 												@endif
 
                                             </a>

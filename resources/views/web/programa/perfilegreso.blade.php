@@ -65,7 +65,7 @@
 						
 
 							<div class="row mt-5 mb-5 pt-3 pb-3">
-								<div class="col-md-8">
+								<div class="col-md-7">
 								{{-- 	@if($dato->titulo != null)
 									<h2 class="font-weight-semibold mb-0">{{$dato->titulo}}</h2>
 									@endif --}}
@@ -82,8 +82,12 @@
 																	
 								</div>
 								@if($dato->tieneimagen != null && $dato->tieneimagen == 1 && $dato->url != null)
-								<div class="col-md-4">
-									<img src="{{ asset('/web/indicadorsineaceprograma/'.$dato->url)}}" alt class="img-fluid box-shadow-custom" /> 
+								<div class="col-md-5">
+									{{-- <img src="{{ asset('/web/indicadorsineaceprograma/'.$dato->url)}}" alt class="img-fluid box-shadow-custom" />  --}}
+
+									<a class="img-thumbnail d-block lightbox" href="{{ asset('/web/indicadorsineaceprograma/'.$dato->url) }}" data-plugin-options="{'type':'image'}">
+										<img class="img-fluid" src="{{ asset('/web/indicadorsineaceprograma/'.$dato->url) }}" alt="Objetivo" style="width: 100%; height: 290px;">
+									</a>
 								</div>
 								@endif
 

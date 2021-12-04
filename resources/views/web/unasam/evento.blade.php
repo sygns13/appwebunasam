@@ -89,7 +89,7 @@
                     @foreach($evento->imageneventos as  $key => $dato)
 
                     @if($key > 0)
-                        @if($key%2 != 0)
+                        @if($key%2 == 0)
                             <div class="row align-items-center pt-4 appear-animation" data-appear-animation="fadeInLeftShorter">
                                 <div class="col-md-5 mb-5 mb-md-0">
                                     {{-- <img class="img-fluid scale-2 pe-5 pe-md-0 my-4" src="{{ asset('/web/eventounasam/'.$dato->url) }}" alt="{{$dato->nombre}}" /> --}}

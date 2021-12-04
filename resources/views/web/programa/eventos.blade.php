@@ -113,9 +113,9 @@
                                     <div class="post-image">
                                         <a href="/programadeestudio/evento/{{$dato->hash}}/{{$escuela->hash}}">
                                             @if($dato->imageneventos != null && $dato->imageneventos->count() >0 && $dato->imageneventos[0]->url != null)
-                                                <img src="{{ asset('/web/eventoprograma/'.$dato->imageneventos[0]->url) }}" class="img-fluid img-thumbnail img-thumbnail-no-borders rounded-0" alt="" id="imgEvento-{{$dato->id}}" />
+                                                <img src="{{ asset('/web/eventoprograma/'.$dato->imageneventos[0]->url) }}" class="img-fluid img-thumbnail rounded-0" alt="" id="imgEvento-{{$dato->id}}" />
                                             @else
-                                                <img src="{{ asset('/img/Login-Background.jpg') }}" class="img-fluid img-thumbnail img-thumbnail-no-borders rounded-0" alt="" id="imgEvento-{{$dato->id}}" />
+                                                <img src="{{ asset('/img/Login-Background.jpg') }}" class="img-fluid img-thumbnail rounded-0" alt="" id="imgEvento-{{$dato->id}}" />
                                             @endif
 
                                         </a>
@@ -193,9 +193,9 @@
                                     <div class="post-image">
                                         <a href="/programadeestudio/evento/{{$dato->hash}}/{{$escuela->hash}}">
                                             @if($dato->imageneventos != null && $dato->imageneventos->count() >0 && $dato->imageneventos[0]->url != null)
-                                                <img src="{{ asset('/web/eventoprograma/'.$dato->imageneventos[0]->url) }}" class="img-fluid img-thumbnail img-thumbnail-no-borders rounded-0" alt="" id="imgEvento-{{$dato->id}}" />
+                                                <img src="{{ asset('/web/eventoprograma/'.$dato->imageneventos[0]->url) }}" class="img-fluid img-thumbnail rounded-0" alt="" id="imgEvento-{{$dato->id}}" />
                                             @else
-                                                <img src="{{ asset('/img/Login-Background.jpg') }}" class="img-fluid img-thumbnail img-thumbnail-no-borders rounded-0" alt="" id="imgEvento-{{$dato->id}}" />
+                                                <img src="{{ asset('/img/Login-Background.jpg') }}" class="img-fluid img-thumbnail rounded-0" alt="" id="imgEvento-{{$dato->id}}" />
                                             @endif
 
                                         </a>

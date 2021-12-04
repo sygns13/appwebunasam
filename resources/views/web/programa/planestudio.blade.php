@@ -56,7 +56,7 @@
 						
 
 							<div class="row mt-5 mb-5 pt-3 pb-3">
-								<div class="col-md-8">
+								<div class="col-md-7">
 								{{-- 	@if($planestudio->titulo != null)
 									<h2 class="font-weight-semibold mb-0">{{$planestudio->titulo}}</h2>
 									@endif --}}
@@ -73,8 +73,12 @@
 																	
 								</div>
 								@if($planestudio->tieneimagen != null && $planestudio->tieneimagen == 1 && $planestudio->url != null)
-								<div class="col-md-4">
-									<img src="{{ asset('/web/indicadorsineaceprograma/'.$planestudio->url)}}" alt class="img-fluid box-shadow-custom" /> 
+								<div class="col-md-5">
+									{{-- <img src="{{ asset('/web/indicadorsineaceprograma/'.$planestudio->url)}}" alt class="img-fluid box-shadow-custom" />  --}}
+
+									<a class="img-thumbnail d-block lightbox float-start me-4 mt-2" href="{{ asset('/web/indicadorsineaceprograma/'.$planestudio->url) }}" data-plugin-options="{'type':'image'}">
+										<img class="img-fluid" src="{{ asset('/web/indicadorsineaceprograma/'.$planestudio->url) }}" alt="Objetivo" style="width: 100%; height: 290px;">
+									</a>
 								</div>
 								@endif
 

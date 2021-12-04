@@ -22,6 +22,17 @@
 
 			<div role="main" class="main">
 
+                <section class="page-header page-header-modern bg-color-light-scale-2 page-header-md" style="background: #2d529f!important;">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-12 align-self-center p-static order-2 text-center">
+								<h1 class="text-light font-weight-bold text-8">Noticia</h1>
+								{{-- <span class="sub-title text-light">Visualizar los últimos comunicados</span> --}}
+							</div>
+						</div>
+					</div>
+				</section>
+
                 <div class="container py-4">
 
 					<div class="row">
@@ -67,7 +78,11 @@
                                         @if($image1 != null && $image1->url != null)
                                             <div class="post-image ms-0">
 												<center>
-                                                    <img src="{{ asset('/web/noticiaprograma/'.$image1->url) }}" class="img-fluid img-thumbnail img-thumbnail-no-borders rounded-0" alt="" style="max-height: 500px"/>
+                                                    {{-- <img src="{{ asset('/web/noticiaprograma/'.$image1->url) }}" class="img-fluid img-thumbnail img-thumbnail-no-borders rounded-0" alt="" style="max-height: 500px"/> --}}
+
+                                                    <a class="img-thumbnail d-block lightbox" href="{{ asset('/web/noticiaprograma/'.$image1->url) }}"  data-plugin-options="{'type':'image'}">
+                                                        <img class="img-fluid" src="{{ asset('/web/noticiaprograma/'.$image1->url) }}" alt="Noticia" style="width: 100%; max-height: 500px;">
+                                                    </a>
 												</center>
                                             </div>
                                         @endif
@@ -98,12 +113,16 @@
                     @foreach($noticia->imagennoticias as  $key => $dato)
 
                     @if($key > 0)
-                        @if($key%2 != 0)
+                        @if($key%2 == 0)
                             <div class="row align-items-center pt-4 appear-animation" data-appear-animation="fadeInLeftShorter">
-                                <div class="col-md-4 mb-4 mb-md-0">
-                                    <img class="img-fluid scale-2 pe-5 pe-md-0 my-4" src="{{ asset('/web/noticiaprograma/'.$dato->url) }}" alt="{{$dato->nombre}}" />
+                                <div class="col-md-5 mb-5 mb-md-0">
+                                    {{-- <img class="img-fluid scale-2 pe-5 pe-md-0 my-4" src="{{ asset('/web/noticiaprograma/'.$dato->url) }}" alt="{{$dato->nombre}}" /> --}}
+
+                                    <a class="img-thumbnail d-block lightbox" href="{{ asset('/web/noticiaprograma/'.$dato->url) }}"  data-plugin-options="{'type':'image'}">
+                                        <img class="img-fluid" src="{{ asset('/web/noticiaprograma/'.$dato->url) }}" alt="Noticia" style="width: 100%; max-height: 360px;;">
+                                    </a>
                                 </div>
-                                <div class="col-md-8 ps-md-5">
+                                <div class="col-md-7 ps-md-5">
                                     @if($dato->nombre != null)
                                         <h2 class="font-weight-normal text-6 mb-3"><strong class="font-weight-extra-bold">{{$dato->nombre}}</strong></h2>
                                     @endif
@@ -114,7 +133,7 @@
                             </div>
                         @else
                             <div class="row align-items-center py-5 appear-animation" data-appear-animation="fadeInRightShorter">
-                                <div class="col-md-8 pe-md-5 mb-5 mb-md-0">
+                                <div class="col-md-7 pe-md-5 mb-5 mb-md-0">
                                     @if($dato->nombre != null)
                                         <h2 class="font-weight-normal text-6 mb-3"><strong class="font-weight-extra-bold">{{$dato->nombre}}</strong></h2>
                                     @endif
@@ -122,8 +141,12 @@
                                         <p class="text-4">{!! $dato->descripcion !!}</p>
                                     @endif
                                 </div>
-                                <div class="col-md-4 px-5 px-md-3">
-                                    <img class="img-fluid scale-2 pe-5 pe-md-0 my-4" src="{{ asset('/web/noticiaprograma/'.$dato->url) }}" alt="{{$dato->nombre}}" />
+                                <div class="col-md-5 px-5 px-md-3">
+                                    {{-- <img class="img-fluid scale-2 pe-5 pe-md-0 my-4" src="{{ asset('/web/noticiaprograma/'.$dato->url) }}" alt="{{$dato->nombre}}" /> --}}
+
+                                    <a class="img-thumbnail d-block lightbox" href="{{ asset('/web/noticiaprograma/'.$dato->url) }}"  data-plugin-options="{'type':'image'}">
+                                        <img class="img-fluid" src="{{ asset('/web/noticiaprograma/'.$dato->url) }}" alt="Noticia" style="width: 100%; max-height: 360px;;">
+                                    </a>
                                 </div>
                             </div>
                         @endif

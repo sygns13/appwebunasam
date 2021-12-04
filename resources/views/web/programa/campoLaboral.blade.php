@@ -66,7 +66,11 @@
 
                                         @if($dato != null && $dato->tieneimagen != null &&  $dato->tieneimagen == '1' && $dato->url != null)
                                         <div class="col-md-12 px-12 px-md-12">
-                                            <img src="{{ asset('/web/indicadorsineaceprograma/'.$dato->url) }}" class="img-fluid float-start me-4 mt-2" alt="" style="height:80%;" />
+                                            {{-- <img src="{{ asset('/web/indicadorsineaceprograma/'.$dato->url) }}" class="img-fluid float-start me-4 mt-2" alt="" style="height:80%;" /> --}}
+
+											<a class="img-thumbnail d-block lightbox" href="{{ asset('/web/indicadorsineaceprograma/'.$dato->url) }}"  data-plugin-options="{'type':'image'}">
+												<img class="img-fluid" src="{{ asset('/web/indicadorsineaceprograma/'.$dato->url) }}" alt="Project Image" style="width: 100%; height: 490px;">
+											</a>
                                         </div> <br>
                                         @endif
 
