@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-
-@if($facultad != null && $facultad->tipo_vista != null)
-	@if($facultad->tipo_vista =='1')
+@if($escuela != null && $escuela->tipo_vista != null)
+	@if($escuela->tipo_vista =='1')
 		<html lang="es">
-	@elseif($facultad->tipo_vista =='2')
+	@elseif($escuela->tipo_vista =='2')
 		<html lang="es">
-	@elseif($facultad->tipo_vista =='3')
+	@elseif($escuela->tipo_vista =='3')
 		<html lang="es" class="boxed">
 	@else
 	<html lang="es">
@@ -13,13 +12,13 @@
 @else
 	<html lang="es">
 @endif
+	
+	@include('web/programa/partials/head')
 
-@include('web/facultad/partials/head')
 	<body>
-
 		<div class="body">
-
-			@include('web/facultad/partials/header')
+			
+			@include('web/programa/partials/header')
 
 			<div role="main" class="main">
 
@@ -27,18 +26,18 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-md-12 align-self-center p-static order-2 text-center">
-								<h1 class="text-light font-weight-bold text-8">Departamento Académico</h1>
-								<span class="sub-title text-light">{{$departamento->nombre}}</span>
+								<h1 class="text-light font-weight-bold text-8">Programa de Estudio</h1>
+								<span class="sub-title text-light">{{$escuela->nombre}}</span>
 							</div>
 						</div>
 					</div>
 				</section>
 
                 <div class="container">
-                    <a  href="{{ asset('/facultad/docentes/'.$facultad->hash)}}">
-                        <button type="button" class="btn btn-modern btn-dark mt-3"><i class="fas fa-arrow-left"></i> Volver al Listado de Docentes</button>
-                    </a>
-                    </div>
+                <a  href="{{ asset('/programadeestudio/docentes/'.$escuela->hash)}}">
+                    <button type="button" class="btn btn-modern btn-dark mt-3"><i class="fas fa-arrow-left"></i> Volver al Listado de Docentes</button>
+                </a>
+                </div>
 
 
                 <div class="container pt-5">
@@ -107,7 +106,7 @@
                                             <li class="nav-item">
                                                 <a class="nav-link active" href="#grados" data-bs-toggle="tab" class="text-center">Grados Académicos</a>
                                             </li>
-                                            <li class="nav-item">
+                                            {{-- <li class="nav-item">
                                                 <a class="nav-link" href="#experiencia" data-bs-toggle="tab" class="text-center">Experiencia Profesional</a>
                                             </li>
                                             <li class="nav-item">
@@ -115,13 +114,13 @@
                                             </li>
                                             <li class="nav-item">
                                                 <a class="nav-link" href="#investigacion" data-bs-toggle="tab" class="text-center">Investigación</a>
-                                            </li>
+                                            </li> --}}
                                         </ul>
                                         <div class="tab-content">
                                             <div id="grados" class="tab-pane active">
                                                 {!! $docente->grados !!}
                                             </div>
-                                            <div id="experiencia" class="tab-pane">
+                                            {{-- <div id="experiencia" class="tab-pane">
                                                 {!! $docente->experiencia !!}
                                             </div>
                                             <div id="publicaciones" class="tab-pane">
@@ -129,7 +128,7 @@
                                             </div>
                                             <div id="investigacion" class="tab-pane">
                                                 {!! $docente->investigaciones !!}
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -147,7 +146,7 @@
 							<hr class="solid my-4 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="900">
 							<div class="row align-items-center appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="1000">
 								<div class="col-lg-6">
-									<a href="#" class="btn btn-modern btn-dark mt-3">Volver arriba</a>
+									<a href="#" class="btn btn-modern btn-dark mt-3"><i class="fas fa-arrow-up"></i> Volver arriba</a>
 
 							{{-- 	<a href="#" class="btn btn-modern btn-primary mt-3">Hire Me</a> --}}
 								</div>
@@ -165,8 +164,8 @@
                             @if($docente != null && $docente->tieneimagen == 1 && $docente->urlimagen != null)
 							    {{-- <img src="{{ asset('/web/organoprograma/'.$organo->url) }}" class="img-fluid mb-2" alt=""> --}}
 
-								<a class="img-thumbnail d-block lightbox" href="{{ asset('/web/docentefacultad/'.$docente->urlimagen) }}"  data-plugin-options="{'type':'image'}">
-                                    <img class="img-fluid" src="{{ asset('/web/docentefacultad/'.$docente->urlimagen) }}" alt="Visión" style="width: 100%; height: 280px;">
+								<a class="img-thumbnail d-block lightbox" href="{{ asset('/web/docenteprograma/'.$docente->urlimagen) }}"  data-plugin-options="{'type':'image'}">
+                                    <img class="img-fluid" src="{{ asset('/web/docenteprograma/'.$docente->urlimagen) }}" alt="Visión" style="width: 100%; height: 280px;">
                                 </a>
                             @endif
 
@@ -195,14 +194,20 @@
 				</div>
 
 
+				
 
 
 
-		@include('web/facultad/partials/footer')
+
+
+
+
+			</div>
+
+			@include('web/programa/partials/footer')
 		</div>
-	</div>
 
-	@include('web/facultad/partials/scripts')
+		@include('web/programa/partials/scripts')
 
 	</body>
 </html>

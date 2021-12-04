@@ -99,6 +99,7 @@ Route::get('programadeestudio/titulados/{var}','IndexProgramaWebController@titul
 
 Route::get('programadeestudio/documentos/{var}','PublicacionWebController@documentosPrograma');
 Route::get('programadeestudio/docentes/{var}','IndexProgramaWebController@docentes');
+Route::get('programadeestudio/docente/{var}','IndexProgramaWebController@docente');
 
 
 Route::get('programadeestudio/{var}/noticias','PublicacionWebController@noticiasPrograma');

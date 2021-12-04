@@ -73,7 +73,9 @@
                                     {{$key+1}}
                                 </td>
                                 <td>
+                                    <a href="/programadeestudio/docente/{{$dato->hash}}" class="text-color-secondary text-color-hover-primary text-decoration-none">
                                     <h5>{{$dato->nombre}}</h5>
+                                    </a>
                                 </td>
                                 <td>
                                     {!! $dato->grados !!}
