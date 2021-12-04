@@ -224,15 +224,6 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 
-
-
-
-
-
-
-
-
-
     
     Route::resource('intranet/datosportalre', 'UniversidadController');
     Route::resource('intranet/datosfacre', 'FacultadController');
