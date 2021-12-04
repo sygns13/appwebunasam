@@ -50,6 +50,14 @@
 										<article>
 											<div class="card border-0 border-radius-0 box-shadow-1">
 												<div class="card-body p-4 z-index-1" style="border: 10px outset rgb(64, 116, 219);">
+
+													<h4 class="card-title mb-3 text-5 font-weight-semibold"><a class="text-color-dark" href="/facultad/departamentoacademico/{{$dato->hash}}/{{$facultad->hash}}">
+														@if($dato->nombre != null)
+															{{$dato->nombre}}
+														@endif    
+													</a></h4>
+
+
 													<a href="/facultad/jefedepartamento/{{$dato->hash}}/{{$facultad->hash}}">
 														
                                                         @if($dato->tieneimagen_director != null && $dato->tieneimagen_director == 1 && $dato->url_director != null)
