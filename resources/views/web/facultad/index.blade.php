@@ -135,8 +135,8 @@
 						@foreach($noticias as  $key => $dato)
 
 
-							<div class="col-md-6 col-lg-6 mb-6 mb-lg-0 appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200"
-							style="background-color: #2d529f; border: 1px solid white; padding-bottom:10px; padding-top:10px;">
+							<div class="col-md-6 col-lg-6 mb-6 mb-lg-0 appear-animation img-thumbnail d-block" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200"
+							style="background-color: rgb(52 56 61); border: 1px solid white; padding-bottom:10px; padding-top:10px;">
 								<a href="/facultad/noticia/{{$dato->hash}}/{{$facultad->hash}}">
 									<h5 class="mb-4" style="color:white;">
 										@if($dato->titular != null)
@@ -148,9 +148,9 @@
 								<div class="card">
 									<a href="/facultad/noticia/{{$dato->hash}}/{{$facultad->hash}}" class="text-decoration-none">
 										@if($dato->imagennoticia != null && $dato->imagennoticia->url != null)
-											<img class="card-img-top" src="{{ asset('/web/noticiafacultad/'.$dato->imagennoticia->url) }}" alt="Card Image" style="height: 200px;">
+											<img class="card-img-top img-thumbnail d-block" src="{{ asset('/web/noticiafacultad/'.$dato->imagennoticia->url) }}" alt="Card Image" style="width:100%; height: 200px;">
 										@else
-											<img class="card-img-top" src="{{ asset('/img/Login-Background.jpg') }}" alt="Card Image" style="height: 200px;">
+											<img class="card-img-top img-thumbnail d-block" src="{{ asset('/img/Login-Background.jpg') }}" alt="Card Image" style="width:100%; height: 200px;">
 										@endif
 									</a>
 									<div class="card-body">
@@ -210,11 +210,11 @@
 												@if($dato->eventoimagen != null && $dato->eventoimagen->url != null)
 													<img src="{{ asset('/web/eventofacultad/'.$dato->eventoimagen->url) }}" class="img-fluid" alt=" @if($dato->titulo != null)
 													{{$dato->titulo}}
-													@endif" style="height: 200px;">
+													@endif" style="width:100%; height: 200px;">
 												@else
 													<img src="{{ asset('/webvendor/img/blog/default/blog-46.jpg') }}" class="img-fluid" alt=" @if($dato->titulo != null)
 													{{$dato->titulo}}
-													@endif" style="height: 200px;">
+													@endif" style="width:100%; height: 200px;">
 												@endif
 												
 												<div class="thumb-info-title bg-transparent p-4">
@@ -264,11 +264,11 @@
 													@if($dato->imagencomunicado != null && $dato->imagencomunicado->url != null)
 														<img src="{{ asset('/web/comunicadofacultad/'.$dato->imagencomunicado->url) }}" class="img-fluid" alt=" @if($dato->titulo != null)
 														{{$dato->titulo}}
-														@endif">
+														@endif" style="width:100%; height: 340px;">
 													@else
 														<img src="{{ asset('/webvendor/img/blog/default/blog-46.jpg') }}" class="img-fluid" alt=" @if($dato->titulo != null)
 														{{$dato->titulo}}
-														@endif">
+														@endif" style="width:100%; height: 340px;">
 													@endif	
 													<div class="thumb-info-title bg-transparent p-4">
 														<div class="thumb-info-type bg-color-primary px-2 mb-1">
@@ -366,10 +366,13 @@
 				</div>
 				<div class="row py-4 my-5">
 					<div class="col py-3">
-						<div class="owl-carousel owl-theme mb-0" data-plugin-options="{'responsive': {'0': {'items': 1}, '476': {'items': 1}, '768': {'items': 5}, '992': {'items': 8}, '1200': {'items': 8}}, 'autoplay': true, 'autoplayTimeout': 2000, 'dots': false, 'margin': 10}">
+						<div class="owl-carousel owl-theme mb-0" data-plugin-options="{'responsive': {'0': {'items': 2}, '476': {'items': 2}, '768': {'items': 5}, '992': {'items': 7}, '1200': {'items': 7}}, 'autoplay': true, 'autoplayTimeout': 2000, 'dots': false, 'margin': 10}">
 							@foreach($linkinteres as  $key => $dato)
 								<div >
-									<a  href="{{$dato->nombre}}" target="_blank"><img {{-- style="border: groove #8080807d 1px" --}} class="img-fluid opacity-10" src="{{ asset('/web/linkinteresfacultad/'.$dato->url) }}" alt=""></a>
+									<a  href="{{$dato->nombre}}" target="_blank">
+										<img {{-- style="border: groove #8080807d 1px" --}} class="img-fluid opacity-10  img-thumbnail d-block" src="{{ asset('/web/linkinteresfacultad/'.$dato->url) }}" 
+										alt="" style="width:150px; height:90px;">
+									</a>
 								</div>
 							@endforeach
 						</div>

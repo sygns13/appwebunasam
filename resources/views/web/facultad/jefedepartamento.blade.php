@@ -79,7 +79,11 @@
 						</div>
 						<div class="col-md-5 order-md-2 mb-4 mb-lg-0 appear-animation" data-appear-animation="fadeInRightShorter">
                             @if($jefeDepartamento->tieneimagen_director != null && $jefeDepartamento->tieneimagen_director == 1 && $jefeDepartamento->url_director != null)
-							    <img src="{{ asset('/web/jefedeparfacultad/'.$jefeDepartamento->url_director) }}" class="img-fluid mb-2" alt="">
+							    {{-- <img src="{{ asset('/web/jefedeparfacultad/'.$jefeDepartamento->url_director) }}" class="img-fluid mb-2" alt=""> --}}
+
+								<a class="img-thumbnail d-block lightbox" href="{{ asset('/web/jefedeparfacultad/'.$jefeDepartamento->url_director) }}"  data-plugin-options="{'type':'image'}">
+                                    <img class="img-fluid" src="{{ asset('/web/jefedeparfacultad/'.$jefeDepartamento->url_director) }}" alt="Visión" style="width: 100%; height: 280px;">
+                                </a>
                             @endif
 						</div>
 					</div>

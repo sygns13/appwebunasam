@@ -27,7 +27,11 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-md-12 align-self-center p-static order-2 text-center">
-								<h1 class="text-light font-weight-bold text-8">Consejo de Facultad</h1>
+								<h1 class="text-light font-weight-bold text-8">
+									@if($organo != null && $organo->titulo != null)
+                                                {{$organo->titulo}}
+                                            @endif
+								</h1>
 								<span class="sub-title text-light">{{$facultad->nombre}}</span>
 							</div>
 						</div>
@@ -44,19 +48,19 @@
 
                                     <div class="post-content ms-0">
 										<h2 class="font-weight-semi-bold" style="color:#0088CC">
-                                            @if($organo != null && $organo->titulo != null)
-                                                {{$organo->titulo}}
+                                            @if($organo != null && $organo->subtitulo != null)
+                                                {{$organo->subtitulo}}
                                             @endif
                                         </h2>
                                     </div>
 
                                     <div class="post-content ms-0">
                                         
-                                        @if($organo != null && $organo->subtitulo != null)
+                                        {{-- @if($organo != null && $organo->subtitulo != null)
                                             <div class="col appear-animation" data-appear-animation="fadeInUpShorter" data-appear-animation-delay="200">
                                                 <h3 class="font-weight-semibold mb-0">{{$organo->subtitulo}}</h3>
                                             </div>
-                                        @endif
+                                        @endif --}}
                                         @if($organo != null && $organo->descripcion != null)
                                             {!!$organo->descripcion!!}
                                         @endif
@@ -64,7 +68,11 @@
 
                                     @if($organo != null && $organo->tieneimagen == 1 && $organo->url != null)
                                     <div class="post-image ms-0">
-                                            <img src="{{ asset('/web/organofacultad/'.$organo->url) }}" class="img-fluid img-thumbnail img-thumbnail-no-borders rounded-0" alt="" />
+										{{-- <img src="{{ asset('/web/organofacultad/'.$organo->url) }}" class="img-fluid img-thumbnail img-thumbnail-no-borders rounded-0" alt="" /> --}}
+
+										<a class="img-thumbnail d-block lightbox" href="{{ asset('/web/organofacultad/'.$organo->url) }}"  data-plugin-options="{'type':'image'}">
+											<img class="img-fluid" src="{{ asset('/web/organofacultad/'.$organo->url) }}" alt="Project Image" style="width: 100%; height: 400px;">
+										</a>
                                     </div>
                             @endif
                                 </article>

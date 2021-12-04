@@ -79,7 +79,11 @@
 						</div>
 						<div class="col-md-5 order-md-2 mb-4 mb-lg-0 appear-animation" data-appear-animation="fadeInRightShorter">
                             @if($organo != null && $organo->tieneimagen == 1 && $organo->url != null)
-							    <img src="{{ asset('/web/organofacultad/'.$organo->url) }}" class="img-fluid mb-2" alt="">
+							    {{-- <img src="{{ asset('/web/organofacultad/'.$organo->url) }}" class="img-fluid mb-2" alt=""> --}}
+
+								<a class="img-thumbnail d-block lightbox" href="{{ asset('/web/organofacultad/'.$organo->url) }}"  data-plugin-options="{'type':'image'}">
+                                    <img class="img-fluid" src="{{ asset('/web/organofacultad/'.$organo->url) }}" alt="Visión" style="width: 100%; height: 280px;">
+                                </a>
                             @endif
 						</div>
 					</div>

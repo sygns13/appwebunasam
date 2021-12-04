@@ -65,9 +65,17 @@
                                         <a href="#">
                                             
                                             @if($dato->tieneimagen != null && $dato->tieneimagen == 1 && $dato->urlimagen != null)
-                                                <img src="{{ asset('/web/docentefacultad/'.$dato->urlimagen) }}" class="img-fluid rounded-circle" alt="" style="width: 216px; height:216px;">
+                                                {{-- <img src="{{ asset('/web/docentefacultad/'.$dato->urlimagen) }}" class="img-fluid rounded-circle" alt="" style="width: 216px; height:216px;"> --}}
+
+                                                <a class="img-thumbnail d-block lightbox rounded-circle" href="{{ asset('/web/docentefacultad/'.$dato->urlimagen) }}" data-plugin-options="{'type':'image'}">
+                                                    <img class="img-fluid rounded-circle" src="{{ asset('/web/docentefacultad/'.$dato->urlimagen) }}" style="width: 216px; height:216px;" alt="Project Image">
+                                                </a>
                                             @else
-                                            <img src="{{ asset('/webvendor/img/demos/cleaning-services/team/team-1.jpg') }}" class="img-fluid rounded-circle" alt="" />
+                                            {{-- <img src="{{ asset('/webvendor/img/demos/cleaning-services/team/team-1.jpg') }}" class="img-fluid rounded-circle" alt="" /> --}}
+
+                                            <a class="img-thumbnail d-block lightbox rounded-circle" href="{{ asset('/webvendor/img/demos/cleaning-services/team/team-1.jpg') }}" data-plugin-options="{'type':'image'}">
+                                                <img class="img-fluid rounded-circle" src="{{ asset('/webvendor/img/demos/cleaning-services/team/team-1.jpg') }}" style="width: 216px; height:216px;" alt="Project Image">
+                                            </a>
                                             @endif
                                         </a>
                                     </div>

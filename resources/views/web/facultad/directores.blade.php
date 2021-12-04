@@ -93,9 +93,17 @@
                                                         <a href="/facultad/director/{{$dato->hash}}/{{$facultad->hash}}">
                                                             
                                                             @if($dato->director->tieneimagen != null && $dato->director->tieneimagen == 1 && $dato->director->url != null)
-                                                                <img src="{{ asset('/web/organoprograma/'.$dato->director->url) }}" alt class="img-fluid" style="width: 555px; height:300px;" />
+                                                                {{-- <img src="{{ asset('/web/organoprograma/'.$dato->director->url) }}" alt class="img-fluid" style="width: 555px; height:300px;" /> --}}
+
+                                                                <a class="img-thumbnail d-block lightbox" href="{{ asset('/web/organoprograma/'.$dato->director->url) }}"  data-plugin-options="{'type':'image'}">
+                                                                    <img class="img-fluid" src="{{ asset('/web/organoprograma/'.$dato->director->url) }}" alt="Project Image" style="width: 100%; height: 300px;">
+                                                                </a>
                                                             @else
-                                                                <img src="{{ asset('/webvendor/img/demos/seo-2/blog/blog-1.jpg') }}" alt class="card-img-top border-radius-0" style="width: 555px; height:300px;" />
+                                                                {{-- <img src="{{ asset('/webvendor/img/demos/seo-2/blog/blog-1.jpg') }}" alt class="card-img-top border-radius-0" style="width: 555px; height:300px;" /> --}}
+
+                                                                <a class="img-thumbnail d-block lightbox" href="{{ asset('/webvendor/img/demos/seo-2/blog/blog-1.jpg') }}"  data-plugin-options="{'type':'image'}">
+                                                                    <img class="img-fluid" src="{{ asset('/webvendor/img/demos/seo-2/blog/blog-1.jpg') }}" alt="Project Image" style="width: 100%; height: 300px;">
+                                                                </a>
                                                             @endif
                                                         </a>
                                                         {{-- <p class="text-uppercase text-1 mb-3 pt-1 text-color-default"><time pubdate datetime="2021-01-10">10 Jan 2021</time> <span class="opacity-3 d-inline-block px-2">|</span> 3 Comments <span class="opacity-3 d-inline-block px-2">|</span> John Doe</p> --}}
