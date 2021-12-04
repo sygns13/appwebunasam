@@ -220,22 +220,31 @@ Route::group(['middleware' => 'auth'], function () {
       
     
 
+
+
+
+
+
+
+
+
+
+
+
+
+
     
     Route::resource('intranet/datosportalre', 'UniversidadController');
     Route::resource('intranet/datosfacre', 'FacultadController');
     Route::resource('intranet/datosprogramare', 'ProgramaestudioController');
-
     Route::resource('intranet/bannerre', 'BannerController');
     Route::resource('intranet/presentacionre', 'PresentacionController');
-    
-
     Route::resource('intranet/noticiasre', 'NoticiaController');
     Route::resource('intranet/eventosre', 'EventoController');
     Route::resource('intranet/comunicadosre', 'ComunicadoController');
     Route::resource('intranet/plataformare', 'PlataformaController');
     Route::resource('intranet/redessolicalesre', 'RedsocialController');
     Route::resource('intranet/linkinteresre', 'LinkinteresController');
-
     Route::resource('intranet/historiare', 'HistoriaController');
     Route::resource('intranet/misionvisionre', 'MisionvisionController');
     Route::resource('intranet/organosre', 'OrganoController');
@@ -246,48 +255,31 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('intranet/licenciamientore', 'LicenciamientoController');
     Route::resource('intranet/indicadorsineacere', 'IndicadorsineaceController');
     Route::resource('intranet/documentore', 'DocumentoController');
-    
     Route::resource('intranet/facultadesre', 'FacultadesController');
     Route::resource('intranet/programasprogesionalesre', 'ProgramasEstudiosController');
-    
-    Route::resource('intranet/politicasre', 'PoliticacalidadController');
     Route::resource('intranet/directoriore', 'DirectorioController');
-    Route::resource('intranet/gestioncalidadre', 'GestioncalidadController');
-    Route::resource('intranet/revistasre', 'RevistaController');
-    Route::resource('intranet/basedatosre', 'AccesobasedatoController');
-    Route::resource('intranet/antiplagiore', 'AntiplagioController');
     Route::resource('intranet/galeriare', 'GaleriaController');
     Route::resource('intranet/estudiantesfecre', 'EstudianteController');
     Route::resource('intranet/docentesfacre', 'DocenteController');
     Route::resource('intranet/bannerprogramare', 'BannerController');
     Route::resource('intranet/presentacionprogramare', 'PresentacionController');
     Route::resource('intranet/organigramaprogramare', 'OrganigramaController');
-    Route::resource('intranet/estadisticosprogramare', 'DatoestadisticoController');
     Route::resource('intranet/historiaprogramare', 'HistoriaController');
     Route::resource('intranet/misionvisionprogramare', 'MisionvisionController');
     Route::resource('intranet/objetivosprogramare', 'ObjetivoController');
-    Route::resource('intranet/perfilingresoprogramare', 'PerfileController');
-    Route::resource('intranet/perfilegresoprogramare', 'PerfileController');
-    Route::resource('intranet/competenciasprogramare', 'CompetenciaController');
-    Route::resource('intranet/camposocupacionalesprogramare', 'CampoocupacionalController');
-    Route::resource('intranet/planestudiosprogramare', 'PlanestudioController');
     Route::resource('intranet/gradosprogramare', 'GradotituloController');
     Route::resource('intranet/docentesprogramare', 'DocenteController');
-    Route::resource('intranet/infraestructuraprogramare', 'InfraestructuraController');
-    
     Route::resource('intranet/imagennoticiasre', 'ImagennoticiaController');
     Route::resource('intranet/imageneventosre', 'ImageneventoController');
     Route::resource('intranet/imagencomunicadosre', 'ImagencomunicadoController');
     Route::resource('intranet/imagenhistoriare', 'ImagenhistoriaController');
     Route::resource('intranet/departamentosre', 'DepartamentoacademicoController');
-    
-    Route::resource('usuario','UserController');
-    
     Route::resource('intranet/resumenre', 'ResumenController');
     Route::resource('intranet/imagenresumenre', 'ImagenresumenController');
-
     Route::resource('intranet/numeroalumnore', 'NumerosalumnoController');
 
+    
+    Route::resource('usuario','UserController');
 
     Route::get('usuario/altabaja/{id}/{var}','UserController@altabaja');
     Route::get('usuario/verpersona/{dni}','UserController@verpersona');
@@ -301,7 +293,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('intranet/plataformare/altabaja/{id}/{var}', 'PlataformaController@altabaja');
     Route::get('intranet/redessolicalesre/altabaja/{id}/{var}', 'RedsocialController@altabaja');
     Route::get('intranet/linkinteresre/altabaja/{id}/{var}', 'LinkinteresController@altabaja');
-
     Route::get('intranet/historiare/altabaja/{id}/{var}', 'HistoriaController@altabaja');
     Route::get('intranet/misionvisionre/altabaja/{id}/{var}', 'MisionvisionController@altabaja');
     Route::get('intranet/organosre/altabaja/{id}/{var}', 'OrganoController@altabaja');
@@ -310,16 +301,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('intranet/licenciamientore/altabaja/{id}/{var}', 'LicenciamientoController@altabaja');
     Route::get('intranet/indicadorsineacere/altabaja/{id}/{var}', 'IndicadorsineaceController@altabaja');
     Route::get('intranet/documentore/altabaja/{id}/{var}', 'DocumentoController@altabaja');
-
     Route::get('intranet/facultadesre/altabaja/{id}/{var}', 'FacultadesController@altabaja');
     Route::get('intranet/programasprogesionalesre/altabaja/{id}/{var}', 'ProgramasEstudiosController@altabaja');
-
-    Route::get('intranet/politicasre/altabaja/{id}/{var}', 'PoliticacalidadController@altabaja');
     Route::get('intranet/directoriore/altabaja/{id}/{var}', 'DirectorioController@altabaja');
-    Route::get('intranet/gestioncalidadre/altabaja/{id}/{var}', 'GestioncalidadController@altabaja');
-    Route::get('intranet/revistasre/altabaja/{id}/{var}', 'RevistaController@altabaja');
-    Route::get('intranet/basedatosre/altabaja/{id}/{var}', 'AccesobasedatoController@altabaja');
-    Route::get('intranet/antiplagiore/altabaja/{id}/{var}', 'AntiplagioController@altabaja');
     Route::get('intranet/galeriare/altabaja/{id}/{var}', 'GaleriaController@altabaja');
     Route::get('intranet/estudiantesfecre/altabaja/{id}/{var}', 'EstudianteController@altabaja');
     Route::get('intranet/docentesfacre/altabaja/{id}/{var}', 'DocenteController@altabaja');
@@ -327,24 +311,18 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('intranet/presentacionprogramare/altabaja/{id}/{var}', 'PresentacionController@altabaja');
     Route::get('intranet/organigramaprogramare/altabaja/{id}/{var}', 'OrganigramaController@altabaja');
     Route::get('intranet/datosprogramare/altabaja/{id}/{var}', 'ProgramaestudioController@altabaja');
-    Route::get('intranet/estadisticosprogramare/altabaja/{id}/{var}', 'DatoestadisticoController@altabaja');
     Route::get('intranet/historiaprogramare/altabaja/{id}/{var}', 'HistoriaController@altabaja');
     Route::get('intranet/misionvisionprogramare/altabaja/{id}/{var}', 'MisionvisionController@altabaja');
     Route::get('intranet/objetivosprogramare/altabaja/{id}/{var}', 'ObjetivoController@altabaja');
-    Route::get('intranet/perfilingresoprogramare/altabaja/{id}/{var}', 'PerfileController@altabaja');
-    Route::get('intranet/perfilegresoprogramare/altabaja/{id}/{var}', 'PerfileController@altabaja');
-    Route::get('intranet/competenciasprogramare/altabaja/{id}/{var}', 'CompetenciaController@altabaja');
-    Route::get('intranet/camposocupacionalesprogramare/altabaja/{id}/{var}', 'CampoocupacionalController@altabaja');
-    Route::get('intranet/planestudiosprogramare/altabaja/{id}/{var}', 'PlanestudioController@altabaja');
     Route::get('intranet/gradosprogramare/altabaja/{id}/{var}', 'GradotituloController@altabaja');
     Route::get('intranet/docentesprogramare/altabaja/{id}/{var}', 'DocenteController@altabaja');
-    Route::get('intranet/infraestructuraprogramare/altabaja/{id}/{var}', 'InfraestructuraController@altabaja');
     Route::get('intranet/departamentosre/altabaja/{id}/{var}', 'DepartamentoacademicoController@altabaja');
+
+
 
 
     Route::delete('intranet/licenciamientore/deleteimg/{id}', 'LicenciamientoController@deleteImg');
     Route::delete('intranet/licenciamientore/deletefile/{id}', 'LicenciamientoController@deleteFile');
-
     Route::delete('intranet/indicadorsineacere/deleteimg/{id}', 'IndicadorsineaceController@deleteImg');
     Route::delete('intranet/indicadorsineacere/deletefile/{id}', 'IndicadorsineaceController@deleteFile');
 
@@ -357,15 +335,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('intranet/datosportalre/configuracion','UniversidadController@configuracion');
     Route::post('intranet/datosportalre/logo','UniversidadController@logo');
     Route::post('intranet/datosportalre/organigrama','UniversidadController@organigrama');
-
     Route::post('intranet/datosfacre/configuracion','FacultadController@configuracion');
     Route::post('intranet/datosfacre/logo','FacultadController@logo');
     Route::post('intranet/datosfacre/organigrama','FacultadController@organigrama');
-
     Route::post('intranet/datosprogramare/configuracion','ProgramaestudioController@configuracion');
     Route::post('intranet/datosprogramare/logo','ProgramaestudioController@logo');
     Route::post('intranet/datosprogramare/organigrama','ProgramaestudioController@organigrama');
-
     Route::post('usuario/borrarpermiso','UserController@borrarpermiso');
     Route::post('usuario/borrarrolmodulo','UserController@borrarrolmodulo');
     Route::post('usuario/borrarrollsubmodulo','UserController@borrarrollsubmodulo');

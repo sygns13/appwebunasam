@@ -546,7 +546,7 @@
                     <li><a href="{{URL::to('intranet/configprograma')}}"><i class='fa fa-paper-plane'></i> Configuraciones Principales</a></li>
                     <li><a href="{{URL::to('intranet/bannerprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Banners</a></li>
                     <li><a href="{{URL::to('intranet/presentacionprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Presentación</a></li>
-                    <li><a href="{{URL::to('intranet/datosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Datos Facultad</a></li>
+                    <li><a href="{{URL::to('intranet/datosprograma')}}"><i class='fa fa-paper-plane'></i>Datos Programa de Estudio</a></li>
                     <li><a href="{{URL::to('intranet/noticiasprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Noticias</a></li>
                     <li><a href="{{URL::to('intranet/eventosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Eventos</a></li> 
                     <li><a href="{{URL::to('intranet/comunicadosprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Comunicados</a></li> 
