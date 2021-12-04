@@ -64,6 +64,7 @@ Route::get('facultad/jefedepartamento/{var1}/{var2}', 'IndexFacultadWebControlle
 Route::get('facultad/servicios/{var}','IndexFacultadWebController@servicios');
 Route::get('facultad/documentos/{var}','PublicacionWebController@documentosFacultad');
 Route::get('facultad/docentes/{var}','IndexFacultadWebController@docentes');
+Route::get('facultad/docente/{var}','IndexFacultadWebController@docente');
 
 
 

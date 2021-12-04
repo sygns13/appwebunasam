@@ -1267,6 +1267,10 @@ class IndexProgramaWebController extends Controller
                 
                 $docentes=Docente::where('borrado','0')->where('activo','1')->where('nivel', 2)->where('programaestudio_id',$id)->orderBy('nombre')->orderBy('id')->get();
 
+                foreach ($docentes as $key => $value) {
+                    $docentes[$key]->hash = base64_encode(gzdeflate('idhijodocente-'.$value->id));
+                }
+
                 $escuela = Programaestudio::find($id);
                 $facultad = Facultad::find($escuela->facultad_id);
                 $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
@@ -1298,6 +1302,71 @@ class IndexProgramaWebController extends Controller
 
                 
                 return view('web/programa/docentes',compact('docentes','escuela','unasam','facultad','redsocials','menusActivos','planesestudios'));
+
+                
+            } catch (Exception $e) {
+                return redirect('/');
+            }
+        }
+        else{
+            return redirect('/');
+        }
+
+        return redirect('/');
+    }
+
+    public function docente($idhash)
+    {
+
+        $strdecoded = $idhash;
+
+        if($idhash != null && strlen($idhash) > 0){
+
+            $id = "";
+            
+            try {
+                $strdecoded = gzinflate(base64_decode($idhash));
+
+                if(strlen($strdecoded) > 14){
+                    $id = explode('-', $strdecoded);
+                    $id = $id[1];
+                }
+
+                
+                $docente=Docente::find($id);
+
+
+                $escuela = Programaestudio::find($docente->programaestudio_id);
+                $facultad = Facultad::find($escuela->facultad_id);
+                $unasam = Universidad::where('activo','1')->where('borrado','0')->first();
+
+                //hash id
+                $escuela->hash = base64_encode(gzdeflate('idhijoescuela-'.$docente->programaestudio_id));
+                $facultad->hash = base64_encode(gzdeflate('idhijofacultad-'.$escuela->facultad_id));
+                
+                $redsocials=Redsocial::where('borrado','0')->where('activo','1')->where('nivel', 2)->where('programaestudio_id',$docente->programaestudio_id)->orderBy('id')->get();
+                $planesestudios=Indicadorsineace::where('borrado','0')->where('activo','1')->where('nivel', 2)->where('tipo', 6)->where('programaestudio_id',$docente->programaestudio_id)->orderBy('id','desc')->get();
+
+                foreach ($planesestudios as $key => $value) {
+                    $planesestudios[$key]->hash = base64_encode(gzdeflate('idplanestudio-'.$value->id));
+                }
+
+
+
+                $menusActivos = new stdClass;
+
+                $menusActivos->menu1 = "";
+                $menusActivos->menu2 = "";
+                $menusActivos->menu3 = "";
+                $menusActivos->menu4 = "";
+                $menusActivos->menu5 = "";
+                $menusActivos->menu6 = "";
+                $menusActivos->menu7 = "active";
+                $menusActivos->menu8 = "";
+                $menusActivos->menu9 = "";
+
+                
+                return view('web/programa/docente',compact('docente','escuela','unasam','facultad','redsocials','menusActivos','planesestudios'));
 
                 
             } catch (Exception $e) {

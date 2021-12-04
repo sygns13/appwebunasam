@@ -80,7 +80,7 @@
                                         </a>
                                     </div>
                                     <h4 class="text-color-secondary font-weight-bold line-height-1 text-5 mb-0">
-                                        <a href="#" class="text-color-secondary text-color-hover-primary text-decoration-none">
+                                        <a href="/facultad/docente/{{$dato->hash}}" class="text-color-secondary text-color-hover-primary text-decoration-none">
                                             @if($dato != null && $dato->nombre != null)
                                                 {{$dato->nombre}}
                                             @endif
