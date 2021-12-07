@@ -1,4 +1,4 @@
-<header id="header" class="header-effect-shrink" data-plugin-options="{'stickyEnabled': true, 'stickyEffect': 'shrink', 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': false, 'stickyChangeLogo': true, 'stickyStartAt': 120, 'stickyHeaderContainerHeight': 70}">
+<header id="header" class="header-effect-shrink" data-plugin-options="{'stickyEnabled': true, 'stickyEffect': 'shrink', 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': false, 'stickyChangeLogo': false, 'stickyStartAt': 120, 'stickyHeaderContainerHeight': 70}">
     <div class="header-body border-top-0">
         <div class="header-top header-top-default header-top-borders border-bottom-0 bg-quaternary" style="background: #34383d!important;">
             <div class="container h-100">
@@ -47,9 +47,9 @@
                             {{-- 	<img alt="Porto" width="143" height="40" src="img/demos/medical/logo-medical.png"> --}}
 
                                 @if($facultad != null && $facultad->logourl != null)
-                                    <img alt="Facultad" height="100"   data-sticky-height="50" data-sticky-top="0"    src="{{ asset('/web/logofacultad/'.$facultad->logourl) }}">
+                                    <img alt="Facultad"   data-sticky-height="50" data-sticky-top="0"    src="{{ asset('/web/logofacultad/'.$facultad->logourl) }}" style="max-width: 300px; max-height:100px;">
                                 @else
-                                    <img alt="Facultad" height="100"   data-sticky-height="50" data-sticky-top="0"    src="{{ asset('/webvendor/img/logo_unasam_2.png') }}">
+                                    <img alt="Facultad"   data-sticky-height="50" data-sticky-top="0"    src="{{ asset('/webvendor/img/logo_unasam_2.png') }}" style="max-width: 300px; max-height:100px;">
                                 @endif
 
                             </a>

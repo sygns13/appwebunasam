@@ -284,10 +284,16 @@ class PresentacionController extends Controller
                 }
             }
             else{
-                $msj="Debe de adjuntar una imagen del válida";
-                $segureImg=1;
-                $result='0';
-                $selector='imagen';
+                if(($img == null|| $img == "null") && ($oldImg!="" && $oldImg!=null && $oldImg!="null")){
+                    $imagen="";
+                    $oldImg="";
+                }
+                else{
+                    $msj="Debe seleccionar una imagen";
+                    $segureImg=1;
+                    $result='0';
+                    $selector='imagen';
+                }
             }
         }
 

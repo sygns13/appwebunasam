@@ -415,7 +415,7 @@ class ImagencomunicadoController extends Controller
         $msj='1';
 
         $comunicado = Imagencomunicado::findOrFail($id);
-        $comunicadopadre = Comunicado::findOrFail($id);
+        $comunicadopadre = Comunicado::findOrFail($comunicado->comunicado_id);
 
         if(Strlen($comunicado->url) > 0){
             

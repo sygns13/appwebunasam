@@ -394,7 +394,11 @@ class ComunicadoController extends Controller
 
                 $imagencomunicado->save();
 
-                $msj='Nueva Actividad Registrada con Éxito';
+                if($nivel == "0"){
+                    $msj='Nueva Actividad Registrada con Éxito';
+                }else{
+                    $msj='Nuevo comunicado Registrada con Éxito';
+                }
 
             }
         }
@@ -638,7 +642,13 @@ class ComunicadoController extends Controller
                     } 
                 }
 
-                $msj='La Actividad ha sido modificada con éxito';
+                if($nivel == "0"){
+                    $msj='La Actividad ha sido modificada con éxito';
+                }
+                else{
+                    $msj='El Comunicado ha sido modificado con éxito';
+                }
+                
 
             }
         }
@@ -683,9 +693,19 @@ class ComunicadoController extends Controller
         $comunicado->save();
 
         if(strval($estado)=="0"){
-            $msj='La Actividad fue Desactivada exitosamente';
+            if($comunicado->nivel == 0){
+                $msj='La Actividad ha sido dada de baja con éxito';
+            }
+            else{
+                $msj='El Comunicado ha sido dado de baja con éxito';
+            }
         }elseif(strval($estado)=="1"){
-            $msj='La Actividad fue Activada exitosamente';
+            if($comunicado->nivel == 0){
+                $msj='La Actividad ha sido activada con éxito';
+            }
+            else{
+                $msj='El Comunicado ha sido activado con éxito';
+            }
         }
 
         return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
@@ -725,7 +745,12 @@ class ComunicadoController extends Controller
         $comunicado->user_id=Auth::user()->id;
         $comunicado->save();
 
-        $msj='Actividad eliminada exitosamente';
+        if($comunicado->nivel == 0){
+            $msj='La Actividad ha sido eliminada con éxito';
+        }
+        else{
+            $msj='El Comunicado ha sido eliminado con éxito';
+        }
 
 
         return response()->json(["result"=>$result,'msj'=>$msj]);

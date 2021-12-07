@@ -415,7 +415,7 @@ class ImageneventoController extends Controller
         $msj='1';
 
         $evento = Imagenevento::findOrFail($id);
-        $eventoPadre = Evnto::findOrFail($id);
+        $eventoPadre = Evento::findOrFail($evento->evento_id);
 
         if(Strlen($evento->url) > 0){
             

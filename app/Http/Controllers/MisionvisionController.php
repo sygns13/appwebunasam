@@ -306,10 +306,16 @@ class MisionvisionController extends Controller
                 }
             }
             else{
-                $msj="Debe de adjuntar una imagen del válida";
-                $segureImg=1;
-                $result='0';
-                $selector='imagen';
+                if(($img == null|| $img == "null") && ($oldImg!="" && $oldImg!=null && $oldImg!="null")){
+                    $imagen=$oldImg;
+                    $oldImg="";
+                }
+                else{
+                    $msj="Debe de adjuntar una imagen del válida";
+                    $segureImg=1;
+                    $result='0';
+                    $selector='imagen';
+                }
             }
         }
 
@@ -520,7 +526,7 @@ class MisionvisionController extends Controller
         $msj='';
         $selector='';
 
-        Storage::disk('misionvisionFacultad')->delete($image);
+        
 
         $misionvision = Misionvision::findOrFail($id);
 

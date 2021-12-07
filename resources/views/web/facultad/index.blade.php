@@ -35,7 +35,7 @@
 
 							@foreach($banners as  $key => $dato)
 
-							<div class="owl-item position-relative overlay overlay-show overlay-op-3" style="background-image: url({{asset('/web/bannerfacultad/'.$dato->url) }}); background-size: cover; background-position: center;">
+							<div class="owl-item position-relative overlay overlay-show overlay-op-1" style="background-image: url({{asset('/web/bannerfacultad/'.$dato->url) }}); background-size: cover; background-position: center;">
 								<div class="container position-relative z-index-3 h-100">
 									<div class="row align-items-center h-100">
 										<div class="col pb-4">
