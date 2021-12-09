@@ -124,7 +124,7 @@
                                                         <ul class="dropdown-menu">
                                                             <li><a class="dropdown-item" href="/rector">Rectorado</a></li>
                                                             <li><a class="dropdown-item" href="/vicerrectoracademico">Vicerrector Académico</a></li>
-                                                            <li><a class="dropdown-item" href="/vicerrectorinvestigacion">Vicerrector Administrativo</a></li>
+                                                            <li><a class="dropdown-item" href="/vicerrectorinvestigacion">Vicerrector de Investigación</a></li>
                                                             <li><a class="dropdown-item" href="/asambleauniversitaria">Asamblea Universitaria</a></li>
                                                             <li><a class="dropdown-item" href="/concejouniversitario">Consejo Universitario</a></li>
                                                         </ul>

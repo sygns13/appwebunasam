@@ -146,7 +146,7 @@
                     <li><a href="{{URL::to('intranet/vicerrectoracademico')}}"><i class='fa fa-paper-plane'></i> Vicerrector Académico</a></li>
                     <li><a href="{{URL::to('intranet/vicerrectorinvestigacion')}}"><i class='fa fa-paper-plane'></i> Vicerrector de Investigación</a></li>
                     <li><a href="{{URL::to('intranet/asambleauniversitaria')}}"><i class='fa fa-paper-plane'></i> Asamblea Universitaria</a></li>
-                    <li><a href="{{URL::to('intranet/concejouniversitario')}}"><i class='fa fa-paper-plane'></i> Concejo Universitario</a></li>
+                    <li><a href="{{URL::to('intranet/concejouniversitario')}}"><i class='fa fa-paper-plane'></i> Consejo Universitario</a></li>
                     <li><a href="{{URL::to('intranet/objetivosunasam')}}"><i class='fa fa-paper-plane'></i> Objetivos Estratégicos</a></li>
                     <li><a href="{{URL::to('intranet/estatuto')}}"><i class='fa fa-paper-plane'></i> Gestión del Estatuto</a></li>
                     <li><a href="{{URL::to('intranet/licenciamiento')}}"><i class='fa fa-paper-plane'></i> Gestión de Licenciamiento</a></li>
@@ -174,7 +174,7 @@
                             <li><a href="{{URL::to('intranet/vicerrectoracademico')}}"><i class='fa fa-paper-plane'></i> Vicerrector Académico</a></li>
                             <li><a href="{{URL::to('intranet/vicerrectorinvestigacion')}}"><i class='fa fa-paper-plane'></i> Vicerrector de Investigación</a></li>
                             <li><a href="{{URL::to('intranet/asambleauniversitaria')}}"><i class='fa fa-paper-plane'></i> Asamblea Universitaria</a></li>
-                            <li><a href="{{URL::to('intranet/concejouniversitario')}}"><i class='fa fa-paper-plane'></i> Concejo Universitario</a></li>
+                            <li><a href="{{URL::to('intranet/concejouniversitario')}}"><i class='fa fa-paper-plane'></i> Consejo Universitario</a></li>
                             <li><a href="{{URL::to('intranet/objetivosunasam')}}"><i class='fa fa-paper-plane'></i> Objetivos Estratégicos</a></li>
                             <li><a href="{{URL::to('intranet/estatuto')}}"><i class='fa fa-paper-plane'></i> Gestión del Estatuto</a></li>
                             <li><a href="{{URL::to('intranet/licenciamiento')}}"><i class='fa fa-paper-plane'></i> Gestión de Licenciamiento</a></li>
@@ -193,7 +193,7 @@
                                     <li><a href="{{URL::to('intranet/vicerrectoracademico')}}"><i class='fa fa-paper-plane'></i> Vicerrector Académico</a></li>
                                     <li><a href="{{URL::to('intranet/vicerrectorinvestigacion')}}"><i class='fa fa-paper-plane'></i> Vicerrector de Investigación</a></li>
                                     <li><a href="{{URL::to('intranet/asambleauniversitaria')}}"><i class='fa fa-paper-plane'></i> Asamblea Universitaria</a></li>
-                                    <li><a href="{{URL::to('intranet/concejouniversitario')}}"><i class='fa fa-paper-plane'></i> Concejo Universitario</a></li>
+                                    <li><a href="{{URL::to('intranet/concejouniversitario')}}"><i class='fa fa-paper-plane'></i> Consejo Universitario</a></li>
                                     <li><a href="{{URL::to('intranet/objetivosunasam')}}"><i class='fa fa-paper-plane'></i> Objetivos Estratégicos</a></li>
                                     <li><a href="{{URL::to('intranet/estatuto')}}"><i class='fa fa-paper-plane'></i> Gestión del Estatuto</a></li>
                                     <li><a href="{{URL::to('intranet/licenciamiento')}}"><i class='fa fa-paper-plane'></i> Gestión de Licenciamiento</a></li>
@@ -218,7 +218,7 @@
                                         @elseif($rolSubModulo->modulo_id == 2 && $rolSubModulo->nivel == 0 && $rolSubModulo->submodulo_id == 16)
                                             <li><a href="{{URL::to('intranet/asambleauniversitaria')}}"><i class='fa fa-paper-plane'></i> Asamblea Universitaria</a></li>
                                         @elseif($rolSubModulo->modulo_id == 2 && $rolSubModulo->nivel == 0 && $rolSubModulo->submodulo_id == 17)
-                                            <li><a href="{{URL::to('intranet/concejouniversitario')}}"><i class='fa fa-paper-plane'></i> Concejo Universitario</a></li>
+                                            <li><a href="{{URL::to('intranet/concejouniversitario')}}"><i class='fa fa-paper-plane'></i> Consejo Universitario</a></li>
                                         @elseif($rolSubModulo->modulo_id == 2 && $rolSubModulo->nivel == 0 && $rolSubModulo->submodulo_id == 18)
                                             <li><a href="{{URL::to('intranet/objetivosunasam')}}"><i class='fa fa-paper-plane'></i> Objetivos Estratégicos</a></li>
                                         @elseif($rolSubModulo->modulo_id == 2 && $rolSubModulo->nivel == 0 && $rolSubModulo->submodulo_id == 19)
