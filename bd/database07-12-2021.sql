@@ -40,7 +40,7 @@ CREATE TABLE `banners` (
   KEY `fk_baners_programaestudios1_idx` (`programaestudio_id`),
   CONSTRAINT `fk_baners_facultads1` FOREIGN KEY (`facultad_id`) REFERENCES `facultads` (`id`),
   CONSTRAINT `fk_baners_programaestudios1` FOREIGN KEY (`programaestudio_id`) REFERENCES `programaestudios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -121,7 +121,7 @@ CREATE TABLE `contenidos` (
   KEY `FKab4_idx` (`programaestudio_id`),
   CONSTRAINT `FKaa4` FOREIGN KEY (`facultad_id`) REFERENCES `facultads` (`id`),
   CONSTRAINT `FKab4` FOREIGN KEY (`programaestudio_id`) REFERENCES `programaestudios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -164,7 +164,7 @@ CREATE TABLE `departamentoacademicos` (
   PRIMARY KEY (`id`),
   KEY `FKaa5_idx` (`facultad_id`),
   CONSTRAINT `FKaa5` FOREIGN KEY (`facultad_id`) REFERENCES `facultads` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -206,7 +206,7 @@ CREATE TABLE `directorios` (
   KEY `fk_directorios_programaestudios1_idx` (`programaestudio_id`),
   CONSTRAINT `fk_directorios_facultads1` FOREIGN KEY (`facultad_id`) REFERENCES `facultads` (`id`),
   CONSTRAINT `fk_directorios_programaestudios1` FOREIGN KEY (`programaestudio_id`) REFERENCES `programaestudios` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -259,7 +259,7 @@ CREATE TABLE `docentes` (
   KEY `Fk2_idx` (`programaestudio_id`),
   CONSTRAINT `FK1` FOREIGN KEY (`facultad_id`) REFERENCES `facultads` (`id`),
   CONSTRAINT `Fk2` FOREIGN KEY (`programaestudio_id`) REFERENCES `programaestudios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -293,7 +293,7 @@ CREATE TABLE `documentoestatutos` (
   PRIMARY KEY (`id`),
   KEY `fk_imagenhistorias_copy1_estatutos1_idx` (`estatuto_id`),
   CONSTRAINT `fk_imagenhistorias_copy1_estatutos1` FOREIGN KEY (`estatuto_id`) REFERENCES `estatutos` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -334,7 +334,7 @@ CREATE TABLE `documentos` (
   KEY `fk_documentos_programaestudios1_idx` (`programaestudio_id`),
   CONSTRAINT `fk_documentos_facultads1` FOREIGN KEY (`facultad_id`) REFERENCES `facultads` (`id`),
   CONSTRAINT `fk_documentos_programaestudios1` FOREIGN KEY (`programaestudio_id`) REFERENCES `programaestudios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -374,7 +374,7 @@ CREATE TABLE `estatutos` (
   KEY `FK2a_idx` (`programaestudio_id`),
   CONSTRAINT `FK1a` FOREIGN KEY (`facultad_id`) REFERENCES `facultads` (`id`),
   CONSTRAINT `FK2a` FOREIGN KEY (`programaestudio_id`) REFERENCES `programaestudios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -415,7 +415,7 @@ CREATE TABLE `estudiantes` (
   KEY `fk_estudiantes_programaestudios1_idx` (`programaestudio_id`),
   CONSTRAINT `fk_estudiantes_facultads1` FOREIGN KEY (`facultad_id`) REFERENCES `facultads` (`id`),
   CONSTRAINT `fk_estudiantes_programaestudios1` FOREIGN KEY (`programaestudio_id`) REFERENCES `programaestudios` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -454,7 +454,7 @@ CREATE TABLE `eventos` (
   KEY `fk_eventos_facultads1_idx` (`facultad_id`),
   CONSTRAINT `fk_eventos_facultads1` FOREIGN KEY (`facultad_id`) REFERENCES `facultads` (`id`),
   CONSTRAINT `fk_eventos_programaestudios1` FOREIGN KEY (`programaestudio_id`) REFERENCES `programaestudios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -492,7 +492,7 @@ CREATE TABLE `facultads` (
   `nombre_organigrama` varchar(500) CHARACTER SET utf8 DEFAULT NULL,
   `url_organigrama` varchar(2500) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -531,7 +531,7 @@ CREATE TABLE `galerias` (
   KEY `fk_galerias_programaestudios1_idx` (`programaestudio_id`),
   CONSTRAINT `fk_galerias_facultads1` FOREIGN KEY (`facultad_id`) REFERENCES `facultads` (`id`),
   CONSTRAINT `fk_galerias_programaestudios1` FOREIGN KEY (`programaestudio_id`) REFERENCES `programaestudios` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -565,7 +565,7 @@ CREATE TABLE `gradotitulos` (
   PRIMARY KEY (`id`),
   KEY `fk_planestudios_programaestudios1_idx` (`programaestudio_id`),
   CONSTRAINT `fk_planestudios_programaestudios10` FOREIGN KEY (`programaestudio_id`) REFERENCES `programaestudios` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -602,7 +602,7 @@ CREATE TABLE `historias` (
   KEY `fk_historias_programaestudios1_idx` (`programaestudio_id`),
   CONSTRAINT `fk_historias_facultads1` FOREIGN KEY (`facultad_id`) REFERENCES `facultads` (`id`),
   CONSTRAINT `fk_historias_programaestudios1` FOREIGN KEY (`programaestudio_id`) REFERENCES `programaestudios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -636,7 +636,7 @@ CREATE TABLE `imagencomunicados` (
   PRIMARY KEY (`id`),
   KEY `fk_imageneventos_copy1_comunicados1_idx` (`comunicado_id`),
   CONSTRAINT `fk_imageneventos_copy1_comunicados1` FOREIGN KEY (`comunicado_id`) REFERENCES `comunicados` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -670,7 +670,7 @@ CREATE TABLE `imageneventos` (
   PRIMARY KEY (`id`),
   KEY `fk_imageneventos_eventos1_idx` (`evento_id`),
   CONSTRAINT `fk_imageneventos_eventos1` FOREIGN KEY (`evento_id`) REFERENCES `eventos` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -704,7 +704,7 @@ CREATE TABLE `imagengalerias` (
   PRIMARY KEY (`id`),
   KEY `fk_imagencomunicados_copy1_galerias1_idx` (`galeria_id`),
   CONSTRAINT `fk_imagencomunicados_copy1_galerias1` FOREIGN KEY (`galeria_id`) REFERENCES `galerias` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -737,7 +737,7 @@ CREATE TABLE `imagenhistorias` (
   PRIMARY KEY (`id`),
   KEY `fk_imagencomunicados_copy1_historias1_idx` (`historia_id`),
   CONSTRAINT `fk_imagencomunicados_copy1_historias1` FOREIGN KEY (`historia_id`) REFERENCES `historias` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -771,7 +771,7 @@ CREATE TABLE `imagennoticias` (
   PRIMARY KEY (`id`),
   KEY `fk_imagennoticias_noticias1_idx` (`noticia_id`),
   CONSTRAINT `fk_imagennoticias_noticias1` FOREIGN KEY (`noticia_id`) REFERENCES `noticias` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -805,7 +805,7 @@ CREATE TABLE `imagenresumens` (
   PRIMARY KEY (`id`),
   KEY `fk_imagenresumens_idx` (`resumen_id`),
   CONSTRAINT `fk_imagenresumens` FOREIGN KEY (`resumen_id`) REFERENCES `resumens` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -848,7 +848,7 @@ CREATE TABLE `indicadorsineaces` (
   KEY `fk_objetivos_programaestudios1_idx` (`programaestudio_id`),
   CONSTRAINT `fk_objetivos_facultads100` FOREIGN KEY (`facultad_id`) REFERENCES `facultads` (`id`),
   CONSTRAINT `fk_objetivos_programaestudios100` FOREIGN KEY (`programaestudio_id`) REFERENCES `programaestudios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -891,7 +891,7 @@ CREATE TABLE `licenciamientos` (
   KEY `Fkab_idx` (`programaestudio_id`),
   CONSTRAINT `Fkaa` FOREIGN KEY (`facultad_id`) REFERENCES `facultads` (`id`),
   CONSTRAINT `Fkab` FOREIGN KEY (`programaestudio_id`) REFERENCES `programaestudios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -929,7 +929,7 @@ CREATE TABLE `linkinteres` (
   KEY `FKab2_idx` (`programaestudio_id`),
   CONSTRAINT `FKaa2` FOREIGN KEY (`facultad_id`) REFERENCES `facultads` (`id`),
   CONSTRAINT `FKab2` FOREIGN KEY (`programaestudio_id`) REFERENCES `programaestudios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=109 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=109 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -969,7 +969,7 @@ CREATE TABLE `misionvisions` (
   KEY `fk_misionvisions_programaestudios1_idx` (`programaestudio_id`),
   CONSTRAINT `fk_misionvisions_facultads1` FOREIGN KEY (`facultad_id`) REFERENCES `facultads` (`id`),
   CONSTRAINT `fk_misionvisions_programaestudios1` FOREIGN KEY (`programaestudio_id`) REFERENCES `programaestudios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -998,7 +998,7 @@ CREATE TABLE `modulos` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1038,7 +1038,7 @@ CREATE TABLE `noticias` (
   KEY `fk_noticias_programaestudios1_idx` (`programaestudio_id`),
   CONSTRAINT `fk_noticias_facultads1` FOREIGN KEY (`facultad_id`) REFERENCES `facultads` (`id`),
   CONSTRAINT `fk_noticias_programaestudios1` FOREIGN KEY (`programaestudio_id`) REFERENCES `programaestudios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=258 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=258 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1073,7 +1073,7 @@ CREATE TABLE `numerosalumnos` (
   KEY `FKaa5_idx` (`programaestudio_id`),
   KEY `FKaa6_idx` (`programaestudio_id`),
   CONSTRAINT `FKaa6` FOREIGN KEY (`programaestudio_id`) REFERENCES `programaestudios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1113,7 +1113,7 @@ CREATE TABLE `objetivos` (
   KEY `fk_objetivos_programaestudios1_idx` (`programaestudio_id`),
   CONSTRAINT `fk_objetivos_facultads1` FOREIGN KEY (`facultad_id`) REFERENCES `facultads` (`id`),
   CONSTRAINT `fk_objetivos_programaestudios1` FOREIGN KEY (`programaestudio_id`) REFERENCES `programaestudios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1153,7 +1153,7 @@ CREATE TABLE `organigramas` (
   KEY `fk_organigramas_programaestudios1_idx` (`programaestudio_id`),
   CONSTRAINT `fk_organigramas_facultads1` FOREIGN KEY (`facultad_id`) REFERENCES `facultads` (`id`),
   CONSTRAINT `fk_organigramas_programaestudios1` FOREIGN KEY (`programaestudio_id`) REFERENCES `programaestudios` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1193,7 +1193,7 @@ CREATE TABLE `organos` (
   KEY `FKab3_idx` (`programaestudio_id`),
   CONSTRAINT `FKaa3` FOREIGN KEY (`facultad_id`) REFERENCES `facultads` (`id`),
   CONSTRAINT `FKab3` FOREIGN KEY (`programaestudio_id`) REFERENCES `programaestudios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1232,7 +1232,7 @@ CREATE TABLE `perfiles` (
   PRIMARY KEY (`id`),
   KEY `fk_perfiles_programaestudios1_idx` (`programaestudio_id`),
   CONSTRAINT `fk_perfiles_programaestudios1` FOREIGN KEY (`programaestudio_id`) REFERENCES `programaestudios` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1261,7 +1261,7 @@ CREATE TABLE `permisos` (
   `roles` tinyint DEFAULT NULL COMMENT '1 -> todos\n0 -> segun rol',
   `user_id` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1294,7 +1294,7 @@ CREATE TABLE `personas` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1331,7 +1331,7 @@ CREATE TABLE `plataformas` (
   KEY `FKab7_idx` (`programaestudio_id`),
   CONSTRAINT `FKaa7` FOREIGN KEY (`facultad_id`) REFERENCES `facultads` (`id`),
   CONSTRAINT `FKab7` FOREIGN KEY (`programaestudio_id`) REFERENCES `programaestudios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1371,7 +1371,7 @@ CREATE TABLE `presentacions` (
   KEY `fk_presentacions_programaestudios1_idx` (`programaestudio_id`),
   CONSTRAINT `fk_presentacions_facultads1` FOREIGN KEY (`facultad_id`) REFERENCES `facultads` (`id`),
   CONSTRAINT `fk_presentacions_programaestudios1` FOREIGN KEY (`programaestudio_id`) REFERENCES `programaestudios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1412,7 +1412,7 @@ CREATE TABLE `programaestudios` (
   PRIMARY KEY (`id`),
   KEY `fk_programaestudios_facultads_idx` (`facultad_id`),
   CONSTRAINT `fk_programaestudios_facultads` FOREIGN KEY (`facultad_id`) REFERENCES `facultads` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1450,7 +1450,7 @@ CREATE TABLE `redsocials` (
   KEY `fk_redsocials_facultads1_idx` (`facultad_id`),
   CONSTRAINT `fk_redsocials_facultads1` FOREIGN KEY (`facultad_id`) REFERENCES `facultads` (`id`),
   CONSTRAINT `fk_redsocials_programaestudios1` FOREIGN KEY (`programaestudio_id`) REFERENCES `programaestudios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1488,7 +1488,7 @@ CREATE TABLE `resumens` (
   KEY `fk_historias_programaestudios1_idxre` (`programaestudio_id`),
   CONSTRAINT `fk_historias_facultads1re` FOREIGN KEY (`facultad_id`) REFERENCES `facultads` (`id`),
   CONSTRAINT `fk_historias_programaestudios1re` FOREIGN KEY (`programaestudio_id`) REFERENCES `programaestudios` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1521,7 +1521,7 @@ CREATE TABLE `rolmodulos` (
   PRIMARY KEY (`id`),
   KEY `fk_rolmodulos_modulos1_idx` (`modulo_id`),
   CONSTRAINT `fk_rolmodulos_modulos1` FOREIGN KEY (`modulo_id`) REFERENCES `modulos` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1554,7 +1554,7 @@ CREATE TABLE `rolsubmodulos` (
   PRIMARY KEY (`id`),
   KEY `fk_roles_submodulos1_idx` (`submodulo_id`),
   CONSTRAINT `fk_roles_submodulos1` FOREIGN KEY (`submodulo_id`) REFERENCES `submodulos` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1585,7 +1585,7 @@ CREATE TABLE `submodulos` (
   PRIMARY KEY (`id`),
   KEY `fk_submodulos_modulos_idx` (`modulo_id`),
   CONSTRAINT `fk_submodulos_modulos` FOREIGN KEY (`modulo_id`) REFERENCES `modulos` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1614,7 +1614,7 @@ CREATE TABLE `tipousers` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1655,7 +1655,7 @@ CREATE TABLE `universidads` (
   `nombre_organigrama` varchar(500) CHARACTER SET utf8 DEFAULT NULL,
   `url_organigrama` varchar(2500) CHARACTER SET utf8 DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1693,7 +1693,7 @@ CREATE TABLE `users` (
   KEY `fk_users_personas1_idx` (`persona_id`),
   CONSTRAINT `fk_users_personas1` FOREIGN KEY (`persona_id`) REFERENCES `personas` (`id`),
   CONSTRAINT `fk_users_tipousers1` FOREIGN KEY (`tipouser_id`) REFERENCES `tipousers` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

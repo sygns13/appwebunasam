@@ -385,7 +385,7 @@
 													<div class="img-thumbnail img-thumbnail-no-borders d-block">
 														<a href="actividad/{{$dato->hash}}">
 															@if($dato->imagenactividad != null && $dato->imagenactividad->url != null)
-																<img src="{{ asset('/web/comunicadoUNASAM/'.$dato->imagenactividad->url) }}" class="border-radius-0" width="50" height="50" alt=" @if($dato->titulo != null)
+																<img src="{{ asset('/web/comunicadounasam/'.$dato->imagenactividad->url) }}" class="border-radius-0" width="50" height="50" alt=" @if($dato->titulo != null)
 																{{$dato->titulo}}
 																@endif">
 															@else
@@ -431,7 +431,7 @@
 													<div class="img-thumbnail img-thumbnail-no-borders d-block">
 														<a href="actividad/{{$dato->hash}}">
 															@if($dato->imagenactividad != null && $dato->imagenactividad->url != null)
-																<img src="{{ asset('/web/comunicadoUNASAM/'.$dato->imagenactividad->url) }}" class="border-radius-0" width="50" height="50" alt=" @if($dato->titulo != null)
+																<img src="{{ asset('/web/comunicadounasam/'.$dato->imagenactividad->url) }}" class="border-radius-0" width="50" height="50" alt=" @if($dato->titulo != null)
 																{{$dato->titulo}}
 																@endif">
 															@else
@@ -478,7 +478,7 @@
 													<div class="thumb-info thumb-info-no-borders thumb-info-bottom-info thumb-info-bottom-info-dark thumb-info-bottom-info-show-more thumb-info-no-zoom border-radius-0">
 														<div class="thumb-info-wrapper thumb-info-wrapper-opacity-6">
 															@if($dato->imagenactividad != null && $dato->imagenactividad->url != null)
-																<img src="{{ asset('/web/comunicadoUNASAM/'.$dato->imagenactividad->url) }}" class="img-fluid" alt=" @if($dato->titulo != null)
+																<img src="{{ asset('/web/comunicadounasam/'.$dato->imagenactividad->url) }}" class="img-fluid" alt=" @if($dato->titulo != null)
 																{{$dato->titulo}}
 																@endif" style="width:100%; height:350px;">
 															@else

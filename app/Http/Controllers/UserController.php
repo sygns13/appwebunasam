@@ -298,7 +298,7 @@ class UserController extends Controller
         'personas.id as idpersona','personas.dni','personas.apellidos','personas.nombres','personas.telefono','personas.direccion','personas.cargo',
         'tipousers.id as idtipouser','tipousers.nombre as tipouser',
         DB::Raw("IFNULL( `programaestudios`.`id` , '0' ) as idprogramaestudios"),
-        DB::Raw("IFNULL( `programaestudios`.`nombre` , '' ) as programaestudio"),
+        DB::Raw("IFNULL( `programaestudios`.`nombre` , '' ) as programaestudio")
         )
         ->first();
 

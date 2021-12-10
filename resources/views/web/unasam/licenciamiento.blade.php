@@ -69,9 +69,9 @@
 
                                         @if($dato != null && $dato->tieneimagen != null &&  $dato->tieneimagen == '1' && $dato->url != null)
                                         <div class="col-md-6 px-7 px-md-5">
-                                            {{-- <img src="{{ asset('/web/licenciamientoUNASAM/'.$dato->url) }}" class="img-fluid float-start me-4 mt-2" alt="" /> --}}
-                                            <a class="img-thumbnail d-block lightbox float-start me-4 mt-2" href="{{ asset('/web/licenciamientoUNASAM/'.$dato->url) }}" data-plugin-options="{'type':'image'}">
-                                                <img class="img-fluid" src="{{ asset('/web/licenciamientoUNASAM/'.$dato->url) }}" alt="Objetivo" style="width: 100%; height: 290px;">
+                                            {{-- <img src="{{ asset('/web/licenciamientounasam/'.$dato->url) }}" class="img-fluid float-start me-4 mt-2" alt="" /> --}}
+                                            <a class="img-thumbnail d-block lightbox float-start me-4 mt-2" href="{{ asset('/web/licenciamientounasam/'.$dato->url) }}" data-plugin-options="{'type':'image'}">
+                                                <img class="img-fluid" src="{{ asset('/web/licenciamientounasam/'.$dato->url) }}" alt="Objetivo" style="width: 100%; height: 290px;">
                                             </a>
                                         </div>
                                         @endif
@@ -82,7 +82,7 @@
 
                                         @if($dato != null && $dato->tienearchivo != null &&  $dato->tienearchivo == '1' && $dato->urlfile != null)
                                         <div class="col-sm-9">
-                                            <a download href="{{ asset('/web/licenciamientoUNASAM/'.$dato->urlfile)}}">
+                                            <a download href="{{ asset('/web/licenciamientounasam/'.$dato->urlfile)}}">
                                                 <button type="button" class="btn btn-dark btn-lg rounded-0 mb-2"><i class="fas fa-download"></i> Descargar {{$dato->nombrefile}}</button>
                                             </a>
                                         </div>

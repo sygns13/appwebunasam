@@ -1,6 +1,6 @@
 <div class="panel panel-primary" v-if="mostrarPalenIni">
   <div class="panel-heading" style="padding-bottom: 15px;">
-    <h3 class="panel-title">Gestión de Actividades del Portal Web UNASAM <a style="float: right; padding: all; color: black;" type="button" class="btn btn-default btn-sm" href="{{URL::to('home')}}"><i class="fa fa-reply-all" aria-hidden="true"></i> 
+    <h3 class="panel-title">Gestión de Actividades del Portal Web unasam <a style="float: right; padding: all; color: black;" type="button" class="btn btn-default btn-sm" href="{{URL::to('home')}}"><i class="fa fa-reply-all" aria-hidden="true"></i> 
     Volver</a></h3>
     
   </div>
@@ -79,7 +79,7 @@
         
           <template v-for="images, key2 in comunicado.imagencomunicado">
             <center v-if="images.posicion == 0">
-              <img v-bind:src="'{{ asset('/web/comunicadoUNASAM/')}}'+'/'+images.url" style="max-height: 200px;border: solid 1px black;" class="img-responsive" alt="Imagen del Contenido Informativo" id="imgInformacion">
+              <img v-bind:src="'{{ asset('/web/comunicadounasam/')}}'+'/'+images.url" style="max-height: 200px;border: solid 1px black;" class="img-responsive" alt="Imagen del Contenido Informativo" id="imgInformacion">
               </center>
           </template>
           

@@ -52,10 +52,10 @@
                         @if($key%2 != 0)
                             <div class="row align-items-center pt-4 appear-animation" data-appear-animation="fadeInLeftShorter">
                                 <div class="col-md-5 mb-4 mb-md-0">
-                                    {{-- <img class="img-fluid scale-2 pe-5 pe-md-0 my-4" src="{{ asset('/web/objetivoUNASAM/'.$dato->url) }}" alt="{{$dato->titulo}}" /> --}}
+                                    {{-- <img class="img-fluid scale-2 pe-5 pe-md-0 my-4" src="{{ asset('/web/objetivounasam/'.$dato->url) }}" alt="{{$dato->titulo}}" /> --}}
 
-                                    <a class="lightbox" href="{{ asset('/web/objetivoUNASAM/'.$dato->url) }}" data-plugin-options="{'type':'image'}">
-                                        <img class="img-fluid" src="{{ asset('/web/objetivoUNASAM/'.$dato->url) }}" alt="Objetivo" style="width: 100%; height: 280px;">
+                                    <a class="lightbox" href="{{ asset('/web/objetivounasam/'.$dato->url) }}" data-plugin-options="{'type':'image'}">
+                                        <img class="img-fluid" src="{{ asset('/web/objetivounasam/'.$dato->url) }}" alt="Objetivo" style="width: 100%; height: 280px;">
                                     </a>
                                 </div>
                                 <div class="col-md-7 ps-md-5">
@@ -78,10 +78,10 @@
                                     @endif
                                 </div>
                                 <div class="col-md-5 px-5 px-md-3">
-                                    {{-- <img class="img-fluid scale-2 pe-5 pe-md-0 my-4" src="{{ asset('/web/objetivoUNASAM/'.$dato->url) }}" alt="{{$dato->titulo}}" /> --}}
+                                    {{-- <img class="img-fluid scale-2 pe-5 pe-md-0 my-4" src="{{ asset('/web/objetivounasam/'.$dato->url) }}" alt="{{$dato->titulo}}" /> --}}
 
-                                    <a class="lightbox" href="{{ asset('/web/objetivoUNASAM/'.$dato->url) }}" data-plugin-options="{'type':'image'}">
-                                        <img class="img-fluid" src="{{ asset('/web/objetivoUNASAM/'.$dato->url) }}" alt="Objetivo" style="width: 100%; height: 280px;">
+                                    <a class="lightbox" href="{{ asset('/web/objetivounasam/'.$dato->url) }}" data-plugin-options="{'type':'image'}">
+                                        <img class="img-fluid" src="{{ asset('/web/objetivounasam/'.$dato->url) }}" alt="Objetivo" style="width: 100%; height: 280px;">
                                     </a>
                                 </div>
                             </div>
