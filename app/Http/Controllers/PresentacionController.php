@@ -75,8 +75,6 @@ class PresentacionController extends Controller
             $tipouser=Tipouser::find($idtipouser);
             $facultads = [];
 
-            $modulo="presentacionfacultad";
-
             if(accesoUser([1,2])){
                 $facultads = Facultad::orderBy('nombre')->where('borrado','0')->get();
             }
@@ -84,10 +82,33 @@ class PresentacionController extends Controller
                 foreach ($permisos as $key => $dato) {
                     if($dato->nivel == $nivel){
                         $facultad = Facultad::find($dato->facultad_id);
-                        array_push($facultads, $facultad);
+
+                        if($dato->roles == 1){
+                            array_push($facultads, $facultad);
+                        }
+                        elseif($dato->roles == 0){
+                            foreach ($rolModulos as $rolModulo) {
+                                if($rolModulo->modulo_id == $modulo && $rolModulo->nivel == $nivel && $rolModulo->facultad_id == $dato->facultad_id){
+                                    if($rolModulo->rolessub == 1){
+                                        array_push($facultads, $facultad);
+                                    }
+                                    elseif($rolModulo->rolessub == 0){
+                                        foreach ($rolSubModulos as $rolSubModulo) {
+                                            if($rolSubModulo->submodulo_id == $submodulo && $rolSubModulo->nivel == $nivel && $rolSubModulo->modulo_id == $modulo && $rolSubModulo->facultad_id == $dato->facultad_id){
+                                                array_push($facultads, $facultad);
+                                            }
+                                        }
+                    
+                                    }
+                                }
+                                
+                            }
+                        }
                     } 
                 }
             }
+
+            $modulo="presentacionfacultad";
 
             return view('adminfacultad.presentacion.index',compact('tipouser','modulo', 'permisos','rolModulos','rolSubModulos','facultads'));
         }
@@ -115,7 +136,7 @@ class PresentacionController extends Controller
             $tipouser=Tipouser::find($idtipouser);
             $programas = [];
 
-            $modulo="presentacionprograma";
+            
 
             if(accesoUser([1,2])){
                 $programas = Programaestudio::orderBy('nombre')->where('borrado','0')->get();
@@ -123,11 +144,34 @@ class PresentacionController extends Controller
             else{
                 foreach ($permisos as $key => $dato) {
                     if($dato->nivel == $nivel){
-                        $programa = Programaestudio::find($dato->programa_id);
-                        array_push($programas, $programa);
+                        $programa = Programaestudio::find($dato->programaestudio_id);
+
+                        if($dato->roles == 1){
+                            array_push($programas, $programa);
+                        }
+                        elseif($dato->roles == 0){
+                            foreach ($rolModulos as $rolModulo) {
+                                if($rolModulo->modulo_id == $modulo && $rolModulo->nivel == $nivel && $rolModulo->programaestudio_id == $dato->programaestudio_id){
+                                    if($rolModulo->rolessub == 1){
+                                        array_push($programas, $programa);
+                                    }
+                                    elseif($rolModulo->rolessub == 0){
+                                        foreach ($rolSubModulos as $rolSubModulo) {
+                                            if($rolSubModulo->submodulo_id == $submodulo && $rolSubModulo->nivel == $nivel && $rolSubModulo->modulo_id == $modulo && $rolSubModulo->programaestudio_id == $dato->programaestudio_id){
+                                                array_push($programas, $programa);
+                                            }
+                                        }
+                    
+                                    }
+                                }
+                                
+                            }
+                        }
                     } 
                 }
             }
+
+            $modulo="presentacionprograma";
 
             return view('adminprograma.presentacion.index',compact('tipouser','modulo', 'permisos','rolModulos','rolSubModulos','programas'));
         }

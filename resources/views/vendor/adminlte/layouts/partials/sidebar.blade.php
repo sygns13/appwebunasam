@@ -855,8 +855,8 @@
 
             @if(accesoUser([3,4,5]))
 
-            <li class="treeview" v-bind:class="classMenu4">
-                <a href="#"><i class='fa fa-list-alt'></i> <span>Gestión de Ind. SINEACE</span> <i class="fa fa-angle-left pull-right"></i></a>
+            <li class="treeview" v-bind:class="classMenu5">
+                <a href="#"><i class='fa fa-list-alt'></i> <span>Portal Programa de Estudio</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
                     
                     @foreach ($permisos as $permiso)

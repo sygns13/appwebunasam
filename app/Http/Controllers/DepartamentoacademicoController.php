@@ -51,8 +51,7 @@ class DepartamentoacademicoController extends Controller
 
             $idtipouser=Auth::user()->tipouser_id;
             $tipouser=Tipouser::find($idtipouser);
-
-            $modulo="departamentoacademico";
+            $facultads = [];
 
             if(accesoUser([1,2])){
                 $facultads = Facultad::orderBy('nombre')->where('borrado','0')->get();
@@ -61,10 +60,33 @@ class DepartamentoacademicoController extends Controller
                 foreach ($permisos as $key => $dato) {
                     if($dato->nivel == $nivel){
                         $facultad = Facultad::find($dato->facultad_id);
-                        array_push($facultads, $facultad);
+
+                        if($dato->roles == 1){
+                            array_push($facultads, $facultad);
+                        }
+                        elseif($dato->roles == 0){
+                            foreach ($rolModulos as $rolModulo) {
+                                if($rolModulo->modulo_id == $modulo && $rolModulo->nivel == $nivel && $rolModulo->facultad_id == $dato->facultad_id){
+                                    if($rolModulo->rolessub == 1){
+                                        array_push($facultads, $facultad);
+                                    }
+                                    elseif($rolModulo->rolessub == 0){
+                                        foreach ($rolSubModulos as $rolSubModulo) {
+                                            if($rolSubModulo->submodulo_id == $submodulo && $rolSubModulo->nivel == $nivel && $rolSubModulo->modulo_id == $modulo && $rolSubModulo->facultad_id == $dato->facultad_id){
+                                                array_push($facultads, $facultad);
+                                            }
+                                        }
+                    
+                                    }
+                                }
+                                
+                            }
+                        }
                     } 
                 }
             }
+
+            $modulo="departamentoacademico";
 
             return view('paginasfacultad.departamentoacademico.index',compact('tipouser','modulo', 'permisos','rolModulos','rolSubModulos','facultads'));
         }

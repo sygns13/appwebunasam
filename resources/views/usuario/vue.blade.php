@@ -908,7 +908,7 @@ var url='persona/buscarDNI';
         $("#btnCancelCred2").attr('disabled', true);
         $("#btnCloseCred2").attr('disabled', true);
 
-        this.divloaderCredencial1=true;
+        this.divloaderCredencial2=true;
 
         var data = new  FormData();
 
@@ -935,6 +935,7 @@ var url='persona/buscarDNI';
 
                 this.errors=[];
                 this.cerrarFormCred1();
+                this.cerrarFormCred2();
                 toastr.success(response.data.msj);
             }else{
                 if(response.data.selector != ''){

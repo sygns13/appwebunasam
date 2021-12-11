@@ -524,7 +524,7 @@
                         </template>
 
                         <template v-if="parseInt(permisoProgramaEstudio.roles)==0">
-                            <template v-for="(rolModulo, index) in filluser.rolmodulos" v-if="parseInt(rolModulo.nivel) == 1 && parseInt(rolModulo.programaestudio_id) == parseInt(permisoProgramaEstudio.programaestudio_id)">
+                            <template v-for="(rolModulo, index2) in filluser.rolmodulos" v-if="parseInt(rolModulo.nivel) == 2 && parseInt(rolModulo.programaestudio_id) == parseInt(permisoProgramaEstudio.programaestudio_id)">
                                 <tr>
                                 <td style="border: 1px solid gray; font-size: 11px; padding: 5px;"> @{{permisoProgramaEstudio.programa}}</td>
                                 <td style="border: 1px solid gray; font-size: 11px; padding: 5px;"> <b>Módulo: @{{rolModulo.modulo}}</b></td>
@@ -539,7 +539,7 @@
                                           <th style="border: 1px solid gray; padding: 5px; width: 70%; font-size: 11px;">Acceso a los siguientes Submódulos</th>
                                           <th style="border: 1px solid gray; padding: 5px; width: 30%; font-size: 11px;">Gestión</th>
                                         </tr>
-                                        <tr v-for="(rolSubmodulo, index) in filluser.rolsubmodulos" v-if="rolModulo.modulo_id == rolSubmodulo.modulo_id && parseInt(rolModulo.programaestudio_id) == parseInt(permisoProgramaEstudio.programaestudio_id)">
+                                        <tr v-for="(rolSubmodulo, index3) in filluser.rolsubmodulos" v-if="rolModulo.modulo_id == rolSubmodulo.modulo_id && parseInt(rolSubmodulo.programaestudio_id) == parseInt(permisoProgramaEstudio.programaestudio_id)">
                                           <td style="border: 1px solid gray;">
                                             @{{rolSubmodulo.submodulo}}
                                           </td>

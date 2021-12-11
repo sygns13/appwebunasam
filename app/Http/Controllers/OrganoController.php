@@ -180,8 +180,6 @@ class OrganoController extends Controller
             $tipouser=Tipouser::find($idtipouser);
             $facultads = [];
 
-            $modulo="decano";
-
             if(accesoUser([1,2])){
                 $facultads = Facultad::orderBy('nombre')->where('borrado','0')->get();
             }
@@ -189,10 +187,33 @@ class OrganoController extends Controller
                 foreach ($permisos as $key => $dato) {
                     if($dato->nivel == $nivel){
                         $facultad = Facultad::find($dato->facultad_id);
-                        array_push($facultads, $facultad);
+
+                        if($dato->roles == 1){
+                            array_push($facultads, $facultad);
+                        }
+                        elseif($dato->roles == 0){
+                            foreach ($rolModulos as $rolModulo) {
+                                if($rolModulo->modulo_id == $modulo && $rolModulo->nivel == $nivel && $rolModulo->facultad_id == $dato->facultad_id){
+                                    if($rolModulo->rolessub == 1){
+                                        array_push($facultads, $facultad);
+                                    }
+                                    elseif($rolModulo->rolessub == 0){
+                                        foreach ($rolSubModulos as $rolSubModulo) {
+                                            if($rolSubModulo->submodulo_id == $submodulo && $rolSubModulo->nivel == $nivel && $rolSubModulo->modulo_id == $modulo && $rolSubModulo->facultad_id == $dato->facultad_id){
+                                                array_push($facultads, $facultad);
+                                            }
+                                        }
+                    
+                                    }
+                                }
+                                
+                            }
+                        }
                     } 
                 }
             }
+
+            $modulo="decano";
 
             return view('paginasfacultad.organo6.index',compact('tipouser','modulo', 'permisos','rolModulos','rolSubModulos','facultads'));
         }
@@ -221,8 +242,6 @@ class OrganoController extends Controller
             $tipouser=Tipouser::find($idtipouser);
             $facultads = [];
 
-            $modulo="consejofacultad";
-
             if(accesoUser([1,2])){
                 $facultads = Facultad::orderBy('nombre')->where('borrado','0')->get();
             }
@@ -230,10 +249,33 @@ class OrganoController extends Controller
                 foreach ($permisos as $key => $dato) {
                     if($dato->nivel == $nivel){
                         $facultad = Facultad::find($dato->facultad_id);
-                        array_push($facultads, $facultad);
+
+                        if($dato->roles == 1){
+                            array_push($facultads, $facultad);
+                        }
+                        elseif($dato->roles == 0){
+                            foreach ($rolModulos as $rolModulo) {
+                                if($rolModulo->modulo_id == $modulo && $rolModulo->nivel == $nivel && $rolModulo->facultad_id == $dato->facultad_id){
+                                    if($rolModulo->rolessub == 1){
+                                        array_push($facultads, $facultad);
+                                    }
+                                    elseif($rolModulo->rolessub == 0){
+                                        foreach ($rolSubModulos as $rolSubModulo) {
+                                            if($rolSubModulo->submodulo_id == $submodulo && $rolSubModulo->nivel == $nivel && $rolSubModulo->modulo_id == $modulo && $rolSubModulo->facultad_id == $dato->facultad_id){
+                                                array_push($facultads, $facultad);
+                                            }
+                                        }
+                    
+                                    }
+                                }
+                                
+                            }
+                        }
                     } 
                 }
             }
+
+            $modulo="consejofacultad";
 
             return view('paginasfacultad.organo7.index',compact('tipouser','modulo', 'permisos','rolModulos','rolSubModulos','facultads'));
         }
@@ -262,8 +304,6 @@ class OrganoController extends Controller
             $tipouser=Tipouser::find($idtipouser);
             $facultads = [];
 
-            $modulo="directores";
-
             if(accesoUser([1,2])){
                 $facultads = Facultad::orderBy('nombre')->where('borrado','0')->get();
             }
@@ -271,10 +311,33 @@ class OrganoController extends Controller
                 foreach ($permisos as $key => $dato) {
                     if($dato->nivel == $nivel){
                         $facultad = Facultad::find($dato->facultad_id);
-                        array_push($facultads, $facultad);
+
+                        if($dato->roles == 1){
+                            array_push($facultads, $facultad);
+                        }
+                        elseif($dato->roles == 0){
+                            foreach ($rolModulos as $rolModulo) {
+                                if($rolModulo->modulo_id == $modulo && $rolModulo->nivel == $nivel && $rolModulo->facultad_id == $dato->facultad_id){
+                                    if($rolModulo->rolessub == 1){
+                                        array_push($facultads, $facultad);
+                                    }
+                                    elseif($rolModulo->rolessub == 0){
+                                        foreach ($rolSubModulos as $rolSubModulo) {
+                                            if($rolSubModulo->submodulo_id == $submodulo && $rolSubModulo->nivel == $nivel && $rolSubModulo->modulo_id == $modulo && $rolSubModulo->facultad_id == $dato->facultad_id){
+                                                array_push($facultads, $facultad);
+                                            }
+                                        }
+                    
+                                    }
+                                }
+                                
+                            }
+                        }
                     } 
                 }
             }
+
+            $modulo="directores";
 
             $programaestudios = Programaestudio::orderBy('id')->where('borrado','0')->get();
 

@@ -46,7 +46,7 @@ class ProgramaestudioController extends Controller
             $tipouser=Tipouser::find($idtipouser);
             $programas = [];
 
-            $modulo="configuracionprograma";
+            
 
             if(accesoUser([1,2])){
                 $programas = Programaestudio::orderBy('nombre')->where('borrado','0')->get();
@@ -54,11 +54,34 @@ class ProgramaestudioController extends Controller
             else{
                 foreach ($permisos as $key => $dato) {
                     if($dato->nivel == $nivel){
-                        $programa = Programaestudio::find($dato->programa_id);
-                        array_push($programas, $programa);
+                        $programa = Programaestudio::find($dato->programaestudio_id);
+
+                        if($dato->roles == 1){
+                            array_push($programas, $programa);
+                        }
+                        elseif($dato->roles == 0){
+                            foreach ($rolModulos as $rolModulo) {
+                                if($rolModulo->modulo_id == $modulo && $rolModulo->nivel == $nivel && $rolModulo->programaestudio_id == $dato->programaestudio_id){
+                                    if($rolModulo->rolessub == 1){
+                                        array_push($programas, $programa);
+                                    }
+                                    elseif($rolModulo->rolessub == 0){
+                                        foreach ($rolSubModulos as $rolSubModulo) {
+                                            if($rolSubModulo->submodulo_id == $submodulo && $rolSubModulo->nivel == $nivel && $rolSubModulo->modulo_id == $modulo && $rolSubModulo->programaestudio_id == $dato->programaestudio_id){
+                                                array_push($programas, $programa);
+                                            }
+                                        }
+                    
+                                    }
+                                }
+                                
+                            }
+                        }
                     } 
                 }
             }
+
+            $modulo="configuracionprograma";
 
             return view('adminprograma.configuracion.index',compact('tipouser','modulo', 'permisos','rolModulos','rolSubModulos','programas'));
         }
@@ -85,7 +108,7 @@ class ProgramaestudioController extends Controller
             $tipouser=Tipouser::find($idtipouser);
             $programas = [];
 
-            $modulo="datosprograma";
+            
 
             if(accesoUser([1,2])){
                 $programas = Programaestudio::orderBy('nombre')->where('borrado','0')->get();
@@ -93,11 +116,34 @@ class ProgramaestudioController extends Controller
             else{
                 foreach ($permisos as $key => $dato) {
                     if($dato->nivel == $nivel){
-                        $programa = Programaestudio::find($dato->programa_id);
-                        array_push($programas, $programa);
+                        $programa = Programaestudio::find($dato->programaestudio_id);
+
+                        if($dato->roles == 1){
+                            array_push($programas, $programa);
+                        }
+                        elseif($dato->roles == 0){
+                            foreach ($rolModulos as $rolModulo) {
+                                if($rolModulo->modulo_id == $modulo && $rolModulo->nivel == $nivel && $rolModulo->programaestudio_id == $dato->programaestudio_id){
+                                    if($rolModulo->rolessub == 1){
+                                        array_push($programas, $programa);
+                                    }
+                                    elseif($rolModulo->rolessub == 0){
+                                        foreach ($rolSubModulos as $rolSubModulo) {
+                                            if($rolSubModulo->submodulo_id == $submodulo && $rolSubModulo->nivel == $nivel && $rolSubModulo->modulo_id == $modulo && $rolSubModulo->programaestudio_id == $dato->programaestudio_id){
+                                                array_push($programas, $programa);
+                                            }
+                                        }
+                    
+                                    }
+                                }
+                                
+                            }
+                        }
                     } 
                 }
             }
+
+            $modulo="datosprograma";
 
             return view('adminprograma.datosprograma.index',compact('tipouser','modulo', 'permisos','rolModulos','rolSubModulos','programas'));
         }
@@ -124,7 +170,7 @@ class ProgramaestudioController extends Controller
             $tipouser=Tipouser::find($idtipouser);
             $programas = [];
 
-            $modulo="organigramaprograma";
+            
 
             if(accesoUser([1,2])){
                 $programas = Programaestudio::orderBy('nombre')->where('borrado','0')->get();
@@ -132,11 +178,34 @@ class ProgramaestudioController extends Controller
             else{
                 foreach ($permisos as $key => $dato) {
                     if($dato->nivel == $nivel){
-                        $programa = Programaestudio::find($dato->programa_id);
-                        array_push($programas, $programa);
+                        $programa = Programaestudio::find($dato->programaestudio_id);
+
+                        if($dato->roles == 1){
+                            array_push($programas, $programa);
+                        }
+                        elseif($dato->roles == 0){
+                            foreach ($rolModulos as $rolModulo) {
+                                if($rolModulo->modulo_id == $modulo && $rolModulo->nivel == $nivel && $rolModulo->programaestudio_id == $dato->programaestudio_id){
+                                    if($rolModulo->rolessub == 1){
+                                        array_push($programas, $programa);
+                                    }
+                                    elseif($rolModulo->rolessub == 0){
+                                        foreach ($rolSubModulos as $rolSubModulo) {
+                                            if($rolSubModulo->submodulo_id == $submodulo && $rolSubModulo->nivel == $nivel && $rolSubModulo->modulo_id == $modulo && $rolSubModulo->programaestudio_id == $dato->programaestudio_id){
+                                                array_push($programas, $programa);
+                                            }
+                                        }
+                    
+                                    }
+                                }
+                                
+                            }
+                        }
                     } 
                 }
             }
+
+            $modulo="organigramaprograma";
 
             return view('paginasprograma.organigrama.index',compact('tipouser','modulo', 'permisos','rolModulos','rolSubModulos','programas'));
         }
