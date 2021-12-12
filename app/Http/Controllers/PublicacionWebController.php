@@ -40,7 +40,7 @@ class PublicacionWebController extends Controller
      */
     public function noticias(Request $request){
 
-        $noticias = Noticia::where('borrado','0')->where('nivel', 0)->where('activo','1')->paginate(10);
+        $noticias = Noticia::where('borrado','0')->where('nivel', 0)->where('activo','1')->orderBy('fecha', 'desc')->paginate(10);
 
         foreach ($noticias as $key => $dato) {    
             $imagennoticias = Imagennoticia::where('activo','1')->where('borrado','0')->where('noticia_id', $dato->id)->orderBy('posicion')->get();
@@ -151,7 +151,7 @@ class PublicacionWebController extends Controller
                     $id = $id[1];
                 }
 
-                $noticias = Noticia::where('borrado','0')->where('nivel', 1)->where('facultad_id',$id)->where('activo','1')->paginate(10);
+                $noticias = Noticia::where('borrado','0')->where('nivel', 1)->where('facultad_id',$id)->where('activo','1')->orderBy('fecha', 'desc')->paginate(10);
 
                 foreach ($noticias as $key => $dato) {    
                     $imagennoticias = Imagennoticia::where('activo','1')->where('borrado','0')->where('noticia_id', $dato->id)->orderBy('posicion')->get();
@@ -259,7 +259,7 @@ class PublicacionWebController extends Controller
                 
 
 
-                $noticias = Noticia::where('borrado','0')->where('nivel', 2)->where('programaestudio_id',$id)->where('activo','1')->paginate(10);
+                $noticias = Noticia::where('borrado','0')->where('nivel', 2)->where('programaestudio_id',$id)->where('activo','1')->orderBy('fecha', 'desc')->paginate(10);
 
                 foreach ($noticias as $key => $dato) {    
                     $imagennoticias = Imagennoticia::where('activo','1')->where('borrado','0')->where('noticia_id', $dato->id)->orderBy('posicion')->get();
