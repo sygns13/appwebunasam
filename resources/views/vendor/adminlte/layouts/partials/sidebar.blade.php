@@ -670,7 +670,7 @@
 
             @if(accesoUser([1,2]))
             <li class="treeview" v-bind:class="classMenu4">
-                <a href="#"><i class='fa fa-list-alt'></i> <span>Gestión de Ind. SINEACE</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <a href="#"><i class='fa fa-list-alt'></i> <span>Gestión de Indicadores</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
                     <li><a href="{{URL::to('intranet/resumenprograma')}}"><i class='fa fa-paper-plane'></i> Resumen de Programa</a></li>
                     <li><a href="{{URL::to('intranet/misionvisionprograma')}}"><i class='fa fa-paper-plane'></i> Gestión de Misión / Visión</a></li>
@@ -693,7 +693,7 @@
             @if(accesoUser([3,4,5]))
 
             <li class="treeview" v-bind:class="classMenu4">
-                <a href="#"><i class='fa fa-list-alt'></i> <span>Gestión de Ind. SINEACE</span> <i class="fa fa-angle-left pull-right"></i></a>
+                <a href="#"><i class='fa fa-list-alt'></i> <span>Gestión de Indicadores</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
                     
                     @foreach ($permisos as $permiso)
