@@ -13,6 +13,16 @@
     </div>
 
     <div class="col-md-12" style="padding-top: 15px;">
+      <div class="form-group">
+        <label for="txturlE" class="col-sm-2 control-label">URL:*</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="txturlE" name="txturlE" placeholder="URL del Documento gob.pe"
+            maxlength="2500" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="fillobject.url">
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-12" style="padding-top: 15px;">
 
       <div class="form-group">
           <label for="txtnumeroE" class="col-sm-2 control-label">Orden de Publicación:*</label>
@@ -20,16 +30,16 @@
             <input type="number" v-model.number="fillobject.numero"  class="form-control" id="txtnumeroE" name="txtnumeroE" placeholder="N°" onKeyUp="if(this.value.length>4){this.value='9999';}else if(this.value<0){this.value='0';}" placeholder="N°">
           </div>
 
-          <label for="txtfechaE" class="col-sm-2 control-label">Fecha del Documento:<spam style="color:red;">*</spam></label>
+          {{-- <label for="txtfechaE" class="col-sm-2 control-label">Fecha del Documento:<spam style="color:red;">*</spam></label>
         <div class="col-sm-2">
             <input type="date" class="form-control" id="txtfechaE" name="txtfechaE" placeholder="dd/mm/aaaa"
             maxlength="10" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="fillobject.fecha">
-        </div>
+        </div> --}}
       </div>
     </div>
 
 
-    <div class="col-md-12" style="padding-top: 15px;">
+   {{--  <div class="col-md-12" style="padding-top: 15px;">
 
       <div class="form-group">
         <label for="txtArchivoAdjuntoE" class="col-sm-2 control-label">Archivo Adjunto: (Opcional: pdf, docx, xlsx, pptx)</label>
@@ -42,10 +52,10 @@ accept=".pdf, .doc, .docx, .xls, .xlsx, ppt, .pptx, .PDF, .DOC, .DOCX, .XLS, .XL
          </div>
       </div>
 
-  </div>  
+  </div>   --}}
 
 
-    <div class="col-md-12" style="padding-top: 15px;">
+    {{-- <div class="col-md-12" style="padding-top: 15px;">
 
       <div class="form-group">
           <label for="descripcionE" class="col-sm-2 control-label">Descripción (Opcional):</label>
@@ -54,7 +64,7 @@ accept=".pdf, .doc, .docx, .xls, .xlsx, ppt, .pptx, .PDF, .DOC, .DOCX, .XLS, .XL
 
           </div>
       </div>
-    </div>
+    </div> --}}
 
 
 

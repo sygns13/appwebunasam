@@ -53,13 +53,13 @@
                 <table class="table  table-bordered">
                     <thead>
                         <tr>
-                            <th style="width: 5%;">
+                            <th style="width: 10%;">
                                 #
                             </th>
-                            <th style="width: 35%;">
+                            <th style="width: 90%;">
                                 Documento
                             </th>
-                            <th style="width: 50%;">
+                            {{-- <th style="width: 50%;">
                                 descripcion
                             </th>
                             <th style="width: 10%;">
@@ -67,19 +67,19 @@
                             </th>
                             <th style="width: 10%;">
                                 Descargar
-                            </th>
+                            </th> --}}
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($documentos as  $key => $dato)
                             <tr>
-                                <td>
+                                <td style="color: #2d529f!important">
                                     {{$key+1}}
                                 </td>
                                 <td>
-                                    <h5>{{$dato->nombre}}</h5>
+                                    <a href="{{$dato->url}}" target="_blank"><h5 style="color: #2d529f!important">{{$dato->nombre}}</h5></a>
                                 </td>
-                                <td>
+                              {{--   <td>
                                     {!! $dato->descripcion !!}
                                 </td>
                                 <td>
@@ -91,7 +91,7 @@
                                         <i class="fa fa-download"></i>
                                     </a> 
                                     </center>
-                                </td>
+                                </td> --}}
                             </tr>
                         @endforeach
                     </tbody>

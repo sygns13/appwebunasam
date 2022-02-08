@@ -372,9 +372,9 @@ Vue.component('ckeditor2', {
             this.$nextTick(() => {
             this.uploadReady = true;
                 $('#txtnombre').focus();
-                /* if(CKEDITOR.instances['editor1'] != undefined && CKEDITOR.instances['editor1'] != null){
+                if(CKEDITOR.instances['editor1'] != undefined && CKEDITOR.instances['editor1'] != null){
                     CKEDITOR.instances['editor1'].setData("");
-                } */
+                }
             })
 
             this.divEdit=false;
@@ -399,7 +399,7 @@ Vue.component('ckeditor2', {
             $("#btnCancel").attr('disabled', true);
             $("#btnClose").attr('disabled', true);
 
-            /* this.descripcion=CKEDITOR.instances['editor1'].getData(); */
+            this.descripcion=CKEDITOR.instances['editor1'].getData();
             this.divloaderNuevo=true;
 
             var v1 = 0;
@@ -495,7 +495,7 @@ Vue.component('ckeditor2', {
             this.$nextTick(() => {
             this.archivoE=null;
             this.uploadReadyE=true;
-            /* CKEDITOR.instances['editor2'].setData(dato.descripcion); */
+            CKEDITOR.instances['editor2'].setData(dato.descripcion);
             $('#txtnombreE').focus();
         });
 
@@ -533,7 +533,7 @@ Vue.component('ckeditor2', {
             this.fillobject.oldImg= this.oldImg;
             this.fillobject.oldFile= this.oldFile;
 
-            /* this.fillobject.descripcion=CKEDITOR.instances['editor2'].getData(); */
+            this.fillobject.descripcion=CKEDITOR.instances['editor2'].getData();
             var v1 = 0;
 
             var data = new  FormData();

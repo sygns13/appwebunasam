@@ -290,6 +290,88 @@ class DocumentoController extends Controller
         $msj='';
         $selector='';
 
+        if(intval($nivel) == 0){
+            
+            $input2  = array('nombre' => $nombre);
+            $reglas2 = array('nombre' => 'required');
+
+            $input3  = array('numero' => $numero);
+            $reglas3 = array('numero' => 'required');
+
+            $input4  = array('url' => $url);
+            $reglas4 = array('url' => 'required');
+
+            $validator2 = Validator::make($input2, $reglas2);
+            $validator3 = Validator::make($input3, $reglas3);
+            $validator4 = Validator::make($input4, $reglas4);
+
+            if ($validator2->fails())
+            {
+                $result='0';
+                if(intval($tipo) == 1){
+                    $msj='Debe ingresar el Nombre del Documento';
+                }
+                elseif(intval($tipo) == 2){
+                    $msj='Debe ingresar el Nombre del Informe o Publicación';
+                }
+                $selector='txtnombre';
+            }
+            elseif ($validator3->fails())
+            {
+                $result='0';
+                
+                if(intval($tipo) == 1){
+                    $msj='Debe ingresar el Número de Posición de Publicación del Documento';
+                }
+                elseif(intval($tipo) == 2){
+                    $msj='Debe ingresar el Número de Posición de Publicación del Informe o Publicación';
+                }
+                $selector='txtnumero';
+            }
+            elseif ($validator4->fails())
+            {
+                $result='0';
+                
+                if(intval($tipo) == 1){
+                    $msj='Debe ingresar la URL del Documento en gob.pe';
+                }
+                elseif(intval($tipo) == 2){
+                    $msj='Debe ingresar la URL del Informe o Publicación en gob.pe';
+                }
+                $selector='txturl';
+            }
+            else{
+
+                $documento = new Documento();
+                $documento->nombre=$nombre;
+                $documento->url=$url;
+                $documento->tipo=$tipo;
+                $documento->numero=$numero;
+                $documento->activo=$activo;
+                $documento->borrado='0';
+                $documento->nivel=$nivel;
+                if($facultad_id != null && intval($facultad_id) > 0){
+                    $documento->facultad_id=$facultad_id;
+                }
+                if($programaestudio_id != null && intval($programaestudio_id) > 0){
+                    $documento->programaestudio_id=$programaestudio_id;
+                }
+                $documento->user_id=Auth::user()->id;
+
+                $documento->save();
+
+                if(intval($tipo) == 1){
+                    $msj='Nuevo Documento Guardado con Éxito';
+                }
+                elseif(intval($tipo) == 2){
+                    $msj='Nuevo Informe o Publicación Guardado con Éxito';
+                }
+
+            }
+
+            return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+        }
+
 
         if($request->hasFile('archivo')){
 
@@ -513,6 +595,79 @@ class DocumentoController extends Controller
         $result='1';
         $msj='';
         $selector='';
+
+        if(intval($nivel) == 0){
+            
+            $input2  = array('nombre' => $nombre);
+            $reglas2 = array('nombre' => 'required');
+
+            $input3  = array('numero' => $numero);
+            $reglas3 = array('numero' => 'required');
+
+            $input4  = array('url' => $url);
+            $reglas4 = array('url' => 'required');
+
+            $validator2 = Validator::make($input2, $reglas2);
+            $validator3 = Validator::make($input3, $reglas3);
+            $validator4 = Validator::make($input4, $reglas4);
+
+            if ($validator2->fails())
+            {
+                $result='0';
+                if(intval($tipo) == 1){
+                    $msj='Debe ingresar el Nombre del Documento';
+                }
+                elseif(intval($tipo) == 2){
+                    $msj='Debe ingresar el Nombre del Informe o Publicación';
+                }
+                $selector='txtnombre';
+            }
+            elseif ($validator3->fails())
+            {
+                $result='0';
+                
+                if(intval($tipo) == 1){
+                    $msj='Debe ingresar el Número de Posición de Publicación del Documento';
+                }
+                elseif(intval($tipo) == 2){
+                    $msj='Debe ingresar el Número de Posición de Publicación del Informe o Publicación';
+                }
+                $selector='txtnumero';
+            }
+            elseif ($validator4->fails())
+            {
+                $result='0';
+                
+                if(intval($tipo) == 1){
+                    $msj='Debe ingresar la URL del Documento en gob.pe';
+                }
+                elseif(intval($tipo) == 2){
+                    $msj='Debe ingresar la URL del Informe o Publicación en gob.pe';
+                }
+                $selector='txturl';
+            }
+            else{
+
+                $documento = Documento::findOrFail($id);
+                $documento->nombre=$nombre;
+                $documento->url=$url;
+                $documento->numero=$numero;
+                $documento->activo=$activo;
+                $documento->user_id=Auth::user()->id;
+
+                $documento->save();
+
+                if(intval($tipo) == 1){
+                    $msj='Documento Modificado con Éxito';
+                }
+                elseif(intval($tipo) == 2){
+                    $msj='Informe o Publicación Modificado con Éxito';
+                }
+
+            }
+
+            return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+        }
 
 
         if($request->hasFile('archivo')){

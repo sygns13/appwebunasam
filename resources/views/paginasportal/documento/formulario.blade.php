@@ -15,6 +15,16 @@
       </div>
 
       <div class="col-md-12" style="padding-top: 15px;">
+        <div class="form-group">
+          <label for="txturl" class="col-sm-2 control-label">URL:*</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="txturl" name="txturl" placeholder="URL del Documento gob.pe"
+              maxlength="2500" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="url">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12" style="padding-top: 15px;">
 
         <div class="form-group">
             <label for="txtnumero" class="col-sm-2 control-label">Orden de Publicación:*</label>
@@ -22,15 +32,15 @@
               <input type="number" v-model.number="numero"  class="form-control" id="txtnumero" name="txtnumero" placeholder="N°" onKeyUp="if(this.value.length>4){this.value='9999';}else if(this.value<0){this.value='0';}" placeholder="N°">
             </div>
 
-            <label for="txtfecha" class="col-sm-2 control-label">Fecha del Documento:<spam style="color:red;">*</spam></label>
+           {{--  <label for="txtfecha" class="col-sm-2 control-label">Fecha del Documento:<spam style="color:red;">*</spam></label>
           <div class="col-sm-2">
               <input type="date" class="form-control" id="txtfecha" name="txtfecha" placeholder="dd/mm/aaaa"
               maxlength="10" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="fecha">
-          </div>
+          </div> --}}
         </div>
       </div>
 
-      <div class="col-md-12" style="padding-top: 15px;">
+      {{-- <div class="col-md-12" style="padding-top: 15px;">
 
         <div class="form-group">
           <label for="txtnombrefile" class="col-sm-2 control-label">Documento Adjunto: (pdf, docx, xlsx, pptx)</label>
@@ -45,10 +55,10 @@
            </div>
         </div>
       
-      </div>
+      </div> --}}
       
 
-      <div class="col-md-12" style="padding-top: 15px;">
+ {{--      <div class="col-md-12" style="padding-top: 15px;">
 
         <div class="form-group">
             <label for="txtdescripcion" class="col-sm-2 control-label">Descripción (opcional):</label>
@@ -57,7 +67,7 @@
 
             </div>
         </div>
-      </div>
+      </div> --}}
 
 
 
