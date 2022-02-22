@@ -465,8 +465,6 @@
             this.facultad = $('#cbufacultad_id option:selected').html();
             this.getDatos(this.thispage);
         },
-    
-
 }
 });
 </script>

@@ -276,6 +276,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('usuario/verpersona/{dni}','UserController@verpersona');
 
     Route::get('intranet/bannerre/altabaja/{id}/{var}', 'BannerController@altabaja');
+
+    Route::get('intranet/bannerre/numsiguiente/{niv}', 'BannerController@numsiguiente');
+
     Route::get('intranet/presentacionre/altabaja/{id}/{var}', 'PresentacionController@altabaja');
     Route::get('intranet/datosfecre/altabaja/{id}/{var}', 'FacultadController@altabaja');
     Route::get('intranet/noticiasre/altabaja/{id}/{var}', 'NoticiaController@altabaja');
