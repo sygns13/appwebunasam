@@ -63,7 +63,7 @@
     <table class="table table-hover table-bordered" >
       <tbody><tr>
         <th style=";border:1px solid #ddd; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; padding: 5px; width: 4%;">#</th>
-        <th style=";border:1px solid #ddd; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; padding: 5px; width: 10%;">Posición del Banner</th>
+        <th style=";border:1px solid #ddd; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; padding: 5px; width: 10%;">Orden de Publicación</th>
         <th style=";border:1px solid #ddd; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; padding: 5px; width: 15%;">Nombre</th>
         <th style=";border:1px solid #ddd; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; padding: 5px; width: 50%;">Imagen Banner</th>
         <th style=";border:1px solid #ddd; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; padding: 5px; width: 6%;">Estado</th>
@@ -92,8 +92,8 @@
 
 
         <a href="#" class="btn btn-warning btn-sm" v-on:click.prevent="edit(banner)" data-placement="top" data-toggle="tooltip" title="Editar Banner"><i class="fa fa-edit"></i></a>
+        
         <a href="#" class="btn btn-danger btn-sm" v-on:click.prevent="borrar(banner)" data-placement="top" data-toggle="tooltip" title="Borrar Banner"><i class="fa fa-trash"></i></a>
-
       </center>
       </td>
     </tr>

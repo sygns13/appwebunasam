@@ -192,8 +192,7 @@ class BannerController extends Controller
         $facultad_id=$request->v2;
         $programaestudio_id=$request->v3;
 
-        $queryZero=Banner::where('borrado','0')
-        ->where(function($query) use ($buscar){
+        $queryZero=Banner::where('borrado','0')->where(function($query) use ($buscar){
             $query->where('nombre','like','%'.$buscar.'%');
             //$query->orWhere('users.name','like','%'.$buscar.'%');
             });
@@ -210,9 +209,7 @@ class BannerController extends Controller
             $queryZero->where('nivel',$nivel);
         }
 
-        $banners = $queryZero->orderBy('posision')
-        ->orderBy('id')
-        ->paginate(10);
+        $banners = $queryZero->orderBy('posision')->orderBy('id')->paginate(10);
 
           return [
             'pagination'=>[
@@ -261,6 +258,7 @@ class BannerController extends Controller
         $facultad_id=$request->v2;
         $programaestudio_id=$request->v3;
 
+        $exi='';
         $result='1';
         $msj='';
         $selector='';
@@ -374,22 +372,34 @@ class BannerController extends Controller
                 $banner->activo=$activo;
                 $banner->borrado='0';
                 $banner->nivel=$nivel;
+
+
                 if($facultad_id != null && intval($facultad_id) > 0){
                     $banner->facultad_id=$facultad_id;
                 }
                 if($programaestudio_id != null && intval($programaestudio_id) > 0){
                     $banner->programaestudio_id=$programaestudio_id;
                 }
+
+
                 $banner->user_id=Auth::user()->id;
 
-                $banner->save();
+                
+        $band=Banner::where('nivel',$nivel)->where('borrado',0)->where('posision',$posision)->exists();
 
-                $msj='Nuevo Banner Registrado con Éxito';
+        if ($band==true) {
+            $exi='0';
+            $msj='El orden de publicación ya existe';       
+        }else{
+            $exi='1';
+            $banner->save();
+            $msj='Nuevo Banner Registrado con Éxito';
+        }
 
             }
         }
 
-        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector,'exi'=>$exi]);
     }
 
     /**
@@ -666,5 +676,14 @@ class BannerController extends Controller
 
 
         return response()->json(["result"=>$result,'msj'=>$msj]);
+    }
+    public function numsiguiente($niv)
+    {
+        $nivel=$niv;
+        $queryZero=Banner::where('nivel',$nivel)->where('borrado',0)->max('posision');
+
+        $idban=$queryZero+1;
+        return response()->json(["idban"=>$idban]);
+
     }
 }

@@ -467,8 +467,6 @@
             this.programa = $('#cbuprograma_id option:selected').html();
             this.getDatos(this.thispage);
         },
-    
-
 }
 });
 </script>

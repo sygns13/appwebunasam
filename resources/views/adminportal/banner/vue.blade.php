@@ -84,12 +84,9 @@
         oldImg:'',
         image:'',
 
-
     },
     created:function () {
         this.getDatos(this.thispage);
-
-        
     },
     mounted: function () {
         $("#divtitulo").show('slow');
@@ -187,11 +184,12 @@
             this.thispage='1';
         },
         nuevo:function () {
+            this.numsig();
             this.divNuevo=true;
             this.divloaderEdit=false;
             this.$nextTick(function () {
                 this.cancelForm();
-            })
+            }) 
         },
         cerrarForm: function () {
             this.divNuevo=false;
@@ -249,25 +247,27 @@
             data.append('v2', v2);
             data.append('v3', v3);
 
-
             const config = { headers: { 'Content-Type': 'multipart/form-data' } };
-
             axios.post(url,data,config).then(response=>{
 
                 $("#btnGuardar").removeAttr("disabled");
                 $("#btnCancel").removeAttr("disabled");
                 $("#btnClose").removeAttr("disabled");
                 this.divloaderNuevo=false;
-
                 if(response.data.result=='1'){
                     this.getDatos(this.thispage);
                     this.errors=[];
-                    this.cerrarForm();
-                    toastr.success(response.data.msj);
+                    if (response.data.exi=='0') {
+                        toastr.error(response.data.msj);
+                    }else{
+                        this.cerrarForm();
+                        toastr.success(response.data.msj); 
+                    }       
                 }else{
                     $('#'+response.data.selector).focus();
                     toastr.error(response.data.msj);
                 }
+
             }).catch(error=>{
                 this.errors=error.response.data
             })
@@ -324,7 +324,6 @@
             this.$nextTick(function () {
                 $('#txtnombreE').focus();
             })
-
         },
         cerrarFormE: function(){
 
@@ -448,8 +447,13 @@
             }
         }).catch(swal.noop);
       },
-    
-
+    numsig:function () {
+        var url = '/intranet/bannerre/numsiguiente/0';
+        axios.get(url).then(response=>{
+            this.posision =response.data.idban;
+        });
+    },
 }
 });
 </script>
+
