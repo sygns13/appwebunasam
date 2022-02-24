@@ -382,9 +382,12 @@
                 
                 if(response.data.result=='1'){   
                     this.getDatos(this.thispage);
-                    this.cerrarFormE();
-                    toastr.success(response.data.msj);
-
+                    if (response.data.exi=='0') {
+                        toastr.error(response.data.msj);
+                    }else{
+                        this.cerrarFormE();
+                        toastr.success(response.data.msj); 
+                    }
                 }else{
                     $('#'+response.data.selector).focus();
                     toastr.error(response.data.msj);

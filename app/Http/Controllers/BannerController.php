@@ -446,6 +446,7 @@ class BannerController extends Controller
 
         $result='1';
         $msj='';
+        $exi='';
         $selector='';
 
         $oldImg=$request->oldimg;
@@ -531,8 +532,7 @@ class BannerController extends Controller
             elseif(intval($nivel) == 2){
                 Storage::disk('banerProgramaEstudio')->delete($imagen);
             }
-        }
-        else{
+        }else{
             $input1  = array('posision' => $posision);
             $reglas1 = array('posision' => 'required');
 
@@ -543,53 +543,48 @@ class BannerController extends Controller
                 $result='0';
                 $msj='Debe ingresar la posición del Banner en formato numérico';
                 $selector='txtposisionE';
-            }
-            else{
+            }else{
 
                 if($nombre == null || Strlen($nombre) == 0){
                     $nombre = "";
                 }
-
-                if(strlen($imagen)>0)
-                {
-
-                    if(intval($nivel) == 0){
-                        Storage::disk('banerUNASAM')->delete($oldImg);
+                $band=Banner::where('nivel',$nivel)->where('borrado',0)->where('posision',$posision)->where('id','<>',$id)->exists();
+            
+                if ($band==true) {
+                    $exi='0';
+                    $msj='El orden de publicación ya existe';       
+                }else{
+                    $exi='1';
+                    if(strlen($imagen)>0){
+                        if(intval($nivel) == 0){
+                            Storage::disk('banerUNASAM')->delete($oldImg);
+                        }
+                        elseif(intval($nivel) == 1){
+                            Storage::disk('banerFacultad')->delete($oldImg);
+                        }
+                        elseif(intval($nivel) == 2){
+                            Storage::disk('banerProgramaEstudio')->delete($oldImg);
+                        }
+                        $banner = Banner::findOrFail($id);
+                        $banner->posision=$posision;
+                        $banner->nombre=$nombre;
+                        $banner->url=$imagen;
+                        $banner->activo=$activo;
+                        $banner->user_id=Auth::user()->id;
+                        $banner->save();
+                    }else{
+                        $banner = Banner::findOrFail($id);
+                        $banner->posision=$posision;
+                        $banner->nombre=$nombre;
+                        $banner->activo=$activo;
+                        $banner->user_id=Auth::user()->id;
+                        $banner->save();
                     }
-                    elseif(intval($nivel) == 1){
-                        Storage::disk('banerFacultad')->delete($oldImg);
-                    }
-                    elseif(intval($nivel) == 2){
-                        Storage::disk('banerProgramaEstudio')->delete($oldImg);
-                    }
-
-
-                    $banner = Banner::findOrFail($id);
-                    $banner->posision=$posision;
-                    $banner->nombre=$nombre;
-                    $banner->url=$imagen;
-                    $banner->activo=$activo;
-                    $banner->user_id=Auth::user()->id;
-
-                    $banner->save();
+                    $msj='El Banner ha sido modificado con éxito';
                 }
-                else
-                {
-                    $banner = Banner::findOrFail($id);
-                    $banner->posision=$posision;
-                    $banner->nombre=$nombre;
-                    $banner->activo=$activo;
-                    $banner->user_id=Auth::user()->id;
-
-                    $banner->save();
-                }
-
-                $msj='El Banner ha sido modificado con éxito';
-
             }
         }
-
-        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector,'exi'=>$exi]);
     }
 
 
