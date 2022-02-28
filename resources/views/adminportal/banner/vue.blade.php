@@ -451,7 +451,7 @@
         }).catch(swal.noop);
       },
     numsig:function () {
-        var url = '/intranet/bannerre/numsiguiente/0';
+        var url = '/intranet/bannerre/numsiguiente/0/0/0';
         axios.get(url).then(response=>{
             this.posision =response.data.idban;
         });

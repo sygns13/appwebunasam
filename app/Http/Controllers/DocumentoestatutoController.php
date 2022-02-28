@@ -74,6 +74,7 @@ class DocumentoestatutoController extends Controller
 
         $result='1';
         $msj='';
+        $exi='';
         $selector='';
 
         $nivel=$request->v1;
@@ -202,14 +203,19 @@ class DocumentoestatutoController extends Controller
                 $documentoEstatuto->borrado = '0';
                 $documentoEstatuto->estatuto_id = $estatuto_id;
 
-                $documentoEstatuto->save();
-
-                $msj='Nueva Modificatoria Registrada con Éxito';
-
+                $band=Documentoestatuto::where('activo',1)->where('borrado',0)->where('estatuto_id',$estatuto_id)->where('posicion',$posicion)->exists();
+                if ($band==true) {
+                    $exi='0';
+                    $msj='La posición de la modificatoria ya existe';       
+                }else{
+                    $exi='1';
+                    $documentoEstatuto->save();
+                    $msj='Nueva Modificatoria Registrada con Éxito';
+                }
             }
         }
 
-        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector,'exi'=>$exi]);
     }
 
     /**
@@ -257,6 +263,7 @@ class DocumentoestatutoController extends Controller
 
         $result='1';
         $msj='';
+        $exi='';
         $selector='';
 
         $oldImg=$request->oldimg;
@@ -372,47 +379,40 @@ class DocumentoestatutoController extends Controller
                 if($descripcion == null || Strlen($descripcion) == 0){
                     $descripcion = "";
                 }
-
-                if(strlen($imagen)>0)
-                {
-                    //Storage::disk('estatutoFacultad')->delete($oldImg);
-
-                    if(intval($nivel) == 0){
-                        Storage::disk('estatutoUNASAM')->delete($oldImg);
+                $band=Documentoestatuto::where('activo',1)->where('borrado',0)->where('estatuto_id',$estatuto_id)->where('posicion',$posicion)->where('id','<>',$id)->exists();
+                if ($band==true) {
+                    $exi='0';
+                    $msj='La posición de la modificatoria ya existe';      
+                }else{
+                    $exi='1';
+                    if(strlen($imagen)>0){
+                        //Storage::disk('estatutoFacultad')->delete($oldImg);
+                        if(intval($nivel) == 0){
+                            Storage::disk('estatutoUNASAM')->delete($oldImg);
+                        }elseif(intval($nivel) == 1){
+                            Storage::disk('estatutoFacultad')->delete($oldImg);
+                        }elseif(intval($nivel) == 2){
+                            Storage::disk('estatutoProgramaEstudio')->delete($oldImg);
+                        }
+                        $estatuto = Documentoestatuto::findOrFail($id);
+                        $estatuto->nombre=$nombre;
+                        $estatuto->descripcion=$descripcion;
+                        $estatuto->posicion=$posicion;
+                        $estatuto->url=$imagen;
+                        $estatuto->save();
+                    }else{
+                        $estatuto = Documentoestatuto::findOrFail($id);
+                        $estatuto->nombre=$nombre;
+                        $estatuto->descripcion=$descripcion;
+                        $estatuto->posicion=$posicion;
+                        $estatuto->save();
                     }
-                    elseif(intval($nivel) == 1){
-                        Storage::disk('estatutoFacultad')->delete($oldImg);
-                    }
-                    elseif(intval($nivel) == 2){
-                        Storage::disk('estatutoProgramaEstudio')->delete($oldImg);
-                    }
-
-                    $estatuto = Documentoestatuto::findOrFail($id);
-                    $estatuto->nombre=$nombre;
-                    $estatuto->descripcion=$descripcion;
-                    $estatuto->posicion=$posicion;
-                    $estatuto->url=$imagen;
-
-
-                    $estatuto->save();
+                    $msj='La Modificatoria del estatuto ha sido modificada con éxito';
                 }
-                else
-                {
-                    $estatuto = Documentoestatuto::findOrFail($id);
-                    $estatuto->nombre=$nombre;
-                    $estatuto->descripcion=$descripcion;
-                    $estatuto->posicion=$posicion;
-
-
-                    $estatuto->save();
-                }
-
-                $msj='La Modificatoria del estatuto ha sido modificada con éxito';
-
             }
         }
 
-        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector,'exi'=>$exi]);
     }
 
     /**
@@ -447,5 +447,11 @@ class DocumentoestatutoController extends Controller
         $msj='Modificatoria eliminada exitosamente';
 
         return response()->json(["result"=>$result,'msj'=>$msj]);
+    }
+    public function numsiguiente($id){
+        $idnot=$id;
+        $queryZero=Documentoestatuto::where('activo',1)->where('borrado',0)->where('estatuto_id',$idnot)->max('posicion');
+        $idban=$queryZero+1;
+        return response()->json(["idban"=>$idban]);
     }
 }

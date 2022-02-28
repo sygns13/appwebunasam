@@ -277,8 +277,17 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('intranet/bannerre/altabaja/{id}/{var}', 'BannerController@altabaja');
 
-    Route::get('intranet/bannerre/numsiguiente/{niv}', 'BannerController@numsiguiente');
+    Route::get('intranet/bannerre/numsiguiente/{niv}/{idfac}/{idprog}', 'BannerController@numsiguiente');
 
+    Route::get('intranet/imagennoticiasre/numsiguiente/{id}', 'ImagennoticiaController@numsiguiente');
+    Route::get('intranet/imageneventosre/numsiguiente/{id}', 'ImageneventoController@numsiguiente');
+    Route::get('intranet/imagencomunicadosre/numsiguiente/{id}', 'ImagencomunicadoController@numsiguiente');
+    Route::get('intranet/imagenhistoriare/numsiguiente/{id}', 'ImagenhistoriaController@numsiguiente');
+    
+    Route::get('intranet/imagenresumenre/numsiguiente/{id}', 'ImagenresumenController@numsiguiente');
+
+    Route::get('intranet/docuemntoestatutore/numsiguiente/{id}', 'DocumentoestatutoController@numsiguiente');
+    
     Route::get('intranet/presentacionre/altabaja/{id}/{var}', 'PresentacionController@altabaja');
     Route::get('intranet/datosfecre/altabaja/{id}/{var}', 'FacultadController@altabaja');
     Route::get('intranet/noticiasre/altabaja/{id}/{var}', 'NoticiaController@altabaja');
@@ -286,15 +295,27 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('intranet/comunicadosre/altabaja/{id}/{var}', 'ComunicadoController@altabaja');
     Route::get('intranet/plataformare/altabaja/{id}/{var}', 'PlataformaController@altabaja');
     Route::get('intranet/redessolicalesre/altabaja/{id}/{var}', 'RedsocialController@altabaja');
+
     Route::get('intranet/linkinteresre/altabaja/{id}/{var}', 'LinkinteresController@altabaja');
+
+    Route::get('intranet/linkinteresre/numsiguiente/{niv}/{idfac}/{idprog}', 'LinkinteresController@numsiguiente');
+
     Route::get('intranet/historiare/altabaja/{id}/{var}', 'HistoriaController@altabaja');
     Route::get('intranet/misionvisionre/altabaja/{id}/{var}', 'MisionvisionController@altabaja');
     Route::get('intranet/organosre/altabaja/{id}/{var}', 'OrganoController@altabaja');
     Route::get('intranet/objetivosre/altabaja/{id}/{var}', 'ObjetivoController@altabaja');
+
+
+    Route::get('intranet/objetivosre/numsiguiente/{niv}/{idfac}/{idprog}', 'ObjetivoController@numsiguiente');
+
     Route::get('intranet/estatutore/altabaja/{id}/{var}', 'EstatutoController@altabaja');
     Route::get('intranet/licenciamientore/altabaja/{id}/{var}', 'LicenciamientoController@altabaja');
     Route::get('intranet/indicadorsineacere/altabaja/{id}/{var}', 'IndicadorsineaceController@altabaja');
     Route::get('intranet/documentore/altabaja/{id}/{var}', 'DocumentoController@altabaja');
+
+
+    Route::get('intranet/documentore/numsiguiente/{niv}/{idfac}/{idprog}/{tip}', 'DocumentoController@numsiguiente');
+
     Route::get('intranet/facultadesre/altabaja/{id}/{var}', 'FacultadesController@altabaja');
     Route::get('intranet/programasprogesionalesre/altabaja/{id}/{var}', 'ProgramasEstudiosController@altabaja');
     Route::get('intranet/directoriore/altabaja/{id}/{var}', 'DirectorioController@altabaja');

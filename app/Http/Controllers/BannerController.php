@@ -373,7 +373,6 @@ class BannerController extends Controller
                 $banner->borrado='0';
                 $banner->nivel=$nivel;
 
-
                 if($facultad_id != null && intval($facultad_id) > 0){
                     $banner->facultad_id=$facultad_id;
                 }
@@ -381,12 +380,18 @@ class BannerController extends Controller
                     $banner->programaestudio_id=$programaestudio_id;
                 }
 
-
                 $banner->user_id=Auth::user()->id;
 
-                
-        $band=Banner::where('nivel',$nivel)->where('borrado',0)->where('posision',$posision)->exists();
-
+        if ($nivel==0) {
+            $band=Banner::where('nivel',$nivel)->where('borrado',0)->where('posision',$posision)->exists();
+        }
+        if ($nivel==1) {
+            $band=Banner::where('nivel',$nivel)->where('borrado',0)->where('facultad_id',$facultad_id)->where('posision',$posision)->exists();
+        }
+        if ($nivel==2) {
+            $band=Banner::where('nivel',$nivel)->where('borrado',0)->where('programaestudio_id',$programaestudio_id)->where('posision',$posision)->exists();
+        }
+        
         if ($band==true) {
             $exi='0';
             $msj='El orden de publicación ya existe';       
@@ -452,6 +457,8 @@ class BannerController extends Controller
         $oldImg=$request->oldimg;
 
         $nivel=$request->v1;
+        $facultad_id=$request->v2;
+        $programaestudio_id=$request->v3;
 
         if ($request->hasFile('imagen')) { 
 
@@ -544,12 +551,20 @@ class BannerController extends Controller
                 $msj='Debe ingresar la posición del Banner en formato numérico';
                 $selector='txtposisionE';
             }else{
-
                 if($nombre == null || Strlen($nombre) == 0){
                     $nombre = "";
                 }
-                $band=Banner::where('nivel',$nivel)->where('borrado',0)->where('posision',$posision)->where('id','<>',$id)->exists();
-            
+
+                if ($nivel==0) {
+                    $band=Banner::where('nivel',$nivel)->where('borrado',0)->where('posision',$posision)->where('id','<>',$id)->exists();
+                }
+                if ($nivel==1) {
+                    $band=Banner::where('nivel',$nivel)->where('borrado',0)->where('facultad_id',$facultad_id)->where('posision',$posision)->where('id','<>',$id)->exists();
+                }
+                if ($nivel==2) {
+                    $band=Banner::where('nivel',$nivel)->where('borrado',0)->where('programaestudio_id',$programaestudio_id)->where('posision',$posision)->where('id','<>',$id)->exists();
+                }
+
                 if ($band==true) {
                     $exi='0';
                     $msj='El orden de publicación ya existe';       
@@ -672,13 +687,21 @@ class BannerController extends Controller
 
         return response()->json(["result"=>$result,'msj'=>$msj]);
     }
-    public function numsiguiente($niv)
+    public function numsiguiente($niv,$idfac,$idprog)
     {
         $nivel=$niv;
-        $queryZero=Banner::where('nivel',$nivel)->where('borrado',0)->max('posision');
-
+        $idFacultad=$idfac;
+        $idPrograma=$idprog;
+        if ($nivel==0) {
+            $queryZero=Banner::where('nivel',$nivel)->where('borrado',0)->max('posision');
+        }
+        if ($nivel==1 && $idFacultad!=0) {
+            $queryZero=Banner::where('nivel',$nivel)->where('borrado',0)->where('facultad_id',$idFacultad)->max('posision');
+        }
+        if ($nivel==2 && $idPrograma!=0) {
+            $queryZero=Banner::where('nivel',$nivel)->where('borrado',0)->where('programaestudio_id',$idPrograma)->max('posision');
+        }
         $idban=$queryZero+1;
         return response()->json(["idban"=>$idban]);
-
     }
 }

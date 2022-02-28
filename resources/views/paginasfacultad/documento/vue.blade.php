@@ -352,6 +352,7 @@ Vue.component('ckeditor2', {
             this.thispage='1';
         },
         nuevo:function () {
+            this.numsig();
             this.divNuevo=true;
             this.divloaderEdit=false;
             this.$nextTick(function () {
@@ -411,6 +412,7 @@ Vue.component('ckeditor2', {
             var v1 = this.nivel;
             var v2 = this.facultad_id;
             var v3 = 0;
+            var ar = 1;
 
 
             var data = new  FormData();
@@ -426,7 +428,7 @@ Vue.component('ckeditor2', {
             data.append('v1', v1);
             data.append('v2', v2);
             data.append('v3', v3);
-
+            data.append('ar', ar);
 
             const config = { headers: { 'Content-Type': 'multipart/form-data' } };
 
@@ -440,8 +442,12 @@ Vue.component('ckeditor2', {
                 if(response.data.result=='1'){
                     this.getDatos(this.thispage);
                     this.errors=[];
-                    this.cerrarForm();
-                    toastr.success(response.data.msj);
+                    if (response.data.exi=='0') {
+                        toastr.error(response.data.msj);
+                    }else{
+                        this.cerrarForm();
+                        toastr.success(response.data.msj); 
+                    }
                 }else{
                     $('#'+response.data.selector).focus();
                     toastr.error(response.data.msj);
@@ -542,6 +548,7 @@ Vue.component('ckeditor2', {
             this.fillobject.descripcion=CKEDITOR.instances['editor2'].getData();
             var v1 = this.nivel;
             var v2 = this.facultad_id;
+            var ar = 1;
 
             var data = new  FormData();
 
@@ -558,6 +565,8 @@ Vue.component('ckeditor2', {
             data.append('oldfile', this.fillobject.oldFile);
 
             data.append('v1', v1);
+            data.append('v2', v2);
+            data.append('ar', ar);
 
             data.append('_method', 'PUT');
 
@@ -573,8 +582,12 @@ Vue.component('ckeditor2', {
                 
                 if(response.data.result=='1'){   
                     this.getDatos(this.thispage);
-                    this.cerrarFormE();
-                    toastr.success(response.data.msj);
+                    if (response.data.exi=='0') {
+                        toastr.error(response.data.msj);
+                    }else{
+                        this.cerrarFormE();
+                        toastr.success(response.data.msj); 
+                    }
 
                 }else{
                     $('#'+response.data.selector).focus();
@@ -650,8 +663,12 @@ Vue.component('ckeditor2', {
             this.facultad = $('#cbufacultad_id option:selected').html();
             this.getDatos(this.thispage);
         },
-    
-
+    numsig:function () {
+        var url = '/intranet/documentore/numsiguiente/1/'+this.facultad_id+'/0/1';
+        axios.get(url).then(response=>{
+            this.numero =response.data.idban;
+        });
+    },
 }
 });
 </script>

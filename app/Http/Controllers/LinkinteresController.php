@@ -260,6 +260,7 @@ class LinkinteresController extends Controller
         $programaestudio_id=$request->v3;
 
         $result='1';
+        $exi='';
         $msj='';
         $selector='';
 
@@ -386,14 +387,27 @@ class LinkinteresController extends Controller
                 }
                 $linkinteres->user_id=Auth::user()->id;
 
-                $linkinteres->save();
-
-                $msj='Nuevo Link de Interés Registrado con Éxito';
-
+                if ($nivel==0) {
+                    $band=Linkinteres::where('nivel',$nivel)->where('borrado',0)->where('posision',$posision)->exists();
+                }
+                if ($nivel==1) {
+                    $band=Linkinteres::where('nivel',$nivel)->where('borrado',0)->where('facultad_id',$facultad_id)->where('posision',$posision)->exists();
+                }
+                if ($nivel==2) {
+                    $band=Linkinteres::where('nivel',$nivel)->where('borrado',0)->where('programaestudio_id',$programaestudio_id)->where('posision',$posision)->exists();
+                }
+                if ($band==true) {
+                    $exi='0';
+                    $msj='El orden de publicación ya existe';       
+                }else{
+                    $exi='1';
+                    $linkinteres->save();
+                    $msj='Nuevo Link de Interés Registrado con Éxito';
+                }
             }
         }
 
-        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector,'exi'=>$exi]);
     }
 
     /**
@@ -440,11 +454,14 @@ class LinkinteresController extends Controller
 
         $result='1';
         $msj='';
+        $exi='';
         $selector='';
 
         $oldImg=$request->oldimg;
 
         $nivel=$request->v1;
+        $facultad_id=$request->v2;
+        $programaestudio_id=$request->v3;
 
         if ($request->hasFile('imagen')) { 
 
@@ -547,49 +564,52 @@ class LinkinteresController extends Controller
                 $result='0';
                 $msj='Debe ingresar la URL del link de Interés';
                 $selector='txtnombre';
-            }
-            else{
-
-                if(strlen($imagen)>0)
-                {
-
-                    if(intval($nivel) == 0){
-                        Storage::disk('linkinteresUNASAM')->delete($oldImg);
-                    }
-                    elseif(intval($nivel) == 1){
-                        Storage::disk('linkinteresFacultad')->delete($oldImg);
-                    }
-                    elseif(intval($nivel) == 2){
-                        Storage::disk('linkinteresProgramaEstudio')->delete($oldImg);
-                    }
-
-
-                    $linkinteres = Linkinteres::findOrFail($id);
-                    $linkinteres->posision=$posision;
-                    $linkinteres->nombre=$nombre;
-                    $linkinteres->url=$imagen;
-                    $linkinteres->activo=$activo;
-                    $linkinteres->user_id=Auth::user()->id;
-
-                    $linkinteres->save();
+            }else{
+                if ($nivel==0) {
+                    $band=Linkinteres::where('nivel',$nivel)->where('borrado',0)->where('posision',$posision)->where('id','<>',$id)->exists();
                 }
-                else
-                {
-                    $linkinteres = Linkinteres::findOrFail($id);
-                    $linkinteres->posision=$posision;
-                    $linkinteres->nombre=$nombre;
-                    $linkinteres->activo=$activo;
-                    $linkinteres->user_id=Auth::user()->id;
-
-                    $linkinteres->save();
+                if ($nivel==1) {
+                    $band=Linkinteres::where('nivel',$nivel)->where('borrado',0)->where('facultad_id',$facultad_id)->where('posision',$posision)->where('id','<>',$id)->exists();
                 }
-
-                $msj='El Link de Interés ha sido modificado con éxito';
-
+                if ($nivel==2) {
+                    $band=Linkinteres::where('nivel',$nivel)->where('borrado',0)->where('programaestudio_id',$programaestudio_id)->where('posision',$posision)->where('id','<>',$id)->exists();
+                }
+                if ($band==true) {
+                    $exi='0';
+                    $msj='El orden de publicación ya existe';       
+                }else{
+                    $exi='1';
+                    if(strlen($imagen)>0){
+                        if(intval($nivel) == 0){
+                            Storage::disk('linkinteresUNASAM')->delete($oldImg);
+                        }
+                        elseif(intval($nivel) == 1){
+                            Storage::disk('linkinteresFacultad')->delete($oldImg);
+                        }
+                        elseif(intval($nivel) == 2){
+                            Storage::disk('linkinteresProgramaEstudio')->delete($oldImg);
+                        }
+                        $linkinteres = Linkinteres::findOrFail($id);
+                        $linkinteres->posision=$posision;
+                        $linkinteres->nombre=$nombre;
+                        $linkinteres->url=$imagen;
+                        $linkinteres->activo=$activo;
+                        $linkinteres->user_id=Auth::user()->id;
+                        $linkinteres->save();
+                    }else{
+                        $linkinteres = Linkinteres::findOrFail($id);
+                        $linkinteres->posision=$posision;
+                        $linkinteres->nombre=$nombre;
+                        $linkinteres->activo=$activo;
+                        $linkinteres->user_id=Auth::user()->id;
+                        $linkinteres->save();
+                    }
+                    $msj='El Link de Interés ha sido modificado con éxito';
+                }
             }
         }
 
-        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector,'exi'=>$exi]);
     }
 
     public function altabaja($id,$estado)
@@ -675,5 +695,23 @@ class LinkinteresController extends Controller
 
 
         return response()->json(["result"=>$result,'msj'=>$msj]);
+    }
+    public function numsiguiente($niv,$idfac,$idprog)
+    {
+        $nivel=$niv;
+        $idFacultad=$idfac;
+        $idPrograma=$idprog;
+        if ($nivel==0) {
+            $queryZero=Linkinteres::where('nivel',$nivel)->where('borrado',0)->max('posision');
+        }
+        if ($nivel==1 && $idFacultad!=0) {
+            $queryZero=Linkinteres::where('nivel',$nivel)->where('borrado',0)->where('facultad_id',$idFacultad)->max('posision');
+        }
+        if ($nivel==2 && $idPrograma!=0) {
+            $queryZero=Linkinteres::where('nivel',$nivel)->where('borrado',0)->where('programaestudio_id',$idPrograma)->max('posision');
+        }
+        $idban=$queryZero+1;
+        return response()->json(["idban"=>$idban]);
+
     }
 }

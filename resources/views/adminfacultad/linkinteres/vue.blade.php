@@ -193,6 +193,7 @@
             this.thispage='1';
         },
         nuevo:function () {
+            this.numsig();
             this.divNuevo=true;
             this.divloaderEdit=false;
             this.$nextTick(function () {
@@ -268,8 +269,12 @@
                 if(response.data.result=='1'){
                     this.getDatos(this.thispage);
                     this.errors=[];
-                    this.cerrarForm();
-                    toastr.success(response.data.msj);
+                    if (response.data.exi=='0') {
+                        toastr.error(response.data.msj);
+                    }else{
+                        this.cerrarForm();
+                        toastr.success(response.data.msj); 
+                    } 
                 }else{
                     $('#'+response.data.selector).focus();
                     toastr.error(response.data.msj);
@@ -374,6 +379,7 @@
             data.append('imagen', this.imagenE);
             data.append('oldimg', this.fillobject.oldImg);
             data.append('v1', v1);
+            data.append('v2', v2);
 
             data.append('_method', 'PUT');
 
@@ -389,9 +395,12 @@
                 
                 if(response.data.result=='1'){   
                     this.getDatos(this.thispage);
-                    this.cerrarFormE();
-                    toastr.success(response.data.msj);
-
+                    if (response.data.exi=='0') {
+                        toastr.error(response.data.msj);
+                    }else{
+                        this.cerrarFormE();
+                        toastr.success(response.data.msj); 
+                    }
                 }else{
                     $('#'+response.data.selector).focus();
                     toastr.error(response.data.msj);
@@ -466,7 +475,12 @@
             this.facultad = $('#cbufacultad_id option:selected').html();
             this.getDatos(this.thispage);
         },
-    
+    numsig:function () {
+        var url = '/intranet/linkinteresre/numsiguiente/1/'+this.facultad_id+'/0';
+        axios.get(url).then(response=>{
+            this.posision =response.data.idban;
+        });
+    },
     
 
 }

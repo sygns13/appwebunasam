@@ -265,8 +265,7 @@ class DocumentoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         ini_set('memory_limit','256M');
         ini_set('upload_max_filesize','20M');
 
@@ -285,12 +284,14 @@ class DocumentoController extends Controller
         $nivel=$request->v1;
         $facultad_id=$request->v2;
         $programaestudio_id=$request->v3;
+        $ar=$request->ar;
 
         $result='1';
         $msj='';
+        $exi='';
         $selector='';
 
-        if(intval($nivel) == 0){
+        if(intval($nivel) == 0 && $ar==0){
             
             $input2  = array('nombre' => $nombre);
             $reglas2 = array('nombre' => 'required');
@@ -316,8 +317,7 @@ class DocumentoController extends Controller
                 }
                 $selector='txtnombre';
             }
-            elseif ($validator3->fails())
-            {
+            elseif ($validator3->fails()){
                 $result='0';
                 
                 if(intval($tipo) == 1){
@@ -328,19 +328,16 @@ class DocumentoController extends Controller
                 }
                 $selector='txtnumero';
             }
-            elseif ($validator4->fails())
-            {
+            elseif ($validator4->fails()){
                 $result='0';
                 
                 if(intval($tipo) == 1){
                     $msj='Debe ingresar la URL del Documento en gob.pe';
-                }
-                elseif(intval($tipo) == 2){
+                }elseif(intval($tipo) == 2){
                     $msj='Debe ingresar la URL del Informe o Publicación en gob.pe';
                 }
                 $selector='txturl';
-            }
-            else{
+            }else{
 
                 $documento = new Documento();
                 $documento->nombre=$nombre;
@@ -358,18 +355,27 @@ class DocumentoController extends Controller
                 }
                 $documento->user_id=Auth::user()->id;
 
-                $documento->save();
 
+            $band=Documento::where('nivel',$nivel)->where('borrado',0)->where('tipo',1)->where('numero',$numero)->exists();
+
+        if ($band==true) {
+            $exi='0';
+            $msj='El orden de publicación ya existe';       
+        }else{
+            $exi='1';
+                $documento->save();
                 if(intval($tipo) == 1){
                     $msj='Nuevo Documento Guardado con Éxito';
                 }
                 elseif(intval($tipo) == 2){
                     $msj='Nuevo Informe o Publicación Guardado con Éxito';
                 }
+        }
+
 
             }
 
-            return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+            return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector,'exi'=>$exi]);
         }
 
 
@@ -525,21 +531,31 @@ class DocumentoController extends Controller
                 }
                 $documento->user_id=Auth::user()->id;
 
-                $documento->save();
-
-
-
-                if(intval($tipo) == 1){
-                    $msj='Nuevo Documento Guardado con Éxito';
+                if ($nivel==1 && $tipo==1) {
+                    $band=Documento::where('nivel',$nivel)->where('borrado',0)->where('facultad_id',$facultad_id)->where('tipo',1)->where('numero',$numero)->exists();
                 }
-                elseif(intval($tipo) == 2){
-                    $msj='Nuevo Informe o Publicación Guardado con Éxito';
+                if ($nivel==2 && $tipo==1) {
+                    $band=Documento::where('nivel',$nivel)->where('borrado',0)->where('programaestudio_id',$programaestudio_id)->where('tipo',1)->where('numero',$numero)->exists();
                 }
-
+                if ($nivel==0 && $tipo==2) {
+                    $band=Documento::where('nivel',$nivel)->where('borrado',0)->where('tipo',2)->where('numero',$numero)->exists();
+                }
+                if ($band==true) {
+                    $exi='0';
+                    $msj='El orden de publicación ya existe';       
+                }else{
+                    $exi='1';
+                    $documento->save();
+                    if(intval($tipo) == 1){
+                        $msj='Nuevo Documento Guardado con Éxito';
+                    }elseif(intval($tipo) == 2){
+                        $msj='Nuevo Informe o Publicación Guardado con Éxito';
+                    }
+                }
             }
         }
 
-        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector,'exi'=>$exi]);
     }
 
     /**
@@ -591,12 +607,16 @@ class DocumentoController extends Controller
         $oldFile=$request->oldfile;
 
         $nivel=$request->v1;
+        $facultad_id=$request->v2;
+        $programaestudio_id=$request->v3;
+        $ar=$request->ar;
 
         $result='1';
         $msj='';
+        $exi='';
         $selector='';
 
-        if(intval($nivel) == 0){
+        if(intval($nivel) == 0 && $ar==0){
             
             $input2  = array('nombre' => $nombre);
             $reglas2 = array('nombre' => 'required');
@@ -655,18 +675,22 @@ class DocumentoController extends Controller
                 $documento->activo=$activo;
                 $documento->user_id=Auth::user()->id;
 
-                $documento->save();
-
-                if(intval($tipo) == 1){
-                    $msj='Documento Modificado con Éxito';
+                $band=Documento::where('nivel',$nivel)->where('borrado',0)->where('tipo',1)->where('numero',$numero)->where('id','<>',$id)->exists();
+                if ($band==true) {
+                    $exi='0';
+                    $msj='El orden de publicación ya existe';       
+                }else{
+                    $exi='1';
+                    $documento->save();
+                    if(intval($tipo) == 1){
+                        $msj='Documento Modificado con Éxito';
+                    }elseif(intval($tipo) == 2){
+                        $msj='Informe o Publicación Modificado con Éxito';
+                    }
                 }
-                elseif(intval($tipo) == 2){
-                    $msj='Informe o Publicación Modificado con Éxito';
-                }
-
             }
 
-            return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+            return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector,'exi'=>$exi]);
         }
 
 
@@ -793,63 +817,60 @@ class DocumentoController extends Controller
                 $selector='txtfechaE';
             }
             else{
-
                 if($descripcion == null || Strlen($descripcion) == 0){
                     $descripcion = "";
                 }
-
-
-                if(strlen($archivo)>0)
-                {
-
-                    if(intval($nivel) == 0){
-                        Storage::disk('documentoUNASAM')->delete($oldFile);
+                if ($nivel==1 && $tipo==1) {
+                    $band=Documento::where('nivel',$nivel)->where('borrado',0)->where('facultad_id',$facultad_id)->where('tipo',1)->where('numero',$numero)->where('id','<>',$id)->exists();
+                }
+                if ($nivel==2 && $tipo==1) {
+                    $band=Documento::where('nivel',$nivel)->where('borrado',0)->where('programaestudio_id',$programaestudio_id)->where('tipo',1)->where('numero',$numero)->where('id','<>',$id)->exists();
+                }
+                if ($nivel==0 && $tipo==2) {
+                    $band=Documento::where('nivel',$nivel)->where('borrado',0)->where('tipo',2)->where('numero',$numero)->where('id','<>',$id)->exists();
+                }
+                if ($band==true) {
+                    $exi='0';
+                    $msj='El orden de publicación ya existe';       
+                }else{
+                    $exi='1';
+                    if(strlen($archivo)>0){
+                        if(intval($nivel) == 0){
+                            Storage::disk('documentoUNASAM')->delete($oldFile);
+                        }elseif(intval($nivel) == 1){
+                            Storage::disk('documentoFacultad')->delete($oldFile);
+                        }elseif(intval($nivel) == 2){
+                            Storage::disk('documentoProgramaEstudio')->delete($oldFile);
+                        }
+                        $documento = Documento::findOrFail($id);
+                        $documento->nombre=$nombre;
+                        $documento->url=$archivo;
+                        $documento->numero=$numero;
+                        $documento->fecha=$fecha;
+                        $documento->descripcion=$descripcion;
+                        $documento->activo=$activo;
+                        $documento->user_id=Auth::user()->id;
+                        $documento->save();
+                    }else{
+                        $documento = Documento::findOrFail($id);
+                        $documento->nombre=$nombre;
+                        $documento->numero=$numero;
+                        $documento->fecha=$fecha;
+                        $documento->descripcion=$descripcion;
+                        $documento->activo=$activo;
+                        $documento->user_id=Auth::user()->id;
+                        $documento->save();
+                    } 
+                    if(intval($tipo) == 1){
+                        $msj='Documento Modificado con Éxito';
+                    }elseif(intval($tipo) == 2){
+                        $msj='Informe o Publicación Modificado con Éxito';
                     }
-                    elseif(intval($nivel) == 1){
-                        Storage::disk('documentoFacultad')->delete($oldFile);
-                    }
-                    elseif(intval($nivel) == 2){
-                        Storage::disk('documentoProgramaEstudio')->delete($oldFile);
-                    }
-
-
-                    $documento = Documento::findOrFail($id);
-                    $documento->nombre=$nombre;
-                    $documento->url=$archivo;
-                    $documento->numero=$numero;
-                    $documento->fecha=$fecha;
-                    $documento->descripcion=$descripcion;
-                    $documento->activo=$activo;
-                    $documento->user_id=Auth::user()->id;
-
-                    $documento->save();
                 }
-                else
-                {
-                    $documento = Documento::findOrFail($id);
-                    $documento->nombre=$nombre;
-                    $documento->numero=$numero;
-                    $documento->fecha=$fecha;
-                    $documento->descripcion=$descripcion;
-                    $documento->activo=$activo;
-                    $documento->user_id=Auth::user()->id;
-
-                    $documento->save();
-                }
-
-                
-
-                if(intval($tipo) == 1){
-                    $msj='Documento Modificado con Éxito';
-                }
-                elseif(intval($tipo) == 2){
-                    $msj='Informe o Publicación Modificado con Éxito';
-                }
-
             }
         }
 
-        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector,'exi'=>$exi]);
     }
 
     public function altabaja($id,$estado)
@@ -945,5 +966,26 @@ class DocumentoController extends Controller
 
 
         return response()->json(["result"=>$result,'msj'=>$msj]);
+    }
+    public function numsiguiente($niv,$idfac,$idprog,$tip)
+    {
+        $nivel=$niv;
+        $idFacultad=$idfac;
+        $idPrograma=$idprog;
+        $tipo=$tip;
+        if ($nivel==0 && $tipo==1) {
+            $queryZero=Documento::where('nivel',$nivel)->where('borrado',0)->where('tipo',1)->max('numero');
+        }
+        if ($nivel==1 && $idFacultad!=0 && $tipo==1) {
+            $queryZero=Documento::where('nivel',$nivel)->where('borrado',0)->where('facultad_id',$idFacultad)->where('tipo',1)->max('numero');
+        }
+        if ($nivel==2 && $idPrograma!=0 && $tipo==1) {
+            $queryZero=Documento::where('nivel',$nivel)->where('borrado',0)->where('programaestudio_id',$idPrograma)->where('tipo',1)->max('numero');
+        }
+        if ($nivel==0 && $tipo==2) {
+        $queryZero=Documento::where('nivel',$nivel)->where('borrado',0)->where('tipo',2)->max('numero');
+        }
+        $idban=$queryZero+1;
+        return response()->json(["idban"=>$idban]);
     }
 }

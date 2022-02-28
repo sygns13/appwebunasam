@@ -72,6 +72,7 @@ class ImagencomunicadoController extends Controller
         $result='1';
         $msj='';
         $selector='';
+        $exi='';
 
         $nivel=$request->v1;
         $facultad_id=$request->v2;
@@ -198,14 +199,19 @@ class ImagencomunicadoController extends Controller
                 $imagenCommunicado->borrado = '0';
                 $imagenCommunicado->comunicado_id = $comunicado_id;
 
-                $imagenCommunicado->save();
-
-                $msj='Nueva imagen Registrada con Éxito';
-
+                $band=Imagencomunicado::where('activo',1)->where('borrado',0)->where('comunicado_id',$comunicado_id)->where('posicion',$posicion)->exists();
+                if ($band==true) {
+                    $exi='0';
+                    $msj='Esta posición de imagen ya existe';       
+                }else{
+                    $exi='1';
+                    $imagenCommunicado->save();
+                    $msj='Nueva imagen Registrada con Éxito';
+                }
             }
         }
 
-        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector,'exi'=>$exi]);
     }
 
     /**
@@ -253,6 +259,7 @@ class ImagencomunicadoController extends Controller
 
         $result='1';
         $msj='';
+        $exi='';
         $selector='';
 
         $nivel=$request->v1;
@@ -363,44 +370,41 @@ class ImagencomunicadoController extends Controller
                 if($descripcion == null || Strlen($descripcion) == 0){
                     $descripcion = "";
                 }
-
-                if(strlen($imagen)>0)
-                {
-                    if(intval($nivel) == 0){
-                        Storage::disk('comunicadoUNASAM')->delete($oldImg);
+                $band=Imagencomunicado::where('activo',1)->where('borrado',0)->where('comunicado_id',$comunicado_id)->where('posicion',$posicion)->where('id','<>',$id)->exists();
+                if ($band==true) {
+                    $exi='0';
+                    $msj='Esta posición de imagen ya existe';       
+                }else{
+                    $exi='1';
+                    if(strlen($imagen)>0){
+                        if(intval($nivel) == 0){
+                            Storage::disk('comunicadoUNASAM')->delete($oldImg);
+                        }
+                        elseif(intval($nivel) == 1){
+                            Storage::disk('comunicadoFacultad')->delete($oldImg);
+                        }
+                        elseif(intval($nivel) == 2){
+                            Storage::disk('comunicadoProgramaEstudio')->delete($oldImg);
+                        }
+                        $comunicado = Imagencomunicado::findOrFail($id);
+                        $comunicado->nombre=$nombre;
+                        $comunicado->descripcion=$descripcion;
+                        $comunicado->posicion=$posicion;
+                        $comunicado->url=$imagen;
+                        $comunicado->save();
+                    }else{
+                        $comunicado = Imagencomunicado::findOrFail($id);
+                        $comunicado->nombre=$nombre;
+                        $comunicado->descripcion=$descripcion;
+                        $comunicado->posicion=$posicion;
+                        $comunicado->save();
                     }
-                    elseif(intval($nivel) == 1){
-                        Storage::disk('comunicadoFacultad')->delete($oldImg);
-                    }
-                    elseif(intval($nivel) == 2){
-                        Storage::disk('comunicadoProgramaEstudio')->delete($oldImg);
-                    }
-                    $comunicado = Imagencomunicado::findOrFail($id);
-                    $comunicado->nombre=$nombre;
-                    $comunicado->descripcion=$descripcion;
-                    $comunicado->posicion=$posicion;
-                    $comunicado->url=$imagen;
-
-
-                    $comunicado->save();
+                    $msj='La Imagen ha sido modificada con éxito';
                 }
-                else
-                {
-                    $comunicado = Imagencomunicado::findOrFail($id);
-                    $comunicado->nombre=$nombre;
-                    $comunicado->descripcion=$descripcion;
-                    $comunicado->posicion=$posicion;
-
-
-                    $comunicado->save();
-                }
-
-                $msj='La Imagen ha sido modificada con éxito';
-
             }
         }
 
-        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector,'exi'=>$exi]);
     }
 
     /**
@@ -435,5 +439,11 @@ class ImagencomunicadoController extends Controller
         $msj='Imagen eliminada exitosamente';
 
         return response()->json(["result"=>$result,'msj'=>$msj]);
+    }
+    public function numsiguiente($id){
+        $idnot=$id;
+        $queryZero=Imagencomunicado::where('activo',1)->where('borrado',0)->where('comunicado_id',$idnot)->max('posicion');
+        $idban=$queryZero+1;
+        return response()->json(["idban"=>$idban]);
     }
 }

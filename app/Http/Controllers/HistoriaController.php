@@ -297,8 +297,7 @@ class HistoriaController extends Controller
 
                 $history->save();
                 
-            }
-            else{
+            }else{
                 
                 $history = Historia::findOrFail($id);
                 $history->titulo=$titulo;

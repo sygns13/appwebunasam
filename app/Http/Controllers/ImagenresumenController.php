@@ -73,6 +73,7 @@ class ImagenresumenController extends Controller
 
         $result='1';
         $msj='';
+        $exi='';
         $selector='';
 
         $nivel=$request->v1;
@@ -201,14 +202,19 @@ class ImagenresumenController extends Controller
                 $imagenResumen->borrado = '0';
                 $imagenResumen->resumen_id = $resumen_id;
 
-                $imagenResumen->save();
-
-                $msj='Nueva imagen Registrada con Éxito';
-
+                $band=Imagenresumen::where('activo',1)->where('borrado',0)->where('resumen_id',$resumen_id)->where('posicion',$posicion)->exists();
+                if ($band==true) {
+                    $exi='0';
+                    $msj='Esta posición de imagen ya existe';       
+                }else{
+                    $exi='1';
+                    $imagenResumen->save();
+                    $msj='Nueva imagen Registrada con Éxito';
+                }
             }
         }
 
-        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector,'exi'=>$exi]);
     }
 
     /**
@@ -256,6 +262,7 @@ class ImagenresumenController extends Controller
 
         $result='1';
         $msj='';
+        $exi='';
         $selector='';
 
         $oldImg=$request->oldimg;
@@ -368,11 +375,14 @@ class ImagenresumenController extends Controller
                 if($descripcion == null || Strlen($descripcion) == 0){
                     $descripcion = "";
                 }
-
-                if(strlen($imagen)>0)
-                {
+                $band=Imagenresumen::where('activo',1)->where('borrado',0)->where('resumen_id',$resumen_id)->where('posicion',$posicion)->where('id','<>',$id)->exists();
+                if ($band==true) {
+                    $exi='0';
+                    $msj='Esta posición de imagen ya existe';       
+                }else{
+                    $exi='1';
+                    if(strlen($imagen)>0){
                     //Storage::disk('resumenFacultad')->delete($oldImg);
-
                     if(intval($nivel) == 0){
                         Storage::disk('resumenUNASAM')->delete($oldImg);
                     }
@@ -382,33 +392,25 @@ class ImagenresumenController extends Controller
                     elseif(intval($nivel) == 2){
                         Storage::disk('resumenProgramaEstudio')->delete($oldImg);
                     }
-
                     $resumen = Imagenresumen::findOrFail($id);
                     $resumen->nombre=$nombre;
                     $resumen->descripcion=$descripcion;
                     $resumen->posicion=$posicion;
                     $resumen->url=$imagen;
-
-
                     $resumen->save();
-                }
-                else
-                {
+                }else{
                     $resumen = Imagenresumen::findOrFail($id);
                     $resumen->nombre=$nombre;
                     $resumen->descripcion=$descripcion;
                     $resumen->posicion=$posicion;
-
-
                     $resumen->save();
                 }
-
                 $msj='La Imagen ha sido modificada con éxito';
-
+                }
             }
         }
 
-        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector,'exi'=>$exi]);
     }
 
     /**
@@ -445,5 +447,11 @@ class ImagenresumenController extends Controller
         $msj='Imagen eliminada exitosamente';
 
         return response()->json(["result"=>$result,'msj'=>$msj]);
+    }
+    public function numsiguiente($id){
+        $idnot=$id;
+        $queryZero=Imagenresumen::where('activo',1)->where('borrado',0)->where('resumen_id',$idnot)->max('posicion');
+        $idban=$queryZero+1;
+        return response()->json(["idban"=>$idban]);
     }
 }

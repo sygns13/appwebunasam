@@ -71,6 +71,7 @@ class ImagenhistoriaController extends Controller
 
         $result='1';
         $msj='';
+        $exi='';
         $selector='';
 
         $nivel=$request->v1;
@@ -198,15 +199,20 @@ class ImagenhistoriaController extends Controller
                 $imagenHistoria->activo = '1';
                 $imagenHistoria->borrado = '0';
                 $imagenHistoria->historia_id = $historia_id;
-
-                $imagenHistoria->save();
-
-                $msj='Nueva imagen Registrada con Éxito';
+                $band=Imagenhistoria::where('activo',1)->where('borrado',0)->where('historia_id',$historia_id)->where('posicion',$posicion)->exists();
+                if ($band==true) {
+                    $exi='0';
+                    $msj='Esta posición de imagen ya existe';       
+                }else{
+                    $exi='1';
+                    $imagenHistoria->save();
+                    $msj='Nueva imagen Registrada con Éxito';
+                }
 
             }
         }
 
-        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector,'exi'=>$exi]);
     }
 
     /**
@@ -254,6 +260,7 @@ class ImagenhistoriaController extends Controller
 
         $result='1';
         $msj='';
+        $exi='';
         $selector='';
 
         $oldImg=$request->oldimg;
@@ -366,7 +373,12 @@ class ImagenhistoriaController extends Controller
                 if($descripcion == null || Strlen($descripcion) == 0){
                     $descripcion = "";
                 }
-
+                $band=Imagenhistoria::where('activo',1)->where('borrado',0)->where('historia_id',$historia_id)->where('posicion',$posicion)->where('id','<>',$id)->exists();
+                if ($band==true) {
+                    $exi='0';
+                    $msj='Esta posición de imagen ya existe';       
+                }else{
+                    $exi='1';
                 if(strlen($imagen)>0)
                 {
                     //Storage::disk('historiaFacultad')->delete($oldImg);
@@ -402,11 +414,13 @@ class ImagenhistoriaController extends Controller
                 }
 
                 $msj='La Imagen ha sido modificada con éxito';
+                }
+                
 
             }
         }
 
-        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector,'exi'=>$exi]);
     }
 
     /**
@@ -442,5 +456,11 @@ class ImagenhistoriaController extends Controller
         $msj='Imagen eliminada exitosamente';
 
         return response()->json(["result"=>$result,'msj'=>$msj]);
+    }
+    public function numsiguiente($id){
+        $idnot=$id;
+        $queryZero=Imagenhistoria::where('activo',1)->where('borrado',0)->where('historia_id',$idnot)->max('posicion');
+        $idban=$queryZero+1;
+        return response()->json(["idban"=>$idban]);
     }
 }
