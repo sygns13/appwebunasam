@@ -358,6 +358,15 @@ function soloNumeros(e){
   return ((key >= 48 && key <= 57) || (key==8) || (key==35) || (key==34) || (key==46));
 }
 
+function soloLetras(event){
+    var regex = new RegExp("^[a-zA-Z ]+$");
+    var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+    if (!regex.test(key)) {
+        event.preventDefault();
+        return false;
+    }
+}
+
 function noEscribe(e){
   var key = window.Event ? e.which : e.keyCode
   return (key==null);

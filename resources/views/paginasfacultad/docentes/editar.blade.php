@@ -52,7 +52,7 @@
           <label for="txtnombreE" class="col-sm-2 control-label">Nombre del Docente:<spam style="color:red;">*</spam></label>
           <div class="col-sm-10">
             <input type="text" class="form-control" id="txtnombreE" name="txtnombreE" placeholder="Nombre"
-              maxlength="500" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="fillobject.nombre">
+              maxlength="500" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="fillobject.nombre" onkeypress="return soloLetras(event);">
           </div>
         </div>
       </div>
@@ -123,13 +123,13 @@
       <div class="col-md-12" style="padding-top: 15px;">
         <div class="form-group">
 
-          <label for="txttelefonoE" class="col-sm-2 control-label">Teléfono del Departamento Académico: (Opcional)</label>
+          <label for="txttelefonoE" class="col-sm-2 control-label">Teléfono del Docente: (Opcional)</label>
           <div class="col-sm-2">
             <input type="text" class="form-control" id="txttelefonoE" name="txttelefonoE" placeholder="Telef / Cell"
-              maxlength="100" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="fillobject.telefono">
+              maxlength="20" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="fillobject.telefono">
           </div> 
 
-          <label for="txtemailE" class="col-sm-2 control-label">Email del Departamento Académico: (Opcional)</label>
+          <label for="txtemailE" class="col-sm-2 control-label">Email del Docente: (Opcional)</label>
           <div class="col-sm-6">
             <input type="email" class="form-control" id="txtemailE" name="txtemailE" placeholder="example@domain.com"
               maxlength="500" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="fillobject.email">

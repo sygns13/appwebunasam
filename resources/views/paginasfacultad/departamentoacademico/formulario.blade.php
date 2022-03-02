@@ -8,7 +8,7 @@
           <label for="txtnombre" class="col-sm-2 control-label">Nombre del Departamento Académico:*</label>
           <div class="col-sm-10">
             <input type="text" class="form-control" id="txtnombre" name="txtnombre" placeholder="Nombre"
-              maxlength="500" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="nombre">
+              maxlength="500" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="nombre" onkeypress="return soloLetras(event);">
           </div>
         </div>
       </div>
@@ -40,7 +40,7 @@
           <label for="txttelefono" class="col-sm-2 control-label">Teléfono del Departamento Académico:</label>
           <div class="col-sm-2">
             <input type="text" class="form-control" id="txttelefono" name="txttelefono" placeholder="Telef / Cell"
-              maxlength="100" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="telefono">
+              maxlength="20" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="telefono">
           </div> 
 
           <label for="txtemail" class="col-sm-2 control-label">Email del Departamento Académico:</label>
@@ -81,7 +81,7 @@
           <label for="txtdirector" class="col-sm-2 control-label">Nombre del Jefe de Departamento:*</label>
           <div class="col-sm-10">
             <input type="text" class="form-control" id="txtdirector" name="txtdirector" placeholder="Jefe de Departamento"
-              maxlength="500" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="director">
+              maxlength="500" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="director" onkeypress="return soloLetras(event);">
           </div>
         </div>
       </div>

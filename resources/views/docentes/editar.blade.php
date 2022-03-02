@@ -57,13 +57,13 @@
           <label for="txtapepatE" class="col-sm-2 control-label">Apellido Paterno:<spam style="color:red;">*</spam></label>
           <div class="col-sm-4">
             <input type="text" class="form-control" id="txtapepatE" name="txtapepatE" placeholder="Apellido Paterno"
-              maxlength="225" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="filldocente.apellidopat">
+              maxlength="225" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="filldocente.apellidopat" onkeypress="return soloLetras(event);">
           </div>
 
           <label for="txtapematE" class="col-sm-2 control-label">Apellido Materno:<spam style="color:red;">*</spam></label>
           <div class="col-sm-4">
               <input type="text" class="form-control" id="txtapematE" name="txtapematE" placeholder="Apellido Materno"
-                maxlength="225" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="filldocente.apellidomat">
+                maxlength="225" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="filldocente.apellidomat" onkeypress="return soloLetras(event);">
             </div>
         </div>
       </div>
@@ -73,7 +73,7 @@
           <label for="txtnombresE" class="col-sm-2 control-label">Nombres:<spam style="color:red;">*</spam></label>
           <div class="col-sm-8">
             <input type="text" class="form-control" id="txtnombresE" name="txtnombresE" placeholder="Nombres"
-              maxlength="225" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="filldocente.nombres">
+              maxlength="225" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="filldocente.nombres" onkeypress="return soloLetras(event);">
           </div>
         </div>
       </div>

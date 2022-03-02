@@ -8,7 +8,7 @@
           <label for="txttitulo" class="col-sm-2 control-label">Nombre del Decano:*</label>
           <div class="col-sm-10">
             <input type="text" class="form-control" id="txttitulo" name="txttitulo" placeholder="Nombre"
-              maxlength="500" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="tituloF">
+              maxlength="500" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="tituloF" onkeypress="return soloLetras(event);">
           </div>
         </div>
       </div>

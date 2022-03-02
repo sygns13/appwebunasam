@@ -7,7 +7,7 @@
         <label for="txtnombreE" class="col-sm-2 control-label">Nombre del Departamento Académico:*</label>
         <div class="col-sm-10">
           <input type="text" class="form-control" id="txtnombreE" name="txtnombreE" placeholder="Nombre"
-            maxlength="500" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="fillobject.nombre">
+            maxlength="500" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="fillobject.nombre" onkeypress="return soloLetras(event);">
         </div>
       </div>
     </div>
@@ -39,7 +39,7 @@
         <label for="txttelefonoE" class="col-sm-2 control-label">Teléfono del Departamento Académico:</label>
         <div class="col-sm-2">
           <input type="text" class="form-control" id="txttelefonoE" name="txttelefonoE" placeholder="Telef / Cell"
-            maxlength="100" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="fillobject.telefono">
+            maxlength="20" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="fillobject.telefono">
         </div> 
 
         <label for="txtemailE" class="col-sm-2 control-label">Email del Departamento Académico:</label>
@@ -85,7 +85,7 @@ accept=".png, .jpg, .jpeg, .gif, .jpe, .PNG, .JPG, .JPEG, .GIF, .JPE"/>
         <label for="txtdirectorE" class="col-sm-2 control-label">Nombre del Jefe de Departamento:*</label>
         <div class="col-sm-10">
           <input type="text" class="form-control" id="txtdirectorE" name="txtdirectorE" placeholder="Jefe de Departamento"
-            maxlength="500" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="fillobject.director">
+            maxlength="500" @keydown="$event.keyCode === 13 ? $event.preventDefault() : false" v-model="fillobject.director" onkeypress="return soloLetras(event);">
         </div>
       </div>
     </div>
