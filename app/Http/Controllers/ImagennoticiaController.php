@@ -71,6 +71,7 @@ class ImagennoticiaController extends Controller
 
         $result='1';
         $msj='';
+        $exi='';
         $selector='';
 
         $nivel=$request->v1;
@@ -197,14 +198,19 @@ class ImagennoticiaController extends Controller
                 $imagenNoticia->borrado = '0';
                 $imagenNoticia->noticia_id = $noticia_id;
 
-                $imagenNoticia->save();
-
-                $msj='Nueva imagen Registrada con Éxito';
-
+                $band=Imagennoticia::where('activo',1)->where('borrado',0)->where('noticia_id',$noticia_id)->where('posicion',$posicion)->exists();
+                if ($band==true) {
+                    $exi='0';
+                    $msj='Esta posición de imagen ya existe';       
+                }else{
+                    $exi='1';
+                    $imagenNoticia->save();
+                    $msj='Nueva imagen Registrada con Éxito';
+                }
             }
         }
 
-        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector,'exi'=>$exi]);
     }
 
     /**
@@ -252,6 +258,7 @@ class ImagennoticiaController extends Controller
 
         $result='1';
         $msj='';
+        $exi='';
         $selector='';
 
         $nivel=$request->v1;
@@ -358,48 +365,43 @@ class ImagennoticiaController extends Controller
                 $selector='txtposicionE';
             }
             else{
-
                 if($descripcion == null || Strlen($descripcion) == 0){
                     $descripcion = "";
                 }
-
-                if(strlen($imagen)>0)
-                {
-                    if(intval($nivel) == 0){
-                        Storage::disk('noticianUNASAM')->delete($oldImg);
+                $band=Imagennoticia::where('activo',1)->where('borrado',0)->where('noticia_id',$noticia_id)->where('posicion',$posicion)->where('id','<>',$id)->exists();
+                if ($band==true) {
+                    $exi='0';
+                    $msj='Esta posición de imagen ya existe';       
+                }else{
+                    $exi='1';
+                    if(strlen($imagen)>0){
+                        if(intval($nivel) == 0){
+                            Storage::disk('noticianUNASAM')->delete($oldImg);
+                        }
+                        elseif(intval($nivel) == 1){
+                            Storage::disk('noticiaFacultad')->delete($oldImg);
+                        }
+                        elseif(intval($nivel) == 2){
+                            Storage::disk('noticiaProgramaEstudio')->delete($oldImg);
+                        }
+                        $noticia = Imagennoticia::findOrFail($id);
+                        $noticia->nombre=$nombre;
+                        $noticia->descripcion=$descripcion;
+                        $noticia->posicion=$posicion;
+                        $noticia->url=$imagen;
+                        $noticia->save();
+                    }else{
+                        $noticia = Imagennoticia::findOrFail($id);
+                        $noticia->nombre=$nombre;
+                        $noticia->descripcion=$descripcion;
+                        $noticia->posicion=$posicion;
+                        $noticia->save();
                     }
-                    elseif(intval($nivel) == 1){
-                        Storage::disk('noticiaFacultad')->delete($oldImg);
-                    }
-                    elseif(intval($nivel) == 2){
-                        Storage::disk('noticiaProgramaEstudio')->delete($oldImg);
-                    }
-                    $noticia = Imagennoticia::findOrFail($id);
-                    $noticia->nombre=$nombre;
-                    $noticia->descripcion=$descripcion;
-                    $noticia->posicion=$posicion;
-                    $noticia->url=$imagen;
-
-
-                    $noticia->save();
+                    $msj='La Imagen ha sido modificada con éxito';
                 }
-                else
-                {
-                    $noticia = Imagennoticia::findOrFail($id);
-                    $noticia->nombre=$nombre;
-                    $noticia->descripcion=$descripcion;
-                    $noticia->posicion=$posicion;
-
-
-                    $noticia->save();
-                }
-
-                $msj='La Imagen ha sido modificada con éxito';
-
             }
         }
-
-        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector,'exi'=>$exi]);
     }
 
     /**
@@ -435,5 +437,11 @@ class ImagennoticiaController extends Controller
         $msj='Imagen eliminada exitosamente';
 
         return response()->json(["result"=>$result,'msj'=>$msj]);
+    }
+    public function numsiguiente($id){
+        $idnot=$id;
+        $queryZero=Imagennoticia::where('activo',1)->where('borrado',0)->where('noticia_id',$idnot)->max('posicion');
+        $idban=$queryZero+1;
+        return response()->json(["idban"=>$idban]);
     }
 }

@@ -187,6 +187,7 @@
             this.thispage='1';
         },
         nuevo:function () {
+            this.numsig();
             this.divNuevo=true;
             this.divloaderEdit=false;
             this.$nextTick(function () {
@@ -262,8 +263,12 @@
                 if(response.data.result=='1'){
                     this.getDatos(this.thispage);
                     this.errors=[];
-                    this.cerrarForm();
-                    toastr.success(response.data.msj);
+                    if (response.data.exi=='0') {
+                        toastr.error(response.data.msj);
+                    }else{
+                        this.cerrarForm();
+                        toastr.success(response.data.msj); 
+                    }  
                 }else{
                     $('#'+response.data.selector).focus();
                     toastr.error(response.data.msj);
@@ -382,9 +387,12 @@
                 
                 if(response.data.result=='1'){   
                     this.getDatos(this.thispage);
-                    this.cerrarFormE();
-                    toastr.success(response.data.msj);
-
+                    if (response.data.exi=='0') {
+                        toastr.error(response.data.msj);
+                    }else{
+                        this.cerrarFormE();
+                        toastr.success(response.data.msj); 
+                    }
                 }else{
                     $('#'+response.data.selector).focus();
                     toastr.error(response.data.msj);
@@ -447,7 +455,12 @@
             }
         }).catch(swal.noop);
       },
-    
+    numsig:function () {
+        var url = '/intranet/linkinteresre/numsiguiente/0/0/0';
+        axios.get(url).then(response=>{
+            this.posision =response.data.idban;
+        });
+    },
 
 }
 });

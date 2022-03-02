@@ -261,6 +261,7 @@ class ObjetivoController extends Controller
 
         $result='1';
         $msj='';
+        $exi='';
         $selector='';
 
         if ($request->hasFile('imagen')) { 
@@ -390,15 +391,26 @@ class ObjetivoController extends Controller
                     $objetivo->programaestudio_id=$programaestudio_id;
                 }
                 $objetivo->user_id=Auth::user()->id;
-
-                $objetivo->save();
-
-                $msj='Nuevo Objetivo Registrado con Éxito';
-
+        if ($nivel==0) {
+            $band=Objetivo::where('nivel',$nivel)->where('borrado',0)->where('numero',$numero)->exists();
+        }
+        if ($nivel==1) {
+            $band=Objetivo::where('nivel',$nivel)->where('borrado',0)->where('facultad_id',$facultad_id)->where('numero',$numero)->exists();
+        }
+        if ($nivel==2) {
+            $band=Objetivo::where('nivel',$nivel)->where('borrado',0)->where('programaestudio_id',$programaestudio_id)->where('numero',$numero)->exists();
+        }
+        if ($band==true) {
+            $exi='0';
+            $msj='El número del objetivo ya existe';       
+        }else{
+            $exi='1';
+            $objetivo->save();
+            $msj='Nuevo Objetivo Registrado con Éxito';
+        }
             }
         }
-
-        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector,'exi'=>$exi]);
     }
 
     /**
@@ -447,11 +459,14 @@ class ObjetivoController extends Controller
 
         $result='1';
         $msj='';
+        $exi='';
         $selector='';
 
         $oldImg=$request->oldimg;
 
         $nivel=$request->v1;
+        $facultad_id=$request->v2;
+        $programaestudio_id=$request->v3;
 
         if ($request->hasFile('imagen')) { 
 
@@ -560,49 +575,53 @@ class ObjetivoController extends Controller
                 if($descripcion == null || Strlen($descripcion) == 0){
                     $descripcion = "";
                 }
-
-                if(strlen($imagen)>0)
-                {
-
-                    if(intval($nivel) == 0){
-                        Storage::disk('objetivoUNASAM')->delete($oldImg);
-                    }
-                    elseif(intval($nivel) == 1){
-                        Storage::disk('objetivoFacultad')->delete($oldImg);
-                    }
-                    elseif(intval($nivel) == 2){
-                        Storage::disk('objetivoProgramaEstudio')->delete($oldImg);
-                    }
-
-
-                    $objetivo = Objetivo::findOrFail($id);
-                    $objetivo->numero=$numero;
-                    $objetivo->titulo=$titulo;
-                    $objetivo->descripcion=$descripcion;
-                    $objetivo->url=$imagen;
-                    $objetivo->activo=$activo;
-                    $objetivo->user_id=Auth::user()->id;
-
-                    $objetivo->save();
+                if ($nivel==0) {
+                    $band=Objetivo::where('nivel',$nivel)->where('borrado',0)->where('numero',$numero)->where('id','<>',$id)->exists();
                 }
-                else
-                {
-                    $objetivo = Objetivo::findOrFail($id);
-                    $objetivo->numero=$numero;
-                    $objetivo->titulo=$titulo;
-                    $objetivo->descripcion=$descripcion;
-                    $objetivo->activo=$activo;
-                    $objetivo->user_id=Auth::user()->id;
-
-                    $objetivo->save();
+                if ($nivel==1) {
+                    $band=Objetivo::where('nivel',$nivel)->where('borrado',0)->where('facultad_id',$facultad_id)->where('numero',$numero)->where('id','<>',$id)->exists();
                 }
-
-                $msj='El Objetivo ha sido modificado con éxito';
-
+                if ($nivel==2) {
+                    $band=Objetivo::where('nivel',$nivel)->where('borrado',0)->where('programaestudio_id',$programaestudio_id)->where('numero',$numero)->where('id','<>',$id)->exists();
+                }
+                if ($band==true) {
+                    $exi='0';
+                    $msj='El número del objetivo ya existe';       
+                }else{
+                    $exi='1';
+                    if(strlen($imagen)>0){
+                        if(intval($nivel) == 0){
+                            Storage::disk('objetivoUNASAM')->delete($oldImg);
+                        }
+                        elseif(intval($nivel) == 1){
+                            Storage::disk('objetivoFacultad')->delete($oldImg);
+                        }
+                        elseif(intval($nivel) == 2){
+                            Storage::disk('objetivoProgramaEstudio')->delete($oldImg);
+                        }
+                        $objetivo = Objetivo::findOrFail($id);
+                        $objetivo->numero=$numero;
+                        $objetivo->titulo=$titulo;
+                        $objetivo->descripcion=$descripcion;
+                        $objetivo->url=$imagen;
+                        $objetivo->activo=$activo;
+                        $objetivo->user_id=Auth::user()->id;
+                        $objetivo->save();
+                    }else{
+                        $objetivo = Objetivo::findOrFail($id);
+                        $objetivo->numero=$numero;
+                        $objetivo->titulo=$titulo;
+                        $objetivo->descripcion=$descripcion;
+                        $objetivo->activo=$activo;
+                        $objetivo->user_id=Auth::user()->id;
+                        $objetivo->save();
+                    }
+                    $msj='El Objetivo ha sido modificado con éxito';
+                }
             }
         }
 
-        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector,'exi'=>$exi]);
     }
 
 
@@ -690,5 +709,21 @@ class ObjetivoController extends Controller
 
 
         return response()->json(["result"=>$result,'msj'=>$msj]);
+    }
+    public function numsiguiente($niv,$idfac,$idprog){
+        $nivel=$niv;
+        $idFacultad=$idfac;
+        $idPrograma=$idprog;
+        if ($nivel==0) {
+            $queryZero=Objetivo::where('nivel',$nivel)->where('borrado',0)->max('numero');
+        }
+        if ($nivel==1 && $idFacultad!=0) {
+            $queryZero=Objetivo::where('nivel',$nivel)->where('borrado',0)->where('facultad_id',$idFacultad)->max('numero');
+        }
+        if ($nivel==2 && $idPrograma!=0) {
+            $queryZero=Objetivo::where('nivel',$nivel)->where('borrado',0)->where('programaestudio_id',$idPrograma)->max('numero');
+        }
+        $idban=$queryZero+1;
+        return response()->json(["idban"=>$idban]);
     }
 }

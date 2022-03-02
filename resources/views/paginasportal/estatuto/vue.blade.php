@@ -536,6 +536,7 @@ Vue.component('ckeditor4', {
       },
 
       nuevaImg:function () {
+        this.numsig(this.fillobject.id);
         this.divNuevaImagen=true;
         this.divloaderEditImg=false;
         this.$nextTick(function () {
@@ -617,8 +618,12 @@ Vue.component('ckeditor4', {
             if(response.data.result=='1'){
                 this.getDatosImagenes();
                 this.errors=[];
-                this.cerrarFormImg();
-                toastr.success(response.data.msj);
+                    if (response.data.exi=='0') {
+                        toastr.error(response.data.msj);
+                    }else{
+                        this.cerrarFormImg();
+                        toastr.success(response.data.msj); 
+                    }
             }else{
                 $('#'+response.data.selector).focus();
                 toastr.error(response.data.msj);
@@ -740,6 +745,7 @@ Vue.component('ckeditor4', {
         data.append('imagen', this.imagenEDetalle);
         data.append('oldimg', this.fillobjectImg.oldImg);
         data.append('v1', v1);
+        data.append('estatuto_id', this.fillobject.id);
 
         data.append('_method', 'PUT');
 
@@ -755,8 +761,12 @@ Vue.component('ckeditor4', {
             
             if(response.data.result=='1'){   
                 this.getDatosImagenes();
-                this.cerrarFormEImg();
-                toastr.success(response.data.msj);
+                    if (response.data.exi=='0') {
+                        toastr.error(response.data.msj);
+                    }else{
+                        this.cerrarFormEImg();
+                        toastr.success(response.data.msj); 
+                    }
 
             }else{
                 $('#'+response.data.selector).focus();
@@ -767,7 +777,12 @@ Vue.component('ckeditor4', {
             this.errors=error.response.data
         })
         },
-
+      numsig:function (num) {
+        var url = '/intranet/docuemntoestatutore/numsiguiente/'+num;
+        axios.get(url).then(response=>{
+            this.posicion =response.data.idban;
+        });
+    },
 }
 });
 </script>

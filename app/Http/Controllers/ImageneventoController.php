@@ -71,6 +71,7 @@ class ImageneventoController extends Controller
 
         $result='1';
         $msj='';
+        $exi='';
         $selector='';
 
         $nivel=$request->v1;
@@ -198,14 +199,21 @@ class ImageneventoController extends Controller
                 $imagenEvento->borrado = '0';
                 $imagenEvento->evento_id = $evento_id;
 
-                $imagenEvento->save();
+                $band=Imagenevento::where('activo',1)->where('borrado',0)->where('evento_id',$evento_id)->where('posicion',$posicion)->exists();
+                if ($band==true) {
+                    $exi='0';
+                    $msj='Esta posición de imagen ya existe';       
+                }else{
+                    $exi='1';
+                    $imagenEvento->save();
+                    $msj='Nueva imagen Registrada con Éxito';
+                }
 
-                $msj='Nueva imagen Registrada con Éxito';
 
             }
         }
 
-        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector,'exi'=>$exi]);
     }
 
     /**
@@ -253,6 +261,7 @@ class ImageneventoController extends Controller
 
         $result='1';
         $msj='';
+        $exi='';
         $selector='';
 
         $nivel=$request->v1;
@@ -363,44 +372,41 @@ class ImageneventoController extends Controller
                 if($descripcion == null || Strlen($descripcion) == 0){
                     $descripcion = "";
                 }
-
-                if(strlen($imagen)>0)
-                {
-                    if(intval($nivel) == 0){
-                        Storage::disk('eventoUNASAM')->delete($oldImg);
+                $band=Imagenevento::where('activo',1)->where('borrado',0)->where('evento_id',$evento_id)->where('posicion',$posicion)->where('id','<>',$id)->exists();
+                if ($band==true) {
+                    $exi='0';
+                    $msj='Esta posición de imagen ya existe';       
+                }else{
+                    $exi='1';
+                    if(strlen($imagen)>0){
+                        if(intval($nivel) == 0){
+                            Storage::disk('eventoUNASAM')->delete($oldImg);
+                        }
+                        elseif(intval($nivel) == 1){
+                            Storage::disk('eventoFacultad')->delete($oldImg);
+                        }
+                        elseif(intval($nivel) == 2){
+                            Storage::disk('eventoProgramaEstudio')->delete($oldImg);
+                        }
+                        $evento = Imagenevento::findOrFail($id);
+                        $evento->nombre=$nombre;
+                        $evento->descripcion=$descripcion;
+                        $evento->posicion=$posicion;
+                        $evento->url=$imagen;
+                        $evento->save();
+                    }else{
+                        $evento = Imagenevento::findOrFail($id);
+                        $evento->nombre=$nombre;
+                        $evento->descripcion=$descripcion;
+                        $evento->posicion=$posicion;
+                        $evento->save();
                     }
-                    elseif(intval($nivel) == 1){
-                        Storage::disk('eventoFacultad')->delete($oldImg);
-                    }
-                    elseif(intval($nivel) == 2){
-                        Storage::disk('eventoProgramaEstudio')->delete($oldImg);
-                    }
-                    $evento = Imagenevento::findOrFail($id);
-                    $evento->nombre=$nombre;
-                    $evento->descripcion=$descripcion;
-                    $evento->posicion=$posicion;
-                    $evento->url=$imagen;
-
-
-                    $evento->save();
+                    $msj='La Imagen ha sido modificada con éxito';
                 }
-                else
-                {
-                    $evento = Imagenevento::findOrFail($id);
-                    $evento->nombre=$nombre;
-                    $evento->descripcion=$descripcion;
-                    $evento->posicion=$posicion;
-
-
-                    $evento->save();
-                }
-
-                $msj='La Imagen ha sido modificada con éxito';
-
             }
         }
 
-        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector]);
+        return response()->json(["result"=>$result,'msj'=>$msj,'selector'=>$selector,'exi'=>$exi]);
     }
 
     /**
@@ -435,5 +441,11 @@ class ImageneventoController extends Controller
         $msj='Imagen eliminada exitosamente';
 
         return response()->json(["result"=>$result,'msj'=>$msj]);
+    }
+    public function numsiguiente($id){
+        $idnot=$id;
+        $queryZero=Imagenevento::where('activo',1)->where('borrado',0)->where('evento_id',$idnot)->max('posicion');
+        $idban=$queryZero+1;
+        return response()->json(["idban"=>$idban]);
     }
 }
